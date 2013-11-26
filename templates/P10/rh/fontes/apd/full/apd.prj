@@ -1,0 +1,41 @@
+Group sinaf
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project apd
+      FoldersCount=2
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=0
+      End
+      Folder Fontes
+         VSSPath=Nova Pasta2
+         FilesCount=5
+         File \svn\totvs-advpl-naldodj\templates\P10\apd\fontes\apd\full\u_apdr50.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\apd\fontes\apd\full\u_apdr10.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\apd\fontes\apd\full\u_apdr20.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\apd\fontes\apd\full\u_apdr30.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\apd\fontes\apd\full\u_apdr40.prg
+             Type=T
+         End
+      End
+   End
+End

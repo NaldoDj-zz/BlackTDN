@@ -1,0 +1,116 @@
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\tfini.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\thash.ch"
+#line 13 "tfini.ch"
+#line 19 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 72 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 134 "ptxlsxml.ch"
+
+
+
+	Static __cCRLF			:= Chr(13)+Chr(10)
+#line 59 "d:\svn\TOTVS-~1\hbxlsxml\tests\example3.prg"
+Function U_example3Xls()
+   LOCAL nVarNameLen 	:= SetVarNameLen(250)
+   LOCAL cTempPath		:= GetTempPath()
+
+   LOCAL xml, sheet1, format4
+   LOCAL xarquivo		:= "example3.xml"
+
+	xarquivo := CriaTrab(NIL, .F. )+".xml"
+	( __cCRLF := ( __cCRLF ) )
+	SetsDefault()
+
+
+
+
+
+xml:= ExcelWriterXML():New(xarquivo)
+
+   sheet1 = xml:addSheet("Plan 1")
+
+   format4 = xml:addStyle("my style")
+   format4:setFontSize(20)
+   format4:setFontColor("yellow")
+   format4:bgColor("blue")
+
+
+   format4:border(NIL,"3",NIL,"Double")
+
+
+   sheet1:columnWidth(1,150)
+   sheet1:columnWidth(2,150)
+   sheet1:columnWidth(3,150)
+
+   sheet1:writeString(1,1,"celula 1_A",format4)
+   sheet1:cellMerge(1,1,1,0)
+   sheet1:writeString(1,3,"celula 1_C",format4)
+
+   sheet1:writeString(2,1,"celula 2_A",format4)
+   sheet1:writeString(2,2,"celula 2_B",format4)
+   sheet1:writeString(2,3,"celula 2_C",format4)
+
+   sheet1:writeString(3,1,"celula 3_A",format4)
+   sheet1:writeString(3,2,"celula 3_B",format4)
+   sheet1:writeString(3,3,"celula 3_C",format4)
+
+   sheet1:writeString(4,1,"celula 4_A",format4)
+   sheet1:writeString(4,2,"celula 4_B",format4)
+   sheet1:writeString(4,3,"celula 4_C",format4)
+
+   sheet1:writeString(5,1,"celula 5_A",format4)
+   sheet1:writeString(5,2,"celula 5_B",format4)
+   sheet1:writeString(5,3,"celula 5_C",format4)
+
+   sheet1:writeString(6,1,"celula 6_A_C",format4)
+   sheet1:cellMerge(6,1,2,0)
+
+   sheet1:writeString(7,1,"celula 7_A_C",format4)
+   sheet1:cellMerge(7,1,2,0)
+
+   sheet1:writeString(8,1,"celula 8_A",format4)
+   sheet1:writeString(8,2,"celula 8_B",format4)
+   sheet1:writeString(8,3,"celula 8_C",format4)
+
+   sheet1:writeString(9,2,"celula 9_B",format4)
+
+   xml:setOverwriteFile( .T. )
+   xml:writeData(xarquivo)
+
+
+
+ 	IF __CopyFile(xarquivo,cTempPath+xarquivo)
+	 	fErase( xarquivo )
+		oExcelApp	:= MsExcel():New()
+		oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
+		oExcelApp:SetVisible( .T. )
+		oExcelApp	:= oExcelApp:Destroy()
+	EndIF
+
+	SetVarNameLen(nVarNameLen)
+
+
+
+   RETURN NIL

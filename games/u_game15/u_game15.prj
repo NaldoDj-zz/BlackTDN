@@ -1,0 +1,156 @@
+Group Game15
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project Game15
+      FoldersCount=2
+      Folder source
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\games\u_game15\source\u_Game15.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\source\u_Game1510.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\source\u_Game1511.prg
+             Type=T
+         End
+      End
+      Folder lib
+         VSSPath=Nova Pasta2
+         FilesCount=6
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib020.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib018.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib017.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB025.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB029.prg
+             Type=T
+         End
+      End
+   End
+   Project Resources
+      FoldersCount=4
+      Folder ico
+         VSSPath=Nova Pasta4
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\ico\game15_ico.ico
+             Type=I
+         End
+      End
+      Folder bmps_aux
+         VSSPath=Nova Pasta4
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_aux\game15_closebtn.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_aux\game15_mainform.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_aux\game15_minbtn.bmp
+             Type=I
+         End
+      End
+      Folder bmps_play
+         VSSPath=Nova Pasta4
+         FilesCount=16
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b01.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b02.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b03.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b04.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b05.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b06.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b07.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b08.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b09.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b10.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b11.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b12.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b13.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b14.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b15.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\bmps_play\game15_b16.bmp
+             Type=I
+         End
+      End
+      Folder buttons
+         VSSPath=Nova Pasta4
+         FilesCount=8
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_about.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_clear.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_exit.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_load.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_ok.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_save.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_start.bmp
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_game15\resources\buttons\game15_top10.bmp
+             Type=I
+         End
+      End
+   End
+End

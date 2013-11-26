@@ -1,0 +1,17 @@
+#/D__HB_Q_SQRT__
+
+-mt
+
+/DTBN_DBFILE
+/D__MT__
+/D__POWMT__
+/D__ROOTMT__
+/D__ADDMT__
+/D__SUBTMT__
+/D__MULTMT__
+/D__TBN_DYN_OBJ_SET__
+
+../source/tBigNtst.prg -w2 /DPTEX_ASSIGN_VAR
+../source/tBigNumber.prg -w3
+
+-o../exe/${hb_plat}/${hb_comp}/${hb_name}

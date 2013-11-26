@@ -1,0 +1,73 @@
+Group git_tBigNumber
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project tBigNumber
+      FoldersCount=2
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=4
+         File \GitHub\tBigNumber\include\directry.ch
+             Type=T
+         End
+         File \GitHub\tBigNumber\include\paramtypex.ch
+             Type=T
+         End
+         File \GitHub\tBigNumber\include\pt_tBigNumber.ch
+             Type=T
+         End
+         File \GitHub\tBigNumber\include\tBigNumber.ch
+             Type=T
+         End
+      End
+      Folder Fontes
+         VSSPath=Nova Pasta2
+         FilesCount=6
+         File \GitHub\tBigNumber\source\__pteTthD.prg
+             Type=T
+         End
+         File \GitHub\tBigNumber\source\__ptPITthD.prg
+             Type=T
+         End
+         File \GitHub\tBigNumber\source\tBigNtst.prg
+             Type=T
+         End
+         File \GitHub\tBigNumber\source\tbignumber.prg
+             Type=T
+         End
+         File \GitHub\tBigNumber\source\tfRead.prg
+             Type=T
+         End
+         File \GitHub\tBigNumber\source\tPrime.prg
+             Type=T
+         End
+      End
+   End
+   Project NPerfeitos
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \GitHub\tBigNumber\nPerfeitos\totvs_protheus\u_NPerfeitos.prg
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \GitHub\tBigNumber\nPerfeitos\totvs_protheus\tryexception.ch
+             Type=T
+         End
+      End
+   End
+End

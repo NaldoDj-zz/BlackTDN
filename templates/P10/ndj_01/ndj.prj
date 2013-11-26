@@ -1,0 +1,983 @@
+Group NDJ
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=24
+   Project Gestão de Compras
+      FoldersCount=2
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta1
+         FilesCount=76
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT130WF.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\MT110LOK.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA130QSC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MATRKBUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110COR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110LEG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110ROT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120COR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120LEG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\MT103COR.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\MT103LEG.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M110MONT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110CON.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M110STTS.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110GRV.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110VLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M110EXIT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA110BAR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA120BUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120VLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA103BUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA140BUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120ISC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_AVALCOPC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MTA120G2.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120GOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120EXC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120FIM.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160OK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA160BAR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160TEL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160LEG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT150LEG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160QRY.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MTA160MNU.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M160PLAN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT160PLN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_FT340CHG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_FT340MNU.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_FT340VLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120BRW.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MTA140MNU.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT120ALT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110BLO.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140SAI.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MTA110MNU.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MA030BUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_QIEIMPRL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT100TOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140APV.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_A140EXC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140COR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT100AGR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT103NTZ.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M020INC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M020ALT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_FT340GRV.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT097APR.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110TOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140LOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140TOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT103FIM.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_PMA220AB.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_AVALCOT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT150LOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT150OK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140LOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT140TOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT103CAN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT103NFE.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MT110END.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_M130FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Pontos de Entrada\U_MTA103MNU.PRG
+             Type=T
+         End
+      End
+      Folder Especificos
+         VSSPath=Nova Pasta2
+         FilesCount=17
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\NDJA0010.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_NDJA001.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\GCNFISCAL.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_NDJA002.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\NDJ0143.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\NDJ0144.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\NDJ0145.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\NDJ0146.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA160.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA103F.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA103P.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_SD1ToAFN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA140A.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA140V.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_MATA110C.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_RpcSCPMSChk.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Compras\Especificos\U_RpcAC9ACBChk.PRG
+             Type=T
+         End
+      End
+   End
+   Project MMessenger
+      FoldersCount=1
+      Folder MMessenger
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\MMessenger\U_NDJFRMMM.PRG
+             Type=T
+         End
+      End
+   End
+   Project PMS
+      FoldersCount=2
+      Folder PMS
+         VSSPath=Nova Pasta1
+         FilesCount=17
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR004.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMA100SA.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSGAFX.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR001.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR002.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR003.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMA203GRV.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PM110AFB.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\CTA030TOK.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\NDJGRVSZQSZR.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\U_NDJA003.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR022.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSR023.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSRSINT.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\FINR001.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSRVGC.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\PMSRVGER.prw
+             Type=T
+         End
+      End
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta2
+         FilesCount=8
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PMSVLDUsr.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PM410ROT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_P200FER.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PMA200Tr.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PM200AF9.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PM410FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PMSAF8DLG.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\PMS\Pontos de Entrada\U_PMXBRCOL.PRG
+             Type=T
+         End
+      End
+   End
+   Project SXBFilters
+      FoldersCount=1
+      Folder SXBFilters
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\SXBFilters\u_NDJSxb.prg
+             Type=T
+         End
+      End
+   End
+   Project Resources
+      FoldersCount=1
+      Folder Resources
+         VSSPath=Nova Pasta1
+         FilesCount=15
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\cadeado_16_ocean.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\cadeado_16.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\cadeado_16_mdi.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\bpmsdoca_16_ocean.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\bpmsdoca_16.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\bpmsdoca_16_mdi.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJ_projeto_info_ocean.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJ_projeto_info.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJ_projeto_info_mdi.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJsolicitacnt_16_ocean.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJsolicitacnt_16.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJsolicitacnt_16_mdi.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJaditivocnt_16_ocean.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJaditivocnt_16.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\resources\NDJaditivocnt_16_mdi.png
+             Type=I
+         End
+      End
+   End
+   Project Validação de Campos
+      FoldersCount=1
+      Folder Validação de Campos
+         VSSPath=Nova Pasta1
+         FilesCount=14
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_Af8xOrigIni.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\u_xAltHrs.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\u_xCodSBM.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_AF1FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_SC1FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_CNAFLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_CNCFLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_CNBFLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_CN9FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_CNEFLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_SC7FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_SD1FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_SF1FLDVLD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Validação de Campos\U_SC8FLDVLD.PRG
+             Type=T
+         End
+      End
+   End
+   Project Ativo Fixo
+      FoldersCount=2
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ativo Fixo\Pontos de Entrada\MTA130C8.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ativo Fixo\Pontos de Entrada\AT010GRV.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ativo Fixo\Pontos de Entrada\MT103IPC.prw
+             Type=T
+         End
+      End
+      Folder Ativo Fixo
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ativo Fixo\ATFCPATRI.prw
+             Type=T
+         End
+      End
+   End
+   Project Gestão de Pessoal
+      FoldersCount=1
+      Folder Gestao de Pessoal
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestao de Pessoal\NDJ0085.PRW
+             Type=T
+         End
+      End
+   End
+   Project Consulta Rápida de Contatos
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Consulta Rápida de Contatos\Fontes\NDJC001.prw
+             Type=T
+         End
+      End
+   End
+   Project De-Para Campos AF1-AF8 no PMS
+      FoldersCount=1
+      Folder De-Para Campos AF1-AF8 no PMS
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\De-Para Campos AF1-AF8 no PMS\PMS110GERA.PRW
+             Type=T
+         End
+      End
+   End
+   Project Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=6
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\NDJV001.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\MA030BRW.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\MA030ROT.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\NDJA001I.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\NDJA001O.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Estruturação do Cadastro( Organizações e Instituições ) e Endereçamento dos Produtos na SC\Fontes\NDJI001.prw
+             Type=T
+         End
+      End
+   End
+   Project Verificação do Saldo do Projeto após a Sincronização PMS x Project
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=0
+      End
+   End
+   Project SC Bloqueio por Valor
+      FoldersCount=2
+      Folder Especificos
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\SC Bloqueio por Valor\Especificos\U_NDJBlkScVl.prg
+             Type=T
+         End
+      End
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta2
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\SC Bloqueio por Valor\Pontos de Entrada\U_MT110TEL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\SC Bloqueio por Valor\Pontos de Entrada\U_MT110GET.PRG
+             Type=T
+         End
+      End
+   End
+   Project LibNDJ
+      FoldersCount=3
+      Folder NDJLib
+         VSSPath=Nova Pasta1
+         FilesCount=30
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib001.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib002.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib003.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib004.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib005.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib006.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib007.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib008.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib009.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib010.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib011.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib012.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib013.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib014.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib015.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib016.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib017.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib018.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib019.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib020.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib021.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB023.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB024.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB025.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB026.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB027.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB028.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB029.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB030.prg
+             Type=T
+         End
+      End
+      Folder TVarInfo
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\u_TVarInfo\U_TVarInfo.prg
+             Type=T
+         End
+      End
+      Folder GetApoInfo
+         VSSPath=Nova Pasta3
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\u_TVarInfo\U_GetApoInfo\U_GetApoInfo.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\u_TVarInfo\U_GetApoInfo\U_GetApoSamples.prg
+             Type=T
+         End
+      End
+   End
+   Project GCT
+      FoldersCount=2
+      Folder Especificos
+         VSSPath=Nova Pasta1
+         FilesCount=0
+      End
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\GCT\U_AcessoContra.PRG
+             Type=T
+         End
+      End
+   End
+   Project Financeiro
+      FoldersCount=1
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Financeiro\A100TRA.PRW
+             Type=T
+         End
+      End
+   End
+   Project Gestão de Contratos
+      FoldersCount=2
+      Folder Especificos
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Especificos\U_CNTA100F.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Especificos\U_NDJA004.PRG
+             Type=T
+         End
+      End
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta2
+         FilesCount=20
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200FSC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200IT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200BUT.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100CAN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100GRC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN120PED.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN120PDM.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200PID.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100FIL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CTA100MNU.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200SPC.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100FOL.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN120ENCMD.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100GRM.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN100FIB.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN130VLIN.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN130TOK.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN110GRV.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN130PGRV.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Gestão de Contratos\Ponto de Entrada\U_CN200GRP.PRG
+             Type=T
+         End
+      End
+   End
+   Project Contabilidade
+      FoldersCount=3
+      Folder Relatórios
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Contabilidade\Relatórios\u_NDJctb01.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Contabilidade\Relatórios\CTBR980.prw
+             Type=T
+         End
+      End
+      Folder Especificos
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Contabilidade\especificos\U_CTBFECHA.PRG
+             Type=T
+         End
+      End
+      Folder PE
+         VSSPath=Nova Pasta3
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ctb\pe\U_CT102BUT.PRG
+             Type=T
+         End
+      End
+   End
+   Project Updates
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Updates\U_UPDNDJ02.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Updates\U_UPDNDJ01.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Updates\U_NDJUPDDIC.PRG
+             Type=T
+         End
+      End
+   End
+   Project WebServices
+      FoldersCount=2
+      Folder Clients
+         VSSPath=Nova Pasta1
+         FilesCount=4
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\clients\u_wscUserValid.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\clients\u_wscClearGetMessages.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\clients\u_wscTstUserValid.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\clients\u_wscNDJAtestoNF.prg
+             Type=T
+         End
+      End
+      Folder Services
+         VSSPath=Nova Pasta2
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\services\U_WsUserValid.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\services\u_WsTstUserVld.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\WS\services\u_wsNDJAtestoNF.prg
+             Type=T
+         End
+      End
+   End
+   Project mBrowse
+      FoldersCount=1
+      Folder Pontos de Entrada
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\mBrowse\Pontos de Entrada\U_MBRWBTN.PRG
+             Type=T
+         End
+      End
+   End
+   Project Ponto de Restauração
+      FoldersCount=2
+      Folder Especificos
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ponto de Restauração\Especificos\NDJRPBKP.PRG
+             Type=T
+         End
+      End
+      Folder Update
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Ponto de Restauração\Update\NDJUPDRP.PRG
+             Type=T
+         End
+      End
+   End
+   Project Tools
+      FoldersCount=1
+      Folder Tools
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\tools\u_cpf4sra.prg
+             Type=T
+         End
+      End
+   End
+   Project Login
+      FoldersCount=3
+      Folder PE
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\PE\U_ChgPrDir.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\PE\U_PswSize.prg
+             Type=T
+         End
+      End
+      Folder Custom
+         VSSPath=Nova Pasta2
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\BTDNCustomLogin.prg
+             Type=T
+         End
+      End
+      Folder Resources
+         VSSPath=Nova Pasta3
+         FilesCount=5
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\resource\login_custom_images\fwlgn_btdn_slogan.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\resource\login_custom_images\fw_btdn_logo_61x27.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\resource\login_custom_images\fwbtdn_logo.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\resource\login_custom_images\fwlgn_btdn_bg.png
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\Login\custom\resource\login_custom_images\fwlgn_btdn_icones.png
+             Type=I
+         End
+      End
+   End
+End

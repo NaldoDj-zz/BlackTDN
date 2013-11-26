@@ -1,0 +1,19 @@
+-- Verifica os Relacionamentos da CNB com a CNA
+SELECT
+	COUNT(1) CNB
+FROM
+	CNB010
+WHERE
+	NOT EXISTS
+	(
+		SELECT
+			1
+		FROM
+			CNA010
+		WHERE
+			CNB_CONTRA = CNA_CONTRA
+		AND
+			CNB_REVISA = CNA_REVISA
+		AND
+			CNB_NUMERO = CNA_NUMERO	
+	)

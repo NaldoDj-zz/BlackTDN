@@ -1,0 +1,382 @@
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\tfini.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\thash.ch"
+#line 13 "tfini.ch"
+#line 19 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 72 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 134 "ptxlsxml.ch"
+
+
+
+	Static __cCRLF			:= Chr(13)+Chr(10)
+#line 60 "d:\svn\TOTVS-~1\hbxlsxml\xmlclass\xlsxml_s.prg"
+
+
+
+
+_ObjNewClass( ExcelWriterXML_Sheet , )
+
+   _ObjClassData( id,,, )
+   _ObjClassData( cells,,, )
+   _ObjClassData( colWidth,,, )
+   _ObjClassData( rowHeight,,, )
+   _ObjClassData( URLs,,, )
+   _ObjClassData( mergeCells,,, )
+   _ObjClassData( comments,,, )
+   _ObjClassData( formatErrors,,, )
+   _ObjClassData( ldisplayRightToLeft,,, )
+
+   _ObjClassMethod(new,(id),)
+   _ObjClassMethod(getID,,)
+   _ObjClassMethod(addError,(cFunction,cMessage),)
+   _ObjClassMethod(getErrors,,)
+   _ObjClassMethod(writeFormula,(dataType,row,column,xData,style),)
+   _ObjClassMethod(writeString,(row,column,xData,style),)
+   _ObjClassMethod(writeNumber,(row,column,xData,style),)
+   _ObjClassMethod(writeDateTime,(row,column,xData,style),)
+   _ObjClassMethod(writeData,(type,row,column,xData,style,formula),)
+   _ObjClassMethod(displayRightToLeft,,)
+   _ObjClassMethod(getSheetXML,(handle),)
+   _ObjClassMethod(cellWidth,(row,col,width),)
+   _ObjClassMethod(columnWidth,(col,width),)
+   _ObjClassMethod(cellHeight,(row,col,height),)
+   _ObjClassMethod(setRowHeight,(row,height),)
+   _ObjClassMethod(cellMerge,(row,col,width,height),)
+   _ObjClassMethod(addComment,(row,col,comment,author),)
+
+   _ObjEndClass( )
+
+
+
+Function ___ExcelWriterXML_Sheet____new(id )
+
+
+   Self:id
+   Self:cells                  := THBHash():New()
+   Self:colWidth               := THBHash():New()
+   Self:rowHeight              := THBHash():New()
+   Self:URLs                   := THBHash():New()
+   Self:mergeCells             := THBHash():New()
+   Self:comments               := THBHash():New()
+   Self:formatErrors           := THBHash():New()
+   Self:ldisplayRightToLeft	:= .f. 
+
+
+   Self:id := id
+
+   RETURN SELF
+
+
+
+Function ___ExcelWriterXML_Sheet____getID( )
+      RETURN Self:id
+
+
+
+Function ___ExcelWriterXML_Sheet____addError(cFunction,cMessage )
+   LOCAL tmp := THBHash():New()
+
+   tmp:hAdd(NIL,"sheet",Self:id)
+   tmp:hAdd(NIL,"FUNCTION",cFunction)
+   tmp:hAdd(NIL,"MESSAGE",cMessage)
+   aEval( tmp:aTHashID , { |hash| aAdd( Self:formatErrors:aTHashID , hash ) } )
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____getErrors( )
+
+
+
+	RETURN Self:formatErrors:aTHashID
+
+
+
+Function ___ExcelWriterXML_Sheet____writeFormula(dataType,row,column,xData,style )
+
+   ( dataType := ( dataType ) )
+
+   Self:writeData( "String", row, column, "", style, xData )
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____writeString(row,column,xData,style )
+
+   Self:writeData( "String", row, column, xData, style )
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____writeNumber(row,column,xData,style )
+
+   IF !( VALTYPE( xData ) == "N" )
+      Self:writeData( "String", row, column, xData, style )
+   ELSE
+      Self:writeData( "Number", row ,column, ALLTRIM( STR( xData, 18, 6 ) ), style )
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____writeDateTime(row,column,xData,style )
+
+   IF VALTYPE( xData ) == "D"
+      Self:writeData( "DateTime", row, column, DTOC( xData ), style )
+   ELSE
+      Self:writeData( "String", row, column, xData, style )
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____writeData(type,row,column,xData,style,formula )
+   LOCAL hcol, cell, styleID
+
+   IF style <> NIL
+      IF ( ValType(style) == "O" )
+         styleID := style:getID()
+      ELSE
+         styleID := style
+      ENDIF
+   ELSE
+      styleID := NIL
+   ENDIF
+
+	( cell := ( cell ) )
+	Self:cells:hAddEx(row,column,"type",type)
+    Self:cells:hAddEx(row,column,"style",styleID)
+    Self:cells:hAddEx(row,column,"data",xData)
+    Self:cells:hAddEx(row,column,"formula",formula)
+   IF hb_hPos( Self:cells, row ) > 0
+
+
+
+   ELSE
+      ( hcol := ( hcol ) )
+
+
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____displayRightToLeft( )
+
+   Self:ldisplayRightToLeft := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____getSheetXML(handle )
+   LOCAL displayRightToLeft, ir, ic, xml, url
+   LOCAL column, cell, xData, type, mergecell, comment, style, colIndex, colWidth
+   LOCAL row, rowData, rowHeight, formula
+
+   displayRightToLeft := IIF( Self:ldisplayRightToLeft, 'ss:RightToLeft="1"', "" )
+
+   xml := '<Worksheet ss:Name="' + Self:id + '" ' + displayRightToLeft + ">" + __cCRLF
+   xml += "   <Table>" + __cCRLF
+
+   fwrite( handle,xml )
+   xml := ""
+
+   IF IF(!Empty(Self:colWidth:aTHashID),len(Self:colWidth:aTHashID[1][4]),0) > 0
+      FOR ic := 1 TO IF(!Empty(Self:colWidth:aTHashID),len(Self:colWidth:aTHashID[1][4]),0)
+         colIndex := hb_hKeyAt(Self:colWidth,NIL,ic)
+         colWidth := hb_hValueAt(Self:colWidth,NIL,ic)
+         colIndex := ALLTRIM( STR( colIndex, 10 ) )
+         colWidth := ALLTRIM( STR( colWidth, 10 ) )
+         xml += '      <Column ss:Index="' + colIndex + '" ss:AutoFitWidth="0" ss:Width="' + colWidth + '"/>' + __cCRLF
+      NEXT
+   ENDIF
+
+   fwrite( handle, xml )
+   xml := ""
+
+   IF len(Self:cells:aTHashID ) > 0
+      FOR ir := 1 TO len(Self:cells:aTHashID )
+         row		:= hb_hKeyAt(Self:cells,ir,NIL,NIL, .T. , .T. )
+         rowData	:= Self:cells
+
+         IF hb_hPos( Self:rowHeight, row ) > 0
+            rowHeight := 'ss:AutoFitHeight="0" ss:Height="' + ALLTRIM( STR(Self:rowHeight:HGetValue(row),14,2) ) + '"'
+         ELSE
+            rowHeight := ""
+         ENDIF
+
+         xml += '      <Row ss:Index="' + ALLTRIM( STR( row, 10 ) ) + '" ' + rowHeight + " >" + __cCRLF
+         FOR ic := 1 TO LEN(rowData:hHashIDObjCol(ir))
+            column	:= hb_hKeyAt(rowData,ir,ic,NIL, .F. , .T. )
+            cell   	:= rowData
+            IF !empty( cell:hGetValue(ir,column,"formula", .F. ) )
+               formula := 'ss:Formula="' + cell:hGetValue(ir,column,"formula", .F. ) + '"'
+            ELSE
+               formula := ""
+            ENDIF
+            IF !empty( cell:hGetValue(ir,column,"style", .F. ) )
+               style := 'ss:StyleID="' + cell:hGetValue(ir,column,"style", .F. ) + '"'
+            ELSE
+               style := ""
+            ENDIF
+            URL := ""
+            mergeCell := ""
+            IF Self:mergeCells:hATRow(row, .F. ) > 0
+               IF Self:mergeCells:hATCol(row,column,NIL,NIL, .F. ) > 0
+                  mergeCell:= 'ss:MergeAcross="' + ALLTRIM( STR( Self:mergeCells:HGetValue(row,column,"width", .F. ), 10 ) ) + '" ss:MergeDown="' + ALLTRIM( STR( Self:mergeCells:HGetValue(row,column,"height", .F. ), 10 ) ) + '"'
+               ENDIF
+            ENDIF
+            comment:= ""
+            IF Self:comments:hATRow(row, .F. ) > 0
+               IF Self:comments:hATCol(row,column,NIL,NIL, .F. ) > 0
+                  comment := '               <Comment ss:Author="' + Self:comments:HGetValue(row,column,"author", .F. ) + '">' + __cCRLF
+                  comment += '               <ss:Data xmlns="http://www.w3.org/TR/REC-html40">' + __cCRLF
+                  comment += '               <B><Font html:Face="Tahoma" x:CharSet="1" html:Size="8" html:Color="#000000">' + Self:comments:HGetValue(row,column,"author", .F. ) + ":</Font></B>" + __cCRLF
+                  comment += '               <Font html:Face="Tahoma" x:CharSet="1" html:Size="8" html:Color="#000000">' + Self:comments:HGetValue(row,column,"comment", .F. ) + "</Font>" + __cCRLF
+                  comment += "               </ss:Data>" + __cCRLF
+                  comment += "               </Comment>" + __cCRLF
+               ENDIF
+            ENDIF
+            comment := ""
+            type  := cell:hGetValue(ir,column,"type", .F. )
+            xData := cell:hGetValue(ir,column,"data", .F. )
+
+            xml += "         <Cell " + style + ' ss:Index="' + ALLTRIM( STR( column,10 ) ) + '" ' + URL + " " + mergeCell + " " + formula + ">" + __cCRLF
+            xml += '            <Data ss:Type="' + type + '">'
+            xml += oemToHtmlEspecial( xData )
+            xml += "</Data>" + __cCRLF
+            xml += comment
+            xml += "         </Cell>" + __cCRLF
+
+         NEXT
+         xml += "      </Row>" + __cCRLF
+
+         fwrite( handle, xml )
+         xml := ""
+      NEXT
+   ENDIF
+   xml += "   </Table>"+__cCRLF
+   xml += "</Worksheet>"+__cCRLF
+
+   fwrite( handle, xml )
+   xml := ""
+
+   RETURN xml
+
+
+
+Function ___ExcelWriterXML_Sheet____cellWidth(row,col,width )
+
+   ( row := ( row ) )
+   ( col := ( col ) )
+
+   IF width == NIL
+      width := 48
+   ENDIF
+   Self:columnWidth( col,width )
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____columnWidth(col,width )
+
+   IF width == NIL
+      width := 48
+   ENDIF
+   Self:colWidth:hAddEx(NIL,col,col,width)
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____cellHeight(row,col,height )
+
+   ( col := ( col ) )
+
+   IF height == NIL
+      height := 12.5
+   ENDIF
+   Self:setRowHeight( row, height )
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____setRowHeight(row,height )
+
+   IF height == NIL
+      height := 12.5
+   ENDIF
+   Self:rowHeight:hAddEx(NIL,row,row,height)
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____cellMerge(row,col,width,height )
+
+
+   IF Self:mergeCells:hATRow(row, .F. ) > 0
+
+   ENDIF
+
+   Self:mergeCells:hAddEx(row,col,"width",width)
+   Self:mergeCells:hAddEx(row,col,"height",height)
+
+
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Sheet____addComment(row,col,comment,author )
+
+
+
+   Self:comments:hAddEx(row,col,"comment",comment)
+   Self:comments:hAddEx(row,col,"author",author)
+
+
+
+   RETURN NIL
+
+
+
+
+	STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
+	RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )
+	STATIC FUNCTION hb_hKeyAt( hHash , hRow , hCol , hKey , lATRow  , lID )
+	RETURN( hHash:hGetKey( @hRow , @hCol , @hKey , @lATRow , NIL , @lID ) )
+	STATIC FUNCTION hb_HValueAt( hHash , hRow , hCol , hKey , lID )
+	RETURN( hHash:hGetValue( @hRow , @hCol , @hKey , .F.  , @lID ) )
+	STATIC FUNCTION oemToHtmlEspecial( xData )
+	RETURN( StaticCall( xlsxml , oemToHtmlEspecial , @xData ) )

@@ -1,0 +1,9 @@
+#/D__HB_Q_SQRT__
+
+/DTBN_DBFILE
+/DTBN_MEMIO
+
+../source/tBigNtst.prg -w2
+../source/tBigNumber.prg -w3
+
+-o../exe/${hb_plat}/${hb_comp}/${hb_name}

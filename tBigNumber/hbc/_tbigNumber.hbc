@@ -1,0 +1,3 @@
+incpaths=../include/
+libpaths=../lib/${hb_plat}/${hb_comp}
+libs=${hb_name}

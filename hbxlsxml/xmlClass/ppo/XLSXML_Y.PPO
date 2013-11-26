@@ -1,0 +1,879 @@
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\tfini.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\thash.ch"
+#line 13 "tfini.ch"
+#line 19 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 72 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 134 "ptxlsxml.ch"
+
+
+
+	Static __cCRLF			:= Chr(13)+Chr(10)
+#line 60 "d:\svn\TOTVS-~1\hbxlsxml\xmlclass\xlsxml_y.prg"
+
+
+
+
+_ObjNewClass( ExcelWriterXML_Style , )
+
+   _ObjClassData( id,,, )
+   _ObjClassData( name,,, )
+   _ObjClassData( useAlignment,,, )
+   _ObjClassData( useFont,,, )
+   _ObjClassData( useBorder,,, )
+   _ObjClassData( useInterior,,, )
+
+   _ObjClassData( valign,,, )
+   _ObjClassData( halign,,, )
+   _ObjClassData( rotate,,, )
+   _ObjClassData( shrinktofit,,, )
+   _ObjClassData( verticaltext,,, )
+   _ObjClassData( wraptext,,, )
+
+   _ObjClassData( fontColor,,, )
+   _ObjClassData( fontName,,, )
+   _ObjClassData( fontFamily,,, )
+   _ObjClassData( fontSize,,, )
+   _ObjClassData( bold,,, )
+   _ObjClassData( italic,,, )
+   _ObjClassData( underline,,, )
+   _ObjClassData( strikethrough,,, )
+   _ObjClassData( shadow,,, )
+   _ObjClassData( outline,,, )
+
+   _ObjClassData( borderTop,,, )
+   _ObjClassData( borderBottom,,, )
+   _ObjClassData( borderLeft,,, )
+   _ObjClassData( borderRight,,, )
+   _ObjClassData( borderDL,,, )
+   _ObjClassData( borderDR,,, )
+
+   _ObjClassData( interiorColor,,, )
+   _ObjClassData( interiorPattern,,, )
+   _ObjClassData( interiorPatternColor,,, )
+
+   _ObjClassData( numberFormat,,, )
+
+   _ObjClassData( namedColorsIE,,, )
+
+   _ObjClassMethod(new,(id),)
+   _ObjClassMethod(getID,,)
+   _ObjClassMethod(getStyleXML,,)
+   _ObjClassMethod(checkColor,(color),)
+   _ObjClassMethod(setName,(name),)
+   _ObjClassMethod(aVertical,(valign),)
+   _ObjClassMethod(alignHorizontal,(halign),)
+   _ObjClassMethod(alignRotate,(rotate),)
+   _ObjClassMethod(alignShrinktofit,,)
+   _ObjClassMethod(aVerticaltext,,)
+   _ObjClassMethod(alignWraptext,,)
+   _ObjClassMethod(setFontSize,(fontSize),)
+   _ObjClassMethod(setFontColor,(fontColor),)
+   _ObjClassMethod(setFontName,(fontName),)
+   _ObjClassMethod(setFontFamily,(fontFamily),)
+   _ObjClassMethod(setFontBold,,)
+   _ObjClassMethod(setFontItalic,,)
+   _ObjClassMethod(setFontStrikethrough,,)
+   _ObjClassMethod(setFontUnderline,(uStyle),)
+   _ObjClassMethod(setFontShadow,,)
+   _ObjClassMethod(setFontOutline,,)
+   _ObjClassMethod(border,(position,weight,color,linestyle),)
+   _ObjClassMethod(bgColor,(color,pattern,patternColor),)
+   _ObjClassMethod(bgPattern,(pattern,color),)
+   _ObjClassMethod(bgPatternColor,(color),)
+   _ObjClassMethod(NFormat,(formatString),)
+   _ObjClassMethod(NFormatDate,,)
+   _ObjClassMethod(NFormatTime,,)
+   _ObjClassMethod(NFormatDTime,,)
+
+   _ObjEndClass( )
+
+
+
+Function ___ExcelWriterXML_Style____New(id )
+
+
+   Self:useAlignment	:= .f. 
+   Self:useFont		:= .f. 
+   Self:useBorder		:= .f. 
+   Self:useInterior	:= .f. 
+
+   Self:shrinktofit	:= 0
+   Self:verticaltext	:= 0
+   Self:wraptext		:= 0
+
+   Self:fontColor		:= "Automatic"
+
+   Self:borderTop		:= THBHash():New()
+   Self:borderBottom	:= THBHash():New()
+   Self:borderLeft		:= THBHash():New()
+   Self:borderRight	:= THBHash():New()
+   Self:borderDL		:= THBHash():New()
+   Self:borderDR		:= THBHash():New()
+
+   Self:namedColorsIE	:= THBHash():New()
+
+
+   Self:id:= id
+   Self:namedColorsIE := getColorIE()
+
+   RETURN SELF
+
+
+
+Function ___ExcelWriterXML_Style____getID( )
+
+   RETURN Self:id
+
+
+
+Function ___ExcelWriterXML_Style____getStyleXML( )
+   LOCAL fontcolor, positions, position, auxdata, pData, bLinestyle, bColor, bWeight, xml
+   LOCAL numberFormat
+
+   LOCAL name                 := ""
+   LOCAL valign               := ""
+   LOCAL halign               := ""
+   LOCAL rotate               := ""
+   LOCAL shrinktofit          := ""
+   LOCAL verticaltext         := ""
+   LOCAL wraptext             := ""
+
+   LOCAL bold                 := ""
+   LOCAL italic               := ""
+   LOCAL strikethrough        := ""
+   LOCAL underline            := ""
+   LOCAL outline              := ""
+   LOCAL shadow               := ""
+   LOCAL fontName             := ""
+   LOCAL fontFamily           := ""
+   LOCAL fontSize             := ""
+
+   LOCAL borders              := ""
+
+   LOCAL interior             := ""
+   LOCAL interiorColor        := ""
+   LOCAL interiorPattern      := ""
+   LOCAL interiorPatternColor := ""
+
+   IF ! empty( Self:name )
+      name := 'ss:Name="'+Self:name+'"'
+   ENDIF
+
+   IF Self:useAlignment
+      IF ! empty( Self:valign )
+         valign := 'ss:Vertical="' + Self:valign + '"'
+      ENDIF
+      IF ! empty( Self:halign )
+         halign := 'ss:Horizontal="' + Self:halign + '"'
+      ENDIF
+      IF ! empty( Self:rotate )
+         rotate := 'ss:Rotate="' + Self:rotate + '"'
+      ENDIF
+      IF ! empty( Self:shrinktofit )
+         shrinktofit := 'ss:ShrinkToFit="1"'
+      ENDIF
+      IF ! empty( Self:verticaltext )
+         verticaltext := 'ss:VerticalText="1"'
+      ENDIF
+      IF ! empty( Self:wraptext )
+         wraptext := 'ss:WrapText="1"'
+      ENDIF
+   ENDIF
+
+   IF( Self:useFont )
+      IF ! empty( Self:fontColor )
+         fontColor := 'ss:Color="' + Self:fontColor + '"'
+      ENDIF
+      IF ! empty( Self:bold )
+         bold := 'ss:Bold="1"'
+      ENDIF
+      IF ! empty( Self:italic )
+         italic := 'ss:Italic="1"'
+      ENDIF
+      IF ! empty( Self:strikethrough )
+         strikethrough := 'ss:StrikeThrough="' + Self:strikethrough + '"'
+      ENDIF
+      IF ! empty( Self:underline )
+         underline := 'ss:Underline="' + Self:underline + '"'
+      ENDIF
+      IF ! empty( Self:outline )
+         outline := 'ss:Outline="1"'
+      ENDIF
+      IF ! empty( Self:shadow )
+         shadow := 'ss:Shadow="1"'
+      ENDIF
+      IF ! empty( Self:fontName )
+         fontName := 'ss:FontName="' + Self:fontName + '"'
+      ENDIF
+      IF ! empty( Self:fontFamily )
+         fontFamily := 'x:Family="' + Self:fontFamily + '"'
+      ENDIF
+      IF ! empty( Self:fontSize )
+         fontSize := 'ss:Size="' + ALLTRIM( STR( Self:fontSize, 10 ) ) + '"'
+      ENDIF
+   ENDIF
+
+   IF Self:useBorder
+      borders := "      <Borders>"+__cCRLF
+      positions := THBHash():New()
+      positions:hAdd(NIL,"Top",Self:borderTop)
+      positions:hAdd(NIL,"Bottom",Self:borderBottom)
+      positions:hAdd(NIL,"Left",Self:borderLeft)
+      positions:hAdd(NIL,"Right",Self:borderRight)
+      positions:hAdd(NIL,"DiagonalLeft",Self:borderDL)
+      positions:hAdd(NIL,"DiagonalRight",Self:borderDR)
+      auxdata := NIL
+      FOR auxdata := 1 TO Len( IF(!Empty(positions:aTHashID),positions:aTHashID[1][4],positions:aTHashID) )
+         position := positions:hGetKey(NIL,auxdata,NIL, .F. , .T. , .T. )
+         pData	:= positions:hGetKey(NIL,NIL,position, .F. , .T. , .F. )
+         IF empty( pData )
+            LOOP
+         ENDIF
+
+
+         bLinestyle := IIF( hb_hPos(pData,NIL,NIL,"LineStyle") > 0, 'ss:LineStyle="' + pData:HGetValue(NIL,NIL,"LineStyle") + '"', "" )
+
+
+         bColor := IIF( hb_hPos(pData,NIL,NIL,"Color") > 0, 'ss:Color="' + pData:HGetValue(NIL,NIL,"Color") + '"', "" )
+
+
+         bWeight := IIF( hb_hPos(pData,NIL,NIL,"Weight") > 0, 'ss:Weight="' + STR( pData:HGetValue(NIL,NIL,"Weight"), 1 ) + '"', "" )
+         borders += '<Border ss:Position="' + position + '" ' + bLinestyle + " " + bColor + " " + bWeight + "/>" + __cCRLF
+      NEXT
+      borders += "</Borders>" + __cCRLF
+   ENDIF
+
+   IF Self:useInterior
+      IF ! empty( Self:interiorColor )
+         interiorColor := 'ss:Color="' + Self:interiorColor + '"'
+      ENDIF
+      IF ! empty( Self:interiorPattern )
+         interiorPattern := 'ss:Pattern="' + Self:interiorPattern + '"'
+      ENDIF
+      IF ! empty( Self:interiorPatternColor )
+         interiorPatternColor := 'ss:PatternColor="' + Self:interiorPatternColor + '"'
+      ENDIF
+      interior := "      <Interior " + interiorColor + " " + interiorPattern + " " + interiorPatternColor + "/>" + __cCRLF
+   ENDIF
+
+   IF ! empty( Self:numberFormat )
+      numberFormat := '      <NumberFormat ss:Format="' + Self:numberFormat + '"/>' + __cCRLF
+   ELSE
+      numberFormat := "      <NumberFormat/>" + __cCRLF
+   ENDIF
+
+   xml := '   <Style ss:ID="' + Self:id + '" ' + name + ">" + __cCRLF
+   IF Self:useAlignment
+      xml += "      <Alignment " + valign + " " + halign + " " + rotate + " " + shrinktofit + " " + wraptext + " " + verticaltext + "/>" + __cCRLF
+   ENDIF
+   IF Self:useBorder
+      xml += borders
+   ENDIF
+   IF Self:useFont
+      xml += "      <Font " +fontSize + " " + fontColor + " " + bold + " " + italic + " " + strikethrough + " " + underline + " " + shadow + " " + outline + " " + fontName + " " + fontFamily + "/>" + __cCRLF
+   ENDIF
+   IF Self:useInterior
+      xml += interior
+   ENDIF
+   xml += numberFormat
+   xml += "      <Protection/>"+__cCRLF
+   xml += "   </Style>"+__cCRLF
+
+   RETURN( xml )
+
+
+
+Function ___ExcelWriterXML_Style____checkColor(color )
+
+   IF LEFT( color, 1 ) == "#"
+      RETURN color
+   ELSEIF hb_hPos(Self:namedColorsIE,NIL,NIL,lower(color)) > 0
+      color := Self:namedColorsIE:HGetValue(NIL,NIL,lower(color))
+      RETURN color
+   ELSE
+      RETURN ""
+   ENDIF
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setName(name )
+
+   Self:name := name
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____aVertical(valign)
+
+
+
+
+   IF ( valign <> "Automatic" .AND.  valign <> "Top" .AND.  valign <> "Bottom" .AND.  valign <> "Center" )
+      RETURN NIL
+   ENDIF
+   Self:valign := valign
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____alignHorizontal(halign )
+
+
+
+
+   IF ( halign <> "Automatic" .AND.  halign <> "Left" .AND.  halign <> "Center" .AND.  halign <> "Right"          )
+      halign := "Automatic"
+   ENDIF
+   Self:halign := halign
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____alignRotate(rotate )
+
+   IF !( ValType(rotate) == "N" )
+      RETURN NIL
+   ENDIF
+   IF abs( rotate ) > 90
+      rotate := rotate % 90
+   ENDIF
+   Self:rotate := ALLTRIM( STR( rotate, 3 ) )
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____alignShrinktofit( )
+
+   Self:shrinktofit  := 1
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____aVerticaltext()
+
+   Self:verticaltext := 1
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____alignWraptext( )
+
+   Self:wraptext     := 1
+   Self:useAlignment := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontSize(fontSize )
+
+   IF ! ( ValType(fontSize) == "N" )
+      fontSize := 10
+   ENDIF
+   IF fontSize <= 0
+      fontSize := 10
+   ENDIF
+   Self:fontSize := fontSize
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontColor(fontColor )
+
+   fontColor := Self:checkColor( fontColor )
+   IF LEFT( fontColor,1 ) <> "#"
+      fontColor := "Automatic"
+   ENDIF
+   Self:fontColor := fontColor
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontName(fontName )
+
+   IF fontname == NIL
+      fontname := "Arial"
+   ENDIF
+   Self:fontName := fontName
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontFamily(fontFamily )
+
+   IF fontFamily == NIL
+      fontFamily:= "Swiss"
+   ENDIF
+
+
+
+
+
+
+   IF ( fontFamily <> "Automatic" .AND.  fontFamily <> "Decorative" .AND.  fontFamily <> "Modern" .AND.  fontFamily <> "Roman" .AND.  fontFamily <> "Script" .AND.  fontFamily <> "Swiss"            )
+      RETURN NIL
+   ENDIF
+   Self:fontFamily := fontFamily
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontBold( )
+
+   Self:bold := 1
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontItalic( )
+
+   Self:italic := 1
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontStrikethrough( )
+
+   Self:strikethrough := 1
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontUnderline(uStyle )
+
+   IF uStyle == NIL
+      uStyle := "Single"
+   ENDIF
+
+
+
+
+   IF ( uStyle <> "None" .AND.  uStyle <> "Single" .AND.  uStyle <> "Double" .AND.  uStyle <> "SingleAccounting" .AND.  uStyle <> "DoubleAccounting"      )
+
+      RETURN NIL
+   ENDIF
+   Self:underline := uStyle
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontShadow( )
+
+   Self:shadow := 1
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____setFontOutline( )
+
+   Self:outline := 1
+   Self:useFont := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____border(position,weight,color,linestyle )
+   LOCAL tmp
+
+   IF position == NIL
+      position := "All"
+   ENDIF
+   IF weight == NIL
+      weight := "1"
+   ENDIF
+   IF color == NIL
+      color := "Automatic"
+   ENDIF
+   IF linestyle == NIL
+      linestyle := "Continuous"
+   ENDIF
+
+
+
+
+
+
+
+   IF ( position <> "All" .AND.  position <> "Left" .AND.  position <> "Top" .AND.  position <> "Right" .AND.  position <> "Bottom" .AND.  position <> "DiagonalLeft" .AND.  position <> "DiagonalRight"      )
+
+      position := "All"
+   ENDIF
+
+   IF ( ValType(weight) == "N" )
+      IF abs( weight ) > 3
+         weight := 3
+      ENDIF
+   ELSE
+      weight := 1
+   ENDIF
+
+   color:= Self:checkColor( color )
+   IF LEFT( color,1 ) <> "#"
+      color := "Automatic"
+   ENDIF
+
+
+
+
+
+
+
+
+   IF ( linestyle <> "None" .AND.  linestyle <> "Continuous" .AND.  linestyle <> "Dash" .AND.  linestyle <> "Dot" .AND.  linestyle <> "DashDot" .AND.  linestyle <> "DashDotDot" .AND.  linestyle <> "SlantDashDot" .AND.  linestyle <> "Double"            )
+
+      linestyle:= "Continuous"
+   ENDIF
+
+   tmp := THBHash():New()
+   tmp:hAdd(NIL,"LineStyle",linestyle)
+   tmp:hAdd(NIL,"Color",color)
+   tmp:hAdd(NIL,"Weight",weight)
+
+   IF position == "Top" .OR.  position == "All"
+      Self:borderTop := tmp
+   ENDIF
+   IF position == "Bottom" .OR.  position == "All"
+      Self:borderBottom := tmp
+   ENDIF
+   IF position == "Left" .OR.  position == "All"
+      Self:borderLeft := tmp
+   ENDIF
+   IF position == "Right" .OR.  position == "All"
+      Self:borderRight := tmp
+   ENDIF
+   IF position == "DiagonalLeft"
+      Self:borderDL := tmp
+   ENDIF
+   IF position == "DiagonalRight"
+      Self:borderDR := tmp
+   ENDIF
+
+   Self:useBorder := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____bgColor(color,pattern,patternColor )
+
+   IF color == NIL
+      color := "Yellow"
+   ENDIF
+   IF pattern == NIL
+      pattern := "Solid"
+   ENDIF
+
+   color := Self:checkColor( color )
+   IF LEFT( color,1 ) <> "#"
+      color := "Yellow"
+   ENDIF
+   Self:interiorColor := color
+   IF pattern <> "None"
+      Self:bgPattern( pattern, patternColor )
+   ENDIF
+   Self:useInterior:= .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____bgPattern(pattern,color )
+
+   IF pattern == NIL
+      pattern := "None"
+   ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF ( pattern <> "None" .AND.  pattern <> "Solid" .AND.  pattern <> "Gray75" .AND.  pattern <> "Gray50" .AND.  pattern <> "Gray25" .AND.  pattern <> "Gray125" .AND.  pattern <> "Gray0625" .AND.  pattern <> "HorzStripe" .AND.  pattern <> "VertStripe" .AND.  pattern <> "ReverseDiagStripe" .AND.  pattern <> "DiagStripe" .AND.  pattern <> "DiagCross" .AND.  pattern <> "ThickDiagCross" .AND.  pattern <> "ThinHorzStripe" .AND.  pattern <> "ThinVertStripe" .AND.  pattern <> "ThinReverseDiagStripe" .AND.  pattern <> "ThinDiagStripe" .AND.  pattern <> "ThinHorzCross" .AND.  pattern <> "ThinDiagCross"              )
+
+      pattern:= "None"
+   ENDIF
+
+   Self:interiorPattern := pattern
+   IF color <> NIL
+      Self:bgPatternColor( color )
+   ENDIF
+   Self:useInterior := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____bgPatternColor(color )
+
+   IF color == NIL
+      color := "Yellow"
+   ENDIF
+   IF color <> "Automatic"
+      color := Self:checkColor( color )
+      IF LEFT( color,1 ) <> "#"
+         color := "Automatic"
+      ENDIF
+   ENDIF
+   Self:interiorPatternColor := color
+   Self:useInterior := .t. 
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____NFormat(formatString)
+
+   Self:numberFormat := formatString
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____NFormatDate()
+
+   Self:NFormat("mm/dd/yyyy")
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____NFormatTime()
+
+   Self:NFormat("hh:mm:ss")
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML_Style____NFormatDTime()
+
+   Self:NFormat("mm/dd/yyyy\ hh:mm:ss")
+
+   RETURN NIL
+
+
+
+STATIC FUNCTION getColorIE()
+
+   Static hcolor
+
+	IF ( ValType( hcolor ) == "O" )
+		RETURN hcolor
+	EndIF
+
+   hcolor := THBHash():New()
+
+   hcolor:hAdd(NIL,"aliceblue","#F0F8FF")
+   hcolor:hAdd(NIL,"antiquewhite","#FAEBD7")
+   hcolor:hAdd(NIL,"aqua","#00FFFF")
+   hcolor:hAdd(NIL,"aquamarine","#7FFFD4")
+   hcolor:hAdd(NIL,"azure","#F0FFFF")
+   hcolor:hAdd(NIL,"beige","#F5F5DC")
+   hcolor:hAdd(NIL,"bisque","#FFE4C4")
+   hcolor:hAdd(NIL,"black","#000000")
+   hcolor:hAdd(NIL,"blanchedalmond","#FFEBCD")
+   hcolor:hAdd(NIL,"blue","#0000FF")
+   hcolor:hAdd(NIL,"blueviolet","#8A2BE2")
+   hcolor:hAdd(NIL,"brown","#A52A2A")
+   hcolor:hAdd(NIL,"burlywood","#DEB887")
+   hcolor:hAdd(NIL,"cadetblue","#5F9EA0")
+   hcolor:hAdd(NIL,"chartreuse","#7FFF00")
+   hcolor:hAdd(NIL,"chocolate","#D2691E")
+   hcolor:hAdd(NIL,"coral","#FF7F50")
+   hcolor:hAdd(NIL,"cornflowerblue","#6495ED")
+   hcolor:hAdd(NIL,"cornsilk","#FFF8DC")
+   hcolor:hAdd(NIL,"crimson","#DC143C")
+   hcolor:hAdd(NIL,"cyan","#00FFFF")
+   hcolor:hAdd(NIL,"darkblue","#00008B")
+   hcolor:hAdd(NIL,"darkcyan","#008B8B")
+   hcolor:hAdd(NIL,"darkgoldenrod","#B8860B")
+   hcolor:hAdd(NIL,"darkgray","#A9A9A9")
+   hcolor:hAdd(NIL,"darkgreen","#006400")
+   hcolor:hAdd(NIL,"darkkhaki","#BDB76B")
+   hcolor:hAdd(NIL,"darkmagenta","#8B008B")
+   hcolor:hAdd(NIL,"darkolivegreen","#556B2F")
+   hcolor:hAdd(NIL,"darkorange","#FF8C00")
+   hcolor:hAdd(NIL,"darkorchid","#9932CC")
+   hcolor:hAdd(NIL,"darkred","#8B0000")
+   hcolor:hAdd(NIL,"darksalmon","#E9967A")
+   hcolor:hAdd(NIL,"darkseagreen","#8FBC8F")
+   hcolor:hAdd(NIL,"darkslateblue","#483D8B")
+   hcolor:hAdd(NIL,"darkslategray","#2F4F4F")
+   hcolor:hAdd(NIL,"darkturquoise","#00CED1")
+   hcolor:hAdd(NIL,"darkviolet","#9400D3")
+   hcolor:hAdd(NIL,"deeppink","#FF1493")
+   hcolor:hAdd(NIL,"deepskyblue","#00BFFF")
+   hcolor:hAdd(NIL,"dimgray","#696969")
+   hcolor:hAdd(NIL,"dodgerblue","#1E90FF")
+   hcolor:hAdd(NIL,"firebrick","#B22222")
+   hcolor:hAdd(NIL,"floralwhite","#FFFAF0")
+   hcolor:hAdd(NIL,"forestgreen","#228B22")
+   hcolor:hAdd(NIL,"fuchsia","#FF00FF")
+   hcolor:hAdd(NIL,"gainsboro","#DCDCDC")
+   hcolor:hAdd(NIL,"ghostwhite","#F8F8FF")
+   hcolor:hAdd(NIL,"gold","#FFD700")
+   hcolor:hAdd(NIL,"goldenrod","#DAA520")
+   hcolor:hAdd(NIL,"gray","#808080")
+   hcolor:hAdd(NIL,"green","#008000")
+   hcolor:hAdd(NIL,"greenyellow","#ADFF2F")
+   hcolor:hAdd(NIL,"honeydew","#F0FFF0")
+   hcolor:hAdd(NIL,"hotpink","#FF69B4")
+   hcolor:hAdd(NIL,"indianred","#CD5C5C")
+   hcolor:hAdd(NIL,"indigo","#4B0082")
+   hcolor:hAdd(NIL,"ivory","#FFFFF0")
+   hcolor:hAdd(NIL,"khaki","#F0E68C")
+   hcolor:hAdd(NIL,"lavender","#E6E6FA")
+   hcolor:hAdd(NIL,"lavenderblush","#FFF0F5")
+   hcolor:hAdd(NIL,"lawngreen","#7CFC00")
+   hcolor:hAdd(NIL,"lemonchiffon","#FFFACD")
+   hcolor:hAdd(NIL,"lightblue","#ADD8E6")
+   hcolor:hAdd(NIL,"lightcoral","#F08080")
+   hcolor:hAdd(NIL,"lightcyan","#E0FFFF")
+   hcolor:hAdd(NIL,"lightgoldenrodyellow","#FAFAD2")
+   hcolor:hAdd(NIL,"lightgreen","#90EE90")
+   hcolor:hAdd(NIL,"lightgrey","#D3D3D3")
+   hcolor:hAdd(NIL,"lightpink","#FFB6C1")
+   hcolor:hAdd(NIL,"lightsalmon","#FFA07A")
+   hcolor:hAdd(NIL,"lightseagreen","#20B2AA")
+   hcolor:hAdd(NIL,"lightskyblue","#87CEFA")
+   hcolor:hAdd(NIL,"lightslategray","#778899")
+   hcolor:hAdd(NIL,"lightsteelblue","#B0C4DE")
+   hcolor:hAdd(NIL,"lightyellow","#FFFFE0")
+   hcolor:hAdd(NIL,"lime","#00FF00")
+   hcolor:hAdd(NIL,"limegreen","#32CD32")
+   hcolor:hAdd(NIL,"linen","#FAF0E6")
+   hcolor:hAdd(NIL,"magenta","#FF00FF")
+   hcolor:hAdd(NIL,"maroon","#800000")
+   hcolor:hAdd(NIL,"mediumaquamarine","#66CDAA")
+   hcolor:hAdd(NIL,"mediumblue","#0000CD")
+   hcolor:hAdd(NIL,"mediumorchid","#BA55D3")
+   hcolor:hAdd(NIL,"mediumpurple","#9370DB")
+   hcolor:hAdd(NIL,"mediumseagreen","#3CB371")
+   hcolor:hAdd(NIL,"mediumslateblue","#7B68EE")
+   hcolor:hAdd(NIL,"mediumspringgreen","#00FA9A")
+   hcolor:hAdd(NIL,"mediumturquoise","#48D1CC")
+   hcolor:hAdd(NIL,"mediumvioletred","#C71585")
+   hcolor:hAdd(NIL,"midnightblue","#191970")
+   hcolor:hAdd(NIL,"mintcream","#F5FFFA")
+   hcolor:hAdd(NIL,"mistyrose","#FFE4E1")
+   hcolor:hAdd(NIL,"moccasin","#FFE4B5")
+   hcolor:hAdd(NIL,"navajowhite","#FFDEAD")
+   hcolor:hAdd(NIL,"navy","#000080")
+   hcolor:hAdd(NIL,"oldlace","#FDF5E6")
+   hcolor:hAdd(NIL,"olive","#808000")
+   hcolor:hAdd(NIL,"olivedrab","#6B8E23")
+   hcolor:hAdd(NIL,"orange","#FFA500")
+   hcolor:hAdd(NIL,"orangered","#FF4500")
+   hcolor:hAdd(NIL,"orchid","#DA70D6")
+   hcolor:hAdd(NIL,"palegoldenrod","#EEE8AA")
+   hcolor:hAdd(NIL,"palegreen","#98FB98")
+   hcolor:hAdd(NIL,"paleturquoise","#AFEEEE")
+   hcolor:hAdd(NIL,"palevioletred","#DB7093")
+   hcolor:hAdd(NIL,"papayawhip","#FFEFD5")
+   hcolor:hAdd(NIL,"peachpuff","#FFDAB9")
+   hcolor:hAdd(NIL,"peru","#CD853F")
+   hcolor:hAdd(NIL,"pink","#FFC0CB")
+   hcolor:hAdd(NIL,"plum","#DDA0DD")
+   hcolor:hAdd(NIL,"powderblue","#B0E0E6")
+   hcolor:hAdd(NIL,"purple","#800080")
+   hcolor:hAdd(NIL,"red","#FF0000")
+   hcolor:hAdd(NIL,"rosybrown","#BC8F8F")
+   hcolor:hAdd(NIL,"royalblue","#4169E1")
+   hcolor:hAdd(NIL,"saddlebrown","#8B4513")
+   hcolor:hAdd(NIL,"salmon","#FA8072")
+   hcolor:hAdd(NIL,"sandybrown","#F4A460")
+   hcolor:hAdd(NIL,"seagreen","#2E8B57")
+   hcolor:hAdd(NIL,"seashell","#FFF5EE")
+   hcolor:hAdd(NIL,"sienna","#A0522D")
+   hcolor:hAdd(NIL,"silver","#C0C0C0")
+   hcolor:hAdd(NIL,"skyblue","#87CEEB")
+   hcolor:hAdd(NIL,"slateblue","#6A5ACD")
+   hcolor:hAdd(NIL,"slategray","#708090")
+   hcolor:hAdd(NIL,"snow","#FFFAFA")
+   hcolor:hAdd(NIL,"springgreen","#00FF7F")
+   hcolor:hAdd(NIL,"steelblue","#4682B4")
+   hcolor:hAdd(NIL,"tan","#D2B48C")
+   hcolor:hAdd(NIL,"teal","#008080")
+   hcolor:hAdd(NIL,"thistle","#D8BFD8")
+   hcolor:hAdd(NIL,"tomato","#FF6347")
+   hcolor:hAdd(NIL,"turquoise","#40E0D0")
+   hcolor:hAdd(NIL,"violet","#EE82EE")
+   hcolor:hAdd(NIL,"wheat","#F5DEB3")
+   hcolor:hAdd(NIL,"white","#FFFFFF")
+   hcolor:hAdd(NIL,"whitesmoke","#F5F5F5")
+   hcolor:hAdd(NIL,"yellow","#FFFF00")
+   hcolor:hAdd(NIL,"yellowgreen","#9ACD32")
+
+   RETURN hcolor
+
+
+
+	STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
+	RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )

@@ -1,0 +1,91 @@
+GERAL:
+
+1 ) PData contem a estrutura de diretorios do protheus bem como o dicionario de dados para utilizacao com os fontes do Template
+2 ) Usuarios: Admin e TOTVS, senha de ambos: SIGA
+3 ) O diretório pdata\export contem as tabelas com os dados. Importe-as usando o SDU
+
+_________________________________________________________________________________________________________________________________________________
+
+MODULOS:
+
+SIGAPMS - Projeto
+SIGACOM - Compras
+SIGAFIN - Financeiro
+SIGAGPE - Gestão de Pessoal
+SIGAPON - Ponto Eletrônico
+SIGAATF - Ativo Fixo
+SIGAGCT - Gestão de Contratos.
+
+_________________________________________________________________________________________________________________________________________________
+
+
+SIGAPMS:
+
+Define os Orçamentos e Os Projetos a Serem executados durante o Ano. As Solicitações de Compras só poderão ser incluidas por deste módulo atraves
+do programa PMSA410;
+
+Personalizações: 
+
+1 ) Um item da solicitação de compras poderá ser distribuido para vários destinos quando a quantidade for maior que 1;
+2 ) Ums solicitação de compras poderá ser uma "solicitação de Contratos" e será dividida e n solicitações de acordo com a quantidade selecionada.
+Pois, neste caso, consideramos a quantidade como o número de meses no ano. Trata contratos Plurianuais;
+3 ) Sempre que uma solicitação de compras for incluida no sistema e-mail são disparados para os interessados;
+
+_________________________________________________________________________________________________________________________________________________
+
+SIGACOM:
+
+Gerencia o Processo de Compras;
+
+Solicitações de Compras;
+
+1 ) Analise/Bloqueio/Aprovação da SC enviando e-mail aos interessados;
+2 ) Cotação (Inclusão,Analise e Aprovação) enviando e-mail aos interessados;
+3 ) Após a aprovação da Cotação ocorre a geração do Pedido;
+
+Pedido de Compras:
+
+1 ) Se a solicitação de Comprar que originou o Pedido refere-se a uma "Solicitação de Contratos" deverá ser executada a rotina de "Solicitação de Contratos"
+disponível no menú aRotina do Pedido de Compras. As Opções são: 
+	1.1 ) Solicitar Contrato (Envio de e-mail aos interessados quando da solicitação) ;
+	1.2 ) Solicitar Aditivo (Envio de e-mail aos interessados quando da Solicitação);
+	1.3 ) Gerar Contrato (Envio de e-mail aos interessados quando da Geração);
+	1.4 ) Consultar Contrato;
+	
+2 ) Caso Contrário, o Pedido segue os tramites normais do sistema (considerando as customizações);
+
+3 ) Existe a Possibilidade de Alterar o Fonecedor vinculado a um Pedido de Compras armazenando Histório e Disparando e-mail informando a alteração;
+
+Documento de Entrada:
+
+1 ) Considerando que tudo está amarrado a Projeto:
+
+	1.1 ) Todo Documento de Entrada a ser incluido via Pre Nota Entrada e deve ser Proveniente de Pedido de Compras;
+	1.2 ) Existe a Possibilidade da Inclusão de Documento de Entrada "Avulso" através da opção "Avulsa" do menu aRotina
+
+_________________________________________________________________________________________________________________________________________________
+
+SIGAGCT:
+
+Gerencia os Contratos
+
+1 ) Gera Contrato a Partir do Pedido de Compras;
+2 ) Gera Aditivo Contratual a Partir do Contrato/Pedido de Compras;
+3 ) Gerencia Contratos Plurianuais de Acordo com a "Solicitação de Compras/Pedido);
+
+_________________________________________________________________________________________________________________________________________________
+
+... dentre outras.
+
+_________________________________________________________________________________________________________________________________________________
+
+Envio de e-mail:
+
+Para o envio de e-mail o Template está utilizando a seguinte conta do gmail :
+
+Conta: ndjadvpl@gmail.com
+Senha: @#__ndj__#@
+
+Substitua-a por uma de sua preferência, uma vez que a autenticação poderá ser alterada sem prévio aviso e o Processo deixar de funcionar;
+
+Os parâmetros para configuração do e-mail utilizado para envio das informações poderão ser obitidos no programa NDJLIB002.PRG

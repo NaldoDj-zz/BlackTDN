@@ -1,0 +1,85 @@
+Group ptxlsxml
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project ptxlsxml
+      FoldersCount=7
+      Folder include
+         VSSPath=Definições
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\hbxlsxml\include\ptxlsxml.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\hbxlsxml\include\thbhash.ch
+             Type=T
+         End
+      End
+      Folder tests
+         VSSPath=Nova Pasta3
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\hbxlsxml\tests\example1.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\hbxlsxml\tests\example2.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\hbxlsxml\tests\example3.prg
+             Type=T
+         End
+      End
+      Folder xmlClass
+         VSSPath=Nova Pasta3
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\hbxlsxml\xmlClass\xlsxml.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\hbxlsxml\xmlClass\xlsxml_s.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\hbxlsxml\xmlClass\xlsxml_y.prg
+             Type=T
+         End
+      End
+      Folder ndjClass
+         VSSPath=Nova Pasta4
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+      End
+      Folder customClass
+         VSSPath=Nova Pasta5
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\hbxlsxml\customClass\thBhash.prg
+             Type=T
+         End
+      End
+      Folder ndjInclude
+         VSSPath=Nova Pasta6
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\include\tFini.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\include\thash.ch
+             Type=T
+         End
+      End
+      Folder ptTests
+         VSSPath=Nova Pasta7
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\hbxlsxml\pttests\U_hbXMLTest.prg
+             Type=T
+         End
+      End
+   End
+End

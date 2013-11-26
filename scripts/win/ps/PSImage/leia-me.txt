@@ -1,0 +1,1 @@
+http://blogs.msdn.com/b/powershell/archive/2009/03/31/image-manipulation-in-powershell.aspx

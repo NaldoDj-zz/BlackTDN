@@ -1,0 +1,11 @@
+#/D__HB_Q_SQRT__
+#/D__ALT_D__
+#-b
+
+/DTBN_ARRAY
+/D__TBN_DYN_OBJ_SET__
+
+../source/tBigNtst.prg -w2
+../source/tBigNumber.prg -w3
+
+-o../exe/${hb_plat}/${hb_comp}/${hb_name}

@@ -1,0 +1,38 @@
+Group TVarInfo
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project TVarinfo
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\u_TVarInfo\U_TVarInfo.prg
+             Type=T
+         End
+      End
+   End
+   Project GetApoInfo
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\u_TVarInfo\U_GetApoInfo\U_GetApoSamples.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_TVarInfo\U_GetApoInfo\U_GetApoInfo.prg
+             Type=T
+         End
+      End
+   End
+End

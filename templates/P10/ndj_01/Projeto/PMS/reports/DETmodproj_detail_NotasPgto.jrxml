@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="0" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="373"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="CODPROJETO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DATAINI" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="DATAFIN" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[
+SELECT PREVREAL.AF8_ORCAME      ,
+       PREVREAL.AF8_PROJET      ,
+       PREVREAL.AF8_REVISA      ,
+       PREVREAL.AF8_DESCRI      ,
+       PREVREAL.AF8_XCODDI      ,
+       PREVREAL.AF8_XSPON       ,
+       PREVREAL.AF8_XGER        ,
+       PREVREAL.ORD_TAREFA      ,
+       PREVREAL.DESC_TAREFA     ,
+       PREVREAL.TOT_TAREFA      ,
+       PREVREAL.SUB_ORD_TAREFA  ,
+       PREVREAL.SUB_DESC_TAREFA ,
+       PREVREAL.AFC_TOTAL       ,
+       PREVREAL.AF9_TAREFA      ,
+       PREVREAL.AF9_DESCRI      ,
+       PREVREAL.AF9_TOTAL       ,
+       ISNULL( PREVREAL.D1_XTAREFA, '' ) D1_XTAREFA,
+       ISNULL( PREVREAL.D1_XCODSBM, '' ) D1_XCODSBM,
+       ISNULL( PREVREAL.D1_FORNECE, '' ) D1_FORNECE,
+       ISNULL( PREVREAL.D1_LOJA   , '' ) D1_LOJA   ,
+
+       ISNULL(
+       ( CASE PREVREAL.D1_SERIE
+              WHEN 'FOLHA'
+              THEN ( SELECT SB1.B1_DESC FROM SB1010 SB1 WHERE SB1.D_E_L_E_T_ = '' AND SB1.B1_COD = PREVREAL.D1_DOC )
+              ELSE PREVREAL.DESCFORNECE
+         END ), '' ) DESCFORNECE,
+
+       ( CASE ISNULL( ( SELECT SE2.E2_BAIXA
+                          FROM SE2010 AS SE2
+                         WHERE SE2.D_E_L_E_T_ = ''                  AND
+                               SE2.E2_PREFIXO = PREVREAL.D1_SERIE   AND
+				               SE2.E2_NUM     = PREVREAL.D1_DOC     AND
+				               SE2.E2_FORNECE = PREVREAL.D1_FORNECE AND
+				               SE2.E2_LOJA    = PREVREAL.D1_LOJA    ), 0 )
+		      WHEN 0
+		      THEN ( CASE LEN( LTRIM( RTRIM( ISNULL( PREVREAL.D1_XTAREFA, '' ) ) ) )
+                          WHEN 0
+                          THEN ''
+                          ELSE 'Em Aberto'
+                     END )
+		      ELSE ( SELECT CONVERT( VARCHAR(10), CONVERT( DATETIME, SE2.E2_BAIXA ), 103 )
+                       FROM SE2010 AS SE2
+                      WHERE SE2.D_E_L_E_T_ = ''                  AND
+                            SE2.E2_PREFIXO = PREVREAL.D1_SERIE   AND
+				            SE2.E2_NUM     = PREVREAL.D1_DOC     AND
+				            SE2.E2_FORNECE = PREVREAL.D1_FORNECE AND
+				            SE2.E2_LOJA    = PREVREAL.D1_LOJA    )
+		 END ) D1_DTDIGIT,
+
+       ISNULL( PREVREAL.D1_DOC  , '' ) D1_DOC  ,
+       ISNULL( PREVREAL.D1_SERIE, '' ) D1_SERIE,
+       ISNULL( ( CASE PREVREAL.D1_TOTAL
+                      WHEN 0
+                      THEN NULL
+                      ELSE PREVREAL.D1_TOTAL
+                 END ), 0 ) D1_TOTAL,
+       ISNULL( PREVREAL.ETAPA   , '' ) ETAPA,
+       ISNULL( PREVREAL.VAL_EDT_PROJ_PREV, 0.00 ) TOT_EDT_PROJ_PREV,
+       ISNULL( PREVREAL.VAL_EDT_PROJ_REAL, 0.00 ) TOT_EDT_PROJ_REAL
+
+  FROM
+(
+SELECT 'PREVREAL' ETAPA                  ,
+       TOTAIS_PROJ_PREV.AF8_ORCAME       ,
+	   TOTAIS_PROJ_PREV.AFC_EDT          ORD_TAREFA ,
+       TOTAIS_PROJ_PREV.AF8_PROJET       ,
+	   TOTAIS_PROJ_PREV.AF8_REVISA       ,
+	   TOTAIS_PROJ_PREV.AFC_DESCRI       DESC_TAREFA,
+	   TOTAIS_PROJ_PREV.VAL_EDT_PROJ_PREV,
+	   TOTAIS_PROJ_REAL.VAL_EDT_PROJ_REAL,
+       PROJ_TAREFA.AF8_DESCRI  ,
+       PROJ_TAREFA.AF8_XCODDI  ,
+       PROJ_TAREFA.AF8_XSPON   ,
+       PROJ_TAREFA.AF8_XGER    ,
+       PROJ_TAREFA.AF9_EDTPAI  SUB_ORD_TAREFA ,
+       PROJ_TAREFA.AF9_TAREFA  ,
+       PROJ_TAREFA.AF9_DESCRI  ,
+       PROJ_TAREFA.AF9_DESCRI  SUB_DESC_TAREFA,
+       PROJ_TAREFA.AFB_TAREFA  ,
+       PROJ_TAREFA.VALOR_TAREFA TOT_TAREFA,
+       PROJ_TAREFA.VALOR_TAREFA AF9_TOTAL ,
+       PROJ_TAREFA.VALOR_TAREFA AFC_TOTAL ,
+       SD1.D1_XPROJET,
+       SD1.D1_XREVIS ,
+       SD1.D1_XTAREFA,
+       SD1.D1_XCODSBM,
+       SD1.D1_FORNECE,
+       ( SELECT ISNULL( SA2.A2_NOME, '' )
+           FROM SA2010 SA2
+          WHERE SA2.D_E_L_E_T_  = ''
+            AND SA2.A2_COD      = SD1.D1_FORNECE
+            AND SA2.A2_LOJA     = SD1.D1_LOJA ) DESCFORNECE,
+       SD1.D1_LOJA   ,
+       SD1.D1_DTDIGIT,
+       SD1.D1_DOC    ,
+       SD1.D1_SERIE  ,
+       SD1.D1_TOTAL
+  FROM ( SELECT AF8.AF8_PROJET ,
+			    AF8.AF8_REVISA ,
+			    AF8.AF8_ORCAME ,
+			    AFC.AFC_EDT    ,
+			    AFC.AFC_DESCRI ,
+			    SUM( AFB.AFB_VALOR ) VAL_EDT_PROJ_PREV
+		   FROM AF8010 AS AF8
+			    LEFT JOIN
+			    AFC010 AS AFC ON AFC.AFC_PROJET = AF8.AF8_PROJET AND
+				 				 AFC.AFC_REVISA = AF8.AF8_REVISA
+			    LEFT JOIN
+			    AF9010 AS AF9 ON AF9.AF9_PROJET = AFC.AFC_PROJET AND
+								 AF9.AF9_REVISA = AFC.AFC_REVISA AND
+								 AF9.AF9_EDTPAI = AFC.AFC_EDT
+			    LEFT JOIN
+			    AFB010 AS AFB ON AFB.AFB_PROJET = AF9.AF9_PROJET AND
+								 AFB.AFB_REVISA = AF9.AF9_REVISA AND
+								 AFB.AFB_TAREFA = AF9.AF9_TAREFA
+		  WHERE AF8.D_E_L_E_T_ = ''
+		    AND AFC.D_E_L_E_T_ = ''
+		    AND AF9.D_E_L_E_T_ = ''
+		    AND AFB.D_E_L_E_T_ = ''
+		    AND AF8.AF8_PROJET = $P{CODPROJETO}
+            AND AF8.AF8_FASE   = '03'
+		 GROUP BY AF8.AF8_PROJET, AF8.AF8_REVISA, AF8.AF8_ORCAME, AFC.AFC_EDT, AFC.AFC_DESCRI
+		 )
+		 TOTAIS_PROJ_PREV
+         LEFT JOIN
+         (SELECT SD3TEMP.D1_XPROJET,
+				 SD3TEMP.D1_XREVIS ,
+				 SD3TEMP.AFC_EDT   ,
+				 SUM( SD3TEMP.D1_TOTAL ) VAL_EDT_PROJ_REAL
+			FROM
+         (SELECT DISTINCT SD2TEMP.*, AFC.AFC_EDT
+		    FROM AF8010 AS AF8
+			     LEFT JOIN
+			     AFC010 AS AFC ON AFC.AFC_PROJET = AF8.AF8_PROJET AND
+				 				  AFC.AFC_REVISA = AF8.AF8_REVISA
+			     LEFT JOIN
+			     AF9010 AS AF9 ON AF9.AF9_PROJET = AFC.AFC_PROJET AND
+								  AF9.AF9_REVISA = AFC.AFC_REVISA AND
+								  AF9.AF9_EDTPAI = AFC.AFC_EDT
+			     LEFT JOIN
+			     AFB010 AS AFB ON AFB.AFB_PROJET = AF9.AF9_PROJET AND
+								  AFB.AFB_REVISA = AF9.AF9_REVISA AND
+								  AFB.AFB_TAREFA = AF9.AF9_TAREFA
+				 LEFT JOIN
+                 (SELECT AJC.AJC_PROJET  D1_XPROJET,
+					     AJC.AJC_REVISA  D1_XREVIS ,
+						 AJC.AJC_TAREFA  D1_XTAREFA,
+						 'PE'            D1_XCODSBM,
+						 ''              D1_FORNECE,
+						 ''              D1_LOJA   ,
+						 AJC.AJC_DATA    D1_DTDIGIT,
+						 AJC.AJC_COD     D1_DOC    ,
+						 'FOLHA'         D1_SERIE  ,
+						 AJC.AJC_CUSTO1  D1_TOTAL
+				    FROM AJC010 AS AJC
+					     LEFT JOIN
+						 AF8010 AS AF8B ON AF8B.AF8_PROJET = AJC.AJC_PROJET AND
+										   AF8B.AF8_REVISA = AJC.AJC_REVISA
+				   WHERE AJC.D_E_L_E_T_  = ''
+					 AND AJC.AJC_DATA   >= $P{DATAINI}
+					 AND AJC.AJC_DATA   <= $P{DATAFIN}
+					 AND AF8B.D_E_L_E_T_ = ''
+				  UNION ALL
+				  SELECT SD1A.D1_XPROJET,
+					     SD1A.D1_XREVIS ,
+					     SD1A.D1_XTAREFA,
+					     SD1A.D1_XCODSBM,
+					     SD1A.D1_FORNECE,
+					     SD1A.D1_LOJA   ,
+					     SD1A.D1_DTDIGIT,
+					     SD1A.D1_DOC    ,
+					     SD1A.D1_SERIE  ,
+					     SD1A.D1_TOTAL
+					     FROM ( SELECT SD1B.D1_XPROJET,
+					                   SD1B.D1_XREVIS ,
+					                   SD1B.D1_XTAREFA,
+					                   SD1B.D1_XCODSBM,
+					                   SD1B.D1_FORNECE,
+					                   SD1B.D1_LOJA   ,
+					                   SD1B.D1_DTDIGIT,
+					                   SD1B.D1_DOC    ,
+					                   SD1B.D1_SERIE  ,
+                                       SE2.E2_PREFIXO ,
+                                       SE2.E2_NUM     ,
+                                       SE2.E2_FORNECE ,
+                                       SE2.E2_LOJA    ,
+					                   ( SUM( SD1B.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS D1_TOTAL
+				                  FROM SD1010 AS SD1B
+                                       LEFT JOIN
+					                   SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1B.D1_SERIE   AND
+							                            SE2.E2_NUM     = SD1B.D1_DOC     AND
+						 	                            SE2.E2_FORNECE = SD1B.D1_FORNECE AND
+							                            SE2.E2_LOJA    = SD1B.D1_LOJA
+				                 WHERE SD1B.D_E_L_E_T_  = ''
+				                   AND SD1B.D1_TES     <> ''
+ 				                   AND SE2.D_E_L_E_T_   = ''
+				                   AND SE2.E2_BAIXA    >= $P{DATAINI}
+				                   AND SE2.E2_BAIXA    <= $P{DATAFIN}
+                                GROUP BY SD1B.D1_XPROJET, SD1B.D1_XREVIS , SD1B.D1_XTAREFA,
+					                     SD1B.D1_XCODSBM, SD1B.D1_FORNECE, SD1B.D1_LOJA   , SD1B.D1_DTDIGIT,
+					                     SD1B.D1_SERIE  , SD1B.D1_DOC    , SD1B.D1_FORNECE, SD1B.D1_LOJA   ,
+                                         SE2.E2_PREFIXO , SE2.E2_NUM     , SE2.E2_FORNECE , SE2.E2_LOJA ) AS SD1A
+				 ) AS SD2TEMP ON SD2TEMP.D1_XPROJET = AFB.AFB_PROJET AND
+                                 SD2TEMP.D1_XREVIS  = AFB.AFB_REVISA AND
+                                 SD2TEMP.D1_XTAREFA = AFB.AFB_TAREFA
+           WHERE AF8.D_E_L_E_T_ = ''
+             AND AFC.D_E_L_E_T_ = ''
+		     AND AF9.D_E_L_E_T_ = ''
+		     AND AFB.D_E_L_E_T_ = ''
+		     AND AF8.AF8_PROJET = $P{CODPROJETO}
+             AND AF8.AF8_FASE   = '03'
+             AND SD2TEMP.D1_XPROJET IS NOT NULL
+         ) AS SD3TEMP
+         GROUP BY SD3TEMP.D1_XPROJET, SD3TEMP.D1_XREVIS, SD3TEMP.AFC_EDT
+		 )
+		 TOTAIS_PROJ_REAL ON TOTAIS_PROJ_REAL.D1_XPROJET = TOTAIS_PROJ_PREV.AF8_PROJET AND
+		                     TOTAIS_PROJ_REAL.D1_XREVIS  = TOTAIS_PROJ_PREV.AF8_REVISA AND
+		                     TOTAIS_PROJ_REAL.AFC_EDT    = TOTAIS_PROJ_PREV.AFC_EDT
+
+		 LEFT JOIN
+         (SELECT AF8.AF8_PROJET ,
+			     AF8.AF8_REVISA ,
+			     AF8.AF8_ORCAME ,
+                 AF8.AF8_DESCRI ,
+                 AF8.AF8_XCODDI ,
+                 AF8.AF8_XSPON  ,
+                 AF8.AF8_XGER   ,
+                 AF9.AF9_EDTPAI ,
+                 AF9.AF9_TAREFA ,
+                 AF9.AF9_DESCRI ,
+                 AFB.AFB_TAREFA ,
+                 SUM( AFB.AFB_VALOR ) VALOR_TAREFA
+		    FROM AF8010 AS AF8
+			     LEFT JOIN
+			     AFC010 AS AFC ON AFC.AFC_PROJET = AF8.AF8_PROJET AND
+				 				  AFC.AFC_REVISA = AF8.AF8_REVISA
+			     LEFT JOIN
+			     AF9010 AS AF9 ON AF9.AF9_PROJET = AFC.AFC_PROJET AND
+								  AF9.AF9_REVISA = AFC.AFC_REVISA AND
+								  AF9.AF9_EDTPAI = AFC.AFC_EDT
+			     LEFT JOIN
+			     AFB010 AS AFB ON AFB.AFB_PROJET = AF9.AF9_PROJET AND
+								  AFB.AFB_REVISA = AF9.AF9_REVISA AND
+								  AFB.AFB_TAREFA = AF9.AF9_TAREFA
+		   WHERE AF8.D_E_L_E_T_ = ''
+		     AND AFC.D_E_L_E_T_ = ''
+		     AND AF9.D_E_L_E_T_ = ''
+		     AND AFB.D_E_L_E_T_ = ''
+		     AND AF8.AF8_PROJET = $P{CODPROJETO}
+             AND AF8.AF8_FASE   = '03'
+         GROUP BY AF8.AF8_PROJET ,
+			      AF8.AF8_REVISA ,
+			      AF8.AF8_ORCAME ,
+			      AF8.AF8_DESCRI ,
+                  AF8.AF8_XCODDI ,
+                  AF8.AF8_XSPON  ,
+                  AF8.AF8_XGER   ,
+                  AF9.AF9_EDTPAI ,
+                  AF9.AF9_TAREFA ,
+                  AF9.AF9_DESCRI ,
+                  AFB.AFB_TAREFA
+         ) PROJ_TAREFA ON PROJ_TAREFA.AF8_PROJET = TOTAIS_PROJ_PREV.AF8_PROJET AND
+			              PROJ_TAREFA.AF8_REVISA = TOTAIS_PROJ_PREV.AF8_REVISA AND
+			              PROJ_TAREFA.AF8_ORCAME = TOTAIS_PROJ_PREV.AF8_ORCAME AND
+			              PROJ_TAREFA.AF9_EDTPAI = TOTAIS_PROJ_PREV.AFC_EDT
+         LEFT JOIN
+         (SELECT D1_XPROJET,
+                 D1_XREVIS ,
+                 D1_XTAREFA,
+                 D1_XCODSBM,
+                 D1_FORNECE,
+                 D1_LOJA   ,
+                 D1_DTDIGIT,
+                 D1_DOC    ,
+                 D1_SERIE  ,
+                 D1_TOTAL
+            FROM (SELECT AJC.AJC_PROJET  D1_XPROJET,
+						 AJC.AJC_REVISA  D1_XREVIS ,
+						 AJC.AJC_TAREFA  D1_XTAREFA,
+						 'PE'            D1_XCODSBM,
+						 ''              D1_FORNECE,
+						 ''              D1_LOJA   ,
+						 AJC.AJC_DATA    D1_DTDIGIT,
+						 AJC.AJC_COD     D1_DOC    ,
+						 'FOLHA'         D1_SERIE  ,
+						 AJC.AJC_CUSTO1  D1_TOTAL
+				    FROM AJC010 AS AJC
+					 	 LEFT JOIN
+						 AF8010 AS AF8B ON AF8B.AF8_PROJET = AJC.AJC_PROJET AND
+										   AF8B.AF8_REVISA = AJC.AJC_REVISA
+				   WHERE AJC.D_E_L_E_T_  = ''
+					 AND AJC.AJC_DATA   >= $P{DATAINI}
+					 AND AJC.AJC_DATA   <= $P{DATAFIN}
+					 AND AF8B.D_E_L_E_T_ = ''
+				  UNION ALL
+				  SELECT SD1A.D1_XPROJET,
+					     SD1A.D1_XREVIS ,
+					     SD1A.D1_XTAREFA,
+					     SD1A.D1_XCODSBM,
+					     SD1A.D1_FORNECE,
+					     SD1A.D1_LOJA   ,
+					     SD1A.D1_DTDIGIT,
+					     SD1A.D1_DOC    ,
+					     SD1A.D1_SERIE  ,
+					     SD1A.D1_TOTAL
+					     FROM ( SELECT SD1B.D1_XPROJET,
+					                   SD1B.D1_XREVIS ,
+					                   SD1B.D1_XTAREFA,
+					                   SD1B.D1_XCODSBM,
+					                   SD1B.D1_FORNECE,
+					                   SD1B.D1_LOJA   ,
+					                   SD1B.D1_DTDIGIT,
+					                   SD1B.D1_DOC    ,
+					                   SD1B.D1_SERIE  ,
+                                       SE2.E2_PREFIXO ,
+                                       SE2.E2_NUM     ,
+                                       SE2.E2_FORNECE ,
+                                       SE2.E2_LOJA    ,
+					                   ( SUM( SD1B.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS D1_TOTAL
+				                  FROM SD1010 AS SD1B
+                                       LEFT JOIN
+					                   SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1B.D1_SERIE   AND
+							                            SE2.E2_NUM     = SD1B.D1_DOC     AND
+						 	                            SE2.E2_FORNECE = SD1B.D1_FORNECE AND
+							                            SE2.E2_LOJA    = SD1B.D1_LOJA
+				                 WHERE SD1B.D_E_L_E_T_  = ''
+				                   AND SD1B.D1_TES     <> ''
+ 				                   AND SE2.D_E_L_E_T_   = ''
+				                   AND SE2.E2_BAIXA    >= $P{DATAINI}
+				                   AND SE2.E2_BAIXA    <= $P{DATAFIN}
+                                GROUP BY SD1B.D1_XPROJET, SD1B.D1_XREVIS , SD1B.D1_XTAREFA,
+					                     SD1B.D1_XCODSBM, SD1B.D1_FORNECE, SD1B.D1_LOJA   , SD1B.D1_DTDIGIT,
+					                     SD1B.D1_SERIE  , SD1B.D1_DOC    , SD1B.D1_FORNECE, SD1B.D1_LOJA   ,
+                                         SE2.E2_PREFIXO , SE2.E2_NUM     , SE2.E2_FORNECE , SE2.E2_LOJA ) AS SD1A
+		) AS SD1TEMP ) AS SD1 ON SD1.D1_XPROJET = PROJ_TAREFA.AF8_PROJET AND
+                                 SD1.D1_XREVIS  = PROJ_TAREFA.AF8_REVISA AND
+                                 SD1.D1_XTAREFA = PROJ_TAREFA.AFB_TAREFA
+)
+PREVREAL
+ORDER BY AF8_PROJET,
+         ORD_TAREFA,
+         AF9_TAREFA,
+         D1_FORNECE,
+         D1_DTDIGIT,
+         D1_DOC]]>
+	</queryString>
+	<field name="AF8_ORCAME" class="java.lang.String"/>
+	<field name="AF8_PROJET" class="java.lang.String"/>
+	<field name="AF8_REVISA" class="java.lang.String"/>
+	<field name="AF8_DESCRI" class="java.lang.String"/>
+	<field name="AF8_XCODDI" class="java.lang.String"/>
+	<field name="AF8_XSPON" class="java.lang.String"/>
+	<field name="AF8_XGER" class="java.lang.String"/>
+	<field name="ORD_TAREFA" class="java.lang.String"/>
+	<field name="DESC_TAREFA" class="java.lang.String"/>
+	<field name="TOT_TAREFA" class="java.lang.Double"/>
+	<field name="SUB_ORD_TAREFA" class="java.lang.String"/>
+	<field name="SUB_DESC_TAREFA" class="java.lang.String"/>
+	<field name="AFC_TOTAL" class="java.lang.Double"/>
+	<field name="AF9_TAREFA" class="java.lang.String"/>
+	<field name="AF9_DESCRI" class="java.lang.String"/>
+	<field name="AF9_TOTAL" class="java.lang.Double"/>
+	<field name="D1_XTAREFA" class="java.lang.String"/>
+	<field name="D1_XCODSBM" class="java.lang.String"/>
+	<field name="D1_FORNECE" class="java.lang.String"/>
+	<field name="D1_LOJA" class="java.lang.String"/>
+	<field name="DESCFORNECE" class="java.lang.String"/>
+	<field name="D1_DTDIGIT" class="java.lang.String"/>
+	<field name="D1_DOC" class="java.lang.String"/>
+	<field name="D1_SERIE" class="java.lang.String"/>
+	<field name="D1_TOTAL" class="java.lang.Double"/>
+	<field name="ETAPA" class="java.lang.String"/>
+	<field name="TOT_EDT_PROJ_PREV" class="java.lang.Double"/>
+	<field name="TOT_EDT_PROJ_REAL" class="java.lang.Double"/>
+	<variable name="TOT_SUBORDTAREFA" class="java.math.BigDecimal" resetType="Group" resetGroup="SUB_ORD_TAREFA" incrementType="Group" incrementGroup="DESC_TAREFA" calculation="Sum">
+		<variableExpression><![CDATA[$F{AF9_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_TAREFA_ETAPA" class="java.math.BigDecimal" resetType="Group" resetGroup="ETAPA" incrementType="Group" incrementGroup="SUB_ORD_TAREFA" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOT_SUBORDTAREFA}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REAL_DESCTAREFA" class="java.math.BigDecimal" resetType="Group" resetGroup="DESC_TAREFA" calculation="Sum">
+		<variableExpression><![CDATA[$F{D1_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REAL_TAREFA_ETAPA" class="java.math.BigDecimal" resetType="Group" resetGroup="ETAPA" calculation="Sum">
+		<variableExpression><![CDATA[$F{D1_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REAL_SUBORDTAREFA" class="java.math.BigDecimal" resetType="Group" resetGroup="SUB_ORD_TAREFA" calculation="Sum">
+		<variableExpression><![CDATA[$F{D1_TOTAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREV_DESCTAREFA" class="java.math.BigDecimal" resetType="Group" resetGroup="DESC_TAREFA" incrementType="Group" incrementGroup="DESC_TAREFA" calculation="Sum">
+		<variableExpression><![CDATA[$F{AF9_TOTAL}]]></variableExpression>
+	</variable>
+	<group name="ETAPA" keepTogether="true">
+		<groupExpression><![CDATA[$F{ETAPA}]]></groupExpression>
+		<groupHeader>
+			<band height="3"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="445" y="0" width="90" height="12" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_TAREFA_ETAPA}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="706" y="0" width="90" height="12" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_REAL_TAREFA_ETAPA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="584" y="0" width="119" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Realizado Projeto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="325" y="0" width="119" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Previsto Projeto]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="ORD_TAREFA" keepTogether="true">
+		<groupExpression><![CDATA[$F{ORD_TAREFA}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<rectangle>
+					<reportElement x="0" y="0" width="797" height="17" backcolor="#FFFF66"/>
+					<graphicElement>
+						<pen lineWidth="0.0"/>
+					</graphicElement>
+				</rectangle>
+				<line>
+					<reportElement x="0" y="16" width="797" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="52" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{SUB_ORD_TAREFA}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" positionType="Float" x="57" y="0" width="298" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{DESC_TAREFA}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement style="Detail" positionType="Float" x="445" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{TOT_EDT_PROJ_PREV}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement style="Detail" positionType="Float" x="706" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{TOT_EDT_PROJ_REAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="349" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Projeto Previsto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="610" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Projeto Realizado]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="SUB_ORD_TAREFA" keepTogether="true">
+		<groupExpression><![CDATA[$F{SUB_ORD_TAREFA}]]></groupExpression>
+		<groupHeader>
+			<band height="3"/>
+		</groupHeader>
+	</group>
+	<group name="FORNECE" keepTogether="true"/>
+	<group name="DESC_TAREFA" keepTogether="true">
+		<groupExpression><![CDATA[$F{AF9_DESCRI}]]></groupExpression>
+		<groupHeader>
+			<band height="29">
+				<textField>
+					<reportElement style="Detail" x="57" y="2" width="390" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{AF9_DESCRI}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="2" width="52" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{AF9_TAREFA}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement style="Detail" positionType="Float" x="445" y="2" width="90" height="12" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{AF9_TOTAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="57" y="16" width="60" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data Pgto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="144" y="16" width="68" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[N. Nota Fiscal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="706" y="17" width="90" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="217" y="16" width="40" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Série]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="262" y="16" width="68" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cod. Fornec.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="335" y="16" width="68" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Desc. Fornec.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+					<reportElement x="706" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_REAL_DESCTAREFA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="584" y="0" width="119" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTotal Realizado Tarefa]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="445" y="0" width="90" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOT_PREV_DESCTAREFA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="325" y="0" width="119" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SubTotal Previsto Tarefa]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="FORNECEDOR" keepTogether="true">
+		<groupExpression><![CDATA[$F{D1_FORNECE}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="13">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="822" height="13"/>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="335" y="0" width="284" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCFORNECE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="144" y="0" width="68" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D1_DOC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="217" y="0" width="40" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D1_SERIE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="262" y="0" width="68" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D1_FORNECE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" x="706" y="0" width="90" height="12" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{D1_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" positionType="Float" x="57" y="0" width="82" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{D1_DTDIGIT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

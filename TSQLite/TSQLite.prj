@@ -1,0 +1,72 @@
+Group TSQLite
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=3
+   Project Class
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\TSQLite\class\TSQLite.prg
+             Type=T
+         End
+      End
+   End
+   Project Sample
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\TSQLite\sample\u_SQLiteEx.prg
+             Type=T
+         End
+      End
+   End
+   Project include
+      FoldersCount=1
+      Folder Definições
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\TSQLite\include\ndj.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\TSQLite\include\tryexception.ch
+             Type=T
+         End
+      End
+   End
+   BatchBuild_Item0=lib · 01MDJ00
+   BatchBuild_Item1=lib · 02set00
+   BatchBuild_Item2=lib · 03universicred00
+   BatchBuild_Item3=lib · 04sap00
+   BatchBuild_Item4=lib · 05seso00
+   BatchBuild_Item5=lib · 06rocadas00
+   BatchBuild_Item6=lib · 07agrofox00
+   BatchBuild_Item7=lib · 08agropecuaria00
+   BatchBuild_Item8=lib · 09associacao00
+   BatchBuild_Item9=lib · 10fox00
+   BatchBuild_Item10=lib · 11fundacao00
+   BatchBuild_Item11=lib · 12grct00
+   BatchBuild_Item12=lib · 13ilhotaleste00
+   BatchBuild_Item13=lib · 14pecuariaunit00
+   BatchBuild_Item14=lib · 15premitur00
+   BatchBuild_Item15=lib · 16alterosa00
+   BatchBuild_Item16=lib · 17fmmania00
+   BatchBuild_Item17=lib · 18hitparade00
+   BatchBuild_Item18=lib · 19tvouroverde00
+   BatchBuild_Item19=lib · 22trovaoazul00
+   BatchBuild_Item20=lib · 23tvbarraleste00
+   BatchBuild_Item21=lib · 24vitoriano00
+   BatchBuild_Item22=lib · 25obrasdearte00
+   BatchBuild_Item23=lib · 80caphistorico00
+End

@@ -1,0 +1,280 @@
+/* Text Styles */
+hr { color: #000000}
+body, table /* Normal */
+{
+ font-size: 10pt;
+ font-family: 'Tahoma';
+ font-style: normal;
+ font-weight: normal;
+ color: #000000;
+ text-decoration: none;
+}
+span.f_CodeExample /* Code Example */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #4b4e79;
+ vertical-align: sub;
+}
+span.f_Comment /* Comment */
+{
+}
+span.f_Conttopicos /* Cont topicos */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_Conttopicos2 /* Cont topicos 2 */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_CorpodoTexto /* Corpo do Texto */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_CorpoTextoDestaque /* Corpo Texto Destaque */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #4b4e79;
+}
+span.f_CourierFixed /* Courier Fixed */
+{
+ font-size: 9pt;
+ font-family: 'Courier New';
+ color: #000000;
+}
+span.f_Exemplo /* Exemplo */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ font-style: italic;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_ExemploTexto /* Exemplo Texto */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_ExemploTopico /* Exemplo Topico */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ font-style: italic;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_FontedaTabela /* Fonte da Tabela */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #4b4e79;
+}
+span.f_Heading2 /* Heading 2 */
+{
+ font-size: 12pt;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_Heading1 /* Heading1 */
+{
+ font-size: 14pt;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_Heading1Abertura /* Heading1 Abertura */
+{
+ font-size: 11pt;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_ImageCaption /* Image Caption */
+{
+ font-size: 8pt;
+ font-weight: bold;
+}
+span.f_Importante /* Importante */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_Notes /* Notes */
+{
+}
+span.f_Subtitulo /* Subtitulo */
+{
+ font-size: 9pt;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_Subtitulo2 /* Subtitulo 2 */
+{
+ font-size: 9pt;
+ font-weight: bold;
+ color: #4b4e79;
+}
+span.f_TextoPopup /* Texto Popup */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #000000;
+}
+span.f_Topicos /* Topicos */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+span.f_Topicos2 /* Topicos 2 */
+{
+ font-size: 8pt;
+ font-family: 'Verdana';
+ color: #515151;
+}
+/* Paragraph styles */
+p /* Normal */
+{
+ text-align: left;
+ text-indent: 0px;
+ padding: 0px 0px 0px 0px;
+ margin: 0px 0px 0px 0px;
+}
+.p_CodeExample /* Code Example */
+{
+ white-space: nowrap;
+}
+.p_Comment /* Comment */
+{
+}
+.p_Conttopicos /* Cont topicos */
+{
+ text-align: justify;
+ margin: 8px 0px 4px 57px;
+}
+.p_Conttopicos2 /* Cont topicos 2 */
+{
+ text-align: justify;
+ margin: 8px 0px 4px 76px;
+}
+.p_CorpodoTexto /* Corpo do Texto */
+{
+ text-align: justify;
+ margin: 0px 0px 11px 38px;
+}
+.p_CorpoTextoDestaque /* Corpo Texto Destaque */
+{
+ text-align: justify;
+ margin: 0px 0px 11px 38px;
+}
+.p_Exemplo /* Exemplo */
+{
+ text-align: justify;
+ margin: 0px 0px 11px 38px;
+}
+.p_ExemploTexto /* Exemplo Texto */
+{
+ text-align: justify;
+ margin: 8px 0px 4px 57px;
+}
+.p_ExemploTopico /* Exemplo Topico */
+{
+ text-align: justify;
+ margin: 15px 0px 4px 57px;
+}
+.p_FontedaTabela /* Fonte da Tabela */
+{
+ text-align: justify;
+ margin: 4px 8px 4px 8px;
+}
+.p_Heading2 /* Heading 2 */
+{
+ border-color: #808080;
+ border-style: solid;
+ border-width: 1px;
+ border-top: none;
+ border-right: none;
+ border-bottom: none;
+ border-left: none;
+ margin: 19px 0px 19px 19px;
+}
+.p_Heading1 /* Heading1 */
+{
+ border-color: #808080;
+ border-style: solid;
+ border-width: 1px;
+ border-top: none;
+ border-right: none;
+ border-bottom: none;
+ border-left: none;
+ margin: 19px 0px 38px 19px;
+}
+.p_Heading1Abertura /* Heading1 Abertura */
+{
+ border-color: #808080;
+ border-style: solid;
+ border-width: 1px;
+ border-top: none;
+ border-right: none;
+ border-bottom: none;
+ border-left: none;
+ margin: 19px 0px 38px 19px;
+}
+.p_ImageCaption /* Image Caption */
+{
+}
+.p_Importante /* Importante */
+{
+ text-align: justify;
+ margin: 4px 8px 4px 35px;
+}
+.p_Notes /* Notes */
+{
+}
+.p_Subtitulo /* Subtitulo */
+{
+ border-color: #c0c0c0;
+ border-style: solid;
+ border-width: 1px;
+ border-right: none;
+ border-bottom: none;
+ border-left: none;
+ padding: 5px 5px 5px 5px;
+ margin: 33px -5px 14px 14px;
+}
+.p_Subtitulo2 /* Subtitulo 2 */
+{
+ border-color: #c0c0c0;
+ border-style: solid;
+ border-width: 1px;
+ border-top: none;
+ border-right: none;
+ border-bottom: none;
+ border-left: none;
+ padding: 5px 5px 5px 5px;
+ margin: 14px -5px 14px 33px;
+}
+.p_TextoPopup /* Texto Popup */
+{
+ text-align: justify;
+ margin: 0px 189px 11px 38px;
+}
+.p_Topicos /* Topicos */
+{
+ text-align: justify;
+ text-indent: -19px;
+ margin: 8px 0px 4px 57px;
+}
+.p_Topicos2 /* Topicos 2 */
+{
+ text-align: justify;
+ text-indent: -19px;
+ margin: 8px 0px 4px 76px;
+}

@@ -1,0 +1,332 @@
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\tfini.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\thash.ch"
+#line 13 "tfini.ch"
+#line 19 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 72 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 134 "ptxlsxml.ch"
+
+
+
+	Static __cCRLF			:= Chr(13)+Chr(10)
+#line 62 "d:\svn\TOTVS-~1\hbxlsxml\tests\example1.prg"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Function U_example1Xls()
+   LOCAL nVarNameLen 	:= SetVarNameLen(250)
+   LOCAL __nAddStyle	:= 1
+   LOCAL lSetCentury	:= __SetCentury("ON")
+   LOCAL cTempPath		:= GetTempPath()
+
+
+   LOCAL oXml, oSheet, xarquivo := "example1.xml"
+   LOCAL i, i100, i100_09, xqtddoc, xttotnot, xtbascal, xtvlricm, xtbasipi, xtvlripi, aDoc, nLinha
+   LOCAL xEmpresa
+   LOCAL xDataImp
+   LOCAL xHoraImp
+   LOCAL xTitulo
+   LOCAL xPeriodo
+   LOCAL Lines
+   LOCAL dDate		:= Date()
+   LOCAL dDate_i
+   LOCAL cCodCli
+
+
+	xarquivo := CriaTrab(NIL, .F. )+".xml"
+	( __cCRLF := ( __cCRLF ) )
+	SetsDefault()
+
+
+
+
+
+   oXml:= ExcelWriterXML():New(xarquivo)
+   oXml:setOverwriteFile( .t. )
+
+   oXml:addStyle("textLeft"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Left")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+
+
+   oXml:addStyle("textLeftWrap"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Left")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:alignWraptext()
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+
+   oXml:addStyle("textLeftBold"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Left")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("textLeftBoldCor"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Left")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+      oXml:styles[__nAddStyle]:bgColor("lightblue")
+      oXml:styles[__nAddStyle]:alignWraptext()
+
+
+   oXml:addStyle("textRight"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+
+
+   oXml:addStyle("textRightBold"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("textRightBoldCor"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+      oXml:styles[__nAddStyle]:bgColor("lightblue")
+      oXml:styles[__nAddStyle]:alignWraptext()
+
+
+   oXml:addStyle("numberRight"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:NFormat("#,##0.00")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+
+
+   oXml:addStyle("numberRightBold"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:NFormat("#,##0.00")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("numberRightBoldCor"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:NFormat("#,##0.00")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+      oXml:styles[__nAddStyle]:bgColor("lightblue")
+
+
+   oXml:addStyle("numberRightZero"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:NFormat("#,##0.00;[Red]-#,##0.00;;@")
+      oXml:styles[__nAddStyle]:SetfontSize(10)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("CabecLeft"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Left")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(12)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("CabecCenter"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Center")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(12)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oXml:addStyle("CabecRight"); ++__nAddStyle
+      oXml:styles[__nAddStyle]:alignHorizontal("Right")
+      oXml:styles[__nAddStyle]:aVertical("Center")
+      oXml:styles[__nAddStyle]:SetfontSize(12)
+      oXml:styles[__nAddStyle]:setFontBold()
+
+
+   oSheet := oXml:addSheet("Plan1")
+
+
+      oSheet:columnWidth(1,70)
+      oSheet:columnWidth(2,20)
+      oSheet:columnWidth(3,70)
+      oSheet:columnWidth(4,70)
+      oSheet:columnWidth(5,50)
+      oSheet:columnWidth(6,50)
+      oSheet:columnWidth(7,300)
+      oSheet:columnWidth(8,20)
+      oSheet:columnWidth(9,80)
+      oSheet:columnWidth(10,80)
+      oSheet:columnWidth(11,80)
+      oSheet:columnWidth(12,80)
+      oSheet:columnWidth(13,80)
+
+      xEmpresa:= "EMPRESA DEMONSTRACAO LTDA"
+      xDataImp:= Dtoc(dDate)
+      xTitulo := "RELATORIO PARA DEMONSTRAR XML EXCEL"
+      xPeriodo:= Dtoc((dDate-( 100 * 5 ))-50) + " a " + Dtoc(dDate-50)
+      xHoraImp:= Time()
+
+      nLinha:= 0
+      oSheet:writeString(++nLinha,1,xEmpresa,"CabecLeft")
+      oSheet:cellMerge(nLinha,1,5,0)
+
+      oSheet:writeString(nLinha,7,xTitulo,"CabecCenter")
+      oSheet:cellMerge(nLinha,7,3,0)
+
+      oSheet:writeString(nLinha,12,"Data:"+xDataImp,"CabecRight")
+      oSheet:cellMerge(nLinha,12,1,0)
+
+      oSheet:writeString(++nLinha,1,"Periodo","CabecLeft")
+      oSheet:cellMerge(nLinha,1,5,0)
+
+      oSheet:writeString(nLinha,7,xPeriodo,"CabecCenter")
+      oSheet:cellMerge(nLinha,7,3,0)
+
+      oSheet:writeString(nLinha,12,"Hora:"+xHoraImp,"CabecRight")
+      oSheet:cellMerge(nLinha,12,1,0)
+
+      oSheet:writeString(++nLinha,1,"N.Fiscal","textLeftBoldCor")
+      oSheet:writeString(nLinha,2,"TM","textLeftBoldCor")
+      oSheet:writeString(nLinha,3,"Data Movto","textLeftBoldCor")
+      oSheet:writeString(nLinha,4,"Data Emis.","textLeftBoldCor")
+      oSheet:writeString(nLinha,5,"CFOP","textLeftBoldCor")
+      oSheet:writeString(nLinha,6,"C›digo","textLeftBoldCor")
+      oSheet:writeString(nLinha,7,"Cliente/Fornecedor","textLeftBoldCor")
+      oSheet:writeString(nLinha,8,"UF","textLeftBoldCor")
+      oSheet:writeString(nLinha,9,"Vlr.Tot.","textRightBoldCor")
+      oSheet:writeString(nLinha,10,"Base Calc.","textRightBoldCor")
+      oSheet:writeString(nLinha,11,"Vlr ICMS","textRightBoldCor")
+      oSheet:writeString(nLinha,12,"Base IPI","textRightBoldCor")
+      oSheet:writeString(nLinha,13,"Valor IPI","textRightBoldCor")
+
+
+   xqtddoc:= xttotnot:= xtbascal:= xtvlricm:= xtbasipi:= xtvlripi:= 0
+
+   aDoc := Array(13)
+   FOR i:= 1 TO ( 100 * 5 )
+      i100 		:= ( i * 100 )
+      i100_09	:= ( i100 * 0.90 )
+      dDate_i	:= ( dDate - i )
+      cCodCli	:= STRZERO(i,5)
+      aDoc[01]	:= STRZERO(i,8)
+      aDoc[02]	:= "VE"
+      aDoc[03]	:= dDate_i-49
+      aDoc[04]	:= dDate_i-50
+      aDoc[05]	:= "5.102"
+      aDoc[06]	:= cCodCli
+      aDoc[07]	:= "NOME DO CLIENTE TESTE "+cCodCli
+      aDoc[08]	:= "PR"
+      aDoc[09]	:= i100
+      aDoc[10]	:= i100_09
+      aDoc[11]	:= i100*i100_09*0.12
+      aDoc[12]	:= i100
+      aDoc[13]	:= i100*0.10
+
+         oSheet:writeString(++nLinha,1,aDoc[01],"textLeft")
+         oSheet:writeString(nLinha,2,aDoc[02],"textLeft")
+         oSheet:writeString(nLinha,3,DTOC(aDoc[03]),"textLeft")
+         oSheet:writeString(nLinha,4,DTOC(aDoc[04]),"textLeft")
+         oSheet:writeString(nLinha,5,aDoc[05],"textLeft")
+         oSheet:writeString(nLinha,6,aDoc[06],"textLeft")
+         oSheet:writeString(nLinha,7,aDoc[07],"textLeft")
+         oSheet:writeString(nLinha,8,aDoc[08],"textLeft")
+         oSheet:writeNumber(nLinha,9,aDoc[09],"numberRight")
+         oSheet:writeNumber(nLinha,10,aDoc[10],"numberRight")
+         oSheet:writeNumber(nLinha,11,aDoc[11],"numberRight")
+         oSheet:writeNumber(nLinha,12,aDoc[12],"numberRight")
+         oSheet:writeNumber(nLinha,13,aDoc[13],"numberRight")
+
+      xqtddoc++
+      xttotnot+= aDoc[09]
+      xtbascal+= aDoc[10]
+      xtvlricm+= aDoc[11]
+      xtbasipi+= aDoc[12]
+      xtvlripi+= aDoc[13]
+   next
+
+   Lines := AllTrim(Str(( 100 * 5 )))
+
+
+      oSheet:writeString(++nLinha,1,"","textLeft")
+      oSheet:writeString(nLinha,2,"","textLeft")
+      oSheet:writeString(nLinha,3,"","textLeft")
+      oSheet:writeString(nLinha,4,"","textLeft")
+      oSheet:writeString(nLinha,5,"","textLeft")
+      oSheet:writeString(nLinha,6,"","textLeft")
+      oSheet:writeString(nLinha,7,"TOTAL ==> "+STR(xqtddoc,5)+" documentos","textLeftBold")
+      oSheet:writeString(nLinha,8,"","textLeft")
+      oSheet:writeFormula("Number",nLinha,9,"=SUM(R[-"+Lines+"]C:R[-1]C)","numberRightBold")
+      oSheet:writeFormula("Number",nLinha,10,"=SUM(R[-"+Lines+"]C:R[-1]C)","numberRightBold")
+	  oSheet:writeFormula("Number",nLinha,11,"=SUM(R[-"+Lines+"]C:R[-1]C)","numberRightBold")
+      oSheet:writeFormula("Number",nLinha,12,"=SUM(R[-"+Lines+"]C:R[-1]C)","numberRightBold")
+      oSheet:writeFormula("Number",nLinha,13,"=SUM(R[-"+Lines+"]C:R[-1]C)","numberRightBold")
+      oSheet:writeString(++nLinha,7,"CHECKSUM ==>","textLeftBold")
+      oSheet:writeString(nLinha,8,"","textLeft")
+      oSheet:writeNumber(nLinha,9,xttotnot,"numberRightBold")
+      oSheet:writeNumber(nLinha,10,xtbascal,"numberRightBold")
+      oSheet:writeNumber(nLinha,11,xtvlricm,"numberRightBold")
+      oSheet:writeNumber(nLinha,12,xtbasipi,"numberRightBold")
+      oSheet:writeNumber(nLinha,13,xtvlripi,"numberRightBold")
+
+
+   oXml:setOverwriteFile( .T. )
+   oXml:writeData(xarquivo)
+
+
+
+ 	IF __CopyFile(xarquivo,cTempPath+xarquivo)
+ 		fErase( xarquivo )
+		oExcelApp	:= MsExcel():New()
+		oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
+		oExcelApp:SetVisible( .T. )
+		oExcelApp	:= oExcelApp:Destroy()
+	EndIF
+
+	IF !( lSetCentury )
+		__SetCentury("OFF")
+	EndIF
+
+	SetVarNameLen(nVarNameLen)
+
+
+
+   RETURN NIL

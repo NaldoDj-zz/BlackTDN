@@ -1,0 +1,7 @@
+#
+# $Id: hbmk.hbm 17303 2012-03-03 14:36:00Z vszakats $
+#
+
+hbwin.hbc
+
+-w3 -es2

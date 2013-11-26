@@ -1,0 +1,1232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="LabelDescRelatorio" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Protheus10_TST\\Protheus_Data\\web\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT '20110101' DATAINI,
+       '20110715' DATAFIN,
+       AF1_ORCAME,
+       AF8_PROJET,
+       AF8_REVISA,
+       AF8_XCODOR,
+       AF1_DESCRI,
+       AF1_XCODOR
+       AF1_XDORIG,
+       Item,
+       AF8_DESCRI,
+       AF8_XDORIG,
+       AF8_XCODTE,
+       AF8_XTEMA,
+       AF8_XCODTA,
+       AF8_XDESTA,
+       AF8_XCODIN,
+       AF8_XCODSP,
+       AF8_XSPON,
+       AF8_XCODGE,
+       AF8_XGER,
+       AF8_XCODDI,
+       AF1_XDIR,
+       AF1_XUNIOR,
+       AF1_XSPON,
+       AF1_XGER,
+       AF1_XDESTA,
+       AF1_XMACRO,
+       AF8_XCODMA,
+       AF8_XMACRO,
+       AF8_XIND,
+       AF1_XIND,
+       AF1_XINDS,
+       AF1_XPMORG,
+       AF1_XTEMA,
+       AF1_XDESC,
+       AF1_XDPROG,
+       ( ISNULL( PREVPESJUR             , 0.00 ) ) PREVPESJUR ,
+       ( ISNULL( REALPESJUR             , 0.00 ) ) REALPESJUR ,
+       ( ISNULL( PREVPESSOAL            , 0.00 ) ) PREVPESSOAL,
+       ( ISNULL( REALPESSOAL, 0.00 ) + ISNULL( AJCTOT, 0.00 ) ) REALPESSOAL,
+       ( ISNULL( PREVPESFIS             , 0.00 ) ) PREVPESFIS ,
+       ( ISNULL( REALPESFIS             , 0.00 ) ) REALPESFIS ,
+       ( ISNULL( PREVOPERADM            , 0.00 ) ) PREVOPERADM,
+       ( ISNULL( REALOPERADM            , 0.00 ) ) REALOPERADM,
+       ( ISNULL( PREVCAPITAL            , 0.00 ) ) PREVCAPITAL,
+       ( ISNULL( REALCAPITAL            , 0.00 ) ) REALCAPITAL,
+       ( ISNULL( PREVVIAGEM             , 0.00 ) ) PREVVIAGEM ,
+       ( ISNULL( REALVIAGEM             , 0.00 ) ) REALVIAGEM ,
+       ( ISNULL( PREVTOTORC             , 0.00 ) ) PREVTOTORC ,
+       ( ISNULL( REALTOTORC , 0.00 ) + ISNULL( AJCTOT, 0.00 ) ) REALTOTORC ,
+
+       PREVTOTPROJ,
+
+       ISNULL( ( SELECT 1 WHERE PREVTOTORC = PREVTOTPROJ ), 0 ) ORC_DIF_PREV,
+
+       ( CASE ISNULL( ( SELECT 1 WHERE PREVTOTORC = PREVTOTPROJ ), 0 )
+              WHEN 0
+              THEN 'OS PREVISTOS DO ORÇAMENTO (' + LTRIM( CONVERT( VARCHAR, dbo.FormatDinheiro(  PREVTOTORC ) ) ) + ') E DO PROJETO (' + LTRIM( CONVERT( VARCHAR, dbo.FormatDinheiro( PREVTOTPROJ ) ) ) + ') NÃO ESTÃO IGUAIS, FAVOR VERIFICAR E ENTRAR EM CONTATO COM A CONTROLADORIA.'
+              ELSE ''
+         END ) ALERTA,
+
+       AF1_XDATIN,
+       AF1_XDATFI,
+       DESCSTATUS,
+       AF1_FASE,
+       DESCFASE,
+       AF1_XPRIO
+
+  FROM
+(
+SELECT AF1.AF1_ORCAME,
+       AF8.AF8_PROJET,
+       AF8.AF8_REVISA,
+       AF8.AF8_XCODOR,
+       AF1.AF1_DESCRI,
+       AF1.AF1_XCODOR,
+       AF1.AF1_XDORIG,
+       RIGHT( REPLICATE( '0', 6 ) + CONVERT( VARCHAR, ROW_NUMBER() OVER( ORDER BY AF8_PROJET, AF8_REVISA, AF8_XCODOR, AF1_ORCAME, AF1_XCODOR ) ), 6 ) 'Item',
+       AF8.AF8_DESCRI,
+       AF8.AF8_XDORIG,
+       AF8.AF8_XCODTE,
+       AF8.AF8_XTEMA,
+       AF8.AF8_XCODTA,
+       AF8.AF8_XDESTA,
+       AF8.AF8_XCODIN,
+       AF8.AF8_XIND,
+       AF1.AF1_XIND,
+       AF1.AF1_XINDS,
+       AF8.AF8_XCODSP,
+       AF8.AF8_XSPON,
+       AF8.AF8_XCODGE,
+       AF8.AF8_XGER,
+       AF8.AF8_XCODDI,
+       AF1.AF1_XDIR,
+       AF1.AF1_XUNIOR,
+       AF1.AF1_XSPON,
+       AF1.AF1_XGER,
+       AF1.AF1_XDESTA,
+       AF1.AF1_XMACRO,
+       AF8.AF8_XCODMA,
+       AF8.AF8_XMACRO,
+       AF1.AF1_XPMORG,
+       AF1.AF1_XTEMA,
+       AF1.AF1_XDESC,
+       AF1.AF1_XDPROG,
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'SJ', 'MO' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVPESJUR',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+							AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SD1.D1_XCODSBM IN ( 'SJ', 'MO' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T1 ) AS 'REALPESJUR',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'PE' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVPESSOAL',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+							AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SD1.D1_XCODSBM IN ( 'PE' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T2 ) AS 'REALPESSOAL',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'SF' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVPESFIS',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+                            AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SD1.D1_XCODSBM IN ( 'SF' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T2 ) AS 'REALPESFIS',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'OA' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVOPERADM',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+                            AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SD1.D1_XCODSBM IN ( 'OA' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T4 ) AS 'REALOPERADM',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'MU', 'HW', 'MA', 'SW', 'BO' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVCAPITAL',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+                            AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND D1_XCODSBM IN ( 'MU', 'HW', 'MA', 'SW', 'BO' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T5 ) AS 'REALCAPITAL',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				   AND AF4.AF4_TIPOD IN ( 'VI', 'VN' )
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVVIAGEM',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+                            AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SD1.D1_XCODSBM IN ( 'VI', 'VN' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T6 ) AS 'REALVIAGEM',
+
+       ( SELECT SUM( AF4_VALOR )
+				  FROM AF4010 AS AF4
+				 WHERE AF4.D_E_L_E_T_ = ''
+				   AND AF4.AF4_ORCAME = AF1.AF1_ORCAME
+				   AND AF4.AF4_XCODOR = AF1.AF1_XCODOR
+				GROUP BY AF4.AF4_ORCAME, AF4.AF4_XCODOR ) AS 'PREVTOTORC',
+
+       ( SELECT SUM( SD1TOTAL ) AS SD1TOTAL
+                  FROM ( SELECT SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA,
+                                ( SUM( SD1.D1_TOTAL ) + SUM( SE2.E2_ACRESC - SE2.E2_DECRESC ) ) AS SD1TOTAL
+						   FROM SD1010 AS SD1
+								LEFT JOIN
+								SE2010 AS SE2 ON SE2.E2_PREFIXO = SD1.D1_SERIE   AND
+												 SE2.E2_NUM     = SD1.D1_DOC     AND
+						 					     SE2.E2_FORNECE = SD1.D1_FORNECE AND
+												 SE2.E2_LOJA    = SD1.D1_LOJA
+						  WHERE SD1.D_E_L_E_T_  = ''
+							AND SD1.D1_TES     <> ''
+							AND SD1.D1_XPROJET  = AF8.AF8_PROJET
+							AND SD1.D1_XREVIS   = AF8.AF8_REVISA
+							AND SD1.D1_XCODOR   = AF8.AF8_XCODOR
+							AND SD1.D1_COD     IN ( 'SJSV0015', 'SJSV0036', 'SJSV0037', 'SJSV0038', 'SJSV0039', 'SJSV0040', 'SJSV0041', 'SJSV0042', 'SJSV0043', 'SJSV0044', 'SJSV0045', 'SJSV0049', 'SJSV0050', 'SJSV0051', 'SJSV0052' )
+							AND SE2.D_E_L_E_T_  = ''
+							AND SE2.E2_BAIXA   >= '20110101'
+							AND SE2.E2_BAIXA   <= '20110715'
+                         GROUP BY SD1.D1_SERIE  ,SD1.D1_DOC,SD1.D1_FORNECE,SD1.D1_LOJA,
+                                  SE2.E2_PREFIXO,SE2.E2_NUM,SE2.E2_FORNECE,SE2.E2_LOJA ) AS SD1T7 ) AS 'REALTOTORC',
+
+       ( SELECT ( AJCTOTAL )
+				  FROM ( SELECT AJC.AJC_PROJET, AJC.AJC_REVISA, SUM( AJC.AJC_CUSTO1 ) AS AJCTOTAL
+						   FROM AJC010 AS AJC
+						  WHERE AJC.D_E_L_E_T_ = ''
+							AND AJC.AJC_PROJET = AF8.AF8_PROJET
+							AND AJC.AJC_REVISA = AF8.AF8_REVISA
+							AND AJC.AJC_DATA  >= '20110101'
+							AND AJC.AJC_DATA  <= '20110715'
+						 GROUP BY AJC.AJC_PROJET, AJC.AJC_REVISA ) AS AJCT ) AS 'AJCTOT',
+
+       ( SELECT SUM( AFB.AFB_VALOR )
+           FROM AF8010 AS AF8A
+		        LEFT JOIN
+			    AFC010 AS AFC ON AFC.AFC_PROJET = AF8A.AF8_PROJET AND
+				   			     AFC.AFC_REVISA = AF8A.AF8_REVISA
+			    LEFT JOIN
+			    AF9010 AS AF9 ON AF9.AF9_PROJET = AFC.AFC_PROJET AND
+								 AF9.AF9_REVISA = AFC.AFC_REVISA AND
+								 AF9.AF9_EDTPAI = AFC.AFC_EDT
+			    LEFT JOIN
+			    AFB010 AS AFB ON AFB.AFB_PROJET = AF9.AF9_PROJET AND
+								 AFB.AFB_REVISA = AF9.AF9_REVISA AND
+								 AFB.AFB_TAREFA = AF9.AF9_TAREFA
+		  WHERE AF8.D_E_L_E_T_  = ''
+		    AND AFC.D_E_L_E_T_  = ''
+  		    AND AF9.D_E_L_E_T_  = ''
+		    AND AFB.D_E_L_E_T_  = ''
+		    AND AF8A.AF8_PROJET = AF8.AF8_PROJET
+            AND AF8A.AF8_REVISA = AF8.AF8_REVISA
+		 GROUP BY AF8A.AF8_PROJET, AF8A.AF8_REVISA, AF8A.AF8_ORCAME ) PREVTOTPROJ,
+
+      CONVERT( VARCHAR, CONVERT( DATETIME, CONVERT( VARCHAR, AF1_XDATIN ) ), 103 ) AF1_XDATIN,
+      CONVERT( VARCHAR, CONVERT( DATETIME, CONVERT( VARCHAR, AF1_XDATFI ) ), 103 ) AF1_XDATFI,
+
+       ( CASE AF1.AF1_XSTATU
+              WHEN '1' THEN 'NOVO'
+                       ELSE 'EM CURSO' END ) DESCSTATUS,
+       AF1.AF1_FASE,
+       ( SELECT AE9.AE9_DESCRI
+           FROM AE9010 AS AE9
+          WHERE AE9.AE9_COD = AF1.AF1_FASE ) DESCFASE,
+       AF1.AF1_XPRIO
+
+  FROM AF1010 AS AF1
+       LEFT JOIN
+       AF8010 AS AF8 ON AF8.AF8_ORCAME = AF1.AF1_ORCAME
+
+ WHERE AF1.D_E_L_E_T_ = ''
+   AND AF8.D_E_L_E_T_ = ''
+   AND AF8.AF8_FASE   = '03'
+
+) AS PROJETOS
+ WHERE AF8_PROJET IN ( '0000000074' )
+
+ORDER BY AF8_PROJET, AF8_REVISA, AF8_XCODOR]]>
+	</queryString>
+	<field name="DATAINI" class="java.lang.String"/>
+	<field name="DATAFIN" class="java.lang.String"/>
+	<field name="AF1_ORCAME" class="java.lang.String"/>
+	<field name="AF8_PROJET" class="java.lang.String"/>
+	<field name="AF8_REVISA" class="java.lang.String"/>
+	<field name="AF8_XCODOR" class="java.lang.String"/>
+	<field name="AF1_DESCRI" class="java.lang.String"/>
+	<field name="AF1_XDORIG" class="java.lang.String"/>
+	<field name="Item" class="java.lang.String"/>
+	<field name="AF8_DESCRI" class="java.lang.String"/>
+	<field name="AF8_XDORIG" class="java.lang.String"/>
+	<field name="AF8_XCODTE" class="java.lang.String"/>
+	<field name="AF8_XTEMA" class="java.lang.String"/>
+	<field name="AF8_XCODTA" class="java.lang.String"/>
+	<field name="AF8_XDESTA" class="java.lang.String"/>
+	<field name="AF8_XCODIN" class="java.lang.String"/>
+	<field name="AF8_XCODSP" class="java.lang.String"/>
+	<field name="AF8_XSPON" class="java.lang.String"/>
+	<field name="AF8_XCODGE" class="java.lang.String"/>
+	<field name="AF8_XGER" class="java.lang.String"/>
+	<field name="AF8_XCODDI" class="java.lang.String"/>
+	<field name="AF1_XDIR" class="java.lang.String"/>
+	<field name="AF1_XUNIOR" class="java.lang.String"/>
+	<field name="AF1_XSPON" class="java.lang.String"/>
+	<field name="AF1_XGER" class="java.lang.String"/>
+	<field name="AF1_XDESTA" class="java.lang.String"/>
+	<field name="AF1_XMACRO" class="java.lang.String"/>
+	<field name="AF8_XCODMA" class="java.lang.String"/>
+	<field name="AF8_XMACRO" class="java.lang.String"/>
+	<field name="AF8_XIND" class="java.lang.String"/>
+	<field name="AF1_XIND" class="java.lang.String"/>
+	<field name="AF1_XINDS" class="java.lang.String"/>
+	<field name="AF1_XPMORG" class="java.lang.String"/>
+	<field name="AF1_XTEMA" class="java.lang.String"/>
+	<field name="AF1_XDESC" class="java.lang.String"/>
+	<field name="AF1_XDPROG" class="java.lang.String"/>
+	<field name="PREVPESJUR" class="java.lang.Double"/>
+	<field name="REALPESJUR" class="java.lang.Double"/>
+	<field name="PREVPESSOAL" class="java.lang.Double"/>
+	<field name="REALPESSOAL" class="java.lang.Double"/>
+	<field name="PREVPESFIS" class="java.lang.Double"/>
+	<field name="REALPESFIS" class="java.lang.Double"/>
+	<field name="PREVOPERADM" class="java.lang.Double"/>
+	<field name="REALOPERADM" class="java.lang.Double"/>
+	<field name="PREVCAPITAL" class="java.lang.Double"/>
+	<field name="REALCAPITAL" class="java.lang.Double"/>
+	<field name="PREVVIAGEM" class="java.lang.Double"/>
+	<field name="REALVIAGEM" class="java.lang.Double"/>
+	<field name="PREVTOTORC" class="java.lang.Double"/>
+	<field name="REALTOTORC" class="java.lang.Double"/>
+	<field name="PREVTOTPROJ" class="java.lang.Double"/>
+	<field name="ORC_DIF_PREV" class="java.lang.Integer"/>
+	<field name="ALERTA" class="java.lang.String"/>
+	<field name="AF1_XDATIN" class="java.lang.String"/>
+	<field name="AF1_XDATFI" class="java.lang.String"/>
+	<field name="DESCSTATUS" class="java.lang.String"/>
+	<field name="AF1_FASE" class="java.lang.String"/>
+	<field name="DESCFASE" class="java.lang.String"/>
+	<field name="AF1_XPRIO" class="java.lang.String"/>
+	<variable name="TOT_PREVPESJUR" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVPESJUR}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALPESJUR" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALPESJUR}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVPESSOAL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVPESSOAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALPESSOAL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALPESSOAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALTOTORC" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALTOTORC}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVPESFIS" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVPESFIS}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALPESFIS" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALPESFIS}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVOPERADM" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVOPERADM}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALOPERADM" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALOPERADM}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVCAPITAL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVCAPITAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALCAPITAL" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALCAPITAL}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVVIAGEM" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVVIAGEM}]]></variableExpression>
+	</variable>
+	<variable name="TOT_REALVIAGEM" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{REALVIAGEM}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVTOTORC" class="java.math.BigDecimal" incrementType="Group" incrementGroup="PROJETO" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVTOTORC}]]></variableExpression>
+	</variable>
+	<variable name="TOT_PREVPROJ_SUBREPORT" class="java.math.BigDecimal" resetType="Group" resetGroup="PROJETO"/>
+	<group name="ALERTA">
+		<groupExpression><![CDATA[$F{ALERTA}]]></groupExpression>
+		<groupHeader>
+			<band height="3"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="15">
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" positionType="Float" x="0" y="2" width="802" height="12" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ALERTA}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="PROJETO" keepTogether="true">
+		<groupExpression><![CDATA[$F{AF8_PROJET}]]></groupExpression>
+		<groupHeader>
+			<band height="43" splitType="Stretch">
+				<frame>
+					<reportElement mode="Opaque" x="0" y="0" width="802" height="18" printWhenGroupChanges="PROJETO" forecolor="#B89F7D" backcolor="#999999"/>
+					<staticText>
+						<reportElement x="0" y="4" width="43" height="12"/>
+						<textElement verticalAlignment="Top">
+							<font fontName="Arial" size="10" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Projeto]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement style="Detail" positionType="Float" x="46" y="4" width="66" height="12"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="10"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{AF8_PROJET}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="Detail" positionType="Float" x="225" y="4" width="385" height="12"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="9"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{AF8_DESCRI}]]></textFieldExpression>
+					</textField>
+					<textField>
+						<reportElement style="Detail" positionType="Float" x="665" y="4" width="134" height="12"/>
+						<textElement verticalAlignment="Middle">
+							<font fontName="Arial" size="9"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$F{AF8_XGER}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="617" y="4" width="45" height="12"/>
+						<textElement verticalAlignment="Top">
+							<font fontName="Arial" size="10" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Gerente]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="117" y="4" width="103" height="12"/>
+						<textElement verticalAlignment="Top">
+							<font fontName="Arial" size="10" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Descrição do projeto]]></text>
+					</staticText>
+				</frame>
+				<subreport isUsingCache="true" runToBottom="false">
+					<reportElement mode="Opaque" x="0" y="21" width="802" height="20"/>
+					<subreportParameter name="DATAFIN">
+						<subreportParameterExpression><![CDATA[$F{DATAFIN}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="DATAINI">
+						<subreportParameterExpression><![CDATA[$F{DATAINI}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="CODPROJETO">
+						<subreportParameterExpression><![CDATA[$F{AF8_PROJET}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "DETmodproj_detail_NotasPgto_Contratos.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="57" splitType="Stretch">
+				<frame>
+					<reportElement style="Row" mode="Opaque" x="0" y="4" width="802" height="50" forecolor="#B89F7D" backcolor="#999999"/>
+					<staticText>
+						<reportElement x="517" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="176" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALPESSOAL}]]></textFieldExpression>
+					</textField>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="631" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALVIAGEM}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="346" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="233" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="688" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="62" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="574" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVVIAGEM}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="119" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="346" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVOPERADM}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="574" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="2" y="31" width="59" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVPESJUR}]]></textFieldExpression>
+					</textField>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="517" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALCAPITAL}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="402" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="688" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVTOTORC}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="2" y="19" width="59" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="631" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="119" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVPESSOAL}]]></textFieldExpression>
+					</textField>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="62" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALPESJUR}]]></textFieldExpression>
+					</textField>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="289" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALPESFIS}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="289" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="745" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALTOTORC}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="459" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Previsto]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="745" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="459" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVCAPITAL}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="176" y="19" width="56" height="12"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="8" isBold="true"/>
+						</textElement>
+						<text><![CDATA[Realizado]]></text>
+					</staticText>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="233" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{PREVPESFIS}]]></textFieldExpression>
+					</textField>
+					<textField pattern="¤ #,##0.00">
+						<reportElement style="Detail" positionType="Float" x="402" y="31" width="56" height="15"/>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="Arial" size="7" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.lang.Double"><![CDATA[$F{REALOPERADM}]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="685" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[TOTAIS]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="571" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[VIAGEM]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="457" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[CAPITAL]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="117" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[PESSOAL]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="230" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[PESSOA FÍSICA]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="343" y="4" width="116" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[OPERAC. ADM.]]></text>
+					</staticText>
+					<line>
+						<reportElement x="0" y="16" width="802" height="1"/>
+					</line>
+					<staticText>
+						<reportElement x="2" y="4" width="118" height="12" backcolor="#FFFFFF"/>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+							<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+							<paragraph lineSpacing="Single"/>
+						</textElement>
+						<text><![CDATA[PESSOA JURÍDICA]]></text>
+					</staticText>
+				</frame>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="2"/>
+	</title>
+	<pageHeader>
+		<band height="21">
+			<image isUsingCache="false">
+				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="0" width="81" height="20"/>
+				<imageExpression class="java.lang.String"><![CDATA["RNP.JPG"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="81" y="0" width="721" height="20" forecolor="#0000CC" backcolor="#000099"/>
+				<staticText>
+					<reportElement style="Title" x="5" y="1" width="494" height="19"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[RELATÓRIO DE PROJETOS DO PA-2011 (PREVISTO X REALIZADO)]]></text>
+				</staticText>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="563" y="0" width="156" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="802" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{LabelDescRelatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="6" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000099"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="1" y="3" width="197" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="766" y="3" width="32" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="720" y="3" width="22" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="678" y="3" width="40" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[Página]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="744" y="3" width="20" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<text><![CDATA[de]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="93">
+			<rectangle>
+				<reportElement x="0" y="5" width="802" height="75" backcolor="#FFFF66"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="688" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[OPERAC. ADM.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[PESSOAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="33" width="118" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[PESSOA JURÍDICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="631" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="517" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="685" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[TOTAIS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="45" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="346" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[PESSOA FÍSICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="571" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[VIAGEM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="48" width="59" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="33" width="116" height="12" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[CAPITAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="574" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Previsto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="10" width="159" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total geral]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="802" height="1"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="0" y="60" width="59" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVPESJUR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="62" y="60" width="55" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALPESJUR}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="119" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVPESSOAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="176" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALPESSOAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="233" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVPESFIS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="290" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALPESFIS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="346" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVOPERADM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="402" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALOPERADM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="461" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVCAPITAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="517" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALCAPITAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="574" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVVIAGEM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="631" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALVIAGEM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="688" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_PREVTOTORC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="745" y="60" width="56" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{TOT_REALTOTORC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="745" y="48" width="56" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Realizado]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

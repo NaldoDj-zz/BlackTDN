@@ -1,0 +1,46 @@
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 5 "d:\svn\totvs-advpl-naldodj\hbxlsxml\pttests\u_hbxmltest.prg"
+
+
+
+
+
+
+
+
+Function U_hbXMLTest()
+	Local nVarNameLen	:= SetVarNameLen(250)
+	Local lSetCentury	:= __SetCentury("ON")
+	SetsDefault()
+	MsgRun( "Gerando Planilhas..." , "Aguarde" , { || hbXmlTest() } )
+	SetVarNameLen(nVarNameLen)
+	IF !( lSetCentury )
+		__SetCentury("OFF")
+	EndIF
+	Static Function hbXmlTest()
+		Local aExamples := Array(0)
+		aAdd( aExamples , "U_Example1Xls" )
+		aAdd( aExamples , "U_Example2Xls" )
+		aAdd( aExamples , "U_Example3Xls" )
+	Return( aEval( aExamples , { |cExec| IF( FindFunction( cExec ) , &cExec.() , NIL ) } ) )
+Return( NIL )

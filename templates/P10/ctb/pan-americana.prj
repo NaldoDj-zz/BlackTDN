@@ -1,0 +1,74 @@
+Group pan-americana
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project pan-americana
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Nova Pasta2
+         FilesCount=9
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanVldCtb.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanCTB01.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanCTB02.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanCTB03.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanCTB04.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanCTB05.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanLib01.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanLib02.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\fontes\u_PanLib03.prg
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Nova Pasta2
+         FilesCount=7
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\u_PanLib03.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\ctrl_vk.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\pan-americana.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\tryexception.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\u_panctb05.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\u_PanLib01.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\pan-americana\include\u_PanLib02.ch
+             Type=T
+         End
+      End
+   End
+End

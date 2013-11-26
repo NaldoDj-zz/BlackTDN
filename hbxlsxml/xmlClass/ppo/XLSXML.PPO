@@ -1,0 +1,521 @@
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\tfini.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\thash.ch"
+#line 13 "tfini.ch"
+#line 19 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 72 "ptxlsxml.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 134 "ptxlsxml.ch"
+
+
+
+	Static __cCRLF			:= Chr(13)+Chr(10)
+#line 60 "d:\svn\TOTVS-~1\hbxlsxml\xmlclass\xlsxml.prg"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\fileio.ch"
+#line 66 "d:\svn\TOTVS-~1\hbxlsxml\xmlclass\xlsxml.prg"
+_ObjNewClass( ExcelWriterXML , )
+
+   _ObjClassData( styles,,, )
+   _ObjClassData( formatErrors,,, )
+   _ObjClassData( sheets,,, )
+   _ObjClassData( lShowErrorSheet,,, )
+   _ObjClassData( overwriteFile,,, )
+   _ObjClassData( docFileName,,, )
+   _ObjClassData( cDocTitle,,, )
+   _ObjClassData( cDocSubject,,, )
+   _ObjClassData( cDocAuthor,,, )
+   _ObjClassData( cDocCreated,,, )
+   _ObjClassData( cDocManager,,, )
+   _ObjClassData( cDocCompany,,, )
+   _ObjClassData( cDocVersion,,, )
+
+   _ObjClassData( cError,,, )
+   _ObjClassData( errors,,, )
+
+   _ObjClassMethod(New,(fileName),)
+   _ObjClassMethod(setOverwriteFile,(overwrite),)
+   _ObjClassMethod(showErrorSheet,(show),)
+   _ObjClassMethod(addError,(cFunction,cMessage),)
+   _ObjClassMethod(getDefaultStyle,,)
+   _ObjClassMethod(addStyle,(id),)
+   _ObjClassMethod(addSheet,(id),)
+   _ObjClassMethod(checkSheetID,(id),)
+   _ObjClassMethod(checkStyleID,(id),)
+   _ObjClassMethod(writeData,(target),)
+   _ObjClassMethod(docTitle,(title),)
+   _ObjClassMethod(docSubject,(subject),)
+   _ObjClassMethod(docAuthor,(author),)
+   _ObjClassMethod(docManager,(manager),)
+   _ObjClassMethod(docCompany,(company),)
+
+   _ObjEndClass( )
+
+
+
+Function ___ExcelWriterXML____new(fileName )
+   LOCAL style
+
+
+
+   Self:styles				:= {}
+   Self:formatErrors		:= THBHash():New()
+   Self:sheets				:= {}
+   Self:lShowErrorSheet	:= .f. 
+   Self:overwriteFile		:= .f. 
+   Self:cDocVersion		:= "11.9999"
+
+   Self:cError				:= ""
+   Self:errors				:= .f. 
+
+
+
+   style := Self:addStyle( "DEFAULT" )
+   style:SetName( "Normal" )
+   style:aVertical("Bottom")
+
+   IF empty( fileName )
+      fileName := "file.xml"
+   ENDIF
+
+   Self:docFileName := fileName
+   Self:cDocCreated := DTOS( DATE() ) + "T" + TIME() + "Z"
+
+   RETURN SELF
+
+
+
+Function ___ExcelWriterXML____setOverwriteFile(overwrite )
+
+   IF ! ( VALTYPE( overwrite ) == "L" )
+      Self:overwriteFile := .f. 
+   ELSE
+      Self:overwriteFile := overwrite
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____showErrorSheet(show )
+
+   IF ! ( VALTYPE( show ) == "L" )
+      Self:lShowErrorSheet := .t. 
+   ELSE
+      Self:lShowErrorSheet := show
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____addError(cFunction,cMessage )
+   LOCAL tmp := THBHash():New()
+
+   tmp:hAdd(NIL,"FUNCTION",cFunction)
+   tmp:hAdd(NIL,"MESSAGE",cMessage)
+
+   aEval( tmp:aTHashID , { |hash| aAdd( Self:formatErrors:aTHashID , hash ) } )
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____getDefaultStyle( )
+
+   RETURN Self:styles[ 1 ]
+
+
+
+Function ___ExcelWriterXML____addStyle(id )
+   LOCAL style
+
+   STATIC styleNum := 1
+
+   IF alltrim( id ) == ""
+      id := NIL
+   ENDIF
+
+   IF id == NIL
+      id := "CustomStyle" + ALLTRIM( STR( styleNum, 3 ) )
+      styleNum++
+   ENDIF
+
+   WHILE ! Self:checkStyleID( id )
+      id := "CustomStyle" + ALLTRIM( STR( styleNum, 3 ) )
+      styleNum++
+   ENDDO
+
+   style := ExcelWriterXML_Style():new( id )
+   AADD( Self:styles, style )
+
+   RETURN style
+
+
+
+Function ___ExcelWriterXML____addSheet(id )
+   LOCAL sheet
+
+   STATIC sheetNum:= 1
+
+   IF id == NIL
+      id := "Sheet" + ALLTRIM( STR( sheetNum, 3 ) )
+      sheetNum++
+   ENDIF
+
+   WHILE ! Self:checkSheetID( id )
+      id := "Sheet" + ALLTRIM( STR( sheetNum, 3 ) )
+      sheetNum++
+   ENDDO
+
+   sheet := ExcelWriterXML_Sheet():New( id )
+   AADD( Self:sheets, sheet )
+
+   RETURN sheet
+
+
+
+Function ___ExcelWriterXML____checkSheetID(id )
+   LOCAL sheet
+
+   IF len( Self:sheets ) > 0
+      FOR sheet := 1 TO Len( Self:sheets )
+         IF id == Self:sheets[sheet]:getID()
+            RETURN .f. 
+         ENDIF
+      NEXT
+   ELSE
+      RETURN .t. 
+   ENDIF
+
+   RETURN .t. 
+
+
+
+Function ___ExcelWriterXML____checkStyleID(id )
+   LOCAL style
+
+   IF LEN( Self:styles ) > 0
+      FOR style := 1 TO Len( Self:styles )
+         IF id == Self:styles[style]:getID()
+            RETURN .f. 
+         ENDIF
+      NEXT
+   ELSE
+      RETURN .t. 
+   ENDIF
+
+   RETURN .t. 
+
+
+
+Function ___ExcelWriterXML____writeData(target )
+   LOCAL style, sheet, xml := "", handle, fileExists, format
+
+   LOCAL docTitle   := ""
+   LOCAL docSubject := ""
+   LOCAL docAuthor  := ""
+   LOCAL docCreated := ""
+   LOCAL docManager := ""
+   LOCAL docCompany := ""
+
+   IF target == NIL
+      Self:cError := "Target filename missing!"
+      Self:errors := .t. 
+      RETURN .t. 
+   ENDIF
+
+   fileExists := file(target)
+   IF ( fileExists == .t.  .AND.  Self:overwriteFile == .f.  )
+      Self:cError := target + " exists and overwriteFile is set to false"
+      Self:errors := .t. 
+      RETURN .f. 
+   ENDIF
+   handle := fcreate(target,NIL,NIL)
+   IF handle == -1
+      Self:cError := "Not able to open " + target + " for writing"
+      Self:errors := .t. 
+      RETURN .f. 
+   ENDIF
+
+   IF Self:lShowErrorSheet == .t. 
+      format := Self:addStyle( "formatErrorsHeader" )
+      format:setFontBold()
+      format:bgColor( "red" )
+   ENDIF
+
+   IF ! empty( Self:cDocTitle   ) ; docTitle   := "<Title>"   + OemToHtmlEspecial( Self:cDocTitle   ) + "</Title>"   + __cCRLF ; ENDIF
+   IF ! empty( Self:cDocSubject ) ; docSubject := "<Subject>" + OemToHtmlEspecial( Self:cDocSubject ) + "</Subject>" + __cCRLF ; ENDIF
+   IF ! empty( Self:cDocAuthor  ) ; docAuthor  := "<Author>"  + OemToHtmlEspecial( Self:cDocAuthor  ) + "</Author>"  + __cCRLF ; ENDIF
+   IF ! empty( Self:cDocCreated ) ; docCreated := "<Created>" + OemToHtmlEspecial( Self:cDocCreated ) + "</Created>" + __cCRLF ; ENDIF
+   IF ! empty( Self:cDocManager ) ; docManager := "<Manager>" + OemToHtmlEspecial( Self:cDocManager ) + "</Manager>" + __cCRLF ; ENDIF
+   IF ! empty( Self:cDocCompany ) ; docCompany := "<Company>" + OemToHtmlEspecial( Self:cDocCompany ) + "</Company>" + __cCRLF ; ENDIF
+
+   xml := '<?xml version="1.0"?>' + __cCRLF
+   xml += '<?mso-application progid="Excel.Sheet"?>' + __cCRLF
+   xml += "<Workbook" + __cCRLF
+   xml += 'xmlns="urn:schemas-microsoft-com:office:spreadsheet"' + __cCRLF
+   xml += 'xmlns:o="urn:schemas-microsoft-com:office:office"' + __cCRLF
+   xml += 'xmlns:x="urn:schemas-microsoft-com:office:excel"' + __cCRLF
+   xml += 'xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"' + __cCRLF
+   xml += 'xmlns:html="http://www.w3.org/TR/REC-html40">' + __cCRLF
+   xml += '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">' + __cCRLF
+   IF ! empty( Self:cDocTitle   ) ; xml += "   " + docTitle  ; ENDIF
+   IF ! empty( Self:cDocSubject ) ; xml += "   " + docSubject ; ENDIF
+   IF ! empty( Self:cDocAuthor  ) ; xml += "   " + docAuthor ; ENDIF
+   IF ! empty( Self:cDocCreated ) ; xml += "   " + docCreated ; ENDIF
+   IF ! empty( Self:cDocManager ) ; xml += "   " + docManager ; ENDIF
+   IF ! empty( Self:cDocCompany ) ; xml += "   " + docCompany ; ENDIF
+   xml += "   <Version>" + Self:cDocVersion + "</Version>" + __cCRLF
+   xml += "</DocumentProperties>" + __cCRLF
+   xml += '<ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel" />' + __cCRLF
+   xml += "<Styles>" + __cCRLF
+
+   fwrite( handle,xml )
+   xml := ""
+
+   FOR style := 1 TO Len( Self:styles )
+      xml += Self:styles[style]:getStyleXML()
+   NEXT
+   xml += "</Styles>"+__cCRLF
+
+   fwrite( handle, xml )
+   xml := ""
+
+   IF LEN( Self:sheets ) == 0
+      Self:addSheet()
+   ENDIF
+   IF len( Self:sheets ) > 0
+      FOR sheet := 1 TO Len( Self:sheets )
+         xml += Self:sheets[sheet]:getSheetXML(handle)
+         IF LEN( Self:sheets[sheet]:getErrors() ) > 0
+             Self:errors := .t. 
+         ENDIF
+      NEXT
+   ENDIF
+   IF LEN( Self:formatErrors:aTHashID ) > 0
+      Self:errors := .t. 
+   ENDIF
+   xml += "</Workbook>"
+
+   fwrite( handle, xml )
+   xml := ""
+   fclose( handle )
+
+   RETURN .t. 
+
+
+
+Function ___ExcelWriterXML____docTitle(title )
+
+   IF ( ValType(title) == "C" )
+      Self:cDocTitle := title
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____docSubject(subject )
+
+   IF ( ValType(subject) == "C" )
+      Self:cDocSubject := subject
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____docAuthor(author )
+
+   IF ( ValType(author) == "C" )
+      Self:cDocAuthor := author
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____docManager(manager )
+
+   IF ( ValType(manager) == "C" )
+      Self:cDocManager := manager
+   ENDIF
+
+   RETURN NIL
+
+
+
+Function ___ExcelWriterXML____docCompany(company )
+
+   IF ( ValType(company) == "C" )
+      Self:cDocCompany := company
+   ENDIF
+
+   RETURN NIL
+
+
+
+STATIC FUNCTION AnsiToHtml( x )
+
+
+
+   RETURN( x )
+
+
+
+STATIC FUNCTION OEMTOHTML( xtxt )
+
+
+
+   LOCAL afrm, i, xret:= "", xpos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   afrm := { { " ", "&aacute;" }, { "ƒ", "&acirc;"  }, { "…", "&agrave;" }, { "Æ", "&atilde;" }, { "‡", "&ccedil;" }, { "‚", "&eacute;" }, { "ˆ", "&ecirc;"  }, { "¡", "&iacute;" }, { "¢", "&oacute;" }, { "“", "&ocirc;"  }, { "ä", "&otilde;" }, { "£", "&uacute;" }, { "", "&uuml;"   }, { "µ", "&Aacute;" }, { "¶", "&Acirc;"  }, { "·", "&Agrave;" }, { "Ç", "&Atilde;" }, { "€", "&Ccedil;" }, { "", "&Eacute;" }, { "Ò", "&Ecirc;"  }, { "Ö", "&Iacute;" }, { "à", "&Oacute;" }, { "â", "&Ocirc;"  }, { "å", "&Otilde;" }, { "é", "&Uacute;" }, { "š", "&Uuml;"   }, { "-", "&ndash;"  } }
+
+   FOR i:= 1 TO LEN( xtxt )
+      IF( xpos:= ASCAN( afrm, {|x| SubStr( xtxt,i,1 ) == x[1] } ) ) > 0
+         xret+= afrm[xpos,2]
+      ELSE
+         xret+= SubStr( xtxt,i,1 )
+      ENDIF
+   NEXT
+
+   RETURN( xret )
+
+
+
+STATIC FUNCTION OEMTOHTMLESPECIAL( xtxt )
+
+
+
+   LOCAL afrm, i, xret:= "", xpos
+
+   xtxt := exretiraAcentos( xtxt )
+
+
+
+
+
+
+   afrm := { { "&", "&amp;"  }, { '"', "&quot;" }, { "'", "&#039;" }, { "<", "&lt;"   }, { ">", "&gt;"   } }
+
+   FOR i := 1 TO LEN( xtxt )
+      IF ( xpos := ASCAN( afrm, {|x| SUBSTR( xtxt, i, 1 ) == x[ 1 ] } ) ) > 0
+         xret += afrm[xpos,2]
+      ELSE
+         xret += SUBSTR( xtxt,i,1 )
+      ENDIF
+   NEXT
+
+   RETURN xret
+
+
+
+STATIC FUNCTION EXRETIRAACENTOS( xtxt )
+
+
+
+   LOCAL afrm, i, xret:= "", xpos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   afrm := { { " ", "a" }, { "ƒ", "a" }, { "…", "a" }, { "Æ", "a" }, { "‡", "c" }, { "‚", "e" }, { "ˆ", "e" }, { "¡", "i" }, { "¢", "o" }, { "“", "o" }, { "ä", "o" }, { "£", "u" }, { "", "u" }, { "µ", "A" }, { "¶", "A" }, { "·", "A" }, { "Ç", "A" }, { "€", "C" }, { "", "E" }, { "Ò", "E" }, { "Ö", "I" }, { "à", "O" }, { "â", "O" }, { "å", "O" }, { "é", "U" }, { "š", "U" }, { CHR( 166 ), "." }, { CHR( 167 ), "." }, { CHR( 248 ), "." }, { CHR( 141 ), ""  } }
+
+   FOR i := 1 TO LEN( xtxt )
+      IF ( xpos:= ASCAN( afrm, { |x| SUBSTR( xtxt, i, 1 ) == x[ 1 ] } ) ) > 0
+         xret += afrm[ xpos, 2 ]
+      ELSE
+         xret += SUBSTR( xtxt, i, 1 )
+      ENDIF
+   NEXT
+
+   RETURN xret
+
+
+
+
+	Static Function __Dummy()
+		Local __lDummy := .F. 
+		IF ( __lDummy )
+			AnsiToHtml()
+			OEMTOHTML()
+			__Dummy()
+		EndIF
+	Return( NIL )

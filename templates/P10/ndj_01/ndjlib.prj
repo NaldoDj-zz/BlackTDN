@@ -1,0 +1,139 @@
+Group NDJLib
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project NDJLib
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=31
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib030.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib001.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib002.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib003.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib004.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib005.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib006.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib007.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib008.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib009.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib010.ch
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib010.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib011.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib012.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib013.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib014.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib015.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib016.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib017.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib018.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib019.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib020.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLib021.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB023.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB024.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB025.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB026.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB027.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB028.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB029.prg
+             Type=T
+         End
+      End
+   End
+   BatchBuild_Item0=tools · 01MDJ00
+   BatchBuild_Item1=tools · 02set00
+   BatchBuild_Item2=tools · 03universicred00
+   BatchBuild_Item3=tools · 04sap00
+   BatchBuild_Item4=tools · 05seso00
+   BatchBuild_Item5=tools · 06rocadas00
+   BatchBuild_Item6=tools · 07agrofox00
+   BatchBuild_Item7=tools · 08agropecuaria00
+   BatchBuild_Item8=tools · 09associacao00
+   BatchBuild_Item9=tools · 10fox00
+   BatchBuild_Item10=tools · 11fundacao00
+   BatchBuild_Item11=tools · 12grct00
+   BatchBuild_Item12=tools · 13ilhotaleste00
+   BatchBuild_Item13=tools · 14pecuariaunit00
+   BatchBuild_Item14=tools · 15premitur00
+   BatchBuild_Item15=tools · 16alterosa00
+   BatchBuild_Item16=tools · 17fmmania00
+   BatchBuild_Item17=tools · 18hitparade00
+   BatchBuild_Item18=tools · 19tvouroverde00
+   BatchBuild_Item19=tools · 22trovaoazul00
+   BatchBuild_Item20=tools · 23tvbarraleste00
+   BatchBuild_Item21=tools · 24vitoriano00
+   BatchBuild_Item22=tools · 25obrasdearte00
+   BatchBuild_Item23=tools · 80caphistorico00
+End

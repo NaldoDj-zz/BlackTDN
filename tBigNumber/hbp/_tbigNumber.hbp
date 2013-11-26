@@ -1,0 +1,12 @@
+-hblib
+-inc
+
+-w3 -es2
+
+../source/tfread.prg
+../source/tprime.prg
+../source/__hbeTthD.prg
+../source/__hbPITthD.prg
+
+-o../lib/${hb_plat}/${hb_comp}/${hb_name}
+

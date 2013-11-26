@@ -1,0 +1,333 @@
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Dialog.ch"
+#line 25 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Font.ch"
+#line 26 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\PTMenu.ch"
+#line 28 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Print.ch"
+#line 29 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\sigawin.ch"
+#line 31 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Colors.ch"
+#line 33 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\Folder.ch"
+#line 35 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\msobject.ch"
+#line 36 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\VKey.ch"
+#line 40 "protheus.ch"
+#line 1 "D:\SVN\TOTVS-~1\TEMPLA~1\P10\NDJ_01\INCLUDE\PROTHEUS\WinApi.ch"
+#line 42 "protheus.ch"
+#line 5 "d:\svn\TOTVS-~1\hbxlsxml\CUSTOM~1\thbhash.prg"
+#line 1 "D:\SVN\TOTVS-~1\HBXLSXML\INCLUDE\thbhash.ch"
+#line 16 "d:\svn\TOTVS-~1\hbxlsxml\CUSTOM~1\thbhash.prg"
+_ObjNewClass( THBHASH ,THASH )
+
+	_ObjClassData( aTHashID,,, )
+	_ObjClassData( nTHashSize,,, )
+
+	_ObjClassData( cClassName,,, )
+
+	_ObjClassMethod(NEW,,)
+
+	_ObjClassMethod(ClassName,,)
+
+	_ObjClassMethod(hAdd,(uCol,uKey,uValue),)
+	_ObjClassMethod(hAddEx,(uRow,uCol,uKey,uValue),)
+
+	_ObjClassMethod(hPos,(uRow,uCol,uKey,nATRow,lID),)
+	_ObjClassMethod(hATRow,(uRow,lID),)
+	_ObjClassMethod(hATCol,(uRow,uCol,uKey,nATRow,lID),)
+	_ObjClassMethod(hGetKey,(uRow,uCol,uKey,lAtRow,lGetValue,lID),)
+	_ObjClassMethod(hGetValue,(uRow,uCol,uKey,lAtRow,lID),)
+	_ObjClassMethod(hHashIDObjCol,(uRow,lID),)
+
+	_ObjClassMethod(hIDPos,(uRow,uCol,uKey,nATRow),)
+	_ObjClassMethod(hIDATRow,(uRow),)
+	_ObjClassMethod(AIDTCol,(uRow,uCol,uKey,nATRow),)
+	_ObjClassMethod(hIDGetKey,(uRow,uCol,uKey,lAtRow,lGetValue),)
+	_ObjClassMethod(hIDGetValue,(uRow,uCol,uKey,lAtRow),)
+	_ObjClassMethod(hIDHashIDObjCol,(uRow),)
+
+_ObjEndClass( )
+
+Function U_THBHASH()
+RETURN( THBHASH():New() )
+
+
+
+
+
+
+
+
+Function ___THBHASH____New( )
+
+	Self:cClassName		:= "THBHASH"
+	Self:aTHashID		:= Array(0)
+
+	Self:nTHashSize		:= 0
+
+RETURN( Self )
+
+
+
+
+
+
+
+
+Function ___THBHASH____ClassName( )
+RETURN( Self:cClassName )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hPos(uRow,uCol,uKey,nATRow,lID )
+RETURN( Self:hATCol( @uRow , @uCol , @uKey , @nATRow , @lID ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDPos(uRow,uCol,uKey,nATRow )
+RETURN( Self:hPos( @uRow , @uCol , @uKey , @nATRow , .T.  ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hATRow(uRow,lID )
+	uRow := If( uRow == nil, 1, uRow ) ;
+	lID := If( lID == nil, .F. , lID ) ;
+RETURN( aScan( Self:aTHashID , { |aID| Compare( uRow , aID[ IF( lID , 1 , 2 ) ] ) } ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDATRow(uRow )
+RETURN( Self:hATRow( uRow , .T.  ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hATCol(uRow,uCol,uKey,nATRow,lID )
+	Local nAT			:= 0
+	nATRow := If( nATRow == nil, Self:hATRow(@uRow,@lID), nATRow ) ;
+	IF ( nATRow > 0 )
+		uCol := If( uCol == nil, uKey, uCol ) ;
+		lID := If( lID == nil, .F. , lID ) ;
+		nAT				:= aScan( Self:aTHashID[nATRow][4] , { |aID| Compare( uCol , aID[ IF( lID , 1 , 2 ) ] ) } )
+	EndIF
+RETURN( nAT )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDATCol(uRow,uCol,uKey,nATRow )
+RETURN( Self:hATCol( @uRow , @uCol , @uKey , @nATRow , .T.  ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hAdd(uCol,uKey,uValue )
+RETURN( Self:hAddEx( NIL , @uCol , @uKey , @uValue ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hAddEx(uRow,uCol,uKey,uValue )
+
+	Local aKeyCol
+
+	Local lSuccess	:= .F. 
+
+	Local nATRow
+	Local nATCol
+
+	uRow := If( uRow == nil, 1, uRow ) ;
+	nATRow			:= Self:hATRow( uRow )
+
+	IF ( nATRow == 0 )
+
+		nATRow											:= ++Self:nTHashSize
+		aAdd( Self:aTHashID , Array( 4 ) )
+
+		Self:aTHashID[nATRow][1]					:= nATRow
+		Self:aTHashID[nATRow][2]				:= uRow
+		Self:aTHashID[nATRow][3]			:= THash():New()
+		Self:aTHashID[nATRow][4]			:= Array(0)
+
+	EndIF
+
+	lSession				:= Self:aTHashID[nATRow][3]:AddNewSession( uRow )
+
+	IF ( lSession )
+
+		uCol := If( uCol == nil, uKey, uCol ) ;
+
+		nATCol				:= Self:hATCol( @uRow , @uCol , @uKey , @nATRow )
+		IF ( nATCol == 0 )
+			aAdd( Self:aTHashID[nATRow][4] , Array( 4 ) )
+			nATCol			:= Len( Self:aTHashID[nATRow][4] )
+			Self:aTHashID[nATRow][4][nATCol][4]	:= THash():New()
+		EndIF
+
+		Self:aTHashID[nATRow][4][nATCol][1]				:= nATCol
+		Self:aTHashID[nATRow][4][nATCol][2]			:= uCol
+		Self:aTHashID[nATRow][4][nATCol][3]		:= uRow
+		IF ( Self:aTHashID[nATRow][4][nATCol][4]:AddNewSession( uCol ) )
+			IF ( Self:aTHashID[nATRow][4][nATCol][4]:AddNewProperty( uCol , uKey , uValue ) )
+				aKeyCol						:= Array( 2 )
+				aKeyCol[ 1 	]	:= uCol
+				aKeyCol[ 2 ]	:= uKey
+				lSuccess					:= Self:aTHashID[nATRow][3]:AddNewProperty( uRow , aKeyCol , uKey )
+			EndIF
+		EndIF
+
+	EndIF
+
+RETURN( lSuccess )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hGetKey(uRow,uCol,uKey,lAtRow,lGetValue,lID )
+
+	Local nATRow
+	Local nATCol
+	Local uValue
+
+	lGetValue := If( lGetValue == nil, .F. , lGetValue ) ;
+	lAtRow := If( lAtRow == nil, !(uRow==NIL), lAtRow ) ;
+	lID := If( lID == nil, .F. , lID ) ;
+
+	IF ( lID )
+		nATRow					:= Self:hATRow( @uRow , @lID )
+		IF ( nATRow > 0 )
+			IF ( lAtRow )
+				uValue			:= Self:aTHashID[nATRow][2]
+			Else
+				nATCol			:= Self:hATCol( @uRow , @uCol , @uKey , @nATRow , @lID )
+				IF ( nATCol > 0 )
+					uValue		:= Self:aTHashID[nATRow][4][nATCol][2]
+				EndIF
+			EndIF
+		EndIF
+	ElseIF ( Self:hPos( @uRow , @uCol , @uKey , @nATRow , @lID ) > 0 )
+		IF ( lAtRow )
+			IF ( nATRow > 0 )
+				IF ( lGetValue )
+					uValue		:= Self:aTHashID[nATRow][3]:GetPropertyValue( uRow , uCol )
+				Else
+					uValue		:= Self:aTHashID[nATRow][3]:GetKeyProperty( uRow , uCol )
+				EndIF
+			EndIF
+		Else
+			nATCol				:= Self:hATCol( @uRow , @uCol , @uKey , @nATRow , @lID )
+			uKey := If( uKey == nil, uCol, uKey ) ;
+			IF ( nATCol > 0 )
+				IF ( lGetValue )
+					uValue		:= Self:aTHashID[nATRow][4][nATCol][4]:GetPropertyValue( uCol , uKey )
+				Else
+					uValue		:= Self:aTHashID[nATRow][4][nATCol][4]:GetKeyProperty( uCol , uKey )
+				EndIF
+			EndIF
+		EndIF
+	EndIF
+
+Return( uValue )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDGetKey(uRow,uCol,uKey,lAtRow,lGetValue,lID )
+Return( Self:hGetKey( @uRow , @uCol , @uKey , @lAtRow , @lGetValue , .T.  ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hGetValue(uRow,uCol,uKey,lAtRow,lID )
+Return( Self:hGetKey( @uRow , @uCol , @uKey , @lAtRow , .T.  , @lID ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDGetValue(uRow,uCol,uKey,lAtRow,lID )
+Return( Self:hGetValue( @uRow , @uCol , @uKey , @lAtRow , .T.  ) )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hHashIDObjCol(uRow,lID )
+
+	Local ahIdObjCol	:= {}
+
+	Local nATRow		:= Self:hATRow( @uRow , @lID )
+
+	IF ( nATRow > 0 )
+		ahIdObjCol		:= Self:aTHashID[nATRow][4]
+	EndIF
+
+Return( ahIdObjCol )
+
+
+
+
+
+
+
+
+Function ___THBHASH____hIDHashIDObjCol(uRow,lID )
+Return( Self:hHashIDObjCol( @uRow , .T.  ) )

@@ -1,0 +1,366 @@
+#LB7#Var X Inteiro, Y Inteiro, ColSapo(7) Inteiro, S String, StrAux String, Cont Inteiro
+Var Pedra(8) Inteiro, PedraSapo(8) Inteiro, SapoClicado Inteiro, P Inteiro, Instrucoes Inteiro
+
+'transforma resolução da janela em pixels
+X = 27 * TamLin
+Y = 79 * TamCol
+
+Janela Fundo = "Pantano.jpg", Resolucao = X, Y, Tamanho = 33,80
+Escreva "Jogo da Perereca", TituloJanela
+Icone "Perereca.ico"
+
+GifAnimado Sapo1, "SapoDir1.gif"; GifAnimado Sapo2, "SapoDir1.gif"; GifAnimado Sapo3, "SapoDir1.gif"
+GifAnimado Sapo4, "SapaEsq1.gif"; GifAnimado Sapo5, "SapaEsq1.gif"; GifAnimado Sapo6, "SapaEsq1.gif"
+GifAnimado SapoInseto, "SapoInseto.gif"
+GifAnimado SapoInseto.Linha = 405; GifAnimado SapoInseto.Coluna = 420                                          
+GifAnimado SapoInseto.Visivel = SIM
+GifAnimado SapoInseto.Loop = 1
+GifAnimado SapoInseto.Animar
+ 
+Som Sapos, "Sapos.wav"
+Som Sapos.Loop = SIM
+Som Sapos.Tocar
+Som Sapo, "Sapo.wav"
+Som Aplausos, "Aplausos.wav"
+
+Imagem Inst, "Instrucoes.gif"
+Imagem Inst.AjustaImagem
+Imagem Inst.Linha = 100; Imagem Inst.Coluna = 180
+
+Imagem Start, "Reiniciar.gif"
+Imagem Start.Visivel = NAO
+Imagem Start.AjustaImagem
+Imagem Start.Linha = 460; Imagem Start.Coluna = 5
+
+Imagem Parabens, "Parabens.gif"
+Imagem Parabens.Visivel = NAO
+Imagem Parabens.AjustaImagem
+Imagem Parabens.Linha = 100; Imagem Parabens.Coluna = 180
+
+IniciaSapos()
+
+Janela Fixa = SIM
+
+Cont = 0
+Enquanto 1 = 1
+  Enquanto S <> "CLIQUE"
+    S = Evento("GifAnimado")
+    Aguarde 20
+    Se StrAux <> "FIM"
+      StrAux = PedraSapo(1) & PedraSapo(2) & PedraSapo(3) & PedraSapo(4) & PedraSapo(5) & PedraSapo(6) 
+    FimSe  
+    Se StrAux = "567123"
+      Som Aplausos.Tocar
+      Imagem Parabens.Visivel = SIM
+      Straux = "FIM"
+    FimSe
+    Cont = Cont + 1 
+    Se Cont % 700 = 0
+      GifAnimado SapoInseto.Animar
+    FimSe    
+    Se Imagem(Start.MouseBotao) = 1
+      IniciaSapos()
+    FimSe
+  Repita
+  Se Instrucoes = 0
+    Imagem Inst.Visivel = NAO
+    Imagem Start.Visivel = SIM
+    Instrucoes = 1
+  FimSe  
+  S = ""
+  SapoClicado = IndiceRef + 1
+  Se IndiceRef < 6; Som Sapo.Tocar; FimSe
+  Se SapoClicado <= 3
+    Se PedraSapo(SapoClicado) < 7
+      P = PedraSapo(SapoClicado) + 1
+      Se Pedra(P) = 0 'testa primeira pedra à frente
+        Se SapoClicado = 1; PuloSapo1(); FimSe
+        Se SapoClicado = 2; PuloSapo2(); FimSe
+        Se SapoClicado = 3; PuloSapo3(); FimSe
+        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 1; 
+        Pedra(P) = 1; P--; Pedra(P) = 0
+      CasoContrario 
+        P++ 
+        Se Pedra(P) = 0 'testa segunda pedra à frente
+          Se SapoClicado = 1; SaltoSapo1(); FimSe
+          Se SapoClicado = 2; SaltoSapo2(); FimSe
+          Se SapoClicado = 3; SaltoSapo3(); FimSe
+          PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 2; 
+          Pedra(P) = 1; P -= 2; Pedra(P) = 0
+        FimSe
+      FimSe
+    FimSe
+  CasoContrario 'sapos de números > 3
+    Se PedraSapo(SapoClicado) > 1
+    P = PedraSapo(SapoClicado) - 1
+    Se Pedra(P) = 0
+      Se SapoClicado = 4; PuloSapo4(); FimSe
+      Se SapoClicado = 5; PuloSapo5(); FimSe
+      Se SapoClicado = 6; PuloSapo6(); FimSe
+      PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 1; 
+      Pedra(P) = 1; P++; Pedra(P) = 0
+    CasoContrario
+      P--
+      Se Pedra(P) = 0 
+        Se SapoClicado = 4; SaltoSapo4(); FimSe
+        Se SapoClicado = 5; SaltoSapo5(); FimSe
+        Se SapoClicado = 6; SaltoSapo6(); FimSe
+        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 2; 
+        Pedra(P) = 1; P = P + 2; Pedra(P) = 0
+      FimSe
+    FimSe
+    FimSe
+  FimSe
+Repita
+                            
+FimPrograma
+
+Sub IniciaSapos()
+  ColSapo(1) = 15; ColSapo(2) = 103; ColSapo(3) = 191
+  ColSapo(4) = 272; ColSapo(5) = 361; ColSapo(6) = 449
+
+  Pedra(1) = 1; Pedra(2) = 1; Pedra(3) = 1
+  Pedra(4) = 0; Pedra(5) = 1; Pedra(6) = 1; Pedra(7) = 1
+  
+  PedraSapo(1) = 1; PedraSapo(2) = 2; PedraSapo(3) = 3
+  PedraSapo(4) = 5; PedraSapo(5) = 6; PedraSapo(6) = 7
+
+  GifAnimado Sapo1.Imagem = "SapoDir1.gif"; GifAnimado Sapo2.Imagem = "SapoDir1.gif"; GifAnimado Sapo3.Imagem = "SapoDir1.gif"
+  GifAnimado Sapo4.Imagem = "SapaEsq1.gif"; GifAnimado Sapo5.Imagem = "SapaEsq1.gif"; GifAnimado Sapo6.Imagem = "SapaEsq1.gif"
+
+  GifAnimado Sapo1.Linha = 295; GifAnimado Sapo1.Coluna = ColSapo(1)
+  GifAnimado Sapo1.Visivel = SIM
+  GifAnimado Sapo2.Linha = 295; GifAnimado Sapo2.Coluna = ColSapo(2)
+  GifAnimado Sapo2.Visivel = SIM
+  GifAnimado Sapo3.Linha = 295; GifAnimado Sapo3.Coluna = ColSapo(3)
+  GifAnimado Sapo3.Visivel = SIM
+  GifAnimado Sapo4.Linha = 307; GifAnimado Sapo4.Coluna = ColSapo(4)
+  GifAnimado Sapo4.Visivel = SIM
+  GifAnimado Sapo5.Linha = 307; GifAnimado Sapo5.Coluna = ColSapo(5)
+  GifAnimado Sapo5.Visivel = SIM
+  GifAnimado Sapo6.Linha = 307; GifAnimado Sapo6.Coluna = ColSapo(6)
+  GifAnimado Sapo6.Visivel = SIM
+  
+  Imagem Parabens.Visivel = NAO
+  StrAux = ""
+FimSub
+
+Sub PuloSapo1()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo1.Imagem = "SapoDir1.gif"
+  GifAnimado Sapo1.Linha = 295
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo1.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo1.ProximoFrame
+  ColSapo(1) += 88
+  GifAnimado Sapo1.Coluna = ColSapo(1)
+FimSub
+                        
+Sub SaltoSapo1()
+  Var Cont Inteiro
+
+  GifAnimado Sapo1.Imagem = "SapoDir2.gif"
+  GifAnimado Sapo1.Linha = 251
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo1.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo1.ProximoFrame
+  ColSapo(1) += 180
+  GifAnimado Sapo1.Coluna = ColSapo(1)
+FimSub
+
+Sub PuloSapo2()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo2.Imagem = "SapoDir1.gif"
+  GifAnimado Sapo2.Linha = 295
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo2.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo2.ProximoFrame
+  ColSapo(2) += 88
+  GifAnimado Sapo2.Coluna = ColSapo(2)
+FimSub
+                        
+Sub SaltoSapo2()
+  Var Cont Inteiro
+
+  GifAnimado Sapo2.Imagem = "SapoDir2.gif"
+  GifAnimado Sapo2.Linha = 251
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo2.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo2.ProximoFrame
+  ColSapo(2) += 180
+  GifAnimado Sapo2.Coluna = ColSapo(2)
+FimSub
+
+Sub PuloSapo3()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo3.Imagem = "SapoDir1.gif"
+  GifAnimado Sapo3.Linha = 295
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo3.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo3.ProximoFrame
+  ColSapo(3) += 88
+  GifAnimado Sapo3.Coluna = ColSapo(3)
+FimSub
+                        
+Sub SaltoSapo3()
+  Var Cont Inteiro
+
+  GifAnimado Sapo3.Imagem = "SapoDir2.gif"
+  GifAnimado Sapo3.Linha = 251
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo3.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo3.ProximoFrame
+  ColSapo(3) += 180
+  GifAnimado Sapo3.Coluna = ColSapo(3)
+FimSub
+
+Sub PuloSapo4()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo4.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo4.Linha = 307
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo4.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo4.ProximoFrame
+  ColSapo(4) -= 88
+  GifAnimado Sapo4.Coluna = ColSapo(4)
+FimSub
+                        
+Sub SaltoSapo4()
+  Var Cont Inteiro
+
+  GifAnimado Sapo4.Imagem = "SapaEsq2.gif"
+  GifAnimado Sapo4.Linha = 247
+  ColSapo(4) = ColSapo(4) - 88
+  GifAnimado Sapo4.Coluna = ColSapo(4)
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo4.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo4.ProximoFrame
+
+  GifAnimado Sapo4.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo4.Linha = 307
+  ColSapo(4) -= 88
+  GifAnimado Sapo4.Coluna = ColSapo(4)
+FimSub
+
+Sub PuloSapo5()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo5.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo5.Linha = 307
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo5.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo5.ProximoFrame
+  ColSapo(5) -= 88
+  GifAnimado Sapo5.Coluna = ColSapo(5)
+FimSub
+                        
+Sub SaltoSapo5()
+  Var Cont Inteiro
+
+  GifAnimado Sapo5.Imagem = "SapaEsq2.gif"
+  GifAnimado Sapo5.Linha = 247
+  ColSapo(5) = ColSapo(5) - 88
+  GifAnimado Sapo5.Coluna = ColSapo(5)
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo5.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo5.ProximoFrame
+
+  GifAnimado Sapo5.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo5.Linha = 307
+  ColSapo(5) -= 88
+  GifAnimado Sapo5.Coluna = ColSapo(5)
+FimSub
+
+Sub PuloSapo6()
+  Var Cont Inteiro
+  
+  GifAnimado Sapo6.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo6.Linha = 307
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo6.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo6.ProximoFrame
+  ColSapo(6) -= 88
+  GifAnimado Sapo6.Coluna = ColSapo(6)
+FimSub
+                        
+Sub SaltoSapo6()
+  Var Cont Inteiro
+
+  GifAnimado Sapo6.Imagem = "SapaEsq2.gif"
+  GifAnimado Sapo6.Linha = 247
+  ColSapo(6) = ColSapo(6) - 88
+  GifAnimado Sapo6.Coluna = ColSapo(6)
+  
+  Cont = 0
+  Enquanto Cont < 5
+    GifAnimado Sapo6.ProximoFrame
+    Cont++
+    Aguarde 50    
+  Repita
+  GifAnimado Sapo6.ProximoFrame
+  
+  GifAnimado Sapo6.Imagem = "SapaEsq1.gif"
+  GifAnimado Sapo6.Linha = 307
+  ColSapo(6) -= 88
+  GifAnimado Sapo6.Coluna = ColSapo(6)
+FimSub
+                            #%

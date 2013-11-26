@@ -1,0 +1,12 @@
+#
+# $Id: hbmk.hbm 17099 2011-10-28 18:34:39Z vouchcac $
+#
+
+-w3
+-es2
+
+-L../xmlClass
+
+-lhbxlsxml
+
+

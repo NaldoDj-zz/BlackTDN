@@ -1,0 +1,58 @@
+Group fTClass
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project fTClass
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=4
+         File \svn\totvs-advpl-naldodj\u_Ft\u_fTfSample.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_Ft\u_ft.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_Ft\u_ftdb.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_Ft\u_fTfdbSample.prg
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\include\tryexception.ch
+             Type=T
+         End
+      End
+   End
+   Project tFIni
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\u_Ft\tfini\u_TSTTFINI.PRG
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_Ft\tfini\INIGetPValue.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\u_Ft\tfini\TFINI.PRG
+             Type=T
+         End
+      End
+   End
+   BatchBuild_Item0=fTClass · ndj_01
+End

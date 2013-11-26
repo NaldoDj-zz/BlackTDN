@@ -1,0 +1,16 @@
+*.upx
+*.bak
+*.bkp
+*.tmp
+*.temp
+*.log
+*.scc
+*.old
+*.err*
+*.ppx_*
+
+/lib/wce/mingwarm/.hbmk
+/lib/win/mingw/.hbmk
+/lib/win/mingw64/.hbmk
+/mk/tbigN_log
+/mk/*.ini

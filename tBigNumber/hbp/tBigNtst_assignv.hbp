@@ -1,0 +1,8 @@
+#/D__HB_Q_SQRT__
+#/D__ALT_D__
+#-b
+
+../source/tBigNtst.prg -w2 /DPTEX_ASSIGN_VAR
+../source/tBigNumber.prg -w3
+
+-o../exe/${hb_plat}/${hb_comp}/${hb_name}

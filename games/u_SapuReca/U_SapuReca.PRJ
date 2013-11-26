@@ -1,0 +1,120 @@
+Group U_SapuReca
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=4
+   Project SapuReca
+      FoldersCount=3
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\U_SapuReca.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\U_SapuReca10.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\U_SapuReca11.prg
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=0
+      End
+      Folder Images
+         VSSPath=Nova Pasta3
+         FilesCount=14
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\instrucoes.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\pantano.jpg
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\parabens.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\passaro_voando.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\perereca.ico
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\reca_1_frame_0000.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\reca_j1.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\reca_j2.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\reiniciar.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\sapo_dancando.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\sapoInseto.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\sapu_1_frame_0000.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\sapu_J1.gif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Images\sapu_J2.gif
+             Type=I
+         End
+      End
+   End
+   Project Resources
+      FoldersCount=1
+      Folder Songs
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Songs\aplausos.wav
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Songs\sapo.wav
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\games\u_SapuReca\resources\Songs\sapos.wav
+             Type=I
+         End
+      End
+   End
+   Project H_GIF89
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\harbour\samples\MiniGUI\H_GIF89\H_GIF89.prg
+             Type=T
+         End
+      End
+   End
+   Project NDJLib
+      FoldersCount=1
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P10\ndj_01\Projeto\NDJLib\NDJLIB025.prg
+             Type=T
+         End
+      End
+   End
+End

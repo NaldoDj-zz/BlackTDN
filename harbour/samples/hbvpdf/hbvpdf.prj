@@ -1,0 +1,64 @@
+Group hbvpdf
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project hbvpdf
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Fontes
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\hbvpdft.prg
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\hbvpdf.ch
+             Type=T
+         End
+      End
+      Folder Definições
+         VSSPath=Definições
+         FilesCount=0
+      End
+   End
+   Project hbvpdf_tests
+      FoldersCount=2
+      Folder Fontes
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\u_hbvpdf_tstpdf.prg
+             Type=T
+         End
+      End
+      Folder Resources
+         VSSPath=Nova Pasta2
+         FilesCount=6
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\bannerBlackTDN_160_64.JPG
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\BlackTDN_250x250.JPG
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\BlackTDNBlog_1246_212_r1.JPG
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\hbvpdf_color.jpg
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\hbvpdf_color.tif
+             Type=I
+         End
+         File \svn\totvs-advpl-naldodj\harbour\samples\hbvpdf\tests\hbvpdf_files\resources\pdf_logo.jpg
+             Type=I
+         End
+      End
+   End
+End

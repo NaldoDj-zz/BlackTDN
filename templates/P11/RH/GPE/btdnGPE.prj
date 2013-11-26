@@ -1,0 +1,110 @@
+Group btdnGPE
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=2
+   Project GPE
+      FoldersCount=4
+      Folder Custom
+         VSSPath=Nova Pasta2
+         FilesCount=2
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\custom\U_GPEWORDX.CH
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\custom\U_GPEWORDX.PRW
+             Type=T
+         End
+      End
+      Folder Miscelanea
+         VSSPath=Nova Pasta3
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Miscelanea\u_btdnGM01.prw
+             Type=T
+         End
+      End
+      Folder PE
+         VSSPath=Nova Pasta4
+         FilesCount=3
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\PE\U_GP040DET.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\PE\U_GPCHKPER.PRW
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\PE\U_GPROXIMO.PRW
+             Type=T
+         End
+      End
+      Folder Relatorios
+         VSSPath=Nova Pasta4
+         FilesCount=16
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR01.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR02.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR03.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR04.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR05.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR06.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR07.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR08.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR09.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR10.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR11.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR12.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR13.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR14.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR15.prw
+             Type=T
+         End
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\Relatorios\u_btdnGR16.prw
+             Type=T
+         End
+      End
+   End
+   Project Resouces
+      FoldersCount=1
+      Folder exe
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \svn\totvs-advpl-naldodj\templates\P11\RH\GPE\bin\pdf\ps\BTDNdoc2pdf.exe
+             Type=I
+         End
+      End
+   End
+End
