@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	   = "http://187.33.82.250:8088/ws02/UBTDNTVIEW.apw?WSDL";
+			$wsdl	   = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client    = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias     = "SRA";
 			$param     = array("ALIAS"=>$alias);
@@ -15,6 +15,7 @@
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
 			$deleted   = false;
+			$recno	   = false;
 			$param     = array("ALIAS"=>$alias,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted);
 			$tStruct = $client->GETTSTRUCTBYFIELDSNAME($param);
       		echo "<table>";
@@ -81,7 +82,7 @@
 			if ($tRMax>0){
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e		 = min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
 					$result  = $client->GETTDATABYFIELDSNAME($param);
 					if (is_array($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW)){
 						foreach ($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW as $itens) {

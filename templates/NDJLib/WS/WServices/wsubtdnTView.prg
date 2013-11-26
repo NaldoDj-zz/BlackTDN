@@ -7,7 +7,8 @@
 #include "tryexception.ch"
 
 Static __lAS400		:= ( TCSrvType() == "AS/400" )
-Static __cTCGetDB	:= Upper(AllTrim(TCGetDB())
+Static __cTCGetDB	:= Upper(AllTrim(TCGetDB()))
+
 
 /*
 	Progama:	wsubtdnTView.prg
@@ -1703,6 +1704,7 @@ Static Function __TAcento( cStrAnsi )	//Devera estar no Padrao ANSI utilizar a f
 			Break
 		EndIF
 	
+		//aqui... carregar a partir da funcao ASC
 		cAcentos		:= "ÃÄÅÀàåáäâã¦âËÈÉêéèëèÏÍÌíìïîÒÓÖÕõôöòóÜúüùûÑñÇç"
 		cNoAcentos		:= "AAAAaaaaaaaaEEEeeeeeIIIiiiiOOOOoooooUuuuuNnCc"
 	

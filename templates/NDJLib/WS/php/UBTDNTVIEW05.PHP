@@ -4,10 +4,11 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	   = "http://187.33.82.250:8088/ws02/UBTDNTVIEW.apw?WSDL";
+			$wsdl	   = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client    = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias     = "SA1";
 			$deleted   = false;
+			$recno     = false;
 			$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result    = $client->GETTRMAX($param);
 			$tRMax     = $result->GETTRMAXRESULT;
@@ -18,7 +19,7 @@
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
 			$where     = "A1_COD BETWEEN '000001' AND '001000' ORDER BY A1_FILIAL,A1_COD,A1_LOJA";
-			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted);
+			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
 			$result    = $client->GETTBYWHEREANDFIELDSNAME($param);
 			echo "<table>";
 			echo "<table border='1' align='left'>";

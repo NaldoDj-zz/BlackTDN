@@ -3,13 +3,13 @@
 
 /* ===============================================================================
 WSDL Location    http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL
-Gerado em        11/24/13 00:59:49
+Gerado em        11/26/13 09:35:09
 Observações      Código-Fonte gerado por ADVPL WSDL Client 1.120703
                  Alterações neste arquivo podem causar funcionamento incorreto
                  e serão perdidas caso o código-fonte seja gerado novamente.
 =============================================================================== */
 
-User Function _VQSJKII ; Return  // "dummy" function - Internal Use 
+User Function _WFOSFPC ; Return  // "dummy" function - Internal Use 
 
 /* -------------------------------------------------------------------------------
 WSDL Service WSUBTDNTVIEW
@@ -40,6 +40,7 @@ WSCLIENT WSUBTDNTVIEW
 	WSDATA   nRINIT                    AS integer
 	WSDATA   nREND                     AS integer
 	WSDATA   lRDELETED                 AS boolean
+	WSDATA   lRRECNO                   AS boolean
 	WSDATA   oWSGETTABLERESULT         AS UBTDNTVIEW_UTABLEVIEW
 	WSDATA   oWSFIELDSNAME             AS UBTDNTVIEW_UFIELDSNAME
 	WSDATA   oWSGETTABLEBYFIELDSNAMERESULT AS UBTDNTVIEW_UTABLEVIEW
@@ -88,6 +89,7 @@ WSMETHOD RESET WSCLIENT WSUBTDNTVIEW
 	::nRINIT             := NIL 
 	::nREND              := NIL 
 	::lRDELETED          := NIL 
+	::lRRECNO            := NIL 
 	::oWSGETTABLERESULT  := NIL 
 	::oWSFIELDSNAME      := NIL 
 	::oWSGETTABLEBYFIELDSNAMERESULT := NIL 
@@ -114,6 +116,7 @@ Local oClone := WSUBTDNTVIEW():New()
 	oClone:nRINIT        := ::nRINIT
 	oClone:nREND         := ::nREND
 	oClone:lRDELETED     := ::lRDELETED
+	oClone:lRRECNO       := ::lRRECNO
 	oClone:oWSGETTABLERESULT :=  IIF(::oWSGETTABLERESULT = NIL , NIL ,::oWSGETTABLERESULT:Clone() )
 	oClone:oWSFIELDSNAME :=  IIF(::oWSFIELDSNAME = NIL , NIL ,::oWSFIELDSNAME:Clone() )
 	oClone:oWSGETTABLEBYFIELDSNAMERESULT :=  IIF(::oWSGETTABLEBYFIELDSNAMERESULT = NIL , NIL ,::oWSGETTABLEBYFIELDSNAMERESULT:Clone() )
@@ -134,7 +137,7 @@ Return oClone
 
 // WSDL Method GETTABLE of Service WSUBTDNTVIEW
 
-WSMETHOD GETTABLE WSSEND cALIAS,nRINIT,nREND,lRDELETED WSRECEIVE oWSGETTABLERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTABLE WSSEND cALIAS,nRINIT,nREND,lRDELETED,lRRECNO WSRECEIVE oWSGETTABLERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -144,12 +147,13 @@ cSoap += WSSoapValue("ALIAS", ::cALIAS, cALIAS , "string", .T. , .F., 0 , NIL, .
 cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTABLE>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTABLE",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTABLERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTABLERESPONSE:_GETTABLERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -161,7 +165,7 @@ Return .T.
 
 // WSDL Method GETTABLEBYFIELDSNAME of Service WSUBTDNTVIEW
 
-WSMETHOD GETTABLEBYFIELDSNAME WSSEND cALIAS,nRINIT,nREND,oWSFIELDSNAME,lRDELETED WSRECEIVE oWSGETTABLEBYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTABLEBYFIELDSNAME WSSEND cALIAS,nRINIT,nREND,oWSFIELDSNAME,lRDELETED,lRRECNO WSRECEIVE oWSGETTABLEBYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -172,12 +176,13 @@ cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("FIELDSNAME", ::oWSFIELDSNAME, oWSFIELDSNAME , "UFIELDSNAME", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTABLEBYFIELDSNAME>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTABLEBYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTABLEBYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTABLEBYFIELDSNAMERESPONSE:_GETTABLEBYFIELDSNAMERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -202,7 +207,7 @@ cSoap += "</GETTALIAS>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTALIAS",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTALIASRESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTALIASRESPONSE:_GETTALIASRESULT","UTALIASES",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -214,7 +219,7 @@ Return .T.
 
 // WSDL Method GETTBYWHERE of Service WSUBTDNTVIEW
 
-WSMETHOD GETTBYWHERE WSSEND cALIAS,cWHERE,nRINIT,nREND,lRDELETED WSRECEIVE oWSGETTBYWHERERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTBYWHERE WSSEND cALIAS,cWHERE,nRINIT,nREND,lRDELETED,lRRECNO WSRECEIVE oWSGETTBYWHERERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -225,12 +230,13 @@ cSoap += WSSoapValue("WHERE", ::cWHERE, cWHERE , "string", .T. , .F., 0 , NIL, .
 cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTBYWHERE>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTBYWHERE",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTBYWHERERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTBYWHERERESPONSE:_GETTBYWHERERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -242,7 +248,7 @@ Return .T.
 
 // WSDL Method GETTBYWHEREANDFIELDSNAME of Service WSUBTDNTVIEW
 
-WSMETHOD GETTBYWHEREANDFIELDSNAME WSSEND cALIAS,cWHERE,nRINIT,nREND,oWSFIELDSNAME,lRDELETED WSRECEIVE oWSGETTBYWHEREANDFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTBYWHEREANDFIELDSNAME WSSEND cALIAS,cWHERE,nRINIT,nREND,oWSFIELDSNAME,lRDELETED,lRRECNO WSRECEIVE oWSGETTBYWHEREANDFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -254,12 +260,13 @@ cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("FIELDSNAME", ::oWSFIELDSNAME, oWSFIELDSNAME , "UFIELDSNAME", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTBYWHEREANDFIELDSNAME>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTBYWHEREANDFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTBYWHEREANDFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTBYWHEREANDFIELDSNAMERESPONSE:_GETTBYWHEREANDFIELDSNAMERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -271,7 +278,7 @@ Return .T.
 
 // WSDL Method GETTDATA of Service WSUBTDNTVIEW
 
-WSMETHOD GETTDATA WSSEND cALIAS,nRINIT,nREND,lRDELETED WSRECEIVE oWSGETTDATARESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTDATA WSSEND cALIAS,nRINIT,nREND,lRDELETED,lRRECNO WSRECEIVE oWSGETTDATARESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -281,12 +288,13 @@ cSoap += WSSoapValue("ALIAS", ::cALIAS, cALIAS , "string", .T. , .F., 0 , NIL, .
 cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTDATA>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTDATA",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTDATARESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTDATARESPONSE:_GETTDATARESULT","ARRAYOFFIELDVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -298,7 +306,7 @@ Return .T.
 
 // WSDL Method GETTDATABYFIELDSNAME of Service WSUBTDNTVIEW
 
-WSMETHOD GETTDATABYFIELDSNAME WSSEND cALIAS,nRINIT,nREND,oWSFIELDSNAME,lRDELETED WSRECEIVE oWSGETTDATABYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTDATABYFIELDSNAME WSSEND cALIAS,nRINIT,nREND,oWSFIELDSNAME,lRDELETED,lRRECNO WSRECEIVE oWSGETTDATABYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -309,12 +317,13 @@ cSoap += WSSoapValue("RINIT", ::nRINIT, nRINIT , "integer", .T. , .F., 0 , NIL, 
 cSoap += WSSoapValue("REND", ::nREND, nREND , "integer", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("FIELDSNAME", ::oWSFIELDSNAME, oWSFIELDSNAME , "UFIELDSNAME", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTDATABYFIELDSNAME>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTDATABYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTDATABYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTDATABYFIELDSNAMERESPONSE:_GETTDATABYFIELDSNAMERESULT","ARRAYOFFIELDVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -338,7 +347,7 @@ cSoap += "</GETTFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTFIELDSNAMERESPONSE:_GETTFIELDSNAMERESULT","UFIELDSNAME",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -363,7 +372,7 @@ cSoap += "</GETTRMAX>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTRMAX",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::nGETTRMAXRESULT    :=  WSAdvValue( oXmlRet,"_GETTRMAXRESPONSE:_GETTRMAXRESULT:TEXT","integer",NIL,NIL,NIL,NIL,NIL,NIL) 
@@ -375,7 +384,7 @@ Return .T.
 
 // WSDL Method GETTSTRUCT of Service WSUBTDNTVIEW
 
-WSMETHOD GETTSTRUCT WSSEND cALIAS,lRDELETED WSRECEIVE oWSGETTSTRUCTRESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTSTRUCT WSSEND cALIAS,lRDELETED,lRRECNO WSRECEIVE oWSGETTSTRUCTRESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -383,12 +392,13 @@ BEGIN WSMETHOD
 cSoap += '<GETTSTRUCT xmlns="http://www.blacktdn.com.br">'
 cSoap += WSSoapValue("ALIAS", ::cALIAS, cALIAS , "string", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTSTRUCT>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTSTRUCT",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTSTRUCTRESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTSTRUCTRESPONSE:_GETTSTRUCTRESULT","ARRAYOFUFIELDSTRUCT",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -400,7 +410,7 @@ Return .T.
 
 // WSDL Method GETTSTRUCTBYFIELDSNAME of Service WSUBTDNTVIEW
 
-WSMETHOD GETTSTRUCTBYFIELDSNAME WSSEND cALIAS,oWSFIELDSNAME,lRDELETED WSRECEIVE oWSGETTSTRUCTBYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
+WSMETHOD GETTSTRUCTBYFIELDSNAME WSSEND cALIAS,oWSFIELDSNAME,lRDELETED,lRRECNO WSRECEIVE oWSGETTSTRUCTBYFIELDSNAMERESULT WSCLIENT WSUBTDNTVIEW
 Local cSoap := "" , oXmlRet
 
 BEGIN WSMETHOD
@@ -409,12 +419,13 @@ cSoap += '<GETTSTRUCTBYFIELDSNAME xmlns="http://www.blacktdn.com.br">'
 cSoap += WSSoapValue("ALIAS", ::cALIAS, cALIAS , "string", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("FIELDSNAME", ::oWSFIELDSNAME, oWSFIELDSNAME , "UFIELDSNAME", .T. , .F., 0 , NIL, .F.) 
 cSoap += WSSoapValue("RDELETED", ::lRDELETED, lRDELETED , "boolean", .T. , .F., 0 , NIL, .F.) 
+cSoap += WSSoapValue("RRECNO", ::lRRECNO, lRRECNO , "boolean", .T. , .F., 0 , NIL, .F.) 
 cSoap += "</GETTSTRUCTBYFIELDSNAME>"
 
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTSTRUCTBYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
+	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTSTRUCTBYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTSTRUCTBYFIELDSNAMERESPONSE:_GETTSTRUCTBYFIELDSNAMERESULT","ARRAYOFUFIELDSTRUCT",NIL,NIL,NIL,NIL,NIL,NIL) )

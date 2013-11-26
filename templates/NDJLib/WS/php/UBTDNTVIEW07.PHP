@@ -4,10 +4,11 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	 = "http://187.33.82.250:8088/ws02/UBTDNTVIEW.apw?WSDL";	
+			$wsdl	 = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";	
 			$client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias   = "SX2";
 			$deleted = false;
+			$recno	 = false;
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result  = $client->GETTRMAX($param);
 			$tRMax   = $result->GETTRMAXRESULT;

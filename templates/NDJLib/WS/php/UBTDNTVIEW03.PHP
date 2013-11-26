@@ -4,10 +4,11 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	   = "http://187.33.82.250:8088/ws02/UBTDNTVIEW.apw?WSDL";	
+			$wsdl	   = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";	
 			$client    = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias     = "SRA";
 			$deleted   = false;
+			$recno     = false;
 			$param     = array("ALIAS"=>$alias);
 			$fields    = $client->getTFieldsName($param);
 			$array     = $fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING;
@@ -23,7 +24,7 @@
 			    $results   = array();			
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e	= min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
 					$result  = $client->GETTABLEBYFIELDSNAME($param);
 					array_push ($results,$result);
 				}

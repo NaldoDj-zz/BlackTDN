@@ -4,11 +4,12 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	 = "http://187.33.82.250:8088/ws02/UBTDNTVIEW.apw?WSDL";
+			$wsdl	 = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias   = "SRA";
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>false);
 			$deleted = false;
+			$recno   = false;
 			$tStruct = $client->GETTSTRUCT($param);
       		echo "<table>";
 			echo "<table border='1' align='left'>";
@@ -54,7 +55,7 @@
 				$step    = $tRMax%10;
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e		 = min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted,"RRECNO"->$recno);
 					$result  = $client->GETTDATA($param);
 					if (is_array($result->GETTDATARESULT->FIELDVIEW)){
 						foreach ($result->GETTDATARESULT->FIELDVIEW as $itens) {
