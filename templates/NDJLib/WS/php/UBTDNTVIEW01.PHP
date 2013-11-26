@@ -7,9 +7,9 @@
 			$wsdl	 = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias   = "SRA";
-			$param   = array("ALIAS"=>$alias,"RDELETED"=>false);
 			$deleted = false;
 			$recno   = false;
+			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$tStruct = $client->GETTSTRUCT($param);
       		echo "<table>";
 			echo "<table border='1' align='left'>";
@@ -50,7 +50,7 @@
 			echo "<tbody>";
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result  = $client->GETTRMAX($param);
-			$tRMax   = $result->GETTRMAXRESULT;
+			$tRMax   = $result->GETTRMAXRESULT/10;
  			if ($tRMax>0){
 				$step    = $tRMax%10;
 				for ($i = 1; $i <= $tRMax; $i+=$step) {

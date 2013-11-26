@@ -9,7 +9,6 @@
 Static __lAS400		:= ( TCSrvType() == "AS/400" )
 Static __cTCGetDB	:= Upper(AllTrim(TCGetDB()))
 
-
 /*
 	Progama:	wsubtdnTView.prg
 	WebStruct:	uFieldStruct
@@ -145,7 +144,7 @@ ENDWSSERVICE
 	Descricao:	Obtem o maior registro em uma tabela
 	Uso: 		WebServices
 */
-WSMETHOD getTRMax WSRECEIVE Alias , rDeleted , rRecno WSSEND rMax WSSERVICE ubtdnTView
+WSMETHOD getTRMax WSRECEIVE Alias , rDeleted WSSEND rMax WSSERVICE ubtdnTView
 
 	Local adbQuery		:= Array(0)
 	
@@ -179,12 +178,6 @@ WSMETHOD getTRMax WSRECEIVE Alias , rDeleted , rRecno WSSEND rMax WSSERVICE ubtd
 		IF .NOT.( rDeleted == self:rDeleted )
 			self:rDeleted := rDeleted
 		EndIF
-    
-		DEFAULT self:rRecno	:= .T.
-		DEFAULT rRecno		:= self:rRecno
-		IF .NOT.( rRecno == self:rRecno )
-			self:rRecno := rRecno
-		EndIF
 
 		Set(_SET_DELETED,IF(self:rDeleted,"OFF","ON"))
 		
@@ -214,9 +207,9 @@ WSMETHOD getTRMax WSRECEIVE Alias , rDeleted , rRecno WSSEND rMax WSSERVICE ubtd
 			EndIF	
 					
 			IF ( __lAS400 )
-				cQuery := "SELECT MAX("+self:Alias+".R_E_C_N_O_) MAXRECNO "
-			Else
 				cQuery := "SELECT MAX(RRN("+cSQLName+")) MAXRECNO "	
+			Else
+				cQuery := "SELECT MAX("+self:Alias+".R_E_C_N_O_) MAXRECNO "
 			EndIF			
 			cQuery += "  FROM "+cSQLName+" "+self:Alias
 			IF .NOT.(self:rDeleted)
@@ -531,9 +524,9 @@ WSMETHOD getTbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno W
 
 		IF ( lQuery )
 			IF ( __lAS400 )
-				cQuery	:= "SELECT "+self:Alias+".R_E_C_N_O_ NRECNO"
-			Else
 				cQuery := "SELECT RRN("+cSQLName+") NRECNO "
+			Else
+				cQuery	:= "SELECT "+self:Alias+".R_E_C_N_O_ NRECNO"
 			EndIF			
 			cQuery	+= "  FROM "+cSQLName+" "+self:Alias
 			IF ( __lAS400 )
@@ -742,7 +735,10 @@ WSMETHOD getTStruct WSRECEIVE Alias , rDeleted , rRecno WSSEND TableStruct WSSER
 			EndIF
 		Next nField
 		
+		nField	:= Len(self:TableStruct)
+		
 		IF ( self:rDeleted )
+			++nField
 			aAdd( self:TableStruct , WsClassNew("uFieldStruct") )
 			self:TableStruct[nField]:FldName 		:= "DELETED"
 			self:TableStruct[nField]:FldType 		:= "C"
@@ -754,10 +750,11 @@ WSMETHOD getTStruct WSRECEIVE Alias , rDeleted , rRecno WSSEND TableStruct WSSER
 		EndIF
 
 		IF ( self:rRecno )
+			++nField
 			aAdd( self:TableStruct , WsClassNew("uFieldStruct") )
 			self:TableStruct[nField]:FldName 		:= "RECNO"
 			self:TableStruct[nField]:FldType 		:= "N"
-			self:TableStruct[nField]:FldSize 		:= 16
+			self:TableStruct[nField]:FldSize 		:= 18
 			self:TableStruct[nField]:FldDec  		:= 0
 			self:TableStruct[nField]:FldTitle	 	:= "RECNO"
 			self:TableStruct[nField]:FldMandatory	:= .F.
@@ -1026,7 +1023,8 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 		nFields		:= Len(aFields)
 		
 		IF ( self:rDeleted )
-			++nFields
+			nAT := ++nFields
+			aAdd(aFieldsAT,nAT)
 			aAdd(aFields,Array(DBS_ALEN))
 			aFields[nFields][DBS_NAME] := "DELETED"
 			aFields[nFields][DBS_TYPE] := "C"
@@ -1035,11 +1033,12 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 		EndIF
 
 		IF ( self:rRecno )
-			++nFields
+			nAT := ++nFields
+			aAdd(aFieldsAT,nAT)
 			aAdd(aFields,Array(DBS_ALEN))
 			aFields[nFields][DBS_NAME] := "RECNO"
 			aFields[nFields][DBS_TYPE] := "N"
-			aFields[nFields][DBS_LEN ] := 16
+			aFields[nFields][DBS_LEN ] := 18
 			aFields[nFields][DBS_DEC ] := 0
 		EndIF
 
@@ -1076,13 +1075,13 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 			aAdd( self:TableData , WsClassNew(/*u*/"FieldView") )
 			self:TableData[nItens]:FldTag	:= Array( nFields )
 			For nField := 1 To nFields
-				cField		:= aFields[nField][DBS_NAME]
+				cField	:= aFields[nField][DBS_NAME]
+				nAT		:= aFieldsAT[nField]
 				IF ( cField == "DELETED" )
 					uValue	:= (self:Alias)->(IF(Deleted(),"*",""))
 				ElseIF ( cField == "RECNO" )
 					uValue	:= nRecno
 				Else
-					nAT		:= aFieldsAT[nField]
 					uValue 	:= (self:Alias)->(FieldGet(nAT))
 					IF ( ( "_USERLG" $ cField ) .or. ( "_USERG" $ cField ) )
 						IF .NOT.( Empty(uValue) )
@@ -1619,7 +1618,7 @@ Static Function __UTF8(s)
 	Local cAsc157 	:= Chr(157)
 	s := OemToAnsi(s)
 	s := fTAcento(s)
-	s := ClearChar(s)
+	s := __TAcento(s)
 	s := NoAcento(s)
 	While ( "<" $ s )
 		s := StrTran(s,"<","(")
@@ -1647,39 +1646,6 @@ Return(s)
 
 /*
 	Progama:	wsubtdnTView.prg
-	Funcao:		ClearChar
-	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data:		06/11/2013
-	Descricao:	Retira acentuacao e CRLF
-    Sintaxe:    ClearChar( cString )
-*/
-Static Function ClearChar( cString )
-
-	Local cNewString
-	
-	Begin Sequence
-	
-		IF Empty( @cString )
-			cNewString := cString 
-			Break
-		EndIF
-	
-		cNewString	:=__TAcento( cString )
-	
-		IF ( Chr( 13 ) $ cNewString )
-			cNewString	:= StrTran( cNewString , Chr( 13 ) , "" )
-		EndIF
-	
-		IF ( Chr( 10 ) $ cNewString )
-			cNewString	:= StrTran( cNewString , Chr( 10 ) , "" )
-		EndIF	
-	
-	End Sequence
-
-Return( cNewString )
-
-/*
-	Progama:	wsubtdnTView.prg
 	Funcao:		__TAcento
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		06/11/2013
@@ -1689,36 +1655,78 @@ Return( cNewString )
 Static Function __TAcento( cStrAnsi )	//Devera estar no Padrao ANSI utilizar a funcao OemToAnsi() para a conversao
 
 	Local cAcento
-	Local cAcentos
 	Local cNoAcento
-	Local cNoAcentos
 	Local cStrAnsiNoAc
 	
 	Local nAcento
-	Local nAcentos
+
+	Static __aAcentos := {;
+							{Chr(195),"A"},;
+							{Chr(196),"A"},;
+							{Chr(197),"A"},;
+							{Chr(192),"A"},;
+							{Chr(224),"a"},;
+							{Chr(229),"a"},;
+							{Chr(225),"a"},;
+							{Chr(228),"a"},;
+							{Chr(226),"a"},;
+							{Chr(227),"a"},;
+							{Chr(166),"a"},;
+							{Chr(226),"a"},;
+							{Chr(203),"E"},;
+							{Chr(200),"E"},;
+							{Chr(201),"E"},;
+							{Chr(234),"e"},;
+							{Chr(233),"e"},;
+							{Chr(232),"e"},;
+							{Chr(235),"e"},;
+							{Chr(232),"e"},;
+							{Chr(207),"I"},;
+							{Chr(205),"I"},;
+							{Chr(204),"I"},;
+							{Chr(237),"i"},;
+							{Chr(236),"i"},;
+							{Chr(239),"i"},;
+							{Chr(238),"i"},;
+							{Chr(210),"O"},;
+							{Chr(211),"O"},;
+							{Chr(214),"O"},;
+							{Chr(213),"O"},;
+							{Chr(245),"o"},;
+							{Chr(244),"o"},;
+							{Chr(246),"o"},;
+							{Chr(242),"o"},;
+							{Chr(243),"o"},;
+							{Chr(220),"U"},;
+							{Chr(250),"u"},;
+							{Chr(252),"u"},;
+							{Chr(249),"u"},;
+							{Chr(251),"u"},;
+							{Chr(209),"N"},;
+							{Chr(241),"n"},;
+							{Chr(199),"C"},;
+							{Chr(231),"c"};
+						}
 	
-	Begin Sequence
+	Static __nAcentos := Len(__aAcentos)
+								
+	BEGIN SEQUENCE
 	
 		IF Empty( cStrAnsi )
 			cStrAnsiNoAc := cStrAnsi
-			Break
+			BREAK
 		EndIF
-	
-		//aqui... carregar a partir da funcao ASC
-		cAcentos		:= "ÃÄÅÀàåáäâã¦âËÈÉêéèëèÏÍÌíìïîÒÓÖÕõôöòóÜúüùûÑñÇç"
-		cNoAcentos		:= "AAAAaaaaaaaaEEEeeeeeIIIiiiiOOOOoooooUuuuuNnCc"
-	
+
 		cStrAnsiNoAc	:= cStrAnsi	
 	
-		nAcentos := Len( cAcentos )
-		For nAcento := 1 To nAcentos 
-			cAcento := SubStr( cAcentos , nAcento , 1 )
-			IF ( cAcento $ cStrAnsiNoAc )
-				cNoAcento		:= SubStr( cNoAcentos , nAcento , 1 )
-				cStrAnsiNoAc	:= StrTran( cStrAnsiNoAc , cAcento , cNoAcento )
-			EndIF
+		For nAcento := 1 To __nAcentos
+			cAcento := __aAcentos[nAcento][1]
+			While ( cAcento $ cStrAnsiNoAc )
+				cNoAcento		:= __aAcentos[nAcento][2]
+				cStrAnsiNoAc	:= StrTran(cStrAnsiNoAc,cAcento,cNoAcento)
+			End While
 		Next nAcento
 	
-	End Sequence
+	END SEQUENCE
 
 Return( cStrAnsiNoAc )
