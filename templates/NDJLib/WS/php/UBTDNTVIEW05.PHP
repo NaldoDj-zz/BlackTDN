@@ -19,7 +19,7 @@
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
 			$where     = "A1_COD BETWEEN '000001' AND '001000' ORDER BY A1_FILIAL,A1_COD,A1_LOJA";
-			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
+			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$result    = $client->GETTBYWHEREANDFIELDSNAME($param);
 			echo "<table>";
 			echo "<table border='1' align='left'>";

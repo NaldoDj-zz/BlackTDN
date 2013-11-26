@@ -82,7 +82,7 @@
 			if ($tRMax>0){
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e		 = min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 					$result  = $client->GETTDATABYFIELDSNAME($param);
 					if (is_array($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW)){
 						foreach ($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW as $itens) {

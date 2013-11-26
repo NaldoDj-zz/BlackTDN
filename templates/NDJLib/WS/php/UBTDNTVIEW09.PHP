@@ -19,7 +19,7 @@
 				$fldName = array("UFLDNAME"=>$fNames);
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e	= min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fldName,"RDELETED"=>$deleted,"RRECNO"->$recno);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"FIELDSNAME"=>$fldName,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 					$result  = $client->GETTABLEBYFIELDSNAME($param);
 					array_push ($results,$result);
 				}

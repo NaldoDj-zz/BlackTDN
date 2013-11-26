@@ -13,7 +13,7 @@
 			$result  = $client->GETTRMAX($param);
 			$tRMax   = $result->GETTRMAXRESULT;
 			$where   = "A1_COD BETWEEN '000001' AND '000100' ORDER BY A1_FILIAL,A1_COD,A1_LOJA";
-			$param   = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"RDELETED"=>$deleted,"RRECNO"->$recno);
+			$param   = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$result  = $client->GETTBYWHERE($param);
 			echo "<table>";
 			echo "<table border='1' align='left'>";

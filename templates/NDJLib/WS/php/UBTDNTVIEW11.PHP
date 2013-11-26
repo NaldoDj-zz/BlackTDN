@@ -19,7 +19,7 @@
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
 			$where     = "SubStr(X2_CHAVE,1,2)$'SR/SP'";
-			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"->$recno);
+			$param     = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$result    = $client->GETTBYWHEREANDFIELDSNAME($param);
 			echo "<table>";
 			echo "<table border='1' align='left'>";

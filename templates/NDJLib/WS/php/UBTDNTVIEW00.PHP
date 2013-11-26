@@ -18,7 +18,7 @@
 				$results = array();
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e	= min($i+$step,$tRMax);
-					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted,"RRECNO"->$recno);
+					$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 					$result  = $client->GETTABLE($param);
 					array_push ($results,$result);
 				}
