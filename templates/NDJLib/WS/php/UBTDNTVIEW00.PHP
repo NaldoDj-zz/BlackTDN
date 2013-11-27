@@ -4,7 +4,7 @@
     </head>
     <body>
         <?php
-            $wsdl     = "http://naldo-pc:8088/ws02/UBTDNTVIEW.apw?WSDL";    
+            $wsdl     = "http://BlackTDN:8088/ws02/UBTDNTVIEW.apw?WSDL";    
             $client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
             $alias   = "SRA";
             $deleted = false;
@@ -109,8 +109,6 @@
                 }    
                 echo "</tbody>";            
                 echo "</table>";
-                echo "</table>";
-                echo "<br/>";
             }    
             die();
         ?>
