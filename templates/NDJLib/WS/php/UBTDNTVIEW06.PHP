@@ -24,7 +24,6 @@
 					array_push ($results,$result);
 				}
 				$result = $results[0];
-				echo "<table>";
 				echo "<table border='1' align='left'>";
 				echo 	"<thead>";
 				echo 		"<tr align='left'>";

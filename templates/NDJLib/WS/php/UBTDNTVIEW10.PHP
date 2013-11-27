@@ -15,7 +15,6 @@
 			$where   = "SUBSTR(X2_CHAVE,1,2)$'SR/SP'";
 			$param   = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"WHERE"=>$where,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$result  = $client->GETTBYWHERE($param);
-			echo "<table>";
 			echo "<table border='1' align='left'>";
 			echo 	"<thead>";
 			echo 		"<tr align='left'>";

@@ -11,7 +11,6 @@
 			$recno   = false;
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$tStruct = $client->GETTSTRUCT($param);
-      		echo "<table>";
 			echo "<table border='1' align='left'>";
 			echo 	"<thead>";
 			echo 		"<tr align='left'>";
@@ -74,7 +73,7 @@
 	
 					}
 				}	
-				echo "</tbody>";			
+				echo 	"</tbody>";			
 				echo "</table>";
 			}	
 			die();

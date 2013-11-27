@@ -18,7 +18,6 @@
 			$recno	   = false;
 			$param     = array("ALIAS"=>$alias,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted);
 			$tStruct = $client->GETTSTRUCTBYFIELDSNAME($param);
-      		echo "<table>";
 			echo "<table border='1' align='left'>";
 			echo 	"<thead>";
 			echo 		"<tr align='left'>";
