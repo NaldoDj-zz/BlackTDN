@@ -6,16 +6,16 @@
 		<?php
 			$wsdl	   = "http://BlackTDN:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client    = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
-			$alias     = "SRA";
+			$alias     = "SX5";
 			$param     = array("ALIAS"=>$alias);
 			$fields    = $client->getTFieldsName($param);
 			$array     = $fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING;
- 			$fNames	   = array("RA_FILIAL","RA_MAT","RA_NOME","RA_APELIDO","RA_NOMECMP","RA_CIC","RA_ADMISSA","RA_PIS","RA_CC","RA_CATFUNC","RA_SITFOL","RA_CODFUNC");	
+ 			$fNames	   = array("X5_FILIAL","X5_TABELA","X5_CHAVE","X5_DESCRI");	
 			$arrRemove = array_merge(array_diff($array,$fNames));
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
-			$deleted   = false;
-			$recno	   = false;
+			$deleted   = true;
+			$recno	   = true;
 			$param     = array("ALIAS"=>$alias,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$tStruct = $client->GETTSTRUCTBYFIELDSNAME($param);
 			echo "<table border='1' align='left'>";
@@ -76,8 +76,8 @@
 			echo "<tbody>";
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result  = $client->GETTRMAX($param);
-			$tRMax   = $result->GETTRMAXRESULT;
-        	$step    = $tRMax%50;
+			$tRMax   = intVal($result->GETTRMAXRESULT/10);
+        	$step    = $tRMax%10;
 			if ($tRMax>0){
 				for ($i = 1; $i <= $tRMax; $i+=$step) {
 					$e		 = min($i+$step,$tRMax);
@@ -126,8 +126,7 @@
 						echo 			"</td>";
 						echo 		"</tr>";
 						echo 	"</tbody>";
-						echo "</table>";
-					}	
+						echo "</table>";				}	
 				}	
 				echo "</tbody>";			
 				echo "</table>";

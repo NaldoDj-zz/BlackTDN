@@ -1092,7 +1092,7 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 				cDBSType	:= aFields[nField][DBS_TYPE]
 				Do Case
 				Case ( cDBSType == "N" )
-					cValue	:= Str(uValue,aFields[nAT][DBS_LEN],aFields[nAT][DBS_DEC])
+					cValue	:= Str(uValue,aFields[nField][DBS_LEN],aFields[nField][DBS_DEC])
 				Case ( cDBSType == "D" )
 					cValue	:= Dtos( uValue )
 				Case ( cDBSType == "L" )

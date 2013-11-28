@@ -49,7 +49,7 @@
 			echo "<tbody>";
 			$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result  = $client->GETTRMAX($param);
-			$tRMax   = $result->GETTRMAXRESULT/10;
+			$tRMax   = intVal($result->GETTRMAXRESULT/10);
  			if ($tRMax>0){
 				$step    = $tRMax%10;
 				for ($i = 1; $i <= $tRMax; $i+=$step) {

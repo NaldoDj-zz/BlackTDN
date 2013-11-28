@@ -113,7 +113,7 @@
 						echo "</tr>";
 					}
 				}	
-				echo "</tbody>";			
+				echo 	"</tbody>";			
 				echo "</table>";
 			}	
 			die();

@@ -11,7 +11,7 @@
 			$recno	   = false;	
 			$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 			$result    = $client->GETTRMAX($param);
-			$tRMax     = $result->GETTRMAXRESULT/10;
+			$tRMax     = intVal($result->GETTRMAXRESULT/10);
         	$step      = $tRMax%10;
 			if ($tRMax>0){
 			    $results = array();

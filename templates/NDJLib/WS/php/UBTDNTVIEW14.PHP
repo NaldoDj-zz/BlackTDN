@@ -7,15 +7,22 @@
 			$wsdl	   = "http://BlackTDN:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			$client    = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 			$alias     = "SRA";
+			$deleted   = true;
+			$recno	   = true;
+			$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted,"RRECNO"=>$recno);
+			$tStruct = $client->GETTSTRUCT($param);
 			$param     = array("ALIAS"=>$alias);
-			$fields    = $client->getTFieldsName($param);
+			$fields    = $client->GETTFIELDSNAME($param);
 			$array     = $fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING;
- 			$fNames	   = array("RA_FILIAL","RA_MAT","RA_NOME","RA_APELIDO","RA_NOMECMP","RA_CIC","RA_ADMISSA","RA_PIS","RA_CC","RA_CATFUNC","RA_SITFOL","RA_CODFUNC");	
+ 			$fNames    = array();
+			for ($f = 0; $f < sizeof($array); ++$f) {
+				if ($tStruct->GETTSTRUCTRESULT->UFIELDSTRUCT[$f]->FLDMANDATORY){
+					array_push($fNames,$array[$f]);
+				}	
+			}
 			$arrRemove = array_merge(array_diff($array,$fNames));
 			$fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING = array_merge(array_diff($array,$arrRemove));
 			$fields    = $fields->GETTFIELDSNAMERESULT;
-			$deleted   = false;
-			$recno	   = false;
 			$param     = array("ALIAS"=>$alias,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
 			$tStruct = $client->GETTSTRUCTBYFIELDSNAME($param);
 			echo "<table border='1' align='left'>";

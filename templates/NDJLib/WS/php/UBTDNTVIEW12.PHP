@@ -14,7 +14,7 @@
 				$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				try { // try -> http://php.net/manual/en/language.exceptions.php
 					$result  = $client->GETTRMAX($param);
-					$tRMax   = $result->GETTRMAXRESULT/10;
+					$tRMax   = intVal($result->GETTRMAXRESULT/10);
 				} catch (SoapFault $fault) { //SoapFault -> http://php.net/manual/en/function.is-soap-fault.php
 					$tRMax = 0;
 				}	
