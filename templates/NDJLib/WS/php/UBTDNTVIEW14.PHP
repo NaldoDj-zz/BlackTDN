@@ -14,7 +14,7 @@
 			$param     = array("ALIAS"=>$alias);
 			$fields    = $client->GETTFIELDSNAME($param);
 			$array     = $fields->GETTFIELDSNAMERESULT->UFLDNAME->STRING;
- 			$fNames    = array();
+ 			$fNames    = array("RA_FILIAL");
 			for ($f = 0; $f < sizeof($array); ++$f) {
 				if ($tStruct->GETTSTRUCTRESULT->UFIELDSTRUCT[$f]->FLDMANDATORY){
 					array_push($fNames,$array[$f]);
