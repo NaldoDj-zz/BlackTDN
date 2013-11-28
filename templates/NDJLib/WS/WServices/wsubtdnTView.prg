@@ -91,6 +91,18 @@ ENDWSSTRUCT
 
 /*
 	Progama:	wsubtdnTView.prg
+	WebStruct:	uTableRecnos
+	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data: 		21/11/2013
+	Descricao:	Estrutura para retorno dos registros (RecNos)
+	Uso: 		WebServices
+*/
+WSSTRUCT uTableRecnos
+	WSDATA Recnos		AS ARRAY OF INTEGER
+ENDWSSTRUCT
+
+/*
+	Progama:	wsubtdnTView.prg
 	WebService:	ubtdnTView
 	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data: 		21/11/2013
@@ -100,6 +112,7 @@ ENDWSSTRUCT
 WSSERVICE ubtdnTView DESCRIPTION STR0001 NAMESPACE "http://www.blacktdn.com.br" //"Obter informacoes de uma tabela do Protheus"
 
 	WSDATA Table		AS uTableView
+	WSDATA TableRecnos	AS uTableRecnos
 
 	WSDATA Alias		AS STRING
 	WSDATA TAlias		AS uTAliases
@@ -123,6 +136,9 @@ WSSERVICE ubtdnTView DESCRIPTION STR0001 NAMESPACE "http://www.blacktdn.com.br" 
 
 	WSMETHOD getTable					DESCRIPTION STR0002 //"Obter informacoes de uma Tabela"
 	WSMETHOD getTbyWhere				DESCRIPTION STR0003 //"Obter informacoes de uma Tabela (Usando Filtro)" 
+
+	WSMETHOD getTRecnos					DESCRIPTION STR0018 //"Obter informacoes de registros uma Tabela"
+	WSMETHOD getTRecnosbyWhere			DESCRIPTION STR0019 //"Obter informacoes de registros uma Tabela (Usando Filtro)" 
 	
 	WSMETHOD getTData					DESCRIPTION STR0006 //"Obter os dados da Tabela"	
 	WSMETHOD getTStruct					DESCRIPTION STR0005 //"Obter a estrutura da Tabela"
@@ -530,7 +546,7 @@ WSMETHOD getTbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno W
 			EndIF			
 			cQuery	+= "  FROM "+cSQLName+" "+self:Alias
 			IF ( __lAS400 )
-				cQuery	+= " WHERE "+"RRN("+cSQLName+") BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
+				cQuery	+= " WHERE RRN("+cSQLName+") BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
 			Else
 				cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_ BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
 			EndIF
@@ -575,12 +591,366 @@ WSMETHOD getTbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno W
 	    		EndIF
 	    	EndIF	
 
-			IF ( nRecno > 0 )
+			IF .NOT.( Empty( nRecno ) )
 				obtdnTView:rInit	:= nRecno
 				obtdnTView:rEnd 	:= nRecno
 				IF ( obtdnTView:getTData(@Alias,@nRecno,@nRecno,@rDeleted,@rRecno) )
 					aEval( obtdnTView:TableData , { |e| aAdd( self:Table:TableData , e ) } )					
 				EndIF
+			EndIF	
+
+			IF ( lQuery )
+				(cAlias)->(dbSkip())
+			Else
+				lExit := .NOT.(GotoNextRecno(@cAlias,@nNextRecno,@nOrder))
+				IF ( lExit )
+					EXIT
+				EndIF
+			EndIF	
+
+		End While
+		
+	CATCHEXCEPTION USING oException
+
+		lWsMethodRet	:= .F.
+
+		SetSoapFault( ProcName() , oException:Description + CRLF + oException:ErrorStack )
+
+	ENDEXCEPTION
+	
+	aEval( adbQuery , { |cAlias| IF( ( Select( cAlias ) > 0 ) , (cAlias)->( dbCloseArea() ) , NIL ) } )
+
+Return( lWsMethodRet )
+
+/*
+	Progama:	wsubtdnTView.prg
+	WsMethod:	getTRecnos
+	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data: 		21/11/2013
+	Descricao:	Obtendo os registros da Tabela
+	Uso: 		WebServices
+*/
+WSMETHOD getTRecnos WSRECEIVE Alias , rInit , rEnd , rDeleted WSSEND TableRecnos WSSERVICE ubtdnTView
+
+	Local adbQuery		:= Array(0)
+
+	Local cAlias
+	Local cQuery
+	Local cRDDName
+	Local cSQLName
+	
+	Local lQuery		:= .T.
+	Local lSetDeleted	:= Set(_SET_DELETED,"ON")
+	Local lWsMethodRet	:= .T.
+	
+	Local nStep
+	Local nRecno
+
+	Local obtdnTView
+	Local oException
+
+	TRYEXCEPTION
+	
+		IF .NOT.(Empty(self:Alias))
+			self:Alias		:= Upper(AllTrim(self:Alias))
+			DEFAULT Alias	:= self:Alias
+		EndIF
+	
+		IF .NOT.(Empty(Alias))
+			Alias	:= Upper(AllTrim(Alias))
+		EndIF	
+		
+		IF (Empty(self:Alias) .and. .NOT.(Empty(Alias)))
+			self:Alias := Alias
+		EndIF
+
+		IF Empty(self:Alias)
+			UserException( STR0010 + self:Alias ) //"Alias invalido: "	
+		EndIF
+
+		IF ( Select(self:Alias) == 0 )
+			TRYEXCEPTION
+				ChkFile(self:Alias)
+			ENDEXCEPTION	
+		EndIF
+		
+		TRYEXCEPTION
+			cRddName	:= (self:Alias)->( RddName() )
+		ENDEXCEPTION	
+		
+		lQuery	:= ( cRddName == "TOPCONN" )
+
+		cSQLName := RetSQLName(self:Alias)
+		
+		IF ( Select(self:Alias) == 0 )
+			IF .NOT.( MsFile( cSQLName ) )
+				IF .NOT.( ChkFile(self:Alias) )
+					UserException( STR0007 + self:Alias ) //"Problema na abertura da Tabela: "
+				EndIF
+			Else
+				IF .NOT.( ChkFile(self:Alias) )
+					UserException( STR0007 + self:Alias ) //"Problema na abertura da Tabela: "
+				EndIF
+			EndIF
+		EndIF			
+
+		DEFAULT self:rInit	:= 0
+		DEFAULT rInit		:= self:rInit
+		IF (Empty(self:rInit) .and. .NOT.(Empty(rInit)))
+			self:rInit := rInit
+		EndIF
+		
+		DEFAULT self:rEnd	:= 0
+		DEFAULT rEnd		:= self:rEnd
+		IF (Empty(self:rEnd) .and. .NOT.(Empty(rEnd)))
+			self:rEnd := rEnd
+		EndIF
+
+		DEFAULT self:rDeleted	:= .T.
+		DEFAULT rDeleted		:= self:rDeleted
+		IF .NOT.( rDeleted == self:rDeleted )
+			self:rDeleted := rDeleted
+		EndIF
+
+		Set(_SET_DELETED,IF(self:rDeleted,"OFF","ON"))
+
+		TableRecnos			:= WsClassNew("uTableRecnos")
+		TableRecnos:Recnos	:= Array(0)	
+		self:TableRecnos	:= TableRecnos
+		
+		nRecno := self:rInit
+
+		IF ( lQuery )
+		
+			nStep  := Max(Min(Int(self:rEnd/10),1024),0)
+			
+			While ( nRecno <= self:rEnd )
+				IF ( __lAS400 )
+					cQuery	:= "SELECT RRN("+cSQLName+") NRECNO "
+				Else
+					cQuery	:= "SELECT "+self:Alias+".R_E_C_N_O_ NRECNO "
+				EndIF
+				cQuery		+= "  FROM "+cSQLName+" "+self:Alias
+				IF ( __lAS400 )
+					cQuery	+= " WHERE RRN("+cSQLName+") BETWEEN "+AllTrim(Str(nRecno))+" AND "+AllTrim(Str(Min(nRecno+nStep,self:rEnd)))
+				Else
+					cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_ BETWEEN "+AllTrim(Str(nRecno))+" AND "+AllTrim(Str(Min(nRecno+nStep,self:rEnd)))
+				EndIF
+				IF .NOT.(self:rDeleted)
+					IF .NOT.(self:rDeleted)
+						IF ( __lAS400 )
+							cQuery	+= "   AND "+self:Alias+".@DELETED@<>'*'"
+						Else
+							cQuery	+= "   AND "+self:Alias+".D_E_L_E_T_<>'*'"
+						EndIF	
+					EndIF
+				EndIF
+				nRecno += ( nStep + 1 )
+				IF .NOT.( dbQuery(@adbQuery,cQuery,@cAlias) )
+					Loop
+    			ENDIF
+    			While (cAlias)->( .NOT.( Eof() ) )
+    				aAdd(self:TableRecnos:Recnos,(cAlias)->NRECNO)
+    				(cAlias)->(dbSkip())
+    			End While
+    		End While
+		
+		Else
+
+			nRecno -= 1
+			
+			While ( nRecno++ <= self:rEnd )
+				(self:Alias)->( dbGoto( nRecno ) )
+				IF (self:Alias)->( Eof() .or. Bof() )
+					Loop
+				EndIF
+				aAdd(self:TableRecnos:Recnos,nRecno)
+			End While
+
+		EndIF
+
+	CATCHEXCEPTION USING oException
+
+		lWsMethodRet	:= .F.
+
+		SetSoapFault( ProcName() , oException:Description + CRLF + oException:ErrorStack )
+
+	ENDEXCEPTION
+
+	aEval( adbQuery , { |cAlias| IF( ( Select( cAlias ) > 0 ) , (cAlias)->( dbCloseArea() ) , NIL ) } )
+
+	Set(_SET_DELETED,IF(lSetDeleted,"ON","OFF"))
+
+Return( lWsMethodRet )
+
+/*
+	Progama:	wsubtdnTView.prg
+	WsMethod:	getTRecnosbyWhere
+	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data: 		21/11/2013
+	Descricao:	Obtendo os registros da Tabela baseado em condição
+	Uso: 		WebServices
+*/
+WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno WSSEND TableRecnos WSSERVICE ubtdnTView
+
+	Local adbQuery		:= Array(0)
+	
+	Local bWhere
+
+	Local cAlias
+	Local cQuery
+	Local cRecno
+	Local cSQLName
+	Local cRddName
+	
+	Local lEXIT
+	Local lQuery		:= .T.
+	Local lWsMethodRet	:= .T.
+
+	Local nOrder
+	Local nRecno
+	Local nNextRecno
+
+	Local oException
+
+	TRYEXCEPTION
+	
+		IF .NOT.(Empty(self:Alias))
+			self:Alias		:= Upper(AllTrim(self:Alias))
+			DEFAULT Alias	:= self:Alias
+		EndIF
+	
+		IF .NOT.(Empty(Alias))
+			Alias	:= Upper(AllTrim(Alias))
+		EndIF	
+		
+		IF (Empty(self:Alias) .and. .NOT.(Empty(Alias)))
+			self:Alias := Alias
+		EndIF
+
+		IF Empty(self:Alias)
+			UserException( STR0010 + self:Alias ) //"Alias invalido: "
+		EndIF
+
+		cSQLName := RetSQLName(self:Alias)
+		
+		IF ( Select(self:Alias) == 0 )
+			IF .NOT.( MsFile( cSQLName ) )
+				IF .NOT.( ChkFile(self:Alias) )
+					UserException( STR0007 + self:Alias ) //"Problema na abertura da Tabela: "
+				EndIF
+			Else
+				IF .NOT.( ChkFile(self:Alias) )
+					UserException( STR0007 + self:Alias ) //"Problema na abertura da Tabela: "
+				EndIF
+			EndIF
+		EndIF
+		
+		cRddName	:= (self:Alias)->( RddName() )
+		lQuery		:= ( cRddName == "TOPCONN" )
+		
+		self:Where		:= AllTrim( self:Where )
+		DEFAULT Where	:= self:Where
+		Where			:= AllTrim( Where )
+		
+		IF ( Empty(self:Where) .and. .NOT.( Empty( Where ) ) )
+			self:Where := Where
+		EndIF
+
+		IF Empty(self:Where)
+			UserException( STR0011 + self:Where )	//"Condicao invalida: "
+		EndIF
+
+		DEFAULT self:rInit	:= 0
+		DEFAULT rInit		:= self:rInit
+		IF (Empty(self:rInit) .and. .NOT.(Empty(rInit)))
+			self:rInit := rInit
+		EndIF
+		
+		DEFAULT self:rEnd	:= 0
+		DEFAULT rEnd		:= self:rEnd
+		IF (Empty(self:rEnd) .and. .NOT.(Empty(rEnd)))
+			self:rEnd := rEnd
+		EndIF
+	
+		DEFAULT self:rDeleted	:= .T.
+		DEFAULT rDeleted		:= self:rDeleted
+		IF .NOT.( rDeleted == self:rDeleted )
+			self:rDeleted := rDeleted
+		EndIF
+
+		DEFAULT self:rRecno	:= .T.
+		DEFAULT rRecno		:= self:rRecno
+		IF .NOT.( rRecno == self:rRecno )
+			self:rRecno := rRecno
+		EndIF
+
+		obtdnTView				:= WsClassNew("ubtdnTView")
+		obtdnTView:Alias		:= self:Alias
+		obtdnTView:FieldsName	:= self:FieldsName
+		obtdnTView:rDeleted		:= self:rDeleted
+		obtdnTView:rRecno		:= self:rRecno
+
+		IF .NOT.( obtdnTView:getTStruct(@Alias,@rDeleted,@rRecno) )
+			UserException( STR0008 + self:Alias ) //"Estrutura invalida: "	
+		EndIF
+
+		IF ( lQuery )
+			IF ( __lAS400 )
+				cQuery := "SELECT RRN("+cSQLName+") NRECNO "
+			Else
+				cQuery	:= "SELECT "+self:Alias+".R_E_C_N_O_ NRECNO"
+			EndIF			
+			cQuery	+= "  FROM "+cSQLName+" "+self:Alias
+			IF ( __lAS400 )
+				cQuery	+= " WHERE RRN("+cSQLName+") BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
+			Else
+				cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_ BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
+			EndIF
+			IF .NOT.(self:rDeleted)
+				IF ( __lAS400 )
+					cQuery	+= "   AND "+self:Alias+".@DELETED@<>'*'"
+				Else
+					cQuery	+= "   AND "+self:Alias+".D_E_L_E_T_<>'*'"
+				EndIF	
+			EndIF
+			cQuery	+= "   AND "+self:Where
+    		IF .NOT.( dbQuery(@adbQuery,cQuery,@cAlias) )
+				UserException( STR0009 + self:Alias ) //"Nao Existem Registros a Serem Apresentados para a Tabela: "
+    		ENDIF
+		Else
+			bWhere	:= &("{||"+self:Where+"}")
+			cAlias	:= self:Alias
+			(cAlias)->( dbGoTop() )
+		EndIF        
+
+		Table       			:= WsClassNew("uTableView")
+		self:Table				:= Table
+		
+		TableRecnos			:= WsClassNew("uTableRecnos")
+		TableRecnos:Recnos	:= Array(0)	
+		self:TableRecnos	:= TableRecnos
+
+    	While (cAlias)->( .NOT.( Eof() ) )
+    	
+	    	IF ( lQuery )
+	    		nRecno	:= (cAlias)->NRECNO
+	    	Else
+				lEXIT	:= .NOT.(GetNextRecno(@cAlias,@nNextRecno,@nRecno,@nOrder))
+				IF (lEXIT)
+					EXIT
+				ENDIF
+	    		IF (cAlias)->( .NOT.( Eval( bWhere ) ) )
+					lExit := .NOT.(GotoNextRecno(@cAlias,@nNextRecno,@nOrder))
+					IF ( lExit )
+						EXIT
+					EndIF
+					Loop
+	    		EndIF
+	    	EndIF	
+
+			IF .NOT.( Empty( nRecno ) )
+				aAdd(self:TableRecnos:Recnos,nRecno)
 			EndIF	
 
 			IF ( lQuery )
@@ -879,6 +1249,7 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 	Local lWsMethodRet	:= .T.
 
 	Local nAT
+	Local nStep
 	Local nItens
 	Local nRecno
 	Local nField
@@ -963,7 +1334,7 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 			cQuery	:= "SELECT COUNT(1) ITENS "
 			cQuery	+= "  FROM "+cSQLName+" "+self:Alias
 			IF ( __lAS400 )
-				cQuery	+= " WHERE "+"RRN("+cSQLName+") BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
+				cQuery	+= " WHERE RRN("+cSQLName+") BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
 			Else
 				cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_ BETWEEN "+AllTrim(Str(self:rInit))+" AND "+AllTrim(Str(self:rEnd))
 			EndIF
@@ -1042,18 +1413,25 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 			aFields[nFields][DBS_DEC ] := 0
 		EndIF
 
-		nItens	:= 0  
+		nItens	:= 0
+		nRecno  := self:rInit
 
-		For nRecno := self:rInit To self:rEnd
-			IF ( lQuery )
-				cRecno	:= AllTrim(Str(nRecno))
-				cQuery	:= "SELECT "+cRecno+"  NRECNO "
-				cQuery	+= "  FROM "+cSQLName+" "+self:Alias
+		IF ( lQuery )
+
+			nStep  := Max(Min(Int(self:rEnd/10),1024),0)
+		
+			While ( nRecno <= self:rEnd )
 				IF ( __lAS400 )
-					cQuery	+= " WHERE "+"RRN("+cSQLName+")="+cRecno
+					cQuery	:= "SELECT RRN("+cSQLName+") NRECNO "
 				Else
-					cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_="+cRecno
-				EndIF				
+					cQuery	:= "SELECT "+self:Alias+".R_E_C_N_O_ NRECNO "
+				EndIF
+				cQuery		+= "  FROM "+cSQLName+" "+self:Alias
+				IF ( __lAS400 )
+					cQuery	+= " WHERE RRN("+cSQLName+") BETWEEN "+AllTrim(Str(nRecno))+" AND "+AllTrim(Str(Min(nRecno+nStep,self:rEnd)))
+				Else
+					cQuery	+= " WHERE "+self:Alias+".R_E_C_N_O_ BETWEEN "+AllTrim(Str(nRecno))+" AND "+AllTrim(Str(Min(nRecno+nStep,self:rEnd)))
+				EndIF
 				IF .NOT.(self:rDeleted)
 					IF .NOT.(self:rDeleted)
 						IF ( __lAS400 )
@@ -1063,47 +1441,95 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 						EndIF	
 					EndIF
 				EndIF
+				nRecno += ( nStep + 1 )
 				IF .NOT.( dbQuery(@adbQuery,cQuery,@cAlias) )
 					Loop
     			ENDIF
-    		EndIF
-			(self:Alias)->( dbGoto( nRecno ) )
-			IF (self:Alias)->( Eof() .or. Bof() )
-				Loop
-			EndIF
-			++nItens
-			aAdd( self:TableData , WsClassNew(/*u*/"FieldView") )
-			self:TableData[nItens]:FldTag	:= Array( nFields )
-			For nField := 1 To nFields
-				cField	:= aFields[nField][DBS_NAME]
-				nAT		:= aFieldsAT[nField]
-				IF ( cField == "DELETED" )
-					uValue	:= (self:Alias)->(IF(Deleted(),"*",""))
-				ElseIF ( cField == "RECNO" )
-					uValue	:= nRecno
-				Else
-					uValue 	:= (self:Alias)->(FieldGet(nAT))
-					IF ( ( "_USERLG" $ cField ) .or. ( "_USERG" $ cField ) )
-						IF .NOT.( Empty(uValue) )
-							uValue := (self:Alias)->(FWLeUserLG(cField,1)+"-"+FWLeUserLG(cField,2))
+    			While (cAlias)->( .NOT.( Eof() ) )
+					(self:Alias)->( dbGoto( (cAlias)->NRECNO ) )
+					IF (self:Alias)->( Eof() .or. Bof() )
+						(cAlias)->(dbSkip())
+						Loop
+					EndIF
+					++nItens
+					aAdd( self:TableData , WsClassNew(/*u*/"FieldView") )
+					self:TableData[nItens]:FldTag	:= Array( nFields )
+					For nField := 1 To nFields
+						cField	:= aFields[nField][DBS_NAME]
+						nAT		:= aFieldsAT[nField]
+						IF ( cField == "DELETED" )
+							uValue	:= (self:Alias)->(IF(Deleted(),"*",""))
+						ElseIF ( cField == "RECNO" )
+							uValue	:= (cAlias)->NRECNO
+						Else
+							uValue 	:= (self:Alias)->(FieldGet(nAT))
+							IF ( ( "_USERLG" $ cField ) .or. ( "_USERG" $ cField ) )
+								IF .NOT.( Empty(uValue) )
+									uValue := (self:Alias)->(FWLeUserLG(cField,1)+"-"+FWLeUserLG(cField,2))
+								EndIF
+							EndIF
+						EndIF
+						cDBSType	:= aFields[nField][DBS_TYPE]
+						Do Case
+						Case ( cDBSType == "N" )
+							cValue	:= Str(uValue,aFields[nField][DBS_LEN],aFields[nField][DBS_DEC])
+						Case ( cDBSType == "D" )
+							cValue	:= Dtos( uValue )
+						Case ( cDBSType == "L" )
+							cValue	:= IF(uValue,".T.",".F.")
+						OtherWise
+							cValue	:= __UTF8(uValue)
+						EndCase
+						self:TableData[nItens]:FldTag[nField] := AllTrim(cValue)
+					Next nField
+					(cAlias)->(dbSkip())
+				End While 
+			End While	
+			
+		Else
+
+			nRecno -= 1
+			
+			While ( nRecno++ <= self:rEnd )
+				(self:Alias)->( dbGoto( nRecno ) )
+				IF (self:Alias)->( Eof() .or. Bof() )
+					Loop
+				EndIF
+				++nItens
+				aAdd( self:TableData , WsClassNew(/*u*/"FieldView") )
+				self:TableData[nItens]:FldTag	:= Array( nFields )
+				For nField := 1 To nFields
+					cField	:= aFields[nField][DBS_NAME]
+					nAT		:= aFieldsAT[nField]
+					IF ( cField == "DELETED" )
+						uValue	:= (self:Alias)->(IF(Deleted(),"*",""))
+					ElseIF ( cField == "RECNO" )
+						uValue	:= nRecno
+					Else
+						uValue 	:= (self:Alias)->(FieldGet(nAT))
+						IF ( ( "_USERLG" $ cField ) .or. ( "_USERG" $ cField ) )
+							IF .NOT.( Empty(uValue) )
+								uValue := (self:Alias)->(FWLeUserLG(cField,1)+"-"+FWLeUserLG(cField,2))
+							EndIF
 						EndIF
 					EndIF
-				EndIF
-				cDBSType	:= aFields[nField][DBS_TYPE]
-				Do Case
-				Case ( cDBSType == "N" )
-					cValue	:= Str(uValue,aFields[nField][DBS_LEN],aFields[nField][DBS_DEC])
-				Case ( cDBSType == "D" )
-					cValue	:= Dtos( uValue )
-				Case ( cDBSType == "L" )
-					cValue	:= IF(uValue,".T.",".F.")
-				OtherWise
-					cValue	:= __UTF8(uValue)
-				EndCase
-				self:TableData[nItens]:FldTag[nField] := AllTrim(cValue)
-			Next nField
-		Next nLoop
+					cDBSType	:= aFields[nField][DBS_TYPE]
+					Do Case
+					Case ( cDBSType == "N" )
+						cValue	:= Str(uValue,aFields[nField][DBS_LEN],aFields[nField][DBS_DEC])
+					Case ( cDBSType == "D" )
+						cValue	:= Dtos( uValue )
+					Case ( cDBSType == "L" )
+						cValue	:= IF(uValue,".T.",".F.")
+					OtherWise
+						cValue	:= __UTF8(uValue)
+					EndCase
+					self:TableData[nItens]:FldTag[nField] := AllTrim(cValue)
+				Next nField
+			End While
 
+		EndIF    
+	
 		IF ( nItens == 0 )
 			UserException( STR0009 + self:Alias ) //"Nao Existem Registros a Serem Apresentados para a Tabela: "
 		EndIF

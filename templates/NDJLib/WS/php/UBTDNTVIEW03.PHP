@@ -20,7 +20,7 @@
 				$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result    = $client->GETTRMAX($param);
 				$tRMax     = $result->GETTRMAXRESULT;
-				$step      = $tRMax%10;
+				$step      = 40;
 				if ($tRMax>0){
 					$results   = array();			
 					for ($i = 1; $i <= $tRMax; $i+=$step) {

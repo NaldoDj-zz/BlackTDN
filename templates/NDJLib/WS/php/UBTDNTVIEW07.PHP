@@ -13,7 +13,7 @@
 				$result  = $client->GETTRMAX($param);
 				$tRMax   = $result->GETTRMAXRESULT;
 				echo "<pre>".print_r($result,true)."</pre>";
-				$step    = $tRMax%10;
+				$step    = 40;
 				echo "<table border='1' align='left'>";
 				echo 	"<thead>";
 				echo 		"<tr align='left'>";

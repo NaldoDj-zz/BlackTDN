@@ -52,7 +52,7 @@
 				$result  = $client->GETTRMAX($param);
 				$tRMax   = intVal($result->GETTRMAXRESULT/10);
 				if ($tRMax>0){
-					$step    = $tRMax%10;
+					$step    = 10;
 					for ($i = 1; $i <= $tRMax; $i+=$step) {
 						$e		 = min($i+$step,$tRMax);
 						$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted,"RRECNO"=>$recno);

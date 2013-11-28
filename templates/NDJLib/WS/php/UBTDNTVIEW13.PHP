@@ -78,7 +78,7 @@
 				$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result  = $client->GETTRMAX($param);
 				$tRMax   = intVal($result->GETTRMAXRESULT/10);
-				$step    = $tRMax%10;
+				$step    = 40;
 				if ($tRMax>0){
 					for ($i = 1; $i <= $tRMax; $i+=$step) {
 						$e		 = min($i+$step,$tRMax);

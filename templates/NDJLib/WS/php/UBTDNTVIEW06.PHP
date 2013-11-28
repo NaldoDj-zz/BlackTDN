@@ -13,7 +13,7 @@
 				$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result    = $client->GETTRMAX($param);
 				$tRMax     = $result->GETTRMAXRESULT;
-				$step      = $tRMax%10;
+				$step      = 40;
 				if ($tRMax>0){
 					$results = array();
 					$fNames  = array("RA_FILIAL","RA_MAT","RA_NOME","RA_CIC","RA_ADMISSA");

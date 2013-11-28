@@ -13,7 +13,7 @@
 				$param     = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result    = $client->GETTRMAX($param);
 				$tRMax     = intVal($result->GETTRMAXRESULT/10);
-				$step      = $tRMax%10;
+				$step      = 40;
 				if ($tRMax>0){
 					$results = array();
 					$fNames  = array("X2_CHAVE",'X2_ARQUIVO','X2_NOME','X2_UNICO');

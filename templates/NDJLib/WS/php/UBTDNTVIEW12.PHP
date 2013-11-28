@@ -20,7 +20,7 @@
 				}	
 				//Control Structures (if) -> http://www.php.net/manual/en/control-structures.if.php
 			    if ($tRMax>0){
-					$step    = $tRMax%10;					
+					$step    = 40;					
 					//array -> http://php.net/manual/en/ref.array.php
 					$results = array(); 
 					//control Structures (for) -> http://php.net/manual/en/control-structures.for.php
