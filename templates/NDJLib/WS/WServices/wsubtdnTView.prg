@@ -7,7 +7,6 @@
 #include "tryexception.ch"
 
 Static __lAS400		:= ( TCSrvType() == "AS/400" )
-Static __cTCGetDB	:= Upper(AllTrim(TCGetDB()))
 
 /*
 	Progama:	wsubtdnTView.prg
