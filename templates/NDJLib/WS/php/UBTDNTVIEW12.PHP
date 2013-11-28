@@ -8,7 +8,7 @@
            try { // exceptions -> http://php.net/manual/en/language.exceptions.php
 				// SoapClient and WSDL_CACHE_NONE -> http://php.net/manual/en/soapclient.soapclient.php
 				$client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
-				$alias   = "SRA";
+				$alias   = "SX5";
 				$deleted = false;
 				$recno   = false;
 				$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
@@ -138,9 +138,39 @@
 					echo "</table>";
 				}
 			} catch (SoapFault $fault) { //SoapFault -> http://php.net/manual/en/function.is-soap-fault.php
-				trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
-			} catch (Exception $e) { //Exception -> http://php.net/manual/en/language.exceptions.php
-				echo "Caught Exception ('{$e->getMessage()}')\n{$e}\n";
+						echo "<table>";
+						echo 	"<thead>";
+						echo 		"<tr>";
+						echo 			"<th>SOAP Fault</th>";
+						echo 		"</tr>";
+						echo 	"</thead>";
+						echo 	"<tbody>";
+						echo 		"<tr>";
+						echo 			"<td>";
+						echo 				"<pre>";
+						echo 				"".print_r(trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR),true)."";
+						echo 				"</pre>";
+						echo 			"</td>";
+						echo 		"</tr>";
+						echo 	"</tbody>";
+						echo "</table>";
+			} catch (exception $e) { //Exception -> http://php.net/manual/en/language.exceptions.php
+						echo "<table>";
+						echo 	"<thead>";
+						echo 		"<tr>";
+						echo 			"<th>Caught Exception</th>";
+						echo 		"</tr>";
+						echo 	"</thead>";
+						echo 	"<tbody>";
+						echo 		"<tr>";
+						echo 			"<td>";
+						echo 				"<pre>";
+						echo 					"Caught Exception ('{$e->getMessage()}')\n{$e}\n";
+						echo 				"</pre>";
+						echo 			"</td>";
+						echo 		"</tr>";
+						echo 	"</tbody>";
+						echo "</table>";
 			}	
             die();
         ?>
