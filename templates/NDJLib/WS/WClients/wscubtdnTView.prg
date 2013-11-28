@@ -153,7 +153,7 @@ cSoap += "</GETTABLE>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTABLE",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTABLERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTABLERESPONSE:_GETTABLERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -182,7 +182,7 @@ cSoap += "</GETTABLEBYFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTABLEBYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTABLEBYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTABLEBYFIELDSNAMERESPONSE:_GETTABLEBYFIELDSNAMERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -207,7 +207,7 @@ cSoap += "</GETTALIAS>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTALIAS",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTALIASRESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTALIASRESPONSE:_GETTALIASRESULT","UTALIASES",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -236,7 +236,7 @@ cSoap += "</GETTBYWHERE>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTBYWHERE",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTBYWHERERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTBYWHERERESPONSE:_GETTBYWHERERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -266,7 +266,7 @@ cSoap += "</GETTBYWHEREANDFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTBYWHEREANDFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTBYWHEREANDFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTBYWHEREANDFIELDSNAMERESPONSE:_GETTBYWHEREANDFIELDSNAMERESULT","UTABLEVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -294,7 +294,7 @@ cSoap += "</GETTDATA>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTDATA",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTDATARESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTDATARESPONSE:_GETTDATARESULT","ARRAYOFFIELDVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -323,7 +323,7 @@ cSoap += "</GETTDATABYFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTDATABYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTDATABYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTDATABYFIELDSNAMERESPONSE:_GETTDATABYFIELDSNAMERESULT","ARRAYOFFIELDVIEW",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -347,7 +347,7 @@ cSoap += "</GETTFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTFIELDSNAMERESPONSE:_GETTFIELDSNAMERESULT","UFIELDSNAME",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -372,7 +372,7 @@ cSoap += "</GETTRMAX>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTRMAX",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::nGETTRMAXRESULT    :=  WSAdvValue( oXmlRet,"_GETTRMAXRESPONSE:_GETTRMAXRESULT:TEXT","integer",NIL,NIL,NIL,NIL,NIL,NIL) 
@@ -398,7 +398,7 @@ cSoap += "</GETTSTRUCT>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTSTRUCT",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTSTRUCTRESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTSTRUCTRESPONSE:_GETTSTRUCTRESULT","ARRAYOFUFIELDSTRUCT",NIL,NIL,NIL,NIL,NIL,NIL) )
@@ -425,7 +425,7 @@ cSoap += "</GETTSTRUCTBYFIELDSNAME>"
 oXmlRet := SvcSoapCall(	Self,cSoap,; 
 	"http://www.blacktdn.com.br/GETTSTRUCTBYFIELDSNAME",; 
 	"DOCUMENT","http://www.blacktdn.com.br",,"1.031217",; 
-	"http://192.168.0.39:8088/ws02/UBTDNTVIEW.apw")
+	"http://naldo-pc:8088/ws02/UBTDNTVIEW.apw")
 
 ::Init()
 ::oWSGETTSTRUCTBYFIELDSNAMERESULT:SoapRecv( WSAdvValue( oXmlRet,"_GETTSTRUCTBYFIELDSNAMERESPONSE:_GETTSTRUCTBYFIELDSNAMERESULT","ARRAYOFUFIELDSTRUCT",NIL,NIL,NIL,NIL,NIL,NIL) )
