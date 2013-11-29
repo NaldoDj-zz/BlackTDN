@@ -84,59 +84,58 @@
 				echo "<tbody>";
 				$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result  = $client->GETTRMAX($param);
-				$tRMax   = intVal($result->GETTRMAXRESULT/10);
-				$param   = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"RDELETED"=>$deleted);
-				$recnos	 = $client->GETTRECNOS($param);
-				if (is_array($recnos->GETTRECNOSRESULT->URECNOS->STRING)){
-					$recnos = $recnos->GETTRECNOSRESULT->URECNOS->STRING;
-					for ($i = 1; $i < sizeof($recnos); $i++) {
-						$param   = array("ALIAS"=>$alias,"RINIT"=>(int)$recnos[$i],"REND"=>(int)$recnos[$i],"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
-						try {
-							$result  = $client->GETTDATABYFIELDSNAME($param);
-							if (is_array($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW)){
-								foreach ($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW as $itens) {
-									echo "<tr align='left'>";
-									if (is_array($itens->FLDTAG->STRING)){
-										foreach ($itens->FLDTAG->STRING as $item) {
-											echo "<td><pre>".print_r($item,true)."</pre></td>";
-										}
-									} else {
-										foreach ($itens->FLDTAG as $item) {
-											echo "<td><pre>".print_r($item,true)."</pre></td>";
-										}
-									}	
-									echo "</tr>";
-								}
-							} else{
+				$tRMax   = $result->GETTRMAXRESULT;
+				$where   = "R_E_C_N_O_ <= ".$tRMax." ORDER BY RA_FILIAL,RA_MAT";
+				$param   = array("ALIAS"=>$alias,"WHERE"=>$where,"RINIT"=>1,"REND"=>$tRMax,"RDELETED"=>$deleted);
+				$recnos	 = $client->GETTRECNOSBYWHERE($param);
+				if (is_array($recnos->GETTRECNOSBYWHERERESULT->URECNOS->STRING)){
+					$recnos = array("URECNOS"=>$recnos->GETTRECNOSBYWHERERESULT->URECNOS->STRING);
+					$param   = array("ALIAS"=>$alias,"TABLERECNOS"=>$recnos,"FIELDSNAME"=>$fields,"RDELETED"=>$deleted,"RRECNO"=>$recno);
+					try {
+						$result  = $client->GETTDATABYRECNOSANDFIELDSNAME($param);
+						if (is_array($result->GETTDATABYRECNOSANDFIELDSNAMERESULT->FIELDVIEW)){
+							foreach ($result->GETTDATABYRECNOSANDFIELDSNAMERESULT->FIELDVIEW as $itens) {
 								echo "<tr align='left'>";
-									if (is_array($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING)){
-										foreach ($result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING as $item) {
-											echo "<td><pre>".print_r($item,true)."</pre></td>";
-										}
-									} else{
-										$item = $result->GETTDATABYFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING;
+								if (is_array($itens->FLDTAG->STRING)){
+									foreach ($itens->FLDTAG->STRING as $item) {
 										echo "<td><pre>".print_r($item,true)."</pre></td>";
-									}	
-								echo "<tr>";
+									}
+								} else {
+									foreach ($itens->FLDTAG as $item) {
+										echo "<td><pre>".print_r($item,true)."</pre></td>";
+									}
+								}	
+								echo "</tr>";
 							}
-						} catch (exception $e){
-							echo "<table>";
-							echo 	"<thead>";
-							echo 		"<tr>";
-							echo 			"<th>Caught Exception</th>";
-							echo 		"</tr>";
-							echo 	"</thead>";
-							echo 	"<tbody>";
-							echo 		"<tr>";
-							echo 			"<td>";
-							echo 				"<pre>";
-							echo 					"Caught Exception ('{$e->getMessage()}')\n{$e}\n";
-							echo 				"</pre>";
-							echo 			"</td>";
-							echo 		"</tr>";
-							echo 	"</tbody>";
-							echo "</table>";
-						}	
+						} else{
+							echo "<tr align='left'>";
+								if (is_array($result->GETTDATABYRECNOSANDFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING)){
+									foreach ($result->GETTDATABYRECNOSANDFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING as $item) {
+										echo "<td><pre>".print_r($item,true)."</pre></td>";
+									}
+								} else{
+									$item = $result->GETTDATABYRECNOSANDFIELDSNAMERESULT->FIELDVIEW->FLDTAG->STRING;
+									echo "<td><pre>".print_r($item,true)."</pre></td>";
+								}	
+							echo "<tr>";
+						}
+					} catch (exception $e){
+						echo "<table>";
+						echo 	"<thead>";
+						echo 		"<tr>";
+						echo 			"<th>Caught Exception</th>";
+						echo 		"</tr>";
+						echo 	"</thead>";
+						echo 	"<tbody>";
+						echo 		"<tr>";
+						echo 			"<td>";
+						echo 				"<pre>";
+						echo 					"Caught Exception ('{$e->getMessage()}')\n{$e}\n";
+						echo 				"</pre>";
+						echo 			"</td>";
+						echo 		"</tr>";
+						echo 	"</tbody>";
+						echo "</table>";
 					}	
 					echo "</tbody>";			
 					echo "</table>";

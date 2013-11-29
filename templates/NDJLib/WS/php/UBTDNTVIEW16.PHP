@@ -4,7 +4,7 @@
 	</head>
 	<body>
 		<?php
-			$wsdl	 = "http://BlackTDN:8088/ws02/UBTDNTVIEW.apw?WSDL";
+			$wsdl	   = "http://BlackTDN:8088/ws02/UBTDNTVIEW.apw?WSDL";
 			try {
 				$client  = new SoapClient($wsdl,array("cache_wsdl"=>WSDL_CACHE_NONE));
 				$alias   = "SRA";
@@ -51,32 +51,30 @@
 				$param   = array("ALIAS"=>$alias,"RDELETED"=>$deleted);
 				$result  = $client->GETTRMAX($param);
 				$tRMax   = intVal($result->GETTRMAXRESULT/10);
-				if ($tRMax>0){
-					$step    = 40;
-					for ($i = 1; $i <= $tRMax; $i+=$step) {
-						$e		 = min($i+$step,$tRMax);
-						$param   = array("ALIAS"=>$alias,"RINIT"=>$i,"REND"=>$e,"RDELETED"=>$deleted,"RRECNO"=>$recno);
-						$result  = $client->GETTDATA($param);
-						if (is_array($result->GETTDATARESULT->FIELDVIEW)){
-							foreach ($result->GETTDATARESULT->FIELDVIEW as $itens) {
-								echo "<tr align='left'>";
-								foreach ($itens->FLDTAG->STRING as $item) {
-									echo "<td><pre>".print_r($item,true)."</pre></td>";
-								}
-								echo "</tr>";
-							}
-						} else{
+				$param   = array("ALIAS"=>$alias,"RINIT"=>1,"REND"=>$tRMax,"RDELETED"=>$deleted);
+				$recnos	 = $client->GETTRECNOS($param);
+				if (is_array($recnos->GETTRECNOSRESULT->URECNOS->STRING)){
+					$recnos = array("URECNOS"=>$recnos->GETTRECNOSRESULT->URECNOS->STRING);
+					$param   = array("ALIAS"=>$alias,"TABLERECNOS"=>$recnos,"RDELETED"=>$deleted,"RRECNO"=>$recno);
+					$result  = $client->GETTDATABYRECNOS($param);
+					if (is_array($result->GETTDATABYRECNOSRESULT->FIELDVIEW)){
+						foreach ($result->GETTDATABYRECNOSRESULT->FIELDVIEW as $itens) {
 							echo "<tr align='left'>";
-								foreach ($result->GETTDATARESULT->FIELDVIEW->FLDTAG->STRING as $item) {
-									echo "<td><pre>".print_r($item,true)."</pre></td>";
-								}
-							echo "<tr>";
-		
+							foreach ($itens->FLDTAG->STRING as $item) {
+								echo "<td><pre>".print_r($item,true)."</pre></td>";
+							}
+							echo "</tr>";
 						}
-					}	
-					echo 	"</tbody>";			
-					echo "</table>";
-				}
+					} else{
+						echo "<tr align='left'>";
+							foreach ($result->GETTDATABYRECNOSRESULT->FIELDVIEW->FLDTAG->STRING as $item) {
+								echo "<td><pre>".print_r($item,true)."</pre></td>";
+							}
+						echo "<tr>";
+					}
+				}	
+				echo 	"</tbody>";			
+				echo "</table>";
 			} catch (SoapFault $fault) {
 						echo "<table>";
 						echo 	"<thead>";
