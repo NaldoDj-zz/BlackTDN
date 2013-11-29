@@ -97,7 +97,12 @@ ENDWSSTRUCT
 	Uso: 		WebServices
 */
 WSSTRUCT uTableRecnos
-	WSDATA Recnos		AS ARRAY OF INTEGER
+	WSDATA uRecnos		AS ARRAY OF /*INTEGER*/STRING //Tem um erro do WS que se perde quando INTEGER, por isso, STRING.
+	/*
+		XAPWSBUILD: ADVPL WSDL Server 1.110216
+		invalid macro source (SSYacc0105e: Error token failed, no valid token) :
+		(oWSCTTmpObj:OWSTABLERECNOS:OWSURECNOS:NINTEGER[1]NINTEGER) on WSCTRECPROPRI(XMLWSLIB.PRW) 17/04/2007 17:30:39 line : 634
+	*/
 ENDWSSTRUCT
 
 /*
@@ -130,24 +135,27 @@ WSSERVICE ubtdnTView DESCRIPTION STR0001 NAMESPACE "http://www.blacktdn.com.br" 
 	WSDATA rDeleted		AS BOOLEAN
 	WSDATA rRecno		AS BOOLEAN
 
-	WSMETHOD getTRMax					DESCRIPTION STR0004 //"Obter o maior registro em uma Tabela"
-	WSMETHOD getTAlias					DESCRIPTION STR0017 //"Obter Aliases validos para recuperação de dados"
+	WSMETHOD getTRMax						DESCRIPTION STR0004 //"Obter o maior registro em uma Tabela"
+	WSMETHOD getTAlias						DESCRIPTION STR0017 //"Obter Aliases validos para recuperação de dados"
 
-	WSMETHOD getTable					DESCRIPTION STR0002 //"Obter informacoes de uma Tabela"
-	WSMETHOD getTbyWhere				DESCRIPTION STR0003 //"Obter informacoes de uma Tabela (Usando Filtro)" 
+	WSMETHOD getTable						DESCRIPTION STR0002 //"Obter informacoes de uma Tabela"
+	WSMETHOD getTbyWhere					DESCRIPTION STR0003 //"Obter informacoes de uma Tabela (Usando Filtro)" 
 
-	WSMETHOD getTRecnos					DESCRIPTION STR0018 //"Obter informacoes de registros uma Tabela"
-	WSMETHOD getTRecnosbyWhere			DESCRIPTION STR0019 //"Obter informacoes de registros uma Tabela (Usando Filtro)" 
+	WSMETHOD getTRecnos						DESCRIPTION STR0018 //"Obter informacoes de registros uma Tabela"
+	WSMETHOD getTRecnosbyWhere				DESCRIPTION STR0019 //"Obter informacoes de registros uma Tabela (Usando Filtro)" 
 	
-	WSMETHOD getTData					DESCRIPTION STR0006 //"Obter os dados da Tabela"	
-	WSMETHOD getTStruct					DESCRIPTION STR0005 //"Obter a estrutura da Tabela"
-	WSMETHOD getTFieldsName				DESCRIPTION STR0016 //"Obter os campos de uma Tabela"
+	WSMETHOD getTData						DESCRIPTION STR0006 //"Obter os dados da Tabela"	
+	WSMETHOD getTStruct						DESCRIPTION STR0005 //"Obter a estrutura da Tabela"
+	WSMETHOD getTFieldsName					DESCRIPTION STR0016 //"Obter os campos de uma Tabela"
 
-	WSMETHOD getTablebyFieldsName		DESCRIPTION STR0012 //"Obter informacoes de uma Tabela baseado na selecao de campos"
-	WSMETHOD getTbyWhereAndFieldsName	DESCRIPTION STR0013 //"Obter informacoes de uma Tabela (Usando Filtro) e baseado na selecao de campos" 
+	WSMETHOD getTablebyFieldsName			DESCRIPTION STR0012 //"Obter informacoes de uma Tabela baseado na selecao de campos"
+	WSMETHOD getTbyWhereAndFieldsName		DESCRIPTION STR0013 //"Obter informacoes de uma Tabela (Usando Filtro) e baseado na selecao de campos" 
 
-	WSMETHOD getTDatabyFieldsName		DESCRIPTION STR0014 //"Obter os dados da Tabela baseado na selecao de campos"	
-	WSMETHOD getTStructbyFieldsName		DESCRIPTION STR0015 //"Obter a estrutura da Tabela baseado na selecao de campos" 
+	WSMETHOD getTDatabyFieldsName			DESCRIPTION STR0014 //"Obter os dados da Tabela baseado na selecao de campos"	
+	WSMETHOD getTStructbyFieldsName			DESCRIPTION STR0015 //"Obter a estrutura da Tabela baseado na selecao de campos" 
+	
+	WSMETHOD getTDatabyRecnos				DESCRIPTION STR0020 //"Obter os dados da Tabela baseado nos Registros"
+	WSMETHOD getTDatabyRecnosAndFieldsName	DESCRIPTION STR0021 //"Obter os dados da Tabela baseado nos Registros e baseado na selecao de campos"
 
 ENDWSSERVICE
 
@@ -440,7 +448,6 @@ WSMETHOD getTbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno W
 
 	Local cAlias
 	Local cQuery
-	Local cRecno
 	Local cSQLName
 	Local cRddName
 	
@@ -714,7 +721,7 @@ WSMETHOD getTRecnos WSRECEIVE Alias , rInit , rEnd , rDeleted WSSEND TableRecnos
 		Set(_SET_DELETED,IF(self:rDeleted,"OFF","ON"))
 
 		TableRecnos			:= WsClassNew("uTableRecnos")
-		TableRecnos:Recnos	:= Array(0)	
+		TableRecnos:uRecnos	:= Array(0)	
 		self:TableRecnos	:= TableRecnos
 		
 		nRecno := self:rInit
@@ -749,7 +756,7 @@ WSMETHOD getTRecnos WSRECEIVE Alias , rInit , rEnd , rDeleted WSSEND TableRecnos
 					Loop
     			ENDIF
     			While (cAlias)->( .NOT.( Eof() ) )
-    				aAdd(self:TableRecnos:Recnos,(cAlias)->NRECNO)
+    				aAdd(self:TableRecnos:uRecnos,AllTrim(Str((cAlias)->NRECNO)))
     				(cAlias)->(dbSkip())
     			End While
     		End While
@@ -763,7 +770,7 @@ WSMETHOD getTRecnos WSRECEIVE Alias , rInit , rEnd , rDeleted WSSEND TableRecnos
 				IF (self:Alias)->( Eof() .or. Bof() )
 					Loop
 				EndIF
-				aAdd(self:TableRecnos:Recnos,nRecno)
+				aAdd(self:TableRecnos:uRecnos,AllTrim(Str(nRecno)))
 			End While
 
 		EndIF
@@ -790,7 +797,7 @@ Return( lWsMethodRet )
 	Descricao:	Obtendo os registros da Tabela baseado em condição
 	Uso: 		WebServices
 */
-WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rRecno WSSEND TableRecnos WSSERVICE ubtdnTView
+WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted WSSEND TableRecnos WSSERVICE ubtdnTView
 
 	Local adbQuery		:= Array(0)
 	
@@ -798,7 +805,6 @@ WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rR
 
 	Local cAlias
 	Local cQuery
-	Local cRecno
 	Local cSQLName
 	Local cRddName
 	
@@ -878,22 +884,6 @@ WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rR
 			self:rDeleted := rDeleted
 		EndIF
 
-		DEFAULT self:rRecno	:= .T.
-		DEFAULT rRecno		:= self:rRecno
-		IF .NOT.( rRecno == self:rRecno )
-			self:rRecno := rRecno
-		EndIF
-
-		obtdnTView				:= WsClassNew("ubtdnTView")
-		obtdnTView:Alias		:= self:Alias
-		obtdnTView:FieldsName	:= self:FieldsName
-		obtdnTView:rDeleted		:= self:rDeleted
-		obtdnTView:rRecno		:= self:rRecno
-
-		IF .NOT.( obtdnTView:getTStruct(@Alias,@rDeleted,@rRecno) )
-			UserException( STR0008 + self:Alias ) //"Estrutura invalida: "	
-		EndIF
-
 		IF ( lQuery )
 			IF ( __lAS400 )
 				cQuery := "SELECT RRN("+cSQLName+") NRECNO "
@@ -922,12 +912,9 @@ WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rR
 			cAlias	:= self:Alias
 			(cAlias)->( dbGoTop() )
 		EndIF        
-
-		Table       			:= WsClassNew("uTableView")
-		self:Table				:= Table
 		
 		TableRecnos			:= WsClassNew("uTableRecnos")
-		TableRecnos:Recnos	:= Array(0)	
+		TableRecnos:uRecnos	:= Array(0)	
 		self:TableRecnos	:= TableRecnos
 
     	While (cAlias)->( .NOT.( Eof() ) )
@@ -949,7 +936,7 @@ WSMETHOD getTRecnosbyWhere WSRECEIVE Alias , Where , rInit , rEnd, rDeleted , rR
 	    	EndIF	
 
 			IF .NOT.( Empty( nRecno ) )
-				aAdd(self:TableRecnos:Recnos,nRecno)
+				aAdd(self:TableRecnos:uRecnos,AllTrim(Str(nRecno)))
 			EndIF	
 
 			IF ( lQuery )
@@ -1237,7 +1224,6 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
 	Local cValue
 	Local cAlias
 	Local cQuery
-	Local cRecno
 	Local cField
 	Local cDBSType
 	Local cSQLName
@@ -1609,7 +1595,7 @@ WSMETHOD getTablebyFieldsName WSRECEIVE Alias , rInit , rEnd , FieldsName , rDel
 		EndIF
 		
 		IF (Empty(self:FieldsName:uFldName) .or. .NOT.(ValType(self:FieldsName:uFldName)=="A"))
-			xmlGetFields(self:FieldsName)
+			xmlGetFields(self:FieldsName)//Se entrou aqui é porque o Protheus teve dificuldades em resolver FieldsName.
 		EndIF    
 	
 		obtdnTView				:= WsClassNew("ubtdnTView")
@@ -1707,7 +1693,7 @@ WSMETHOD getTbyWhereAndFieldsName WSRECEIVE Alias , Where , rInit , rEnd, Fields
 		EndIF
 
 		IF (Empty(self:FieldsName:uFldName) .or. .NOT.(ValType(self:FieldsName:uFldName)=="A"))
-			xmlGetFields(self:FieldsName)
+			xmlGetFields(self:FieldsName)//Se entrou aqui é porque o Protheus teve dificuldades em resolver FieldsName.
 		EndIF    
 
 		obtdnTView				:= WsClassNew("ubtdnTView")
@@ -1785,7 +1771,7 @@ WSMETHOD getTStructbyFieldsName WSRECEIVE Alias , FieldsName , rDeleted , rRecno
 		EndIF
 
 		IF (Empty(self:FieldsName:uFldName) .or. .NOT.(ValType(self:FieldsName:uFldName)=="A"))
-			xmlGetFields(self:FieldsName)
+			xmlGetFields(self:FieldsName)//Se entrou aqui é porque o Protheus teve dificuldades em resolver FieldsName.
 		EndIF    
 
 		obtdnTView				:= WsClassNew("ubtdnTView")		
@@ -1871,7 +1857,7 @@ WSMETHOD getTDatabyFieldsName WSRECEIVE Alias , rInit , rEnd , FieldsName , rDel
 		EndIF
 
 		IF (Empty(self:FieldsName:uFldName) .or. .NOT.(ValType(self:FieldsName:uFldName)=="A"))
-			xmlGetFields(self:FieldsName)
+			xmlGetFields(self:FieldsName)//Se entrou aqui é porque o Protheus teve dificuldades em resolver FieldsName.
 		EndIF    
 
 		obtdnTView				:= WsClassNew("ubtdnTView")
@@ -1889,6 +1875,187 @@ WSMETHOD getTDatabyFieldsName WSRECEIVE Alias , rInit , rEnd , FieldsName , rDel
 		TableData		:= obtdnTView:TableData
 		self:TableData	:= TableData
 
+	CATCHEXCEPTION USING oException
+
+		lWsMethodRet	:= .F.
+
+		SetSoapFault( ProcName() , oException:Description + CRLF + oException:ErrorStack )
+
+	ENDEXCEPTION
+
+Return( lWsMethodRet )
+
+/*
+	Progama:	wsubtdnTView.prg
+	WsMethod:	getTDatabyFieldsName
+	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data: 		21/11/2013
+	Descricao:	Obtem os registros da Tabela
+	Uso: 		WebServices
+*/
+WSMETHOD getTDatabyRecnos WSRECEIVE Alias , TableRecnos , rDeleted , rRecno WSSEND TableData WSSERVICE ubtdnTView
+
+	Local lWsMethodRet	:= .T.
+
+	Local nRecno
+	Local nRecnos
+	
+	Local obtdnTView
+	Local oException
+
+	TRYEXCEPTION
+	
+		IF .NOT.(Empty(self:Alias))
+			self:Alias		:= Upper(AllTrim(self:Alias))
+			DEFAULT Alias	:= self:Alias
+		EndIF
+	
+		IF .NOT.(Empty(Alias))
+			Alias	:= Upper(AllTrim(Alias))
+		EndIF	
+		
+		IF (Empty(self:Alias) .and. .NOT.(Empty(Alias)))
+			self:Alias := Alias
+		EndIF
+
+		DEFAULT self:rDeleted	:= .T.
+		DEFAULT rDeleted		:= self:rDeleted
+		IF .NOT.( rDeleted == self:rDeleted )
+			self:rDeleted := rDeleted
+		EndIF
+
+		DEFAULT self:rRecno	:= .T.
+		DEFAULT rRecno		:= self:rRecno
+		IF .NOT.( rRecno == self:rRecno )
+			self:rRecno := rRecno
+		EndIF
+
+		DEFAULT self:TableRecnos	:= WsClassNew("uTableRecnos")
+		DEFAULT TableRecnos			:= self:TableRecnos
+
+		IF (Empty(self:TableRecnos:uRecnos) .and. .NOT.(Empty(TableRecnos:uRecnos)))
+			self:TableRecnos	:= TableRecnos
+		EndIF
+
+		IF (Empty(self:TableRecnos:uRecnos) .or. .NOT.(ValType(self:TableRecnos:uRecnos)=="A"))
+			xmlGetRecnos(self:TableRecnos)//Se entrou aqui é porque o Protheus teve dificuldades em resolver TableRecnos.
+		EndIF    
+
+		TableData				:= Array(0)
+		self:TableData			:= TableData
+
+		obtdnTView				:= WsClassNew("ubtdnTView")
+		obtdnTView:Alias		:= self:Alias 
+		obtdnTView:FieldsName	:= self:FieldsName
+		obtdnTView:rDeleted		:= self:rDeleted
+		obtdnTView:rRecno		:= self:rRecno
+
+		nRecnos	:= Len(self:TableRecnos:uRecnos)
+		
+		For nRecno := 1 To nRecnos
+			obtdnTView:rInit	:= Val(self:TableRecnos:uRecnos[nRecno])
+			obtdnTView:rEnd 	:= Val(self:TableRecnos:uRecnos[nRecno])
+			IF ( obtdnTView:getTData(@Alias,@obtdnTView:rInit,@obtdnTView:rEnd,@rDeleted,@rRecno) )
+				aEval( obtdnTView:TableData , { |e| aAdd( self:TableData , e ) } )
+			EndIF
+		Next nRecno
+		
+	CATCHEXCEPTION USING oException
+
+		lWsMethodRet	:= .F.
+
+		SetSoapFault( ProcName() , oException:Description + CRLF + oException:ErrorStack )
+
+	ENDEXCEPTION
+
+Return( lWsMethodRet )
+
+/*
+	Progama:	wsubtdnTView.prg
+	WsMethod:	getTDatabyFieldsName
+	Autor: 		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data: 		21/11/2013
+	Descricao:	Obtem os registros da Tabela
+	Uso: 		WebServices
+*/
+WSMETHOD getTDatabyRecnosAndFieldsName WSRECEIVE Alias , TableRecnos , FieldsName , rDeleted , rRecno WSSEND TableData WSSERVICE ubtdnTView
+
+	Local lWsMethodRet	:= .T.
+
+	Local nRecno
+	Local nRecnos
+	
+	Local obtdnTView
+	Local oException
+
+	TRYEXCEPTION
+	
+		IF .NOT.(Empty(self:Alias))
+			self:Alias		:= Upper(AllTrim(self:Alias))
+			DEFAULT Alias	:= self:Alias
+		EndIF
+	
+		IF .NOT.(Empty(Alias))
+			Alias	:= Upper(AllTrim(Alias))
+		EndIF	
+		
+		IF (Empty(self:Alias) .and. .NOT.(Empty(Alias)))
+			self:Alias := Alias
+		EndIF
+
+		DEFAULT self:rDeleted	:= .T.
+		DEFAULT rDeleted		:= self:rDeleted
+		IF .NOT.( rDeleted == self:rDeleted )
+			self:rDeleted := rDeleted
+		EndIF
+
+		DEFAULT self:rRecno	:= .T.
+		DEFAULT rRecno		:= self:rRecno
+		IF .NOT.( rRecno == self:rRecno )
+			self:rRecno := rRecno
+		EndIF
+
+		DEFAULT self:TableRecnos	:= WsClassNew("uTableRecnos")
+		DEFAULT TableRecnos			:= self:TableRecnos
+
+		IF (Empty(self:TableRecnos:uRecnos) .and. .NOT.(Empty(TableRecnos:uRecnos)))
+			self:TableRecnos	:= TableRecnos
+		EndIF
+
+		IF (Empty(self:TableRecnos:uRecnos) .or. .NOT.(ValType(self:TableRecnos:uRecnos)=="A"))
+			xmlGetRecnos(self:TableRecnos)//Se entrou aqui é porque o Protheus teve dificuldades em resolver TableRecnos.
+		EndIF
+		
+		DEFAULT self:FieldsName	:= WsClassNew("uFieldsName")
+		DEFAULT FieldsName		:= self:FieldsName
+
+		IF (Empty(self:FieldsName:uFldName) .and. .NOT.(Empty(FieldsName:uFldName)))
+			self:FieldsName	:= FieldsName
+		EndIF
+
+		IF (Empty(self:FieldsName:uFldName) .or. .NOT.(ValType(self:FieldsName:uFldName)=="A"))
+			xmlGetFields(self:FieldsName)//Se entrou aqui é porque o Protheus teve dificuldades em resolver FieldsName.
+		EndIF    
+
+		TableData				:= Array(0)
+		self:TableData			:= TableData
+
+		obtdnTView				:= WsClassNew("ubtdnTView")
+		obtdnTView:Alias		:= self:Alias 
+		obtdnTView:FieldsName	:= self:FieldsName
+		obtdnTView:rDeleted		:= self:rDeleted
+		obtdnTView:rRecno		:= self:rRecno
+
+		nRecnos	:= Len(self:TableRecnos:uRecnos)
+		
+		For nRecno := 1 To nRecnos
+			obtdnTView:rInit	:= Val(self:TableRecnos:uRecnos[nRecno])
+			obtdnTView:rEnd 	:= Val(self:TableRecnos:uRecnos[nRecno])
+			IF ( obtdnTView:getTData(@Alias,@obtdnTView:rInit,@obtdnTView:rEnd,@rDeleted,@rRecno) )
+				aEval( obtdnTView:TableData , { |e| aAdd( self:TableData , e ) } )
+			EndIF
+		Next nRecno
+		
 	CATCHEXCEPTION USING oException
 
 		lWsMethodRet	:= .F.
@@ -2004,6 +2171,112 @@ Static Function xmlFieldsName(oXML,axmlFields,cNodeSup)
 	END SEQUENCE
 		
 Return(.NOT.(Empty(axmlFields)))
+
+/*
+	Progama:	wsubtdnTView.prg
+	Funcao:		xmlGetRecnos
+	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data:		06/11/2013
+	Descricao:	Obtem os campos baseado na XMLString obtida a partir da WSEXECUTE
+    Sintaxe:    xmlGetRecnos(FieldsName)
+*/
+Static Function xmlGetRecnos(TableRecnos)
+    
+	Local axmlRecnos
+	Local aStackParameters
+
+	Local cXMLError
+	Local cXMLReplace
+	Local cXMLWarning
+	Local cXMLString
+	
+	Local nNode
+	Local nItem
+	Local nNodes
+	Local nItens
+	
+	Local oXMLString
+	
+	IF .NOT.(ValType(TableRecnos:uRecnos)=="A")
+		TableRecnos:uRecnos := Array(0)	
+	EndIF
+
+	cXMLString	:= StaticCall(NDJLIB006,ReadStackParameters,"WSEXECUTE","CXMLSTRING","PARAM",NIL,@aStackParameters)
+	IF ( ValType(cXMLString) == "C" )
+		cXMLString := AllTrim(cXMLString)
+		IF .NOT.(Empty(cXMLString))
+			cXMLReplace	:= "_"
+			cXMLError	:= ""
+			cXMLWarning	:= ""
+			oXMLString	:= XmlParser(cXMLString,cXMLReplace,@cXMLError,@cXMLWarning)
+			axmlRecnos	:= Array(0)
+			IF xmlTableRecnos(oXMLString,@axmlRecnos)
+				nNodes := Len(axmlRecnos)
+				For nNode := 1 To nNodes
+					IF (ValType(axmlRecnos[nNode])=="A")
+						nItens := Len(axmlRecnos[nNode])
+						For nItem := 1 To nItens							
+							aAdd(TableRecnos:uRecnos,axmlRecnos[nNode][nItem]:TEXT)
+						Next nItem
+					ElseIF (ValType(axmlRecnos[nNode])=="O")
+						aAdd(TableRecnos:uRecnos,axmlRecnos[nNode]:TEXT)
+					EndIF						
+				Next nNode
+			EndIF
+		EndIF
+	EndIF
+	
+Return(NIL)
+
+/*
+	Progama:	wsubtdnTView.prg
+	Funcao:		xmlTableRecnos
+	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
+	Data:		06/11/2013
+	Descricao:	Retorna o Node correspondente a "Recnos"
+    Sintaxe:    xmlTableRecnos(oXML,axmlRecnos)
+*/
+Static Function xmlTableRecnos(oXML,axmlRecnos,cNodeSup)
+	
+	Local aXML
+
+	Local nNode
+	Local nNodes
+	
+	BEGIN SEQUENCE
+
+		IF .NOT.(ValType(oXML)=="O")
+			BREAK
+		EndIF
+		
+		aXML := ClassDataArray(oXML)
+		
+		DEFAULT cNodeSup := "__cNodeSup__"
+		
+		IF ("URECNOS"$cNodeSup)
+			IF ((Len(aXML)>=1) .and. ("STRING"$aXML[1][1]) .and. .NOT.(ValType(aXML[1][2])=="A"))
+				aAdd(axmlRecnos,aXML[1][2])
+				BREAK
+			EndIF	
+		EndIF
+		
+		nNodes := Len(aXML)
+		For nNode := 1 To nNodes
+			IF (ValType(aXML[nNode][2])=="O")
+				xmlTableRecnos(aXML[nNode][2],@axmlRecnos,aXML[nNode][1])
+				IF ("URECNOS"$cNodeSup)
+					BREAK
+				EndIF
+			ElseIF (ValType(cNodeSup)=="C")
+				IF ("URECNOS"$cNodeSup)
+					aAdd(axmlRecnos,aXML[nNode][2])
+				EndIF
+			EndIF
+		Next nNode
+		
+	END SEQUENCE
+		
+Return(.NOT.(Empty(axmlRecnos)))
 
 /*
 	Progama:	wsubtdnTView.prg
