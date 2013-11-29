@@ -2177,7 +2177,7 @@ Return(.NOT.(Empty(axmlFields)))
     Funcao:     xmlGetRecnos
     Autor:      Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:       06/11/2013
-    Descricao:  Obtem os campos baseado na XMLString obtida a partir da WSEXECUTE
+    Descricao:  Obtem os Recnos baseado na XMLString obtida a partir da WSEXECUTE
     Sintaxe:    xmlGetRecnos(FieldsName)
 */
 Static Function xmlGetRecnos(TableRecnos)
