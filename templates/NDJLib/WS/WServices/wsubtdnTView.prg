@@ -763,14 +763,14 @@ WSMETHOD getTRecnos WSRECEIVE Alias , rInit , rEnd , rDeleted WSSEND TableRecnos
         
         Else
 
-            nRecno -= 1
-            
-            While ( nRecno++ <= self:rEnd )
-                (self:Alias)->( dbGoto( nRecno ) )
+            While ( nRecno <= self:rEnd )
+                (self:Alias)->( MsGoTo( nRecno ) )
                 IF (self:Alias)->( Eof() .or. Bof() )
+                    nRecno++
                     Loop
                 EndIF
                 aAdd(self:TableRecnos:uRecnos,AllTrim(Str(nRecno)))
+                nRecno++
             End While
 
         EndIF
@@ -1431,7 +1431,7 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
                     Loop
                 ENDIF
                 While (cAlias)->( .NOT.( Eof() ) )
-                    (self:Alias)->( dbGoto( (cAlias)->NRECNO ) )
+                    (self:Alias)->( dbGoTo( (cAlias)->NRECNO ) )
                     IF (self:Alias)->( Eof() .or. Bof() )
                         (cAlias)->(dbSkip())
                         Loop
@@ -1472,12 +1472,11 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
             End While    
             
         Else
-
-            nRecno -= 1
-            
-            While ( nRecno++ <= self:rEnd )
-                (self:Alias)->( dbGoto( nRecno ) )
+     
+            While ( nRecno <= self:rEnd )
+                (self:Alias)->( MsGoTo( nRecno ) )
                 IF (self:Alias)->( Eof() .or. Bof() )
+                    nRecno++
                     Loop
                 EndIF
                 ++nItens
@@ -1511,6 +1510,7 @@ WSMETHOD getTData WSRECEIVE Alias , rInit , rEnd , rDeleted , rRecno WSSEND Tabl
                     EndCase
                     self:TableData[nItens]:FldTag[nField] := AllTrim(cValue)
                 Next nField
+                nRecno++
             End While
 
         EndIF    
