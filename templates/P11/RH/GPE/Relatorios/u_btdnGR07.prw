@@ -146,7 +146,7 @@ User Function GPER040X()
 			BREAK
 		EndIF
 		
-		IF .NOT.( nOR(__nOrdem,1,2,3) == 3 ) //1:RA_FILIAL+RA_CC+RA_MAT;2:RA_FILIAL+RA_MAT;3:RA_FILIAL+RA_NOME
+		IF .NOT.( nOR(1,2,3) == nOr(__nOrdem,6) ) //1:RA_FILIAL+RA_CC+RA_MAT;2:RA_FILIAL+RA_MAT;3:RA_FILIAL+RA_NOME
 			APMsgAlert( OemToAnsi( "Ordem de Impressão Inválida. Selecione por: C.Custo Cadastro; Matrícula ; ou Nome" ) , OemToAnsi( "ATENÇÃO" ) )
 			lRet := .F.
 			BREAK

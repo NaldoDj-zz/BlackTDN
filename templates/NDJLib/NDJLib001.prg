@@ -2,6 +2,7 @@
 
 Static __aReadVar		:= {}
 Static __cMbrRstFilter
+Static __adbQuery		:= {}
 
 /*/
 	Funcao:		IsCpoVar
@@ -2923,6 +2924,54 @@ Static Function GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
 Return( cFile )
 
+/*
+	Funcao:		dbQuery()
+	Autor:		Marinaldo de Jesus 
+	Data:		07/12/2013
+	Descricao:	Providenciar um Alias Valido para Abertura da View
+    Sintaxe:    StaticCall(NDJLIB001,dbQuery,cQuery,cAlias,lChgQuery,cSQLError)
+*/
+Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError)
+	Local ldbQuery := .F.
+	BEGIN SEQUENCE
+		IF ( PCount() == 0 )
+			IF ( Type("__adbQuery")=="A" )
+				aEval( __adbQuery , { |cAlias| IF( ( Select( cAlias ) > 0 ) , (cAlias)->( dbCloseArea() ) , NIL ) } )
+			EndIF
+			BREAK	
+		ENDIF
+		DEFAULT cAlias := GetNextAlias()
+		IF ( Select( @cAlias ) > 0 )
+			( cAlias )->( dbCloseArea() )
+		EndIF
+		DEFAULT lChgQuery := .F.
+		IF ( lChgQuery )
+			cQuery := ChangeQuery(cQuery)	
+		EndIF
+		TRYEXCEPTION 
+			TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
+			IF ( Type("__adbQuery")=="A" )
+				IF ( aScan( __adbQuery , { |e| ( e == cAlias ) } ) == 0 )
+					aAdd( __adbQuery , cAlias )
+				EndIF
+			EndIF
+		CATCHEXCEPTION
+			cSQLError := TCSqlError()
+		ENDEXCEPTION
+		ldbQuery := ( ( Select(cAlias) > 0 ) .and. .NOT.( ( cAlias )->( Bof() .and. Eof() ) ) )
+	END SEQUENCE
+Return( ldbQuery )
+
+/*
+	Funcao:		dbQueryClear()
+	Autor:		Marinaldo de Jesus 
+	Data:		07/12/2013
+	Descricao:	Limpar o Cache da dbQuery
+    Sintaxe:    StaticCall(NDJLIB001,dbQueryClear)
+*/
+Static Function dbQueryClear()
+Return( dbQuery() )
+
 Static Function __Dummy( lRecursa )
 	Local oException
 	TRYEXCEPTION
@@ -2970,6 +3019,7 @@ Static Function __Dummy( lRecursa )
     	X3Picture()
 		FolderSetOption()
 		GdToExcel()
+		dbQueryClear
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException

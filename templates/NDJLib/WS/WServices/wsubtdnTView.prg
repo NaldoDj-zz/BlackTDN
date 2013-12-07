@@ -2284,21 +2284,29 @@ Return(.NOT.(Empty(axmlRecnos)))
     Autor:      Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:       06/11/2013
     Descricao:  Providenciar um Alias Valido para Abertura da View
-    Sintaxe:    dbQuery(adbQuery,cQuery,cAlias)
+    Sintaxe:    dbQuery(adbQuery,cQuery,cAlias,lChgQuery,cSQLError)
 */
-Static Function dbQuery(adbQuery,cQuery,cAlias)
+Static Function dbQuery(adbQuery,cQuery,cAlias,lChgQuery,cSQLError)
     DEFAULT adbQuery := Array(0)
     DEFAULT cAlias   := GetNextAlias()
     IF ( Select( @cAlias ) > 0 )
         ( cAlias )->( dbCloseArea() )
     EndIF
-    TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
-    IF ( ValType(adbQuery)=="A" )
-        IF ( aScan( adbQuery , { |e| ( e == cAlias ) } ) == 0 )
-            aAdd( adbQuery , cAlias )
-        EndIF
-    EndIF    
-Return( .NOT.( ( cAlias )->( Bof() .and. Eof() ) ) )
+    DEFAULT lChgQuery := .F.
+    IF ( lChgQuery )
+    	cQuery := ChangeQuery(cQuery)
+    EndIF
+    TRYEXCEPTION 
+	    TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
+	    IF ( ValType(adbQuery)=="A" )
+	        IF ( aScan( adbQuery , { |e| ( e == cAlias ) } ) == 0 )
+	            aAdd( adbQuery , cAlias )
+	        EndIF
+	    EndIF    
+	CATCHEXCEPTION
+			cSQLError := TCSqlError()
+	ENDEXCEPTION
+Return( ( ( Select(cAlias) > 0 ) .and. .NOT.( ( cAlias )->( Bof() .and. Eof() ) ) ) )
 
 /*
     Progama:    wsubtdnTView.prg
