@@ -2931,13 +2931,30 @@ Return( cFile )
 	Descricao:	Providenciar um Alias Valido para Abertura da View
     Sintaxe:    StaticCall(NDJLIB001,dbQuery,cQuery,cAlias,lChgQuery,cSQLError)
 */
-Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError)
-	Local ldbQuery := .F.
+Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError,nTCLink)
+	Local ldbQuery 		:= .F.
+	Local lTCSetConn	:= .F.
+	Local nAdvLink 		:= AdvConnection()
 	BEGIN SEQUENCE
 		IF ( PCount() == 0 )
-			IF ( Type("__adbQuery")=="A" )
-				aEval( __adbQuery , { |cAlias| IF( ( Select( cAlias ) > 0 ) , (cAlias)->( dbCloseArea() ) , NIL ) } )
-			EndIF
+			IF (ValType(__adbQuery)=="A")
+				nAdvLink := AdvConnection()
+				nAliases := Len(__adbQuery)
+				For nAlias := 1 To nAliases
+					cAlias  := __adbQuery[nAlias][1]
+					nTCLink := __adbQuery[nAlias][2]
+					IF .NOT.(nTCLink==nAdvLink)
+						TCSetConn(nTCLink)
+					EndIF
+					IF ( Select(cAlias) > 0 )
+						(cAlias)->( dbCloseArea() )
+					EndIF	
+				Next nAlias
+				aSize(__adbQuery,0)
+				IF .NOT.(nTCLink==nAdvLink)
+					TCSetConn(nAdvLink)
+				EndIF
+			EndIF	
 			BREAK	
 		ENDIF
 		DEFAULT cAlias := GetNextAlias()
@@ -2949,17 +2966,25 @@ Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError)
 			cQuery := ChangeQuery(cQuery)	
 		EndIF
 		TRYEXCEPTION 
+			lTCSetConn := .NOT.(nAdvLink==nTCLink)
+			IF (lTCSetConn)
+				TCSetConn(nTCLink)
+			EndIF	
 			TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
-			IF ( Type("__adbQuery")=="A" )
-				IF ( aScan( __adbQuery , { |e| ( e == cAlias ) } ) == 0 )
-					aAdd( __adbQuery , cAlias )
-				EndIF
-			EndIF
+			DEFAULT __adbQuery := Array(0)
+    		IF ( ValType(__adbQuery)=="A" )
+        		IF ( aScan(__adbQuery,{|e|(e[1]==cAlias)})==0)
+        		    aAdd(__adbQuery,{cAlias,nTCLink})
+        		EndIF
+    		EndIF
 		CATCHEXCEPTION
 			cSQLError := TCSqlError()
 		ENDEXCEPTION
-		ldbQuery := ( ( Select(cAlias) > 0 ) .and. .NOT.( ( cAlias )->( Bof() .and. Eof() ) ) )
+		ldbQuery := ((Select(cAlias)>0).and. .NOT.((cAlias)->(Bof().and.Eof())))
 	END SEQUENCE
+	IF (lTCSetConn)
+    	TCSetConn(nAdvLink)
+    EndIF	
 Return( ldbQuery )
 
 /*
