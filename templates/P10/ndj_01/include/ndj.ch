@@ -78,6 +78,7 @@
 	#include "tryexception.ch"
 	#include "thash.ch"
 	#include "tfini.ch"
+	#include "ndjipcdef.ch"
 
      /*/
         Autor:        Marinaldo de Jesus

@@ -2966,6 +2966,7 @@ Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError,nTCLink)
 			cQuery := ChangeQuery(cQuery)	
 		EndIF
 		TRYEXCEPTION 
+			DEFAULT nTCLink := nAdvLink
 			lTCSetConn := .NOT.(nAdvLink==nTCLink)
 			IF (lTCSetConn)
 				TCSetConn(nTCLink)
