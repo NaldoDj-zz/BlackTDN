@@ -2,7 +2,6 @@
 
 Static __aReadVar		:= {}
 Static __cMbrRstFilter
-Static __adbQuery		:= {}
 
 /*/
 	Funcao:		IsCpoVar
@@ -2929,60 +2928,31 @@ Return( cFile )
 	Autor:		Marinaldo de Jesus 
 	Data:		07/12/2013
 	Descricao:	Providenciar um Alias Valido para Abertura da View
-    Sintaxe:    StaticCall(NDJLIB001,dbQuery,cQuery,cAlias,lChgQuery,cSQLError)
+    Sintaxe:    StaticCall(NDJLIB001,dbQuery,adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
 */
-Static Function dbQuery(cQuery,cAlias,lChgQuery,cSQLError,nTCLink)
+Static Function dbQuery(adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
 	Local ldbQuery 		:= .F.
 	Local lTCSetConn	:= .F.
 	Local nAdvLink 		:= AdvConnection()
-	BEGIN SEQUENCE
-		IF ( PCount() == 0 )
-			IF (ValType(__adbQuery)=="A")
-				nAdvLink := AdvConnection()
-				nAliases := Len(__adbQuery)
-				For nAlias := 1 To nAliases
-					cAlias  := __adbQuery[nAlias][1]
-					nTCLink := __adbQuery[nAlias][2]
-					IF .NOT.(nTCLink==nAdvLink)
-						TCSetConn(nTCLink)
-					EndIF
-					IF ( Select(cAlias) > 0 )
-						(cAlias)->( dbCloseArea() )
-					EndIF	
-				Next nAlias
-				aSize(__adbQuery,0)
-				IF .NOT.(nTCLink==nAdvLink)
-					TCSetConn(nAdvLink)
-				EndIF
-			EndIF	
-			BREAK	
-		ENDIF
-		DEFAULT cAlias := GetNextAlias()
-		IF ( Select( @cAlias ) > 0 )
-			( cAlias )->( dbCloseArea() )
-		EndIF
-		DEFAULT lChgQuery := .F.
-		IF ( lChgQuery )
-			cQuery := ChangeQuery(cQuery)	
-		EndIF
-		TRYEXCEPTION 
-			DEFAULT nTCLink := nAdvLink
-			lTCSetConn := .NOT.(nAdvLink==nTCLink)
-			IF (lTCSetConn)
-				TCSetConn(nTCLink)
-			EndIF	
-			TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
-			DEFAULT __adbQuery := Array(0)
-    		IF ( ValType(__adbQuery)=="A" )
-        		IF ( aScan(__adbQuery,{|e|(e[1]==cAlias)})==0)
-        		    aAdd(__adbQuery,{cAlias,nTCLink})
-        		EndIF
-    		EndIF
-		CATCHEXCEPTION
-			cSQLError := TCSqlError()
-		ENDEXCEPTION
-		ldbQuery := ((Select(cAlias)>0).and. .NOT.((cAlias)->(Bof().and.Eof())))
-	END SEQUENCE
+	DEFAULT cAlias 		:= GetNextAlias()
+	IF ( Select( @cAlias ) > 0 )
+		( cAlias )->( dbCloseArea() )
+	EndIF
+	DEFAULT lChgQuery := .F.
+	IF ( lChgQuery )
+		cQuery := ChangeQuery(cQuery)	
+	EndIF
+	DEFAULT nTCLink := nAdvLink
+	lTCSetConn := .NOT.(nAdvLink==nTCLink)
+	IF (lTCSetConn)
+		TCSetConn(nTCLink)
+	EndIF	
+	TCQUERY ( cQuery ) ALIAS ( cAlias ) NEW
+	DEFAULT adbQuery := Array(0)
+	IF ( aScan(adbQuery,{|e|(e[1]==cAlias)})==0)
+    	aAdd(adbQuery,{cAlias,nTCLink})
+   	EndIF
+	ldbQuery := ((Select(cAlias)>0).and. .NOT.((cAlias)->(Bof().and.Eof())))
 	IF (lTCSetConn)
     	TCSetConn(nAdvLink)
     EndIF	
@@ -2993,10 +2963,31 @@ Return( ldbQuery )
 	Autor:		Marinaldo de Jesus 
 	Data:		07/12/2013
 	Descricao:	Limpar o Cache da dbQuery
-    Sintaxe:    StaticCall(NDJLIB001,dbQueryClear)
+    Sintaxe:    StaticCall(NDJLIB001,dbQueryClear,adbQuery)
 */
-Static Function dbQueryClear()
-Return( dbQuery() )
+Static Function dbQueryClear(adbQuery)
+	Local nTCLink
+	Local nAdvLink
+	DEFAULT adbQuery := Array(0)
+	IF (ValType(adbQuery)=="A")
+		nAdvLink := AdvConnection()
+		nAliases := Len(adbQuery)
+		For nAlias := 1 To nAliases
+			cAlias  := adbQuery[nAlias][1]
+			nTCLink := adbQuery[nAlias][2]
+			IF .NOT.(nTCLink==nAdvLink)
+				TCSetConn(nTCLink)
+			EndIF
+			IF ( Select(cAlias) > 0 )
+				(cAlias)->( dbCloseArea() )
+			EndIF	
+		Next nAlias
+		aSize(adbQuery,0)
+		IF .NOT.(nTCLink==nAdvLink)
+			TCSetConn(nAdvLink)
+		EndIF
+	EndIF	
+Return( .T. )
 
 Static Function __Dummy( lRecursa )
 	Local oException
@@ -3045,7 +3036,8 @@ Static Function __Dummy( lRecursa )
     	X3Picture()
 		FolderSetOption()
 		GdToExcel()
-		dbQueryClear
+		dbQuery()
+		dbQueryClear()
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException
