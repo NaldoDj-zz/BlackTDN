@@ -2,13 +2,16 @@
 
     #DEFINE _NDJ_CH
 
+*	#IFNDEF TOTVS_INCLUDE
+*		#DEFINE TOTVS_INCLUDE
+*	#ENDIF
+	
      /*/
         Arquivo:    NDJ.CH
         Autor:      Marinaldo de Jesus
         Descricao:  Arquivo de Cabecalho dos Programas Utilizados na NDJ
         Sintaxe:    #INCLUDE "NDJ.ch"    
      /*/
-
 	#IFDEF TOTVS_INCLUDE
 
 	     #include "aabonos.ch"
@@ -198,6 +201,7 @@
         Descricao:     Traducao para o comandos User Procedure
         Uso:           Declaracao de User Procedure
     /*/
+   #xcommand   USER PROCEDURE <p> => PROCEDURE U_<p>
    #xtranslate USER PROCEDURE <p> => PROCEDURE U_<p>
 
     /*/
