@@ -1,99 +1,16 @@
 #include "ndj.ch"
-Function U_NDJWaitEx(cSemaphore,cFunction,cEmp,cFil)
-
-	Local bError
+Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice,oProcess,cIDThread,uIPCPar02,uIPCPar03,uIPCPar04,uIPCPar05,;
+                                                           		                          uIPCPar06,uIPCPar07,uIPCPar08,uIPCPar09,uIPCPar10,;
+													                                      uIPCPar11,uIPCPar12,uIPCPar13,uIPCPar14,uIPCPar15,;
+													                                      uIPCPar16,uIPCPar17,uIPCPar18,uIPCPar19,uIPCPar20)	
 	
-	Local cFileControl	:= NDJ_CIPCFILECONTROL
+	Local aIDThreads		:= Array(0)
 
-	Local cIDThread,uIPCPar02,uIPCPar03,uIPCPar04,uIPCPar05,uIPCPar06,uIPCPar07,uIPCPar08,uIPCPar09,uIPCPar10,;
-		  uIPCPar11,uIPCPar12,uIPCPar13,uIPCPar14,uIPCPar15,uIPCPar16,uIPCPar17,uIPCPar18,uIPCPar19,uIPCPar20    
-
-    Local nTimeOut
-		  
-	Local xRet
-		  
-	bError	:= ErrorBlock({|e|NDJIPCError(e,IF((ValType(cIDThread)=="C"),cIDThread,NIL))})
-	BEGIN SEQUENCE
-
-		RpcSetType(3)
-		RpcSetEnv(cEmp,cFil)
-
-		InitPublic()
-		SetsDefault()
-		
-		nTimeOut := GetNewPar("NDJIPCTOUT",3600000) //DEFAULT 3600000 Milisegundos (1 hora)
-
-		While .NOT.( KillApp() )
-			IF IPCWaitEx(cSemaphore,nTimeOut,@cIDThread,;
-											 @uIPCPar02,;
-											 @uIPCPar03,;
-											 @uIPCPar04,;
-											 @uIPCPar05,;
-											 @uIPCPar06,;
-											 @uIPCPar07,;
-											 @uIPCPar08,;
-											 @uIPCPar09,;
-											 @uIPCPar10,;
-											 @uIPCPar11,;
-											 @uIPCPar12,;
-											 @uIPCPar13,;
-											 @uIPCPar14,;
-											 @uIPCPar15,;
-											 @uIPCPar16,;
-											 @uIPCPar17,;
-											 @uIPCPar18,;
-											 @uIPCPar19,;
-											 @uIPCPar20;
-						)
-				IF ( ( ValType(cIDThread) == "C" ) .and. ( cIDThread == "NDJ_FORCE_EXIT" ) )
-					EXIT
-				EndIF
-				NDJIPCMsgOut("Begin Execute->"+cFunction+"->IDTHREAD->"+cIDThread)
-				xRet := &cFunction.(cIDThread,;
-									uIPCPar02,;
-									uIPCPar03,;
-									uIPCPar04,;
-									uIPCPar05,;
-									uIPCPar06,;
-									uIPCPar07,;
-									uIPCPar08,;
-									uIPCPar09,;
-									uIPCPar10,;
-									uIPCPar11,;
-									uIPCPar12,;
-									uIPCPar13,;
-									uIPCPar14,;
-									uIPCPar15,;
-									uIPCPar16,;
-									uIPCPar17,;
-									uIPCPar18,;
-									uIPCPar19,;
-									uIPCPar20;
-									)
-				NDJIPCMsgOut("End Execute->"+cFunction+"->IDTHREAD->"+cIDThread+"->Result->["+cValToChar(xRet)+"]")
-			Else                        
-				NDJIPCMsgOut("NDJ_FORCE_EXIT!!!")
-				EXIT
-			EndIf
-			NDJKillApp(cFileControl)
-		End While
-		
-	END SEQUENCE
-	ErrorBlock(bError)
-
-	RpcClearEnv()
-
-Return( NIL )
-
-Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice,cIDThread,uIPCPar02,uIPCPar03,uIPCPar04,uIPCPar05,;
-                                                           		                 uIPCPar06,uIPCPar07,uIPCPar08,uIPCPar09,uIPCPar10,;
-													                             uIPCPar11,uIPCPar12,uIPCPar13,uIPCPar14,uIPCPar15,;
-													                             uIPCPar16,uIPCPar17,uIPCPar18,uIPCPar19,uIPCPar20)	
-	
-	Local aIDThreads
-
+	Local cMsg1
+	Local cMsg2
 	Local cGlbError
 	Local cGlbValue
+	Local cEnvServer		:= GetEnvServer()
 	Local cSemaphore		:= NDJSemaphore()
 	Local cGlbErrorMsg
 	Local cGlbErrorSTK
@@ -101,6 +18,7 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
     
 	Local lRet				:= .F.
 	Local lError			:= .F.
+	Local loProcess			:= (ValType(oProcess)=="O")
 	Local lGlbValue			:= .F.
 	Local lGlbError			:= .F.
 	Local lbIPCPSlice		:= ((ValType(bIPCPSlice)=="B").and.((ValType(nIPCPSlice)=="N").and.((nIPCPSlice>=2).and.(nIPCPSlice<=20))))
@@ -113,15 +31,65 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 		IF .NOT.(NDJFControl(cFileControl))
 			BREAK
 		ENDIF
-
-		aIDThreads := NDJIPCStart(@nThreads,@cSemaphore,@cFunction,@cEmp,@cFil)
 		
+		DEFAULT nThreads	:= 1
+	
+		IF ( loProcess )
+			oProcess:SetRegua1( nThreads )
+		EndIF
+
+		For nThread := 1 To nThreads
+			cIDThread := cSemaphore
+			cIDThread += NDJIDThread(nThread)
+			IF ( loProcess )
+				oProcess:IncRegua1( "Iniciando Thread["+cIDThread+"]" )
+				IF ( oProcess:lEnd )
+					BREAK
+				EndIF
+			EndIF	
+			StartJob("U_NDJWaitEx",cEnvServer,.F.,@cSemaphore,@cFunction,@cEmp,@cFil)
+			IF ( NDJ_NIPCGLBLOCK == 1 )
+				While .NOT.( GlbLock() )
+					NDJKillApp(cFileControl)
+					IF ( KillApp() )
+						IF ( loProcess )
+							oProcess:lEnd := .T.
+						EndIF
+						BREAK
+					EndIF
+					Sleep(NDJ_NIPCSLEEP)
+				End While
+			EndIF
+			PutGlbValue(cIDThread,".F.")
+			PutGlbValue("NDJIPCTTS"+cIDThread,"0")
+			PutGlbValue("NDJIPCERROR"+cIDThread,".F.")
+			PutGlbValue("NDJIPCERRORMSG"+cIDThread,"")
+			PutGlbValue("NDJIPCERRORSTK"+cIDThread,"")
+			IF ( NDJ_NIPCGLBLOCK == 1 )
+				GlbUnLock()
+			EndIF	
+			aAdd(aIDThreads,{cIDThread,.F.})
+		Next nThread
+		
+		IF ( loProcess )
+			oProcess:SetRegua1( nThreads )
+		EndIF
+
 		For nThread := 1 To nThreads
 			NDJKillApp(cFileControl)
 			IF ( KillApp() )
+				IF ( loProcess )
+					oProcess:lEnd := .T.
+				EndIF
 				BREAK
 			EndIF
 			cIDThread	:= aIDThreads[nThread][1]
+			IF ( loProcess )
+				oProcess:IncRegua1( "Preparando Thread["+cIDThread+"]" )
+				IF ( oProcess:lEnd )
+					BREAK
+				EndIF
+			EndIF	
 			IF ( lbIPCPSlice )
 				DO CASE
 				CASE ( nIPCPSlice == 2 )
@@ -171,8 +139,16 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 				Sleep(NDJ_NIPCSLEEP)
 				NDJKillApp(cFileControl)
 				IF ( KillApp() )
+					IF ( loProcess )
+						oProcess:lEnd := .T.
+					EndIF
 					BREAK
 				EndIF
+				IF ( loProcess )
+					IF ( oProcess:lEnd )
+						BREAK
+					EndIF
+				ENDIF	
 			End While
 			Sleep(NDJ_NIPCSLEEP)
 		Next nThread	
@@ -181,12 +157,27 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 
 		While .NOT.( KillApp() )
 			nAllThreadsOK := 0
+			IF ( loProcess )
+				oProcess:SetRegua1( nThreads )
+				IF ( oProcess:lEnd )
+					BREAK
+				EndIF
+			EndIF
 			For nThread := 1 To nThreads
 				NDJKillApp(cFileControl)
 				IF ( KillApp() )
+					IF ( loProcess )
+						oProcess:lEnd := .T.
+					EndIF
 					BREAK
 				EndIF
 				cIDThread	:= aIDThreads[nThread][1]
+				IF ( loProcess )
+					oProcess:IncRegua1( "Aguardando a Finalização da Thread["+cIDThread+"]" )
+					IF ( oProcess:lEnd )
+						BREAK
+					EndIF
+				EndIF	
 				IF ( NDJ_NIPCGLBLOCK == 1 )
 					While .NOT.( GlbLock() )
 						NDJKillApp(cFileControl)
@@ -225,6 +216,10 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 			EndIF
 			Sleep(NDJ_NIPCSLEEP)
 		End While
+
+		IF ( loProcess )
+			oProcess:SetRegua1( nThreads )
+		EndIF
 		
 		For nThread := 1 To nThreads
 			cIDThread	:= aIDThreads[nThread][1]
@@ -232,11 +227,20 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 				While .NOT.( GlbLock() )
 					NDJKillApp(cFileControl)
 					IF ( KillApp() )
+						IF ( loProcess )
+							oProcess:lEnd := .T.
+						EndIF
 						BREAK
 					EndIF
 					Sleep(NDJ_NIPCSLEEP)
 				End While
 			EndIF
+			IF ( loProcess )
+				oProcess:IncRegua1( "Finalizando a Thread["+cIDThread+"]" )
+				IF ( oProcess:lEnd )
+					BREAK
+				EndIF
+			EndIF	
 			cGlbError    := GetGlbValue("NDJIPCERROR"+cIDThread)
 			cGlbErrorMsg := GetGlbValue("NDJIPCERRORMSG"+cIDThread)
 			cGlbErrorSTK := GetGlbValue("NDJIPCERRORSTK"+cIDThread)
@@ -245,8 +249,17 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 			EndIF
 			lGlbError := &cGlbError
 			IF ( lGlbError )
-				NDJIPCMsgOut("[IDTHREAD]["+aIDThreads[nThread][1]+"][ERROR]["+cGlbError+"][ERRORMSG]["+cGlbErrorMsg+"]")
-				NDJIPCMsgOut("[IDTHREAD]["+aIDThreads[nThread][1]+"][ERROR]["+cGlbError+"][ERRORSTK]["+cGlbErrorSTK+"]")					
+				cMsg1 := NDJIPCMsgOut("[IDTHREAD]["+aIDThreads[nThread][1]+"][ERROR]["+cGlbError+"][ERRORMSG]["+cGlbErrorMsg+"]")
+				cMsg2 := NDJIPCMsgOut("[IDTHREAD]["+aIDThreads[nThread][1]+"][ERROR]["+cGlbError+"][ERRORSTK]["+cGlbErrorSTK+"]")					
+				IF ( loProcess )
+					oProcess:SaveLog( cMsg1 )
+					oProcess:SaveLog( cMsg2 )
+				EndIF
+			Else
+				cMsg1	:= NDJIPCMsgOut("[IDTHREAD]["+aIDThreads[nThread][1]+"]["+cGlbValue+"][ERROR]["+cGlbError+"][OK]")
+				IF ( loProcess )
+					oProcess:SaveLog( cMsg1 )
+				EndIF
 			EndIF
 			IF ( NDJ_NIPCGLBLOCK == 1 )
 				While .NOT.( GlbLock() )
@@ -269,9 +282,97 @@ Static Function NDJIPCControl(cEmp,cFil,cFunction,nThreads,bIPCPSlice,nIPCPSlice
 		
 		lRet	:= .NOT.( lError )
 
-	END SEQUENCE	
+	END SEQUENCE
+	
+	IPCGo(cSemaphore,"NDJ_FORCE_EXIT")
 		
 Return( lRet )
+
+Function U_NDJWaitEx(cSemaphore,cFunction,cEmp,cFil)
+
+	Local bError
+	
+	Local cFileControl	:= NDJ_CIPCFILECONTROL
+
+	Local cIDThread,uIPCPar02,uIPCPar03,uIPCPar04,uIPCPar05,uIPCPar06,uIPCPar07,uIPCPar08,uIPCPar09,uIPCPar10,;
+		  uIPCPar11,uIPCPar12,uIPCPar13,uIPCPar14,uIPCPar15,uIPCPar16,uIPCPar17,uIPCPar18,uIPCPar19,uIPCPar20    
+
+    Local nTimeOut
+		  
+	Local xRet
+		  
+	bError	:= ErrorBlock({|e|NDJIPCError(e,IF((ValType(cIDThread)=="C"),cIDThread,NIL))})
+	BEGIN SEQUENCE
+
+		RpcSetType(3)
+		RpcSetEnv(cEmp,cFil)
+
+		InitPublic()
+		SetsDefault()
+		
+		nTimeOut := GetNewPar("NDJIPCTOUT",3600000) //DEFAULT 3600000 Milisegundos (1 hora)
+
+		While .NOT.( KillApp() )
+			IF IPCWaitEx(cSemaphore,nTimeOut,@cIDThread,;
+											 @uIPCPar02,;
+											 @uIPCPar03,;
+											 @uIPCPar04,;
+											 @uIPCPar05,;
+											 @uIPCPar06,;
+											 @uIPCPar07,;
+											 @uIPCPar08,;
+											 @uIPCPar09,;
+											 @uIPCPar10,;
+											 @uIPCPar11,;
+											 @uIPCPar12,;
+											 @uIPCPar13,;
+											 @uIPCPar14,;
+											 @uIPCPar15,;
+											 @uIPCPar16,;
+											 @uIPCPar17,;
+											 @uIPCPar18,;
+											 @uIPCPar19,;
+											 @uIPCPar20;
+						)
+				IF ( ( ValType(cIDThread) == "C" ) .and. ( cIDThread == "NDJ_FORCE_EXIT" ) )
+					EXIT
+				EndIF
+				NDJInternal(NDJIPCMsgOut("Begin Execute->"+cFunction+"->IDTHREAD->"+cIDThread))
+				xRet := &cFunction.(cIDThread,;
+									uIPCPar02,;
+									uIPCPar03,;
+									uIPCPar04,;
+									uIPCPar05,;
+									uIPCPar06,;
+									uIPCPar07,;
+									uIPCPar08,;
+									uIPCPar09,;
+									uIPCPar10,;
+									uIPCPar11,;
+									uIPCPar12,;
+									uIPCPar13,;
+									uIPCPar14,;
+									uIPCPar15,;
+									uIPCPar16,;
+									uIPCPar17,;
+									uIPCPar18,;
+									uIPCPar19,;
+									uIPCPar20;
+									)
+				NDJInternal(NDJIPCMsgOut("End Execute->"+cFunction+"->IDTHREAD->"+cIDThread+"->Result->["+cValToChar(xRet)+"]"))
+			Else                        
+				NDJInternal(NDJIPCMsgOut("NDJ_FORCE_EXIT!!!"))
+				EXIT
+			EndIf
+			NDJKillApp(cFileControl)
+		End While
+		
+	END SEQUENCE
+	ErrorBlock(bError)
+
+	RpcClearEnv()
+
+Return( NIL )
 
 Static Function NDJSemaphore(cType,lInc,nSize)
 	
@@ -382,44 +483,6 @@ Static Function NDJKillApp(cFileControl)
 	EndIF	
 
 Return(lKillApp)
-
-Static Function NDJIPCStart(nThreads,cSemaphore,cFunction,cEmp,cFil)
-
-	Local aIDThreads 	:= Array(0)
-
-	Local cEnvServer	:= GetEnvServer()
-	Local cFileControl	:= NDJ_CIPCFILECONTROL 
-	Local cIDThread
-
-	Local nThread	
-
-	BEGIN SEQUENCE
-		For nThread := 1 To nThreads
-			StartJob("U_NDJWaitEx",cEnvServer,.F.,@cSemaphore,@cFunction,@cEmp,@cFil)
-			cIDThread := cSemaphore
-			cIDThread += NDJIDThread(nThread)
-			IF ( NDJ_NIPCGLBLOCK == 1 )
-				While .NOT.( GlbLock() )
-					NDJKillApp(cFileControl)
-					IF ( KillApp() )
-						BREAK
-					EndIF
-					Sleep(NDJ_NIPCSLEEP)
-				End While
-			EndIF
-			PutGlbValue(cIDThread,".F.")
-			PutGlbValue("NDJIPCTTS"+cIDThread,"0")
-			PutGlbValue("NDJIPCERROR"+cIDThread,".F.")
-			PutGlbValue("NDJIPCERRORMSG"+cIDThread,"")
-			PutGlbValue("NDJIPCERRORSTK"+cIDThread,"")
-			IF ( NDJ_NIPCGLBLOCK == 1 )
-				GlbUnLock()
-			EndIF	
-			aAdd(aIDThreads,{cIDThread,.F.})
-		Next nThread
-	END SEQUENCE
-
-Return(aIDThreads)
 
 Static Function NDJIPCError(e,cIDThread)    
 	IF (ValType(cIDThread)=="C")
@@ -576,7 +639,7 @@ Static Function NDJIPCMsgOut(xOutPut,nOutPut)
 
 	Local cOutPut	:= ""                        
 
-	DEFAULT nOutPut := 1		
+	DEFAULT nOutPut := NDJ_MSGCONOUT
 	DEFAULT xOutPut	:= ""      
 	
 	IF (ValType(xOutPut)=="A")
@@ -587,12 +650,19 @@ Static Function NDJIPCMsgOut(xOutPut,nOutPut)
 	
 	cOutPut := ("NDJ_IPC->"+ProcName(1)+"->"+DToS(MsDate())+"->"+Time()+"->"+cOutPut)     
 	                
-	IF (nOutPut==1)	
+	IF (nOutPut==NDJ_MSGCONOUT)
 		ConOut(cOutPut)
-	ElseIF (nOutPut==2)
-		PTInternal(1,cOutPut)
-	ElseIF (nOutPut==3)
+	ElseIF (nOutPut==TAF_MSGINTERNAL)
+		NDJInternal(cOutPut)
+	ElseIF (nOutPut==NDJ_MSGALERT)
 		ApMsgAlert(cOutPut)
 	EndIF
 	
 Return(cOutPut)
+
+Static Function NDJInternal(cOutInternal)
+	PTInternal(1,cOutInternal)
+	#IFDEF TOP
+		TCInternal(1,cOutInternal)
+	#ENDIF
+Return(cOutInternal)
