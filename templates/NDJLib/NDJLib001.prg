@@ -3038,6 +3038,8 @@ Static Function __Dummy( lRecursa )
 		GdToExcel()
 		dbQuery()
 		dbQueryClear()
+		NDJGetfyx()
+		NDJIArray()
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException
