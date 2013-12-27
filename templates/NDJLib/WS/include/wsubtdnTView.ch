@@ -16,6 +16,10 @@
 	#DEFINE STR0015 "Obter a estrutura da Tabela baseado na selecao de campos"
 	#DEFINE STR0016 "Obter os campos de uma Tabela"
 	#DEFINE STR0017 "Obter Aliases validos para recuperação de dados"
+	#DEFINE STR0018 "Obter informacoes de registros uma Tabela"
+	#DEFINE STR0019 "Obter informacoes de registros uma Tabela (Usando Filtro)" 
+	#DEFINE STR0020 "Obter os dados da Tabela baseado nos Registros" 
+	#DEFINE STR0021 "Obter os dados da Tabela baseado nos Registros e baseado na selecao de campos"
 #ELSE
 	#IFDEF ENGLISH
 		#DEFINE STR0001 "Obter informacoes de uma tabela do Protheus"
@@ -35,6 +39,10 @@
 		#DEFINE STR0015 "Obter a estrutura da Tabela baseado na selecao de campos"
 		#DEFINE STR0016 "Obter os campos de uma Tabela"
 		#DEFINE STR0017 "Obter Aliases validos para recuperação de dados" 	
+		#DEFINE STR0018 "Obter informacoes de registros uma Tabela"
+		#DEFINE STR0019 "Obter informacoes de registros uma Tabela (Usando Filtro)" 
+		#DEFINE STR0020 "Obter os dados da Tabela baseado nos Registros"
+		#DEFINE STR0021 "Obter os dados da Tabela baseado nos Registros e baseado na selecao de campos" 
 	#ELSE
 		#DEFINE STR0001 "Obter informacoes de uma tabela do Protheus"
 		#DEFINE STR0002 "Obter informacoes de uma Tabela"
@@ -53,5 +61,9 @@
 		#DEFINE STR0015 "Obter a estrutura da Tabela baseado na selecao de campos" 
 		#DEFINE STR0016 "Obter os campos de uma Tabela"
 		#DEFINE STR0017 "Obter Aliases validos para recuperação de dados"	
+		#DEFINE STR0018 "Obter informacoes de registros uma Tabela"
+		#DEFINE STR0019 "Obter informacoes de registros uma Tabela (Usando Filtro)"
+		#DEFINE STR0020 "Obter os dados da Tabela baseado nos Registros" 
+		#DEFINE STR0021 "Obter os dados da Tabela baseado nos Registros e baseado na selecao de campos"
 	#ENDIF
 #ENDIF		
