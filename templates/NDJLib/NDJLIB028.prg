@@ -3,11 +3,11 @@
  * TDecode class
 */
 
-#include "protheus.ch"
+#include "ndj.ch"
 
 CLASS TDecode FROM LongClassName
 
-	METHOD New()
+	METHOD New() CONSTRUCTOR
 
 	METHOD Decode( cString )
 	METHOD Encode( cString )

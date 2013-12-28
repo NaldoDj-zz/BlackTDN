@@ -2989,35 +2989,6 @@ Static Function dbQueryClear(adbQuery)
 	EndIF	
 Return( .T. )
 
-Static Function NDJGetfyx(x,y,lSub1)
-	DEFAULT lSub1 := .T.
-Return(((x*(y-IF(lSub1,1,0)))+1))
-
-Static Function NDJIArray(nIntVal,nParts,nMax)	
-	
-	Local aIArray
-	
-	Local nInt
-	Local nRes
-	
-	DEFAULT nIntVal := 1
-	DEFAULT nParts  := 1
-	
-	aIArray	:= Array(nParts)	
-	nInt	:= Int(nIntVal/nParts)
-	nMax    := nInt
-	aFill(aIArray,nMax)
-	nRes	:= (nIntVal-(nMax*nParts))
-	While ( nRes > 0 )
-		For nInt := 1 To Min(nRes,nParts)
-			aIArray[nInt] += 1
-			nRes 		  -= 1
-			nMax		  := Max(nMax,aIArray[nParts])
-		End While
-	End While	
-		
-Return(aIArray)
-
 Static Function __Dummy( lRecursa )
 	Local oException
 	TRYEXCEPTION
@@ -3067,8 +3038,6 @@ Static Function __Dummy( lRecursa )
 		GdToExcel()
 		dbQuery()
 		dbQueryClear()
-		NDJGetfyx()
-		NDJIArray()
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException

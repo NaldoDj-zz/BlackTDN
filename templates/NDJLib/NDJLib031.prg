@@ -637,25 +637,38 @@ Return(nTTS)
 
 Static Function NDJIPCMsgOut(xOutPut,nOutPut) 
 
-	Local cOutPut	:= ""                        
+	Local cOutPut	 := ""
+	Local cProcName	 := ProcName()
+	Local cProcName1 := ProcName(1)
 
-	DEFAULT nOutPut := NDJ_MSGCONOUT
+	DEFAULT nOutPut := NDJ_MSGCONOUT		
 	DEFAULT xOutPut	:= ""      
 	
-	IF (ValType(xOutPut)=="A")
-		aEval(xOutPut,{|x|cOutPut+=xOutPut[x]+__cCRLF}) 
-	Else
-		cOutPut := xOutPut
+	IF .NOT.(nOutPut==NDJ_MAKELOG)
+		IF (ValType(xOutPut)=="A")
+			aEval(xOutPut,{|x|cOutPut+=xOutPut[x]+cCRLF}) 
+		Else
+			cOutPut := xOutPut
+		EndIF
+		cOutPut := "[NDJ]["+cProcName1+"]["+AllTrim(Str(ProcLine(1)))+"]["+DToS(MsDate())+"]["+Time()+"][MSG]"+cOutPut
 	EndIF
 	
-	cOutPut := ("NDJ_IPC->"+ProcName(1)+"->"+DToS(MsDate())+"->"+Time()+"->"+cOutPut)     
-	                
 	IF (nOutPut==NDJ_MSGCONOUT)
 		ConOut(cOutPut)
-	ElseIF (nOutPut==TAF_MSGINTERNAL)
-		NDJInternal(cOutPut)
 	ElseIF (nOutPut==NDJ_MSGALERT)
-		ApMsgAlert(cOutPut)
+		ApMsgAlert(cOutPut,cProcName1)
+	ElseIF (nOutPut==NDJ_MSGINFO)
+		APMsgInfo(cOutPut,cProcName1)
+	ElseIF (nOutPut==NDJ_MSGSTOP)
+		APMsgStop(cOutPut,cProcName1)
+	ElseIF (nOutPut==NDJ_MSGINTERNAL)
+		NDJInternal(cOutPut)
+	ElseIF (nOutPut==NDJ_MSGHELP)
+		Help("",1,cProcName,NIL,OemToAnsi(cOutPut),1,0)
+	ElseIF (nOutPut==NDJ_MAKELOG)
+		IF (ValType(xOutPut)=="A")
+			NDJMakeLog({aLogFile},{cProcName1},NIL,.T.,NIL,cProcName1,"G","L",NIL,.F.)
+		EndIF
 	EndIF
 	
 Return(cOutPut)
@@ -666,3 +679,46 @@ Static Function NDJInternal(cOutInternal)
 		TCInternal(1,cOutInternal)
 	#ENDIF
 Return(cOutInternal)
+
+Static Function NDJMakeLog(aLogFile,aLogTitle,cPerg,lShowLog,cLogName,cTitulo,cTamanho,cLandPort,aRet,lAddOldLog)
+Return(fMakeLog(@aLogFile 	,;//Array que contem os Detalhes de Ocorrencia de Log
+				@aLogTitle	,;//Array que contem os Titulos de Acordo com as Ocorrencias
+				@cPerg		,;//Pergunte a Ser Listado
+				@lShowLog	,;//Se Havera "Display" de Tela
+				@cLogName	,;//Nome Alternativo do Log
+				@cTitulo	,;//Titulo Alternativo do Log
+				@cTamanho	,;//Tamanho Vertical do Relatorio de Log ("P","M","G")
+				@cLandPort	,;//Orientacao do Relatorio ("P" Retrato ou "L" Paisagem )
+				@aRet		,;//Array com a Mesma Estrutura do aReturn
+				@lAddOldLog	 ;//Se deve Manter ( Adicionar ) no Novo Log o Log Anterior
+			   );
+)
+
+Static Function NDJGetfyx(x,y,lSub1)
+	DEFAULT lSub1 := .T.
+Return(((x*(y-IF(lSub1,1,0)))+1))
+
+Static Function NDJIArray(nIntVal,nParts,nMax)	
+	
+	Local aIArray
+	
+	Local nInt
+	Local nRes
+	
+	DEFAULT nIntVal := 1
+	DEFAULT nParts  := 1
+	
+	aIArray	:= Array(nParts)	
+	nInt	:= Int(nIntVal/nParts)
+	nMax    := nInt
+	aFill(aIArray,nMax)
+	nRes	:= (nIntVal-(nMax*nParts))
+	While ( nRes > 0 )
+		For nInt := 1 To Min(nRes,nParts)
+			aIArray[nInt] += 1
+			nRes 		  -= 1
+			nMax		  := Max(nMax,aIArray[nParts])
+		End While
+	End While	
+		
+Return(aIArray)
