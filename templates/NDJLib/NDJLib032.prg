@@ -16,7 +16,7 @@ CLASS tNDJProgress FROM LongClassName
 ENDCLASS
 
 User Function tNDJProgress(cProgress,cToken)
-Return(tNDJProgress():New(cProgress,cToken))
+Return(tNDJProgress():New(@cProgress,@cToken))
 
 METHOD New(cProgress,cToken) CLASS tNDJProgress
 	DEFAULT cProgress	:= "-;\;|;/"

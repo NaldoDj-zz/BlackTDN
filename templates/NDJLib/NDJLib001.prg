@@ -2989,6 +2989,38 @@ Static Function dbQueryClear(adbQuery)
 	EndIF	
 Return( .T. )
 
+Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
+	Local lProcRedefine := .F.
+	IF (ValType(oProcess)=="O")
+		DEFAULT lODlgF 					:= .T.
+		DEFAULT lODlgW 					:= .F. 
+		DEFAULT oFont 					:= TFont():New("Currier New",NIL,18,NIL,.T.)
+		DEFAULT nLeft 					:= 100	
+		DEFAULT nWidth  				:= 200
+		DEFAULT nCTLFLeft				:= IF(lODlgW,nWidth,nWidth/2)
+		oProcess:oMsg1:oFont 			:= oFont
+		oProcess:oMsg2:oFont 			:= oFont
+		IF (lODlgF)
+			oProcess:oDlg:oFont  		:= oFont
+		EndIF
+		IF (lODlgW)
+			oProcess:oDlg:nWidth 		+= nWidth
+			oProcess:oDlg:nLeft 		-= (nWidth/2)
+		EndIF
+		oProcess:oMsg1:nLeft 			-= nLeft
+		oProcess:oMsg1:nWidth 			+= nWidth
+		oProcess:oMsg2:nLeft 			-= nLeft
+		oProcess:oMsg2:nWidth 			+= nWidth
+		oProcess:oMeter1:nWidth 		+= nWidth
+		oProcess:oMeter1:nLeft 			-= nLeft
+		oProcess:oMeter2:nWidth			+= nWidth    
+		oProcess:oMeter2:nLeft 			-= nLeft
+		oProcess:oDlg:oCTLFocus:nLeft	+= nCTLFLeft
+		oProcess:oDlg:Refresh(.T.)
+		lProcRedefine					:= .T.
+	EndIF
+Return(lProcRedefine)
+
 Static Function __Dummy( lRecursa )
 	Local oException
 	TRYEXCEPTION
@@ -3038,6 +3070,7 @@ Static Function __Dummy( lRecursa )
 		GdToExcel()
 		dbQuery()
 		dbQueryClear()
+		ProcRedefine()
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException
