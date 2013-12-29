@@ -33,7 +33,6 @@ Return( ::cClassName )
 METHOD Eval(cMethod,uPar01) CLASS tNDJProgress
 	Local cEval
 	DEFAULT cMethod := "PROGRESS"
-	cMethod := Upper(cMethod)
 	DO CASE
 	CASE (cMethod=="PROGRESS")
 		cEval := self:Progress()
