@@ -4,7 +4,6 @@ CLASS tNDJProgress FROM LongClassName
 	CLASSDATA aProgress		HIDDEN
 	CLASSDATA nMax			HIDDEN
 	CLASSDATA nProgress     HIDDEN
-	CLASSDATA cClassName	HIDDEN
 
 	METHOD New(cProgress,cToken)  CONSTRUCTOR
 	METHOD ClassName()
@@ -12,6 +11,7 @@ CLASS tNDJProgress FROM LongClassName
 	METHOD Progress()
 	METHOD Increment(cAlign)
 	METHOD Decrement(cAlign)
+	METHOD SetProgress(cProgress,cToken)
 
 ENDCLASS
 
@@ -19,16 +19,23 @@ User Function tNDJProgress(cProgress,cToken)
 Return(tNDJProgress():New(@cProgress,@cToken))
 
 METHOD New(cProgress,cToken) CLASS tNDJProgress
+Return(self:SetProgress(@cProgress,@cToken))
+
+METHOD SetProgress(cProgress,cToken) CLASS tNDJProgress
+	Local lMacro		:= (SubStr(cProgress,1,1)=="&")
 	DEFAULT cProgress	:= "-;\;|;/"
 	DEFAULT cToken		:= ";"	
-	self:cClassName		:= "TNDJPROGRESS"
+	IF (lMacro)
+		cProgress		:= SubStr(cProgress,2)
+		cProgress		:= &(cProgress)
+	EndIF
 	self:aProgress		:= _StrToKArr(@cProgress,@cToken)
 	self:nMax			:= Len(self:aProgress)
 	self:nProgress		:= 0
 Return(self)
 
 METHOD ClassName() CLASS tNDJProgress
-Return( ::cClassName )
+Return("TNDJPROGRESS")
 
 METHOD Eval(cMethod,uPar01) CLASS tNDJProgress
 	Local cEval

@@ -2990,34 +2990,50 @@ Static Function dbQueryClear(adbQuery)
 Return( .T. )
 
 Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
+	Local aClassData
+	Local laMeter
+	Local nObj
+	Local nMeter
+	Local nMeters
 	Local lProcRedefine := .F.
 	IF (ValType(oProcess)=="O")
-		DEFAULT lODlgF 					:= .T.
-		DEFAULT lODlgW 					:= .F. 
-		DEFAULT oFont 					:= TFont():New("Currier New",NIL,18,NIL,.T.)
-		DEFAULT nLeft 					:= 100	
-		DEFAULT nWidth  				:= 200
-		DEFAULT nCTLFLeft				:= IF(lODlgW,nWidth,nWidth/2)
-		oProcess:oMsg1:oFont 			:= oFont
-		oProcess:oMsg2:oFont 			:= oFont
-		IF (lODlgF)
-			oProcess:oDlg:oFont  		:= oFont
+		DEFAULT oFont := TFont():New("Currier New",NIL,18,NIL,.T.)
+		aClassData	:= ClassDataArr(oProcess)
+		laMeter		:= (aScan(aClassData,{|e|e[1]=="AMETER"})>0)
+		IF ( laMeter )
+			nMeters := Len(oProcess:aMeter)
+			For nMeter := 1 To nMeters
+				For nObj := 1 To 2
+					oProcess:aMeter[nMeter][nObj]:oFont := oFont
+				Next nObj
+			Next nMeter
+		Else
+			DEFAULT lODlgF 					:= .T.
+			DEFAULT lODlgW 					:= .F. 
+			DEFAULT nLeft 					:= 100	
+			DEFAULT nWidth  				:= 200
+			DEFAULT nCTLFLeft				:= IF(lODlgW,nWidth,nWidth/2)
+			IF (lODlgF)
+				oProcess:oDlg:oFont  		:= oFont
+			EndIF
+			IF (lODlgW)
+				oProcess:oDlg:nWidth 		+= nWidth
+				oProcess:oDlg:nLeft 		-= (nWidth/2)
+			EndIF
+			oProcess:oMsg1:oFont 			:= oFont
+			oProcess:oMsg2:oFont 			:= oFont
+			oProcess:oMsg1:nLeft 			-= nLeft
+			oProcess:oMsg1:nWidth 			+= nWidth
+			oProcess:oMsg2:nLeft 			-= nLeft
+			oProcess:oMsg2:nWidth 			+= nWidth
+			oProcess:oMeter1:nWidth 		+= nWidth
+			oProcess:oMeter1:nLeft 			-= nLeft
+			oProcess:oMeter2:nWidth			+= nWidth    
+			oProcess:oMeter2:nLeft 			-= nLeft
+			oProcess:oDlg:oCTLFocus:nLeft	+= nCTLFLeft
+			oProcess:oDlg:Refresh(.T.)
 		EndIF
-		IF (lODlgW)
-			oProcess:oDlg:nWidth 		+= nWidth
-			oProcess:oDlg:nLeft 		-= (nWidth/2)
-		EndIF
-		oProcess:oMsg1:nLeft 			-= nLeft
-		oProcess:oMsg1:nWidth 			+= nWidth
-		oProcess:oMsg2:nLeft 			-= nLeft
-		oProcess:oMsg2:nWidth 			+= nWidth
-		oProcess:oMeter1:nWidth 		+= nWidth
-		oProcess:oMeter1:nLeft 			-= nLeft
-		oProcess:oMeter2:nWidth			+= nWidth    
-		oProcess:oMeter2:nLeft 			-= nLeft
-		oProcess:oDlg:oCTLFocus:nLeft	+= nCTLFLeft
-		oProcess:oDlg:Refresh(.T.)
-		lProcRedefine					:= .T.
+		lProcRedefine := .T.
 	EndIF
 Return(lProcRedefine)
 
