@@ -269,12 +269,12 @@ Return("TNDJREMAINING")
 METHOD SetRemaining(nTotal) CLASS tNDJRemaining
 	DEFAULT nTotal 		:= 0
 	self:cMediumTime	:= "00:00:00"	
-	self:cEndTime		:= Time()
-	self:cStartTime		:= self:cEndTime
+	self:cEndTime		:= "00:00:00"
+	self:cStartTime		:= Time()
 	self:cTimeDiff		:= "00:00:00"
 	self:cTRemaining	:= "00:00:00"
-	self:dEndTime		:= Date()
-	self:dIncTime		:= self:dEndTime
+	self:dEndTime		:= CToD("//")
+	self:dIncTime		:= Date()
 	self:dStartTime		:= self:dEndTime
 	self:nIncTime		:= 0
 	self:nProgress		:= 0
@@ -302,8 +302,6 @@ METHOD RemainingTime() CLASS tNDJRemaining
 	Local nMinInc
 	Local nSecInc
 
-	DEFAULT cTime	:= self:cStartTime
-
 	IF .NOT.(self:dIncTime==dDate)
 		self:dIncTime := dDate
 		++self:nIncTime
@@ -311,7 +309,7 @@ METHOD RemainingTime() CLASS tNDJRemaining
 
 	IF (self:nIncTime>0)
 	    self:ExtractTime(self:cStartTime,@nHrsInc,@nMinInc,@nSecInc)
-		cTime := self:IncTime(self:HMSToTime((nIncTime*24)),nHrsInc,nMinInc,nSecInc)
+		cTime := self:IncTime(self:HMSToTime((self:nIncTime*24)),nHrsInc,nMinInc,nSecInc)
 	EndIF
 
 	self:cTimeDiff		:= ElapTime(self:cStartTime,cTime)
