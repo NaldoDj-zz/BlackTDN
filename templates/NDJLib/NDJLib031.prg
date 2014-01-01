@@ -694,9 +694,10 @@ Return(fMakeLog(@aLogFile 	,;//Array que contem os Detalhes de Ocorrencia de Log
 			   );
 )
 
-Static Function NDJGetfyx(x,y,lSub1)
-	DEFAULT lSub1 := .T.
-Return(((x*(y-IF(lSub1,1,0)))+1))
+Static Function NDJGetfyx(x,y,nSub,nPlus)
+	DEFAULT nSub  := 1
+	DEFAULT nPlus := 1
+Return(((x*(y-nSub))+nPlus))
 
 Static Function NDJIArray(nIntVal,nParts,nMax)	
 	

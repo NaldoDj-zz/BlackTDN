@@ -277,8 +277,10 @@ Return( lMatch )
 	Data:	15/01/2013
 	Uso:	Retorna a Posicao do Eixo y de Acordo com o Eixo x
 */
-Static Function Getfyx( x , y )
-Return( ( ( x * ( y - 1 ) ) + 1 ) )
+Static Function Getfyx(x,y,nSub,nPlus)
+	DEFAULT nSub  := 1
+	DEFAULT nPlus := 1
+Return(((x*(y-nSub))+nPlus))
 
 /*
 	Funcao:	HL1AlgMatch
