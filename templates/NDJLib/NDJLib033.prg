@@ -1,29 +1,29 @@
 #include "ndj.ch"
-CLASS tNDJTimeCalc FROM LongClassName
-	METHOD New() CONSTRUCTOR
-	METHOD ClassName()	
-	METHOD HMSToTime(nHours,nMinuts,nSeconds)
-	METHOD SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet)
-	METHOD SecsToTime(nSecs)
-	METHOD TimeToSecs(cTime)
-	METHOD SecsToHrs(nSeconds)
-	METHOD HrsToSecs(nHours)
-	METHOD SecsToMin(nSeconds)
-	METHOD MinToSecs(nMinuts)
-	METHOD IncTime(cTime,nIncHours,nIncMinuts,nIncSeconds)
-	METHOD DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds)
-	METHOD Time2NextDay(cTime,dDate)
-	METHOD ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet)
-	METHOD MediumTime(cTime,nDividendo,lMiliSecs)
-ENDCLASS
+Class tNDJTimeCalc From LongClassName
+	Method New() CONSTRUCTOR
+	Method ClassName()	
+	Method HMSToTime(nHours,nMinuts,nSeconds)
+	Method SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet)
+	Method SecsToTime(nSecs)
+	Method TimeToSecs(cTime)
+	Method SecsToHrs(nSeconds)
+	Method HrsToSecs(nHours)
+	Method SecsToMin(nSeconds)
+	Method MinToSecs(nMinuts)
+	Method IncTime(cTime,nIncHours,nIncMinuts,nIncSeconds)
+	Method DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds)
+	Method Time2NextDay(cTime,dDate)
+	Method ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet)
+	Method MediumTime(cTime,nDividendo,lMiliSecs)
+EndClass
 
-METHOD New() CLASS tNDJTimeCalc
+Method New() Class tNDJTimeCalc
 Return(self)
 
-METHOD ClassName() CLASS tNDJTimeCalc
+Method ClassName() Class tNDJTimeCalc
 Return("TNDJTIMECALC")
 
-METHOD HMSToTime(nHours,nMinuts,nSeconds) CLASS tNDJTimeCalc
+Method HMSToTime(nHours,nMinuts,nSeconds) Class tNDJTimeCalc
 
 	Local cTime
 	
@@ -40,7 +40,7 @@ METHOD HMSToTime(nHours,nMinuts,nSeconds) CLASS tNDJTimeCalc
 
 Return(cTime)
 
-METHOD SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet) CLASS tNDJTimeCalc
+Method SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet) Class tNDJTimeCalc
 
 	Local nRet	:= 0
 	
@@ -64,14 +64,14 @@ METHOD SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet) CLASS tNDJTimeCalc
 
 Return(nRet)
 
-METHOD SecsToTime(nSecs) CLASS tNDJTimeCalc
+Method SecsToTime(nSecs) Class tNDJTimeCalc
 	Local nHours
 	Local nMinuts
 	Local nSeconds
 	self:SecsToHMS(nSecs,@nHours,@nMinuts,@nSeconds)
 Return(self:HMSToTime(nHours,nMinuts,nSeconds))
 
-METHOD TimeToSecs(cTime) CLASS tNDJTimeCalc
+Method TimeToSecs(cTime) Class tNDJTimeCalc
 
 	Local nHours
 	Local nMinuts
@@ -86,26 +86,26 @@ METHOD TimeToSecs(cTime) CLASS tNDJTimeCalc
 
 Return(nSeconds)
 
-METHOD SecsToHrs(nSeconds) CLASS tNDJTimeCalc
+Method SecsToHrs(nSeconds) Class tNDJTimeCalc
 	Local nHours
 	nHours	:= (nSeconds/3600)
 	nHours	:= Int(nHours)
 Return(nHours)
 
-METHOD HrsToSecs(nHours) CLASS tNDJTimeCalc
+Method HrsToSecs(nHours) Class tNDJTimeCalc
 Return((nHours*3600))
 
-METHOD SecsToMin(nSeconds) CLASS tNDJTimeCalc
+Method SecsToMin(nSeconds) Class tNDJTimeCalc
 	Local nMinuts
 	nMinuts		:= (nSeconds/60)
 	nMinuts		:= Int(nMinuts)
 	nMinuts		:= Mod(nMinuts,60)
 Return(nMinuts)
 
-METHOD MinToSecs(nMinuts) CLASS tNDJTimeCalc
+Method MinToSecs(nMinuts) Class tNDJTimeCalc
 Return((nMinuts*60))
 
-METHOD IncTime(cTime,nIncHours,nIncMinuts,nIncSeconds) CLASS tNDJTimeCalc
+Method IncTime(cTime,nIncHours,nIncMinuts,nIncSeconds) Class tNDJTimeCalc
 
 	Local nSeconds
 	Local nMinuts
@@ -124,7 +124,7 @@ METHOD IncTime(cTime,nIncHours,nIncMinuts,nIncSeconds) CLASS tNDJTimeCalc
 	
 Return(self:SecsToTime(nSeconds))
 
-METHOD DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds) CLASS tNDJTimeCalc
+Method DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds) Class tNDJTimeCalc
 
 	Local nSeconds
 	Local nMinuts
@@ -143,14 +143,14 @@ METHOD DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds) CLASS tNDJTimeCalc
 	
 Return(self:SecsToTime(nSeconds))
 
-METHOD Time2NextDay(cTime,dDate) CLASS tNDJTimeCalc
+Method Time2NextDay(cTime,dDate) Class tNDJTimeCalc
 	While (Val(cTime)>=24)
 		cTime := self:DecTime(cTime,24)
 		++dDate
 	End While
 Return({cTime,dDate})
 
-METHOD ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet) CLASS tNDJTimeCalc
+Method ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet) Class tNDJTimeCalc
 
 	Local nRet		:= 0
 	
@@ -188,7 +188,7 @@ METHOD ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet) CLASS tNDJTimeCalc
 
 Return(nRet)
 
-METHOD MediumTime(cTime,nDividendo,lMiliSecs) CLASS tNDJTimeCalc
+Method MediumTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
 
 	Local cMediumTime	:= "00:00:00"
 	
@@ -221,52 +221,54 @@ METHOD MediumTime(cTime,nDividendo,lMiliSecs) CLASS tNDJTimeCalc
 
 Return(cMediumTime)
 
-CLASS tNDJRemaining FROM tNDJTimeCalc
+Class tNDJRemaining From tNDJTimeCalc
 	
-	CLASSDATA cMediumTime	HIDDEN
-	CLASSDATA cEndTime		HIDDEN
-	CLASSDATA cStartTime	HIDDEN
-	CLASSDATA cTimeDiff		HIDDEN
-	CLASSDATA cTRemaining	HIDDEN
-	CLASSDATA dEndTime		HIDDEN
-	CLASSDATA dIncTime		HIDDEN
-	CLASSDATA dStartTime	HIDDEN
-	CLASSDATA nIncTime		HIDDEN
-	CLASSDATA nProgress     HIDDEN
-	CLASSDATA nSRemaining   HIDDEN
-	CLASSDATA nTotal     	HIDDEN
+	DATA cMediumTime	AS CHARACTER INIT "00:00:00" HIDDEN
+	DATA cEndTime  		AS CHARACTER INIT "00:00:00" HIDDEN
+	DATA cStartTime  	AS CHARACTER INIT "00:00:00" HIDDEN
+	DATA cTimeDiff  	AS CHARACTER INIT "00:00:00" HIDDEN
+	DATA cTRemaining  	AS CHARACTER INIT "00:00:00" HIDDEN
+	DATA dEndTime		AS DATE      INIT Ctod("//") HIDDEN
+	DATA dIncTime		AS DATE      INIT Ctod("//") HIDDEN
+	DATA dStartTime		AS DATE      INIT Ctod("//") HIDDEN
+	DATA nIncTime		AS NUMERIC   INIT 0			 HIDDEN	
+	DATA nProgress		AS NUMERIC   INIT 0			 HIDDEN	
+	DATA nSRemaining	AS NUMERIC   INIT 0			 HIDDEN
+	DATA nTotal			AS NUMERIC   INIT 0			 HIDDEN
 
-	METHOD New(nTotal) CONSTRUCTOR
-	METHOD ClassName()
+	Method New(nTotal) CONSTRUCTOR
+	Method ClassName()
 
-	METHOD SetRemaining(nTotal)
+	Method SetRemaining(nTotal)
 
-	METHOD Calcule()
-	METHOD RemainingTime()
-	METHOD CalcEndTime()
+	Method Calcule()
+	Method RemainingTime()
+	Method CalcEndTime()
 	
-	METHOD GetcMediumTime()
-	METHOD GetcEndTime()
-	METHOD GetcStartTime()
-	METHOD GetcTimeDiff()
-	METHOD GetcTRemaining()
-	METHOD GetdEndTime()
-	METHOD GetdIncTime()
-	METHOD GetdStartTime()
-	METHOD GetnIncTime()
-	METHOD GetnProgress()
-	METHOD GetnSRemaining()
-	METHOD GetnTotal()
+	Method GetcMediumTime()
+	Method GetcEndTime()
+	Method GetcStartTime()
+	Method GetcTimeDiff()
+	Method GetcTRemaining()
+	Method GetdEndTime()
+	Method GetdIncTime()
+	Method GetdStartTime()
+	Method GetnIncTime()
+	Method GetnProgress()
+	Method GetnSRemaining()
+	Method GetnTotal()
 	
-ENDCLASS
+ENDClass
 
-METHOD New(nTotal) CLASS tNDJRemaining
-Return(self:SetRemaining(@nTotal))
+Method New(nTotal) Class tNDJRemaining
+	_Super:New()
+	self:SetRemaining(@nTotal)
+Return(self)
 
-METHOD ClassName() CLASS tNDJRemaining
+Method ClassName() Class tNDJRemaining
 Return("TNDJREMAINING")
 
-METHOD SetRemaining(nTotal) CLASS tNDJRemaining
+Method SetRemaining(nTotal) Class tNDJRemaining
 	DEFAULT nTotal 		:= 0
 	self:cMediumTime	:= "00:00:00"	
 	self:cEndTime		:= "00:00:00"
@@ -282,7 +284,7 @@ METHOD SetRemaining(nTotal) CLASS tNDJRemaining
 	self:nTotal			:= nTotal
 Return(self)
 
-METHOD Calcule() CLASS tNDJRemaining
+Method Calcule() Class tNDJRemaining
 	Local aEndTime
 	self:RemainingTime()
 	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,++self:nProgress,.T.)
@@ -293,7 +295,7 @@ METHOD Calcule() CLASS tNDJRemaining
 	self:dEndTime			:= aEndTime[2]
 Return(self)
 
-METHOD RemainingTime() CLASS tNDJRemaining
+Method RemainingTime() Class tNDJRemaining
 
 	Local cTime		:= Time()
 	Local dDate		:= Date()
@@ -318,42 +320,42 @@ METHOD RemainingTime() CLASS tNDJRemaining
 
 Return(self)
 
-METHOD CalcEndTime() CLASS tNDJRemaining
+Method CalcEndTime() Class tNDJRemaining
 	Local nTimeEnd := (((self:nTotal-self:nProgress)*self:nSRemaining)/self:nProgress)
 Return(self:SecsToTime(nTimeEnd))
 
-METHOD GetcMediumTime() CLASS tNDJRemaining
+Method GetcMediumTime() Class tNDJRemaining
 Return(self:cMediumTime)
 
-METHOD GetcEndTime() CLASS tNDJRemaining
+Method GetcEndTime() Class tNDJRemaining
 Return(self:cEndTime)
 
-METHOD GetcStartTime() CLASS tNDJRemaining
+Method GetcStartTime() Class tNDJRemaining
 Return(self:cStartTime)
 
-METHOD GetcTimeDiff() CLASS tNDJRemaining
+Method GetcTimeDiff() Class tNDJRemaining
 Return(self:cTimeDiff)
 
-METHOD GetcTRemaining() CLASS tNDJRemaining
+Method GetcTRemaining() Class tNDJRemaining
 Return(self:cTRemaining)
 
-METHOD GetdEndTime() CLASS tNDJRemaining
+Method GetdEndTime() Class tNDJRemaining
 Return(self:dEndTime)
 
-METHOD GetdIncTime() CLASS tNDJRemaining
+Method GetdIncTime() Class tNDJRemaining
 Return(self:dIncTime)
 
-METHOD GetdStartTime() CLASS tNDJRemaining
+Method GetdStartTime() Class tNDJRemaining
 Return(self:dStartTime)
 
-METHOD GetnIncTime() CLASS tNDJRemaining
+Method GetnIncTime() Class tNDJRemaining
 Return(self:nIncTime)
 
-METHOD GetnProgress() CLASS tNDJRemaining
+Method GetnProgress() Class tNDJRemaining
 Return(self:nProgress)
 
-METHOD GetnSRemaining() CLASS tNDJRemaining
+Method GetnSRemaining() Class tNDJRemaining
 Return(self:nSRemaining)
 
-METHOD GetnTotal() CLASS tNDJRemaining
+Method GetnTotal() Class tNDJRemaining
 Return(self:nTotal)

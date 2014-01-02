@@ -1,27 +1,29 @@
 #include "ndj.ch"
-CLASS tNDJProgress FROM LongClassName
+Class tNDJProgress From LongClassName
 	
-	CLASSDATA aProgress		HIDDEN
-	CLASSDATA nMax			HIDDEN
-	CLASSDATA nProgress     HIDDEN
+	DATA aProgress	AS ARRAY INIT Array(0)
+	
+	DATA nMax		AS NUMERIC INIT 0 HIDDEN
+	DATA nProgress	AS NUMERIC INIT 0 HIDDEN
 
-	METHOD New(cProgress,cToken)  CONSTRUCTOR
-	METHOD ClassName()
-	METHOD Eval(cMethod,uPar01)
-	METHOD Progress()
-	METHOD Increment(cAlign)
-	METHOD Decrement(cAlign)
-	METHOD SetProgress(cProgress,cToken)
+	Method New(cProgress,cToken)  CONSTRUCTOR
+	Method ClassName()
+	Method Eval(cMethod,uPar01)
+	Method Progress()
+	Method Increment(cAlign)
+	Method Decrement(cAlign)
+	Method SetProgress(cProgress,cToken)
 
-ENDCLASS
+EndClass
 
 User Function tNDJProgress(cProgress,cToken)
 Return(tNDJProgress():New(@cProgress,@cToken))
 
-METHOD New(cProgress,cToken) CLASS tNDJProgress
-Return(self:SetProgress(@cProgress,@cToken))
+Method New(cProgress,cToken) Class tNDJProgress
+	self:SetProgress(@cProgress,@cToken)
+Return(self)
 
-METHOD SetProgress(cProgress,cToken) CLASS tNDJProgress
+Method SetProgress(cProgress,cToken) Class tNDJProgress
 	Local lMacro
 	DEFAULT cProgress	:= "-;\;|;/"
 	DEFAULT cToken		:= ";"	
@@ -35,10 +37,10 @@ METHOD SetProgress(cProgress,cToken) CLASS tNDJProgress
 	self:nProgress		:= 0
 Return(self)
 
-METHOD ClassName() CLASS tNDJProgress
+Method ClassName() Class tNDJProgress
 Return("TNDJPROGRESS")
 
-METHOD Eval(cMethod,uPar01) CLASS tNDJProgress
+Method Eval(cMethod,uPar01) Class tNDJProgress
 	Local cEval
 	DEFAULT cMethod := "PROGRESS"
 	DO CASE
@@ -53,10 +55,10 @@ METHOD Eval(cMethod,uPar01) CLASS tNDJProgress
 	ENDCASE
 Return(cEval)
 
-METHOD Progress() CLASS tNDJProgress
+Method Progress() Class tNDJProgress
 Return(self:aProgress[IF(++self:nProgress>self:nMax,self:nProgress:=1,self:nProgress)])
 
-METHOD Increment(cAlign) CLASS tNDJProgress
+Method Increment(cAlign) Class tNDJProgress
 	Local cPADFunc  := "PAD"
 	Local cProgress := ""
 	Local nProgress
@@ -70,7 +72,7 @@ METHOD Increment(cAlign) CLASS tNDJProgress
 	cPADFunc += cAlign
 Return(&cPADFunc.(cProgress,self:nMax))
 
-METHOD Decrement(cAlign) CLASS tNDJProgress
+Method Decrement(cAlign) Class tNDJProgress
 	Local cPADFunc  := "PAD"
 	Local cProgress := ""
 	Local nProgress
