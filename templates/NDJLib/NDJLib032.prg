@@ -22,9 +22,10 @@ METHOD New(cProgress,cToken) CLASS tNDJProgress
 Return(self:SetProgress(@cProgress,@cToken))
 
 METHOD SetProgress(cProgress,cToken) CLASS tNDJProgress
-	Local lMacro		:= (SubStr(cProgress,1,1)=="&")
+	Local lMacro
 	DEFAULT cProgress	:= "-;\;|;/"
 	DEFAULT cToken		:= ";"	
+	lMacro := (SubStr(cProgress,1,1)=="&")
 	IF (lMacro)
 		cProgress		:= SubStr(cProgress,2)
 		cProgress		:= &(cProgress)
