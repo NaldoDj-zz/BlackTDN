@@ -2997,17 +2997,23 @@ Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
 	Local nMeters
 	Local lProcRedefine := .F.
 	IF (ValType(oProcess)=="O")
-		DEFAULT oFont := TFont():New("Currier New",NIL,18,NIL,.T.)
+		DEFAULT oFont := TFont():New("Lucida Console",NIL,12,NIL,.T.)
 		aClassData	:= ClassDataArr(oProcess)
 		laMeter		:= (aScan(aClassData,{|e|e[1]=="AMETER"})>0)
 		IF ( laMeter )
+			DEFAULT oFont := TFont():New("Lucida Console",NIL,12,NIL,.T.)
+			DEFAULT nLeft 					:= 35
+			DEFAULT nWidth  				:= 35
 			nMeters := Len(oProcess:aMeter)
 			For nMeter := 1 To nMeters
 				For nObj := 1 To 2
-					oProcess:aMeter[nMeter][nObj]:oFont := oFont
+					oProcess:aMeter[nMeter][nObj]:oFont 	:= oFont
+					oProcess:aMeter[nMeter][nObj]:nWidth	+= nWidth
+					oProcess:aMeter[nMeter][nObj]:nLeft 	-= nLeft
 				Next nObj
 			Next nMeter
 		Else
+			DEFAULT oFont := TFont():New("Lucida Console",NIL,18,NIL,.T.)
 			DEFAULT lODlgF 					:= .T.
 			DEFAULT lODlgW 					:= .F. 
 			DEFAULT nLeft 					:= 100	
