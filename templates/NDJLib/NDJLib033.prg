@@ -269,7 +269,7 @@ Method ClassName() Class tNDJRemaining
 Return("TNDJREMAINING")
 
 Method SetRemaining(nTotal) Class tNDJRemaining
-	DEFAULT nTotal 		:= 0
+	DEFAULT nTotal 		:= 1
 	self:cMediumTime	:= "00:00:00"	
 	self:cEndTime		:= "00:00:00"
 	self:cStartTime		:= Time()
@@ -277,7 +277,7 @@ Method SetRemaining(nTotal) Class tNDJRemaining
 	self:cTRemaining	:= "00:00:00"
 	self:dEndTime		:= CToD("//")
 	self:dIncTime		:= Date()
-	self:dStartTime		:= self:dEndTime
+	self:dStartTime		:= Date()
 	self:nIncTime		:= 0
 	self:nProgress		:= 0
 	self:nSRemaining	:= 0
