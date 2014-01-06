@@ -229,8 +229,8 @@ Class tNDJRemaining From tNDJTimeCalc
 	DATA cTimeDiff  	AS CHARACTER INIT "00:00:00" HIDDEN
 	DATA cTRemaining  	AS CHARACTER INIT "00:00:00" HIDDEN
 	DATA dEndTime		AS DATE      INIT Ctod("//") HIDDEN
-	DATA dIncTime		AS DATE      INIT Ctod("//") HIDDEN
 	DATA dStartTime		AS DATE      INIT Ctod("//") HIDDEN
+	DATA nCount			AS NUMERIC   INIT 0			 HIDDEN
 	DATA nIncTime		AS NUMERIC   INIT 0			 HIDDEN	
 	DATA nProgress		AS NUMERIC   INIT 0			 HIDDEN	
 	DATA nSRemaining	AS NUMERIC   INIT 0			 HIDDEN
@@ -251,8 +251,8 @@ Class tNDJRemaining From tNDJTimeCalc
 	Method GetcTimeDiff()
 	Method GetcTRemaining()
 	Method GetdEndTime()
-	Method GetdIncTime()
 	Method GetdStartTime()
+	Method GetnCount()
 	Method GetnIncTime()
 	Method GetnProgress()
 	Method GetnSRemaining()
@@ -276,8 +276,8 @@ Method SetRemaining(nTotal) Class tNDJRemaining
 	self:cTimeDiff		:= "00:00:00"
 	self:cTRemaining	:= "00:00:00"
 	self:dEndTime		:= CToD("//")
-	self:dIncTime		:= Date()
 	self:dStartTime		:= Date()
+	self:nCount			:= 0
 	self:nIncTime		:= 0
 	self:nProgress		:= 0
 	self:nSRemaining	:= 0
@@ -286,6 +286,7 @@ Return(self)
 
 Method Calcule() Class tNDJRemaining
 	Local aEndTime
+	self:nCount++
 	self:RemainingTime()
 	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,++self:nProgress,.T.)
 	self:cEndTime			:= self:CalcEndTime()
@@ -304,10 +305,7 @@ Method RemainingTime() Class tNDJRemaining
 	Local nMinInc
 	Local nSecInc
 
-	IF .NOT.(self:dIncTime==dDate)
-		self:dIncTime := dDate
-		++self:nIncTime
-	EndIF
+	self:nIncTime  := abs(dDate-self:dStartTime)
 
 	IF (self:nIncTime>0)
 	    self:ExtractTime(self:cStartTime,@nHrsInc,@nMinInc,@nSecInc)
@@ -342,11 +340,11 @@ Return(self:cTRemaining)
 Method GetdEndTime() Class tNDJRemaining
 Return(self:dEndTime)
 
-Method GetdIncTime() Class tNDJRemaining
-Return(self:dIncTime)
-
 Method GetdStartTime() Class tNDJRemaining
 Return(self:dStartTime)
+
+Method GetnCount() Class tNDJRemaining
+Return(self:nCount)
 
 Method GetnIncTime() Class tNDJRemaining
 Return(self:nIncTime)
