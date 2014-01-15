@@ -1,10 +1,10 @@
 #include "ndj.ch"
 Class tNDJProgress From LongClassName
 	
-	DATA aProgress	AS ARRAY INIT Array(0)
+	DATA aProgress	AS ARRAY INIT Array(0) HIDDEN
 	
-	DATA nMax		AS NUMERIC INIT 0 HIDDEN
-	DATA nProgress	AS NUMERIC INIT 0 HIDDEN
+	DATA nMax		AS NUMERIC INIT 0      HIDDEN
+	DATA nProgress	AS NUMERIC INIT 0      HIDDEN
 
 	Method New(cProgress,cToken)  CONSTRUCTOR
 	Method ClassName()
@@ -13,6 +13,9 @@ Class tNDJProgress From LongClassName
 	Method Increment(cAlign)
 	Method Decrement(cAlign)
 	Method SetProgress(cProgress,cToken)
+	
+	Method GetnMax()
+	Method GetnProgress()
 
 EndClass
 
@@ -85,6 +88,12 @@ Method Decrement(cAlign) Class tNDJProgress
 	DEFAULT cAlign := "L" //L,C,R
 	cPADFunc += cAlign
 Return(&cPADFunc.(cProgress,self:nMax))
+
+Method GetnMax() Class tNDJProgress
+Return(self:nMax)
+
+Method GetnProgress() Class tNDJProgress
+Return(self:nProgress)
 
 Static Function _StrToKArr(cStr,cToken)
 	Local cDToken
