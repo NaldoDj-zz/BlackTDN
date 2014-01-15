@@ -718,7 +718,7 @@ Static Function NDJIArray(nIntVal,nParts,nMax)
 		For nInt := 1 To Min(nRes,nParts)
 			aIArray[nInt] += 1
 			nRes 		  -= 1
-			nMax		  := Max(nMax,aIArray[nParts])
+			nMax		  := Max(nMax,aIArray[nInt])
 		End While
 	End While	
 		
