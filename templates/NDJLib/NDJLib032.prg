@@ -5,14 +5,20 @@ Class tNDJProgress From LongClassName
 	
 	DATA nMax		AS NUMERIC INIT 0      HIDDEN
 	DATA nProgress	AS NUMERIC INIT 0      HIDDEN
+	
+	DATA lShuttle   AS LOGICAL INIT .F.    HIDDEN
 
 	Method New(cProgress,cToken)  CONSTRUCTOR
+
 	Method ClassName()
+
+	Method SetProgress(cProgress,cToken)
+
 	Method Eval(cMethod,uPar01)
 	Method Progress()
 	Method Increment(cAlign)
 	Method Decrement(cAlign)
-	Method SetProgress(cProgress,cToken)
+	Method Shuttle(cAlign)
 	
 	Method GetnMax()
 	Method GetnProgress()
@@ -25,6 +31,9 @@ Return(tNDJProgress():New(@cProgress,@cToken))
 Method New(cProgress,cToken) Class tNDJProgress
 	self:SetProgress(@cProgress,@cToken)
 Return(self)
+
+Method ClassName() Class tNDJProgress
+Return("TNDJPROGRESS")
 
 Method SetProgress(cProgress,cToken) Class tNDJProgress
 	Local lMacro
@@ -39,9 +48,6 @@ Method SetProgress(cProgress,cToken) Class tNDJProgress
 	self:nMax			:= Len(self:aProgress)
 	self:nProgress		:= 0
 Return(self)
-
-Method ClassName() Class tNDJProgress
-Return("TNDJPROGRESS")
 
 Method Eval(cMethod,uPar01) Class tNDJProgress
 	Local cEval
@@ -88,6 +94,20 @@ Method Decrement(cAlign) Class tNDJProgress
 	DEFAULT cAlign := "L" //L,C,R
 	cPADFunc += cAlign
 Return(&cPADFunc.(cProgress,self:nMax))
+
+Method Shuttle(cAlign) Class tNDJProgress
+	Local cEval
+	IF (.NOT.(self:lShuttle).and.(self:nProgress==self:nMax))
+		self:lShuttle := .T.
+	ElseIF (self:lShuttle.and.(self:nProgress==self:nMax))
+		self:lShuttle := .F.
+	EndIF	
+	IF (self:lShuttle)
+		cEval := "DECREMENT" 
+	Else
+		cEval := "INCREMENT"
+	EndIF
+Return(self:Eval(cEval,@cAlign))
 
 Method GetnMax() Class tNDJProgress
 Return(self:nMax)
