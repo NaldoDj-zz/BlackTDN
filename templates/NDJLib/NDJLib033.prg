@@ -203,7 +203,7 @@ Method MediumTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
 		nMediumTime	:= Int(nSeconds)
 	
 		nMiliSecs	:= (nSeconds-nMediumTime)
-		nMiliSecs	*= 100
+		nMiliSecs	*= 1000
 		nMiliSecs	:= Int(nMiliSecs)
 	
 		cMediumTime	:= self:SecsToTime(nMediumTime)
@@ -214,7 +214,7 @@ Method MediumTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
 				.and.;
 				(nMiliSecs>0);
 			)
-			cMediumTime += (":"+StrZero(nMiliSecs,03))
+			cMediumTime += (":"+StrZero(nMiliSecs,IF(nMiliSecs>999,4,3)))
 		EndIF
 	
 	EndIF
@@ -236,15 +236,29 @@ Class tNDJRemaining From tNDJTimeCalc
 	DATA nSRemaining	AS NUMERIC   INIT 0			 HIDDEN
 	DATA nTotal			AS NUMERIC   INIT 0			 HIDDEN
 
+	//-------------------------------------------------------------------
+	// EXPORTED: Instancia um novo objeto
 	Method New(nTotal) CONSTRUCTOR
+	
+	//-------------------------------------------------------------------
+	// EXPORTED: Retorna o Nome da Classe
 	Method ClassName()
 
+	//-------------------------------------------------------------------
+	// EXPORTED: Seta novo Total para Calcule()
 	Method SetRemaining(nTotal)
 
-	Method Calcule()
+	//-------------------------------------------------------------------
+	// EXPORTED: Para Obter os Tempos utilize o Metodo Calcule
+	Method Calcule(lIncProgress)
+
+	//-------------------------------------------------------------------
+	// PROTECTED: Utilizados Internamente pelo Metodo Calcule. Nao os chame diretamente
 	Method RemainingTime()
 	Method CalcEndTime()
 	
+	//-------------------------------------------------------------------
+	// EXPORTED: Retorna os Valores das Propriedades
 	Method GetcMediumTime()
 	Method GetcEndTime()
 	Method GetcStartTime()
@@ -284,11 +298,12 @@ Method SetRemaining(nTotal) Class tNDJRemaining
 	self:nTotal			:= nTotal
 Return(self)
 
-Method Calcule() Class tNDJRemaining
+Method Calcule(lIncProgress) Class tNDJRemaining
 	Local aEndTime
 	self:nCount++
 	self:RemainingTime()
-	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,++self:nProgress,.T.)
+	DEFAULT lIncProgress	:= .T.
+	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,IF(lIncProgress,++self:nProgress,self:nProgress),.T.)
 	self:cEndTime			:= self:CalcEndTime()
 	self:cEndTime			:= self:IncTime(Time(),NIL,NIL,self:TimeToSecs(self:cEndTime))
 	aEndTime				:= self:Time2NextDay(self:cEndTime,Date())
@@ -319,7 +334,13 @@ Method RemainingTime() Class tNDJRemaining
 Return(self)
 
 Method CalcEndTime() Class tNDJRemaining
-	Local nTimeEnd := (((self:nTotal-self:nProgress)*self:nSRemaining)/self:nProgress)
+	Local nTimeEnd
+	IF self:nTotal<self:nProgress
+		nTimeEnd       := self:nTotal
+		self:nTotal    := self:nProgress
+		self:nProgress := nTimeEnd
+	EndIF
+	nTimeEnd := (((self:nTotal-self:nProgress)*self:nSRemaining)/self:nProgress)
 Return(self:SecsToTime(nTimeEnd))
 
 Method GetcMediumTime() Class tNDJRemaining
