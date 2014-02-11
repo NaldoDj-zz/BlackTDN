@@ -250,11 +250,6 @@ Class tNDJRemaining From tNDJTimeCalc
 	Method Calcule(lProgress)
 
 	//-------------------------------------------------------------------
-	// PROTECTED: Utilizados Internamente pelo Metodo Calcule. Nao os chame diretamente
-	Method TimeRemaining()
-	Method CalcEndTime()
-	
-	//-------------------------------------------------------------------
 	// EXPORTED: Retorna os Valores das Propriedades
 	Method GetcMediumTime()
 	Method GetcEndTime()
@@ -292,29 +287,16 @@ Method SetRemaining(nTotal) Class tNDJRemaining
 Return(self)
 
 Method Calcule(lProgress) Class tNDJRemaining
-	Local aEndTime
-	self:TimeRemaining()
-	DEFAULT lProgress	:= .T.
-	IF (lProgress)
-		++self:nProgress
-	EndIF
-	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,self:nProgress,.T.)
-	self:cEndTime			:= self:CalcEndTime()
-	self:cEndTime			:= self:IncTime(Time(),NIL,NIL,self:TimeToSecs(self:cEndTime))
-	aEndTime				:= self:Time2NextDay(self:cEndTime,Date())
-	self:cEndTime			:= aEndTime[1]
-	self:dEndTime			:= aEndTime[2]
-Return(self)
 
-Method TimeRemaining() Class tNDJRemaining
+	Local aEndTime
 
 	Local cTime		:= Time()
-	
 	Local dDate		:= Date()
 
 	Local nIncTime	:= 0
 	
 	Local nTime
+	Local nTimeEnd
 	Local nTimeDiff
 	Local nStartTime
 
@@ -331,17 +313,26 @@ Method TimeRemaining() Class tNDJRemaining
 	self:cTRemaining	:= self:SecsToTime(abs(nTimeDiff-nStartTime))
 	self:nSRemaining	:= nTimeDiff
 
-Return(self)
+	DEFAULT lProgress	:= .T.
+	IF (lProgress)
+		++self:nProgress
+	EndIF
 
-Method CalcEndTime() Class tNDJRemaining
-	Local nTimeEnd
+	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,self:nProgress,.T.)
+
 	IF self:nTotal<self:nProgress
 		nTimeEnd       := self:nTotal
 		self:nTotal    := self:nProgress
 		self:nProgress := nTimeEnd
 	EndIF
 	nTimeEnd := (((self:nTotal-self:nProgress)*self:nSRemaining)/self:nProgress)
-Return(self:SecsToTime(nTimeEnd))
+	self:cEndTime			:= self:SecsToTime(nTimeEnd)
+	self:cEndTime			:= self:IncTime(cTime,NIL,NIL,self:TimeToSecs(self:cEndTime))
+	aEndTime				:= self:Time2NextDay(self:cEndTime,dDate)
+	self:cEndTime			:= aEndTime[1]
+	self:dEndTime			:= aEndTime[2]
+
+Return(self)
 
 Method GetcMediumTime() Class tNDJRemaining
 Return(self:cMediumTime)
