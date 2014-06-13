@@ -65,7 +65,7 @@ Return(uft():New())
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	CONSTRUCTOR
-	Sintaxe:	ft():New() : Object do Tipo fT				
+	Sintaxe:	uft():New() : Object do Tipo fT				
 /*/
 METHOD New() CLASS ufT
 
@@ -74,7 +74,7 @@ METHOD New() CLASS ufT
 	Self:cFile			:= ""
 	Self:cLine			:= ""
 
-	Self:cClassName		:= "FT"
+	Self:cClassName		:= "UFT"
 
 	Self:nRecno			:= 0
 	Self:nLastRecno		:= 0
@@ -91,7 +91,7 @@ Return( Self )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retornar o Nome da Classe
-	Sintaxe:	ft():ClassName() : Retorna o Nome da Classe
+	Sintaxe:	uft():ClassName() : Retorna o Nome da Classe
 /*/
 METHOD ClassName() CLASS ufT
 Return( Self:cClassName )
@@ -101,7 +101,7 @@ Return( Self:cClassName )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Abrir o Arquivo Passado como Parametro
-	Sintaxe:	ft():ft_fUse( cFile ) : nfHandle ( nfHandle > 0 True, False)
+	Sintaxe:	uft():ft_fUse( cFile ) : nfHandle ( nfHandle > 0 True, False)
 /*/
 METHOD ft_fUse( cFile ) CLASS ufT
 
@@ -126,7 +126,7 @@ Return( Self:nfHandle )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Abrir o Arquivo Passado como Parametro
-	Sintaxe:	ft():ft_fOpen( cFile ) : nfHandle ( nfHandle > 0 True, False)
+	Sintaxe:	uft():ft_fOpen( cFile ) : nfHandle ( nfHandle > 0 True, False)
 /*/
 METHOD ft_fOpen( cFile ) CLASS ufT
 
@@ -202,7 +202,7 @@ Return( nLines )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Fechar o Arquivo aberto pela ft_fOpen ou ft_fUse
-	Sintaxe:	ft():ft_fClose() : NIL
+	Sintaxe:	uft():ft_fClose() : NIL
 /*/
 METHOD ft_fClose() CLASS ufT
 
@@ -227,7 +227,7 @@ Return( NIL )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retornar o Nome do Arquivo Atualmente Aberto
-	Sintaxe:	ft():ft_fAlias() : cFile
+	Sintaxe:	uft():ft_fAlias() : cFile
 /*/
 METHOD ft_fAlias() CLASS ufT
 Return( Self:cFile )
@@ -237,7 +237,7 @@ Return( Self:cFile )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Verifica se o Arquivo Existe
-	Sintaxe:	ft():ft_fExists( cFile ) : lExists
+	Sintaxe:	uft():ft_fExists( cFile ) : lExists
 /*/
 METHOD ft_fExists( cFile ) CLASS ufT
 
@@ -264,7 +264,7 @@ Return( lExists )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retorna o Recno Atual
-	Sintaxe:	ft():ft_fRecno() : nRecno
+	Sintaxe:	uft():ft_fRecno() : nRecno
 /*/
 METHOD ft_fRecno() CLASS ufT
 Return( Self:nRecno )
@@ -274,7 +274,7 @@ Return( Self:nRecno )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Salta n Posicoes 
-	Sintaxe:	ft():ft_fSkip( nSkipper ) : nRecno
+	Sintaxe:	uft():ft_fSkip( nSkipper ) : nRecno
 /*/
 METHOD ft_fSkip( nSkipper ) CLASS ufT
 
@@ -289,7 +289,7 @@ Return( Self:nRecno )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Salta para o Registro informando em nGoto
-	Sintaxe:	ft():ft_fGoTo( nGoTo ) : nRecno
+	Sintaxe:	uft():ft_fGoTo( nGoTo ) : nRecno
 /*/
 METHOD ft_fGoTo( nGoTo ) CLASS ufT
 
@@ -302,7 +302,7 @@ Return( Self:nRecno )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Salta para o Inicio do Arquivo
-	Sintaxe:	ft():ft_fGoTo( nGoTo ) : nRecno
+	Sintaxe:	uft():ft_fGoTo( nGoTo ) : nRecno
 /*/
 METHOD ft_fGoTop() CLASS ufT
 Return( Self:ft_fGoTo( 1 ) )
@@ -312,7 +312,7 @@ Return( Self:ft_fGoTo( 1 ) )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Salta para o Final do Arquivo
-	Sintaxe:	ft():ft_fGoBottom() : nRecno
+	Sintaxe:	uft():ft_fGoBottom() : nRecno
 /*/
 METHOD ft_fGoBottom() CLASS ufT
 Return( Self:ft_fGoTo( Self:nFileSize ) )
@@ -322,7 +322,7 @@ Return( Self:ft_fGoTo( Self:nFileSize ) )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retorna o Numero de Registro do Arquivo
-	Sintaxe:	ft():ft_fLastRec() : nRecCount
+	Sintaxe:	uft():ft_fLastRec() : nRecCount
 /*/
 METHOD ft_fLastRec() CLASS ufT
 Return( Self:nFileSize )
@@ -332,7 +332,7 @@ Return( Self:nFileSize )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retorna o Numero de Registro do Arquivo
-	Sintaxe:	ft():ft_fRecCount() : nRecCount
+	Sintaxe:	uft():ft_fRecCount() : nRecCount
 /*/
 METHOD ft_fRecCount() CLASS ufT
 Return( Self:nFileSize )
@@ -342,7 +342,7 @@ Return( Self:nFileSize )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Verifica se Atingiu o Final do Arquivo
-	Sintaxe:	ft():ft_fEof() : lEof
+	Sintaxe:	uft():ft_fEof() : lEof
 /*/
 METHOD ft_fEof() CLASS ufT
 Return( Self:nRecno > Self:nFileSize )
@@ -352,7 +352,7 @@ Return( Self:nRecno > Self:nFileSize )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Verifica se Atingiu o Inicio do Arquivo
-	Sintaxe:	ft():ft_fBof() : lBof
+	Sintaxe:	uft():ft_fBof() : lBof
 /*/
 METHOD ft_fBof() CLASS ufT
 Return( Self:nRecno < 1 )
@@ -362,7 +362,7 @@ Return( Self:nRecno < 1 )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Le a Linha do Registro Atualmente Posicionado
-	Sintaxe:	ft():ft_fReadLine() : cLine
+	Sintaxe:	uft():ft_fReadLine() : cLine
 /*/
 METHOD ft_fReadLine() CLASS ufT
 
@@ -384,7 +384,7 @@ Return( Self:cLine )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Le a Linha do Registro Atualmente Posicionado
-	Sintaxe:	ft():ft_fReadLn() : cLine
+	Sintaxe:	uft():ft_fReadLn() : cLine
 /*/
 METHOD ft_fReadLn() CLASS ufT
 Return( Self:ft_fReadLine() )
@@ -394,7 +394,7 @@ Return( Self:ft_fReadLine() )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Retorna o Ultimo erro ocorrido
-	Sintaxe:	ft():ft_fError( @cError ) : nDosError
+	Sintaxe:	uft():ft_fError( @cError ) : nDosError
 /*/
 METHOD ft_fError( cError ) CLASS ufT
 	cError	:= CaptureError()
@@ -405,7 +405,7 @@ Return( fError() )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Redefine nBufferSize
-	Sintaxe:	ft():ft_fSetBufferSize( nBufferSize ) : nLastBufferSize
+	Sintaxe:	uft():ft_fSetBufferSize( nBufferSize ) : nLastBufferSize
 /*/
 METHOD ft_fSetBufferSize( nBufferSize ) CLASS ufT
 
@@ -423,7 +423,7 @@ Return( nLastBufferSize )
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Redefine cCRLF
-	Sintaxe:	ft():ft_fSetCRLF( cCRLF ) : nLastCRLF
+	Sintaxe:	uft():ft_fSetCRLF( cCRLF ) : nLastCRLF
 /*/
 METHOD ft_fSetCRLF( cCRLF ) CLASS ufT
 
