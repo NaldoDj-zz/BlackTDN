@@ -1813,8 +1813,8 @@ Static __nPublicV	:= 0
 		Descricao:	Ponto de entrada PSWVALID
 		Sintaxe:	<vide parametros formais>
 	/*/
-	User Function PswValid()
-	Return( .T. )
+*	User Function PswValid()
+*	Return( .T. )
 
 	/*/
 		Funcao:		PswSize
@@ -1823,8 +1823,8 @@ Static __nPublicV	:= 0
 		Descricao:	Ponto de entrada PSWSIZE
 		Sintaxe:	<vide parametros formais>
 	/*/
-	User Function PswSize()
-	Return(StaticCall(U_PswSize,PswSize))
+*	User Function PswSize()
+*	Return(StaticCall(U_PswSize,PswSize))
 
 	/*/
 		Funcao:		CallChgXNU

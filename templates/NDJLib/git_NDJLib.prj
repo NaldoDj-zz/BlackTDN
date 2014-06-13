@@ -1,0 +1,190 @@
+Group git_NDJLib.prj
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=3
+   Project NDJLib
+      FoldersCount=2
+      Folder Lib
+         VSSPath=Fontes
+         FilesCount=34
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib001.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib002.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib003.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib004.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib005.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib006.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib007.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib008.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib009.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib011.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib012.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib013.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib014.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib015.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib016.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib017.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib018.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib019.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib020.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib021.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB022.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB023.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB024.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB025.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB026.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB027.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB028.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB029.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib030.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib031.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib032.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib033.prg
+             Type=T
+         End
+      End
+      Folder include
+         VSSPath=Definições
+         FilesCount=1
+         File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.ch
+             Type=T
+         End
+      End
+   End
+   Project WS
+      FoldersCount=3
+      Folder wss
+         VSSPath=Nova Pasta1
+         FilesCount=3
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WServices\wsubtdnTView.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WServices\wsuMat030.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WServices\wsuMat410.prg
+             Type=T
+         End
+      End
+      Folder wsc
+         VSSPath=Nova Pasta2
+         FilesCount=3
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WClients\wscubtdnTView.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WClients\wscumata030.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\WS\WClients\wscumata410.prg
+             Type=T
+         End
+      End
+      Folder include
+         VSSPath=Nova Pasta3
+         FilesCount=2
+         File \GitHub\BlackTDN\templates\NDJLib\WS\include\tryexception.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\WS\include\wsubtdnTView.ch
+             Type=T
+         End
+      End
+   End
+   Project utVarInfo
+      FoldersCount=2
+      Folder lib
+         VSSPath=Nova Pasta1
+         FilesCount=1
+         File \GitHub\BlackTDN\templates\NDJLib\u_TVarInfo\U_TVarInfo.prg
+             Type=T
+         End
+      End
+      Folder src
+         VSSPath=Nova Pasta2
+         FilesCount=2
+         File \GitHub\BlackTDN\templates\NDJLib\u_TVarInfo\U_GetApoInfo\U_GetApoInfo.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\u_TVarInfo\U_GetApoInfo\U_GetApoSamples.prg
+             Type=T
+         End
+      End
+   End
+End

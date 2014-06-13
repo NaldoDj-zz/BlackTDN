@@ -3,13 +3,13 @@
 #include "protheus.ch"
 #include "tryexception.ch"
 /*/
-	CLASS:		fT
+	CLASS:		ufT
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Alternativa aas funcoes tipo FT_F* devido as limitacoes apontadas em (http://tdn.totvs.com.br/kbm#9734)
-	Sintaxe:	ft():New() : Objeto do Tipo fT
+	Sintaxe:	uft():New() : Objeto do Tipo fT
 /*/
-CLASS fT FROM LongClassName
+CLASS ufT FROM LongClassName
 
 	DATA aLines
 	
@@ -57,8 +57,8 @@ CLASS fT FROM LongClassName
 
 END CLASS
 
-User Function ft()
-Return( NIL )
+User Function uft()
+Return(uft():New())
 
 /*/
 	METHOD:		New
@@ -67,7 +67,7 @@ Return( NIL )
 	Descricao:	CONSTRUCTOR
 	Sintaxe:	ft():New() : Object do Tipo fT				
 /*/
-METHOD New() CLASS fT
+METHOD New() CLASS ufT
 
 	Self:aLines			:= Array(0)	
 
@@ -93,7 +93,7 @@ Return( Self )
 	Descricao:	Retornar o Nome da Classe
 	Sintaxe:	ft():ClassName() : Retorna o Nome da Classe
 /*/
-METHOD ClassName() CLASS fT
+METHOD ClassName() CLASS ufT
 Return( Self:cClassName )
 
 /*/
@@ -103,7 +103,7 @@ Return( Self:cClassName )
 	Descricao:	Abrir o Arquivo Passado como Parametro
 	Sintaxe:	ft():ft_fUse( cFile ) : nfHandle ( nfHandle > 0 True, False)
 /*/
-METHOD ft_fUse( cFile ) CLASS fT
+METHOD ft_fUse( cFile ) CLASS ufT
 
 	TRYEXCEPTION
 
@@ -128,7 +128,7 @@ Return( Self:nfHandle )
 	Descricao:	Abrir o Arquivo Passado como Parametro
 	Sintaxe:	ft():ft_fOpen( cFile ) : nfHandle ( nfHandle > 0 True, False)
 /*/
-METHOD ft_fOpen( cFile ) CLASS fT
+METHOD ft_fOpen( cFile ) CLASS ufT
 
 	TRYEXCEPTION
 
@@ -204,7 +204,7 @@ Return( nLines )
 	Descricao:	Fechar o Arquivo aberto pela ft_fOpen ou ft_fUse
 	Sintaxe:	ft():ft_fClose() : NIL
 /*/
-METHOD ft_fClose() CLASS fT
+METHOD ft_fClose() CLASS ufT
 
 	IF ( Self:nfHandle > 0 )
 		fClose( Self:nfHandle )
@@ -229,7 +229,7 @@ Return( NIL )
 	Descricao:	Retornar o Nome do Arquivo Atualmente Aberto
 	Sintaxe:	ft():ft_fAlias() : cFile
 /*/
-METHOD ft_fAlias() CLASS fT
+METHOD ft_fAlias() CLASS ufT
 Return( Self:cFile )
 
 /*/
@@ -239,7 +239,7 @@ Return( Self:cFile )
 	Descricao:	Verifica se o Arquivo Existe
 	Sintaxe:	ft():ft_fExists( cFile ) : lExists
 /*/
-METHOD ft_fExists( cFile ) CLASS fT
+METHOD ft_fExists( cFile ) CLASS ufT
 
 	Local lExists	:= .F.
 
@@ -266,7 +266,7 @@ Return( lExists )
 	Descricao:	Retorna o Recno Atual
 	Sintaxe:	ft():ft_fRecno() : nRecno
 /*/
-METHOD ft_fRecno() CLASS fT
+METHOD ft_fRecno() CLASS ufT
 Return( Self:nRecno )
 
 /*/
@@ -276,7 +276,7 @@ Return( Self:nRecno )
 	Descricao:	Salta n Posicoes 
 	Sintaxe:	ft():ft_fSkip( nSkipper ) : nRecno
 /*/
-METHOD ft_fSkip( nSkipper ) CLASS fT
+METHOD ft_fSkip( nSkipper ) CLASS ufT
 
 	DEFAULT nSkipper	:= 1
 
@@ -291,7 +291,7 @@ Return( Self:nRecno )
 	Descricao:	Salta para o Registro informando em nGoto
 	Sintaxe:	ft():ft_fGoTo( nGoTo ) : nRecno
 /*/
-METHOD ft_fGoTo( nGoTo ) CLASS fT
+METHOD ft_fGoTo( nGoTo ) CLASS ufT
 
 	Self:nRecno	:= nGoTo
 
@@ -304,7 +304,7 @@ Return( Self:nRecno )
 	Descricao:	Salta para o Inicio do Arquivo
 	Sintaxe:	ft():ft_fGoTo( nGoTo ) : nRecno
 /*/
-METHOD ft_fGoTop() CLASS fT
+METHOD ft_fGoTop() CLASS ufT
 Return( Self:ft_fGoTo( 1 ) )
 
 /*/
@@ -314,7 +314,7 @@ Return( Self:ft_fGoTo( 1 ) )
 	Descricao:	Salta para o Final do Arquivo
 	Sintaxe:	ft():ft_fGoBottom() : nRecno
 /*/
-METHOD ft_fGoBottom() CLASS fT
+METHOD ft_fGoBottom() CLASS ufT
 Return( Self:ft_fGoTo( Self:nFileSize ) )
 
 /*/
@@ -324,7 +324,7 @@ Return( Self:ft_fGoTo( Self:nFileSize ) )
 	Descricao:	Retorna o Numero de Registro do Arquivo
 	Sintaxe:	ft():ft_fLastRec() : nRecCount
 /*/
-METHOD ft_fLastRec() CLASS fT
+METHOD ft_fLastRec() CLASS ufT
 Return( Self:nFileSize )
 
 /*/
@@ -334,7 +334,7 @@ Return( Self:nFileSize )
 	Descricao:	Retorna o Numero de Registro do Arquivo
 	Sintaxe:	ft():ft_fRecCount() : nRecCount
 /*/
-METHOD ft_fRecCount() CLASS fT
+METHOD ft_fRecCount() CLASS ufT
 Return( Self:nFileSize )
 
 /*/
@@ -344,7 +344,7 @@ Return( Self:nFileSize )
 	Descricao:	Verifica se Atingiu o Final do Arquivo
 	Sintaxe:	ft():ft_fEof() : lEof
 /*/
-METHOD ft_fEof() CLASS fT
+METHOD ft_fEof() CLASS ufT
 Return( Self:nRecno > Self:nFileSize )
 
 /*/
@@ -354,7 +354,7 @@ Return( Self:nRecno > Self:nFileSize )
 	Descricao:	Verifica se Atingiu o Inicio do Arquivo
 	Sintaxe:	ft():ft_fBof() : lBof
 /*/
-METHOD ft_fBof() CLASS fT
+METHOD ft_fBof() CLASS ufT
 Return( Self:nRecno < 1 )
 
 /*/
@@ -364,7 +364,7 @@ Return( Self:nRecno < 1 )
 	Descricao:	Le a Linha do Registro Atualmente Posicionado
 	Sintaxe:	ft():ft_fReadLine() : cLine
 /*/
-METHOD ft_fReadLine() CLASS fT
+METHOD ft_fReadLine() CLASS ufT
 
 	TRYEXCEPTION
 
@@ -386,7 +386,7 @@ Return( Self:cLine )
 	Descricao:	Le a Linha do Registro Atualmente Posicionado
 	Sintaxe:	ft():ft_fReadLn() : cLine
 /*/
-METHOD ft_fReadLn() CLASS fT
+METHOD ft_fReadLn() CLASS ufT
 Return( Self:ft_fReadLine() )
 
 /*/
@@ -396,7 +396,7 @@ Return( Self:ft_fReadLine() )
 	Descricao:	Retorna o Ultimo erro ocorrido
 	Sintaxe:	ft():ft_fError( @cError ) : nDosError
 /*/
-METHOD ft_fError( cError ) CLASS fT
+METHOD ft_fError( cError ) CLASS ufT
 	cError	:= CaptureError()
 Return( fError() )
 
@@ -407,7 +407,7 @@ Return( fError() )
 	Descricao:	Redefine nBufferSize
 	Sintaxe:	ft():ft_fSetBufferSize( nBufferSize ) : nLastBufferSize
 /*/
-METHOD ft_fSetBufferSize( nBufferSize ) CLASS fT
+METHOD ft_fSetBufferSize( nBufferSize ) CLASS ufT
 
 	Local nLastBufferSize	:= Self:nBufferSize
 
@@ -425,7 +425,7 @@ Return( nLastBufferSize )
 	Descricao:	Redefine cCRLF
 	Sintaxe:	ft():ft_fSetCRLF( cCRLF ) : nLastCRLF
 /*/
-METHOD ft_fSetCRLF( cCRLF ) CLASS fT
+METHOD ft_fSetCRLF( cCRLF ) CLASS ufT
 
 	Local cLastCRLF	:= Self:cCRLF
 	
