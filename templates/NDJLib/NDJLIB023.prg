@@ -15,7 +15,7 @@ Static Function GetAllData()
 
 	Local uPacket
 
-	While !( ( uPacket := GetData() ) == NIL )
+	While .not.( ( uPacket := GetData() ) == NIL )
 		aAdd( aPackets, uPacket )
 	End While
 
@@ -46,12 +46,12 @@ Static Function GetData()
 
    BEGIN SEQUENCE
 
-      IF !( Len( PacketNames ) > 0 )
+      IF .not.( Len( PacketNames ) > 0 )
             BREAK
       EndIF
 	
       Packet := ftDB():New() 
-      IF !( Packet:ft_fUse( _HMG_CommPath + PacketNames[1] ) > 0 )
+      IF .not.( Packet:ft_fUse( _HMG_CommPath + PacketNames[1] ) > 0 )
             Packet:ft_fUse()
             BREAK
       EndIF
@@ -201,7 +201,7 @@ Return( RetVal )
 Static Function SendData( cDest , Data )
 
    Local cData, i, j
-   Local pData, cLen, cType, FileName, Rows, Cols, fHandle
+   Local pData, cLen, cType := ValType(Data), FileName, Rows, Cols, fHandle
 
    _HMG_SendDataCount++
 
@@ -219,7 +219,7 @@ Static Function SendData( cDest , Data )
           BREAK
        EndIF
 
-	   If ValType( Data ) == 'A'
+	   If cType == 'A'
 	
 	      If ValType( Data[1] ) != 'A'
 	
@@ -298,9 +298,7 @@ Static Function SendData( cDest , Data )
 	      EndIf
 	
 	   Else
-	
-	      cType := ValType( Data )
-	
+	   
 	      If cType == 'D'
 	         pData := alltrim(str(year(data))) + '.' + alltrim(str(month(data))) + '.' + alltrim(str(day(data)))
 	         cLen := Alltrim(Str(Len(pData)))
@@ -352,20 +350,20 @@ Static Function StationName( cSetName , lZCount )
 	__cLStName := __cStName
 	
 	IF (;
-			( ValType( cSetName ) == "C" );
+			(ValType(cSetName)=="C");
 			.and.;
-			!Empty( cSetName );
+			.not.(Empty(cSetName));
 	   )
 		__cStName := cSetName
 	EndIF
 
-	IF Empty( __cStName )
+	IF Empty(__cStName)
 		__cStName := ComputerName()
 	EndIF	
 
 	DEFAULT lZCount := .F.
 	IF (;
-			!( __cLStName == __cStName );
+			.not.(__cLStName==__cStName);
 			.or.;
 			( lZCount );
 		)	
@@ -390,9 +388,9 @@ Static Function CommPath( cSetPath )
 	Static __cCommPath
 	
 	IF (;
-			( ValType( cSetPath ) == "C" );
+			(ValType(cSetPath)=="C");
 			.and.;
-			!Empty( cSetPath );
+			.not.(Empty(cSetPath));
 	   )
 		__cCommPath := cSetPath
 	Else
@@ -404,7 +402,7 @@ Static Function CommPath( cSetPath )
 	EndIF	
 
 	__cCommPath := Lower( AllTrim( __cCommPath ) )
-	IF !( SubStr( __cCommPath , -1 ) == "\" )
+	IF .not.(SubStr(__cCommPath,-1)=="\")
 		__cCommPath += "\"
 	EndIF
 	
@@ -429,7 +427,7 @@ Static Function __Dummy( lRecursa )
 	Local oException
 	TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
+		IF .not.(lRecursa)
 			BREAK
 		EndIF
     	lRecursa	:= __Dummy( .F. )

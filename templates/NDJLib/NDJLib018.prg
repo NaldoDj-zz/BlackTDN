@@ -7,9 +7,9 @@
 	Autor:		Marinaldo de Jesus [http://www.blacktdn.com.br]
 	Data:		01/05/2011
 	Descricao:	Alternativa aas funcoes tipo FT_F* devido as limitacoes apontadas em (http://tdn.totvs.com.br/kbm#9734)
-	Sintaxe:	ftdb():New() : Objeto do Tipo fT
+	Sintaxe:	ftdb():New() : Objeto do Tipo ufT
 /*/
-CLASS fTdb FROM fT
+CLASS fTdb FROM ufT
 
 	DATA cDbFile
 	DATA cDbAlias
@@ -49,7 +49,7 @@ CLASS fTdb FROM fT
 END CLASS
 
 User Function ftdb()
-Return( NIL )
+Return(ftdb():New())
 
 /*/
 	METHOD:		New
@@ -65,7 +65,7 @@ METHOD New() CLASS fTdb
 	Self:cDbFile	:= ""
 	Self:cDbAlias	:= ""
 
-	Self:cClassName	:= "FTDB"
+	Self:cClassName	:= _Super:ClassName()+"DB"
 
 	Self:ft_fSetRddName()
 
