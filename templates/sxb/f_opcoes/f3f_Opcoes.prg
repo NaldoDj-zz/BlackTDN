@@ -180,7 +180,7 @@ Return(f3fOpcSX5("28",1,"28","%F3CAT"))
     Funcao      : f3fOpcRetD
     Data        : 10/06/2014
     Autor       : Marinaldo de Jesus
-    Descricao   : Retornar a ultima opção selecionada na Contulda Customizada
+    Descricao   : Retornar a ultima opção selecionada na Consulta Customizada
     Uso         : Retorno da Consulta F3
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcRetD,cF3Name)
 */
