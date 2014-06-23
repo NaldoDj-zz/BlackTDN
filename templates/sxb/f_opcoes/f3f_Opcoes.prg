@@ -45,10 +45,10 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
 
     //------------------------------------------------------------------------------------------------
     //Verifica a Existencia de __READVAR para ReadVar()
-	IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
-		Private M->_f3fOpcSX5   := Space(nSize) 
-		Private __READVAR 		:= "M->_f3fOpcSX5"
-	EndIF
+    IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
+        Private M->_f3fOpcSX5 := Space(nSize) 
+        Private __READVAR     := "M->_f3fOpcSX5"
+    EndIF
 
     //------------------------------------------------------------------------------------------------
     // Obtem a Variavel de Memória que será utilizada como Referencia à Consulta
@@ -107,7 +107,7 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     
     //------------------------------------------------------------------------------------------------
     // Verifica se a Seleção será de apenas 1 Elemento por Vez
-	DEFAULT lRet1Elem	:= .F.
+    DEFAULT lRet1Elem    := .F.
 
     //------------------------------------------------------------------------------------------------
     // Redefine o Máximo de Elementos para Retorno/Seleção
@@ -115,22 +115,22 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
 
     //------------------------------------------------------------------------------------------------
     // Executa f_Opcoes para Selecionar ou Mostrar os Registros Selecionados
-    IF f_Opcoes(    @uVarRet    		,;    //Variavel de Retorno
-                    cTitulo     		,;    //Titulo da Coluna com as opcoes
-                    @aOpcoes    		,;    //Opcoes de Escolha (Array de Opcoes)
-                    @cOpcoes    		,;    //String de Opcoes para Retorno
-                    NIL         		,;    //Nao Utilizado (Compatibilidade)
-                    NIL         		,;    //Nao Utilizado (Compatibilidade)
-                    lRet1Elem   		,;    //Se a Selecao sera de apenas 1 Elemento por vez
-                    nTamKey     		,;    //Tamanho da Chave
-                    nElemRet    		,;    //No maximo de elementos na variavel de retorno
-                    .NOT.(lRet1Elem)	,;    //Inclui Botoes para Selecao de Multiplos Itens
-                    .F.         		,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
-                    NIL         		,;    //Qual o Campo para a Montagem do aOpcoes
-                    .F.         		,;    //Nao Permite a Ordenacao
-                    .F.         		,;    //Nao Permite a Pesquisa    
-                    .F.         		,;    //Forca o Retorno Como Array
-                    cF3         		 ;    //Consulta F3    
+    IF f_Opcoes(    @uVarRet            ,;    //Variavel de Retorno
+                    cTitulo             ,;    //Titulo da Coluna com as opcoes
+                    @aOpcoes            ,;    //Opcoes de Escolha (Array de Opcoes)
+                    @cOpcoes            ,;    //String de Opcoes para Retorno
+                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
+                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
+                    lRet1Elem           ,;    //Se a Selecao sera de apenas 1 Elemento por vez
+                    nTamKey             ,;    //Tamanho da Chave
+                    nElemRet            ,;    //No maximo de elementos na variavel de retorno
+                    .NOT.(lRet1Elem)    ,;    //Inclui Botoes para Selecao de Multiplos Itens
+                    .F.                 ,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
+                    NIL                 ,;    //Qual o Campo para a Montagem do aOpcoes
+                    .F.                 ,;    //Nao Permite a Ordenacao
+                    .F.                 ,;    //Nao Permite a Pesquisa    
+                    .F.                 ,;    //Forca o Retorno Como Array
+                    cF3                  ;    //Consulta F3    
                   )
         //------------------------------------------------------------------------------------------------
         // Atualiza a Variável de Retorno
@@ -174,10 +174,10 @@ Return(cF3Ret)
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSitF)
 */
 Static Function f3fOpcSitF(lRet1Elem)
-	Local cCustomF3		:= "%F3SIT"
-	Local cX5Tabela 	:= "31"
-	Local nSize			:= 1
-	DEFAULT lRet1Elem	:= .F.
+    Local cCustomF3        := "%F3SIT"
+    Local cX5Tabela     := "31"
+    Local nSize            := 1
+    DEFAULT lRet1Elem    := .F.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -190,10 +190,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSit1)
 */
 Static Function f3fOpcSit1(lRet1Elem)
-	Local cCustomF3		:= "%FSIT1"
-	Local cX5Tabela 	:= "31"
-	Local nSize			:= 1
-	DEFAULT lRet1Elem	:= .T.
+    Local cCustomF3        := "%FSIT1"
+    Local cX5Tabela     := "31"
+    Local nSize            := 1
+    DEFAULT lRet1Elem    := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -206,10 +206,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCatF,lRet1Elem)
 */
 Static Function f3fOpcCatF(lRet1Elem)
-	Local cCustomF3		:= "%F3CAT"
-	Local cX5Tabela 	:= "28"
-	Local nSize			:= 1
-	DEFAULT lRet1Elem	:= .F.
+    Local cCustomF3        := "%F3CAT"
+    Local cX5Tabela     := "28"
+    Local nSize            := 1
+    DEFAULT lRet1Elem    := .F.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -222,10 +222,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCat1,lRet1Elem)
 */
 Static Function f3fOpcCat1(lRet1Elem)
-	Local cCustomF3		:= "%FCAT1"
-	Local cX5Tabela 	:= "28"
-	Local nSize			:= 1
-	DEFAULT lRet1Elem	:= .T.
+    Local cCustomF3        := "%FCAT1"
+    Local cX5Tabela     := "28"
+    Local nSize            := 1
+    DEFAULT lRet1Elem    := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -238,10 +238,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF,lRet1Elem)
 */
 Static Function f3fOpcSNF(lRet1Elem)
-	Local cCustomF3		:= "%F3SNF"
-	Local cX5Tabela 	:= "01"
-	Local nSize			:= 1
-	DEFAULT lRet1Elem	:= .F. 	
+    Local cCustomF3        := "%F3SNF"
+    Local cX5Tabela     := "01"
+    Local nSize            := 1
+    DEFAULT lRet1Elem    := .F.     
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -254,10 +254,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF1,lRet1Elem)
 */
 Static Function f3fOpcSNF1(lRet1Elem)
-	Local cCustomF3		:= "%F3SN1"
-	Local cX5Tabela 	:= "01"
-	Local nSize			:= 1 
-	DEFAULT lRet1Elem	:= .T.
+    Local cCustomF3        := "%F3SN1"
+    Local cX5Tabela     := "01"
+    Local nSize            := 1 
+    DEFAULT lRet1Elem    := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -280,12 +280,12 @@ Static Function f3fOpcRetD(cF3Name)
         cF3Ret    := __aF3Ret[nF3Ret][2]
         aSize(aDel(__aF3Ret,nF3Ret),Len(__aF3Ret)-1)
     Else
-	    //------------------------------------------------------------------------------------------------
-	    //Verifica a Existencia de __READVAR para ReadVar()
-		IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
-			Private M->_f3fOpcSX5   := "ERROR"
-			Private __READVAR 		:= "M->_f3fOpcSX5"
-		EndIF
+        //------------------------------------------------------------------------------------------------
+        //Verifica a Existencia de __READVAR para ReadVar()
+        IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
+            Private M->_f3fOpcSX5 := "ERROR"
+            Private __READVAR     := "M->_f3fOpcSX5"
+        EndIF
         //------------------------------------------------------------------------------------------------
         // TODO : Testar a Falha no Retorno da Consulta.
         uF3Ret    := &(ReadVar())
