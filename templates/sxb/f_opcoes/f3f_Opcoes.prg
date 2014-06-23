@@ -7,9 +7,9 @@ Static __aF3Ret
     Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
     Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
     Uso         : Consulta F3 (%F3SIT) para as situacoes da Folha de Pagamento
-    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSX5,cTabela,nSize,cF3,cF3Name)
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSX5,cTabela,nSize,cF3,cF3Name,lRet1Elem)
 */
-Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name)
+Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     
     //------------------------------------------------------------------------------------------------
     // Salva os Dados de Entrada que serao restaurados antes do Retorno do Procedimento
@@ -28,9 +28,7 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name)
     Local cTitulo  := ""
     Local cOpcoes  := ""
 
-    //------------------------------------------------------------------------------------------------
-    // Obtem a Variavel de Memória que será utilizada como Referencia à Consulta
-    Local cReadVar := ReadVar()
+    Local cReadVar
     
     Local nCnt     := 0
     
@@ -44,6 +42,17 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name)
     Local nSX5Order := RetOrder("SX5","X5_FILIAL+X5_TABELA+X5_CHAVE")
 
     Local uVarRet
+
+    //------------------------------------------------------------------------------------------------
+    //Verifica a Existencia de __READVAR para ReadVar()
+	IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
+		Private M->_f3fOpcSX5   := Space(nSize) 
+		Private __READVAR 		:= "M->_f3fOpcSX5"
+	EndIF
+
+    //------------------------------------------------------------------------------------------------
+    // Obtem a Variavel de Memória que será utilizada como Referencia à Consulta
+    cReadVar := ReadVar()
 
     //------------------------------------------------------------------------------------------------
     // Obtem o conteúdo do campo utilizado na Consulta Padrao Customizada
@@ -95,29 +104,33 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name)
     //------------------------------------------------------------------------------------------------
     // Libera o Alias da Memoria
     (cAlias)->(dbCloseArea())
+    
+    //------------------------------------------------------------------------------------------------
+    // Verifica se a Seleção será de apenas 1 Elemento por Vez
+	DEFAULT lRet1Elem	:= .F.
 
     //------------------------------------------------------------------------------------------------
     // Redefine o Máximo de Elementos para Retorno/Seleção
-    nElemRet    := Min(nCnt,nElemRet)
+    nElemRet    := IF(lRet1Elem,1,Min(nCnt,nElemRet))
 
     //------------------------------------------------------------------------------------------------
     // Executa f_Opcoes para Selecionar ou Mostrar os Registros Selecionados
-    IF f_Opcoes(    @uVarRet    ,;    //Variavel de Retorno
-                    cTitulo     ,;    //Titulo da Coluna com as opcoes
-                    @aOpcoes    ,;    //Opcoes de Escolha (Array de Opcoes)
-                    @cOpcoes    ,;    //String de Opcoes para Retorno
-                    NIL         ,;    //Nao Utilizado
-                    NIL         ,;    //Nao Utilizado
-                    .F.         ,;    //Se a Selecao sera de apenas 1 Elemento por vez
-                    nTamKey     ,;    //Tamanho da Chave
-                    nElemRet    ,;    //No maximo de elementos na variavel de retorno
-                    .T.         ,;    //Inclui Botoes para Selecao de Multiplos Itens
-                    .F.         ,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
-                    NIL         ,;    //Qual o Campo para a Montagem do aOpcoes
-                    .F.         ,;    //Nao Permite a Ordenacao
-                    .F.         ,;    //Nao Permite a Pesquisa    
-                    .F.         ,;    //Forca o Retorno Como Array
-                    cF3          ;    //Consulta F3    
+    IF f_Opcoes(    @uVarRet    		,;    //Variavel de Retorno
+                    cTitulo     		,;    //Titulo da Coluna com as opcoes
+                    @aOpcoes    		,;    //Opcoes de Escolha (Array de Opcoes)
+                    @cOpcoes    		,;    //String de Opcoes para Retorno
+                    NIL         		,;    //Nao Utilizado (Compatibilidade)
+                    NIL         		,;    //Nao Utilizado (Compatibilidade)
+                    lRet1Elem   		,;    //Se a Selecao sera de apenas 1 Elemento por vez
+                    nTamKey     		,;    //Tamanho da Chave
+                    nElemRet    		,;    //No maximo de elementos na variavel de retorno
+                    .NOT.(lRet1Elem)	,;    //Inclui Botoes para Selecao de Multiplos Itens
+                    .F.         		,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
+                    NIL         		,;    //Qual o Campo para a Montagem do aOpcoes
+                    .F.         		,;    //Nao Permite a Ordenacao
+                    .F.         		,;    //Nao Permite a Pesquisa    
+                    .F.         		,;    //Forca o Retorno Como Array
+                    cF3         		 ;    //Consulta F3    
                   )
         //------------------------------------------------------------------------------------------------
         // Atualiza a Variável de Retorno
@@ -160,8 +173,28 @@ Return(cF3Ret)
     Uso         : Consulta F3 (%F3SIT) para as situacoes da Folha de Pagamento
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSitF)
 */
-Static Function f3fOpcSitF()
-Return(f3fOpcSX5("31",1,"31","%F3SIT"))
+Static Function f3fOpcSitF(lRet1Elem)
+	Local cCustomF3		:= "%F3SIT"
+	Local cX5Tabela 	:= "31"
+	Local nSize			:= 1
+	DEFAULT lRet1Elem	:= .F.
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
+
+/*
+    Programa    : f3f_Opcoes
+    Funcao      : f3fOpcSit1
+    Data        : 16/06/2014
+    Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
+    Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+    Uso         : Consulta F3 (%FSIT1) para as situacoes da Folha de Pagamento com 1 Elemento
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSit1)
+*/
+Static Function f3fOpcSit1(lRet1Elem)
+	Local cCustomF3		:= "%FSIT1"
+	Local cX5Tabela 	:= "31"
+	Local nSize			:= 1
+	DEFAULT lRet1Elem	:= .T.
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
     Programa    : f3f_Opcoes
@@ -170,10 +203,62 @@ Return(f3fOpcSX5("31",1,"31","%F3SIT"))
     Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
     Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
     Uso         : Consulta F3 (%F3CAT) para as Categoria da Folha de Pagamento
-    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCatF)
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCatF,lRet1Elem)
 */
-Static Function f3fOpcCatF()
-Return(f3fOpcSX5("28",1,"28","%F3CAT"))
+Static Function f3fOpcCatF(lRet1Elem)
+	Local cCustomF3		:= "%F3CAT"
+	Local cX5Tabela 	:= "28"
+	Local nSize			:= 1
+	DEFAULT lRet1Elem	:= .F.
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
+
+/*
+    Programa    : f3f_Opcoes
+    Funcao      : f3fOpcCat1
+    Data        : 16/06/2014
+    Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
+    Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+    Uso         : Consulta F3 (%FCAT1) para as Categoria da Folha de Pagamento com 1 Elemento
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCat1,lRet1Elem)
+*/
+Static Function f3fOpcCat1(lRet1Elem)
+	Local cCustomF3		:= "%FCAT1"
+	Local cX5Tabela 	:= "28"
+	Local nSize			:= 1
+	DEFAULT lRet1Elem	:= .T.
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
+
+/*
+    Programa    : f3f_Opcoes
+    Funcao      : f3fOpcSNF
+    Data        : 16/06/2014
+    Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
+    Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+    Uso         : Consulta F3 (%F3SNF) para as Séries das Notas Fiscais
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF,lRet1Elem)
+*/
+Static Function f3fOpcSNF(lRet1Elem)
+	Local cCustomF3		:= "%F3SNF"
+	Local cX5Tabela 	:= "01"
+	Local nSize			:= 1
+	DEFAULT lRet1Elem	:= .F. 	
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
+
+/*
+    Programa    : f3f_Opcoes
+    Funcao      : f3fOpcSNF1
+    Data        : 16/06/2014
+    Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
+    Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+    Uso         : Consulta F3 (%F3SN1) para as Séries das Notas Fiscais com 1 Elemento
+    Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF1,lRet1Elem)
+*/
+Static Function f3fOpcSNF1(lRet1Elem)
+	Local cCustomF3		:= "%F3SN1"
+	Local cX5Tabela 	:= "01"
+	Local nSize			:= 1 
+	DEFAULT lRet1Elem	:= .T.
+Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
     Programa    : f3f_Opcoes
@@ -195,6 +280,12 @@ Static Function f3fOpcRetD(cF3Name)
         cF3Ret    := __aF3Ret[nF3Ret][2]
         aSize(aDel(__aF3Ret,nF3Ret),Len(__aF3Ret)-1)
     Else
+	    //------------------------------------------------------------------------------------------------
+	    //Verifica a Existencia de __READVAR para ReadVar()
+		IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
+			Private M->_f3fOpcSX5   := "ERROR"
+			Private __READVAR 		:= "M->_f3fOpcSX5"
+		EndIF
         //------------------------------------------------------------------------------------------------
         // TODO : Testar a Falha no Retorno da Consulta.
         uF3Ret    := &(ReadVar())
