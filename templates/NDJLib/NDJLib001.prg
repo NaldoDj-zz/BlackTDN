@@ -3036,8 +3036,10 @@ Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
 			oProcess:oMeter1:nLeft 			-= nLeft
 			oProcess:oMeter2:nWidth			+= nWidth    
 			oProcess:oMeter2:nLeft 			-= nLeft
-			oProcess:oDlg:oCTLFocus:nLeft	+= nCTLFLeft
-			oProcess:oDlg:Refresh(.T.)
+			IF (ValType(oProcess:oDlg:oCTLFocus)=="O")
+                oProcess:oDlg:oCTLFocus:nLeft	+= nCTLFLeft
+			EndIF
+            oProcess:oDlg:Refresh(.T.)
 		EndIF
 		lProcRedefine := .T.
 	EndIF
