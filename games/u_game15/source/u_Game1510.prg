@@ -179,8 +179,8 @@ Static Function SwapButtons(x,y,oTPPanel,oTHash)
 	Local nButtons	:= Len( oTHash:GetAllProperties( "Game15_Files_bmps_play" ) )
 	Local nSqrtBtn	:= Sqrt( nButtons )
 
-	Local nBL
-	Local nEL
+	Local nD
+	Local nJ
 
 	Local nMin
 	Local nMax
@@ -202,13 +202,13 @@ Static Function SwapButtons(x,y,oTPPanel,oTHash)
 
 	BEGIN SEQUENCE
 
-		nBL			:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
-		nEL			:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nBL + 1 ) - nBL )
+		nD			:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
+		nJ			:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nD + 1 ) - nD )
 
-		nFree		:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nButtons } , nBL , nEL )
-		nPress		:= aScan( aShapes , { |aShape| aShape[SHAPE_ID] == nShape } , nShape , nEL )
+		nFree		:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nButtons } , nD , nJ )
+		nPress		:= aScan( aShapes , { |aShape| aShape[SHAPE_ID] == nShape } , nShape , nJ )
 		IF ( nPress == 0 )
-			nPress	:= aScan( aShapes , { |aShape| aShape[SHAPE_ID] == nShape } , nBL , nEL )
+			nPress	:= aScan( aShapes , { |aShape| aShape[SHAPE_ID] == nShape } , nD , nJ )
 		EndIF
 
 		nMin		:= Min(aShapes[nFree][SHAPE_BTNINDEX],aShapes[nPress][SHAPE_BTNINDEX])
@@ -255,7 +255,7 @@ Static Function SwapButtons(x,y,oTPPanel,oTHash)
 		nMatches	:= Len( aMatch )
 		For nMatch := 1 To nMatches
 			cMatch	:= aMatch[nMatch]
-			lMatch	:= &cMatch.(@aShapes,@nSqrtBtn,@nButtons,@nBL,@nEL)	
+			lMatch	:= &cMatch.(@aShapes,@nSqrtBtn,@nButtons,@nD,@nJ)	
 			IF ( lMatch )                                                                    	
 				EXIT
 			EndIF
@@ -288,7 +288,7 @@ Return(((x*(y-nSub))+nPlus))
 	Data:	18/04/2012
 	Uso:	Algoritmo de Validacao HL1 (Superior Direita->Inferior Esquerda)
 */
-Static Function HL1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function HL1AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(0)
 	Local aMatchL	:= Array(0)
@@ -296,6 +296,7 @@ Static Function HL1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	Local lMatch	:= .F.
 
 	Local nL
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -305,7 +306,7 @@ Static Function HL1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 		For nRow := nCol To nButtons Step nSqrtBtn
 			nL			:= nRow
 			aAdd( aMatchL , nL )
-			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nL } , nBL , nEL )
+			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nL } , nD , nJ )
 			nBtnIDX		:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch		:= ( ( ++nIndex ) == nBtnIDX )
 			IF ( lMatch )
@@ -330,7 +331,7 @@ Return( lMatch )
 	Data:	18/04/2012
 	Uso:	Algoritmo de Validacao HR1 (Inferior Direita -> Superior Esquerda)
 */
-Static Function HR1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function HR1AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(0)
 	Local aMatchR	:= Array(0)
@@ -338,6 +339,7 @@ Static Function HR1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	Local lMatch	:= .F.
 
 	Local nR
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -347,7 +349,7 @@ Static Function HR1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 		For nRow := nCol To nButtons Step nSqrtBtn
 			nR			:= ( ( nButtons - nRow ) + 1 )
 			aAdd( aMatchR , nR )
-			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nR } , nBL , nEL )
+			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nR } , nD , nJ )
 			nBtnIDX		:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch		:= ( ( ++nIndex ) == nBtnIDX )
 			IF ( lMatch )
@@ -372,7 +374,7 @@ Return( lMatch )
 	Data:	18/04/2012
 	Uso:	Algoritmo de Validacao HL2 (Inferior Esquerda -> Superior Direita)
 */
-Static Function HL2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function HL2AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(0)
 	Local aMatchL	:= Array(0)
@@ -380,6 +382,7 @@ Static Function HL2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	Local lMatch	:= .F.
 
 	Local nL
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -389,7 +392,7 @@ Static Function HL2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 		For nRow := nCol To nButtons Step nSqrtBtn
 			nL			:= nRow
 			aAdd( aMatchL , nL )
-			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nL } , nBL , nEL )
+			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nL } , nD , nJ )
 			nBtnIDX		:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch		:= ( ( ++nIndex ) == nBtnIDX )
 			IF ( lMatch )
@@ -414,7 +417,7 @@ Return( lMatch )
 	Data:	18/04/2012
 	Uso:	Algoritmo de Validacao HR2 (Superior Direita -> Inferior Esquerda)
 */
-Static Function HR2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function HR2AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(0)
 	Local aMatchR	:= Array(0)
@@ -422,6 +425,7 @@ Static Function HR2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	Local lMatch	:= .F.
 
 	Local nR
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -431,7 +435,7 @@ Static Function HR2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 		For nRow := nCol To nButtons Step nSqrtBtn
 			nR			:= ( ( nButtons - nRow ) + 1 )
 			aAdd( aMatchR , nR )
-			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nR } , nBL , nEL )
+			nAT			:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nR } , nD , nJ )
 			nBtnIDX		:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch		:= ( ( ++nIndex ) == nBtnIDX )
 			IF ( lMatch )
@@ -456,13 +460,14 @@ Return( lMatch )
 	Data:	19/04/2012
 	Uso:	Algoritmo de Validacao VL1 (Superior Direita->Inferior Esquerda)
 */
-Static Function VL1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function VL1AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(nButtons)
 	Local aMatchV	:= Array(nButtons)
 
 	Local lMatch	:= .F.
 
+	Local nAT
 	Local nCol
 	Local nBtnIDX
 
@@ -470,7 +475,7 @@ Static Function VL1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 
 	For nCol := 1 To nButtons
 		aMatchV[nCol]		:= nCol
-		nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nCol } , nBL , nEL )
+		nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == nCol } , nD , nJ )
 		nBtnIDX				:= aShapes[nAT][SHAPE_BTNINDEX]
 		lMatch				:= ( nCol == nBtnIDX )
 		IF ( lMatch )
@@ -494,13 +499,14 @@ Return( lMatch )
 	Data:	19/04/2012
 	Uso:	Algoritmo de Validacao VR1 (Inferior Direita -> Superior Esquerda)
 */
-Static Function VR1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function VR1AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(nButtons)
 	Local aMatchV	:= Array(nButtons)
 
 	Local lMatch	:= .F.
 
+	Local nAT
 	Local nCol
 	Local nBtnIDX
 	
@@ -508,7 +514,7 @@ Static Function VR1AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 
 	For nCol := 1 To nButtons
 		aMatchV[nCol]		:= ( ( nButtons - nCol ) + 1 )
-		nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nCol] } , nBL , nEL )
+		nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nCol] } , nD , nJ )
 		nBtnIDX				:= aShapes[nAT][SHAPE_BTNINDEX]
 		lMatch				:= ( nCol == nBtnIDX )
 		IF ( lMatch )
@@ -532,13 +538,14 @@ Return( lMatch )
 	Data:	19/04/2012
 	Uso:	Algoritmo de Validacao VL2 (Inferior Esquerda -> Superior Direita)
 */
-Static Function VL2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function VL2AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(nButtons)
 	Local aMatchV	:= Array(nButtons)
 
 	Local lMatch	:= .F.
 
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -547,7 +554,7 @@ Static Function VL2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	For nCol := nSqrtBtn To nButtons Step nSqrtBtn
 		For nRow := nCol To 1 Step -( 1 )
 			aMatchV[++nIndex]	:= nRow
-			nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nIndex] } , nBL , nEL )
+			nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nIndex] } , nD , nJ )
 			nBtnIDX				:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch				:= ( nIndex == nBtnIDX )
 			IF ( lMatch )
@@ -575,13 +582,14 @@ Return( lMatch )
 	Data:	19/04/2012
 	Uso:	Algoritmo de Validacao VR2 (Superior Direita -> Inferior Esquerda)
 */
-Static Function VR2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
+Static Function VR2AlgMatch(aShapes,nSqrtBtn,nButtons,nD,nJ)
 
 	Local aMatchG	:= Array(nButtons)
 	Local aMatchV	:= Array(nButtons)
 
 	Local lMatch	:= .F.
 
+	Local nAT
 	Local nCol
 	Local nRow
 	Local nIndex	:= 0
@@ -590,7 +598,7 @@ Static Function VR2AlgMatch(aShapes,nSqrtBtn,nButtons,nBL,nEL)
 	For nCol := nButtons To 1 Step -( nSqrtBtn )
 		For nRow := ( ( nCol - nSqrtBtn ) + 1 ) To nButtons
 			aMatchV[++nIndex]	:= nRow
-			nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nIndex] } , nBL , nEL )
+			nAT					:= aScan( aShapes , { |aShape| aShape[SHAPE_BTNNUMBER] == aMatchV[nIndex] } , nD , nJ )
 			nBtnIDX				:= aShapes[nAT][SHAPE_BTNINDEX]
 			lMatch				:= ( nIndex == nBtnIDX )
 			IF ( lMatch )
@@ -1441,8 +1449,8 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
 
 	Local cG5File
 
-	Local nBL
-	Local nEL
+	Local nD
+	Local nJ
 	Local nErr
 	Local ncGFile
 
@@ -1473,10 +1481,10 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
     	EndIF
     	cG5File			+= cExt
 
-		nBL				:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
-		nEL				:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nBL + 1 ) - nBL )
+		nD				:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
+		nJ				:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nD + 1 ) - nD )
 
-		aEval( aShapes , { |aShape| aAdd( aSaveG , aClone( aShape ) ) } , nBL , nEL )
+		aEval( aShapes , { |aShape| aAdd( aSaveG , aClone( aShape ) ) } , nD , nJ )
 
 		SaveArray(@aSaveG,@cG5File,@nErr)
 
@@ -1497,8 +1505,8 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
 
 	Local cG5File
 
-	Local nBL
-	Local nEL
+	Local nD
+	Local nJ
 	Local nAT
 	Local nErr
 	Local nBTn
@@ -1521,10 +1529,10 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
 
 		aShapes			:= oTHash:GetPropertyValue(cSession,"aShapes")
 
-		nBL				:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
-		nEL				:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nBL + 1 ) - nBL )
+		nD				:= aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] > 0 ) } )
+		nJ				:= ( aScan( aShapes , { |aShape| ( aShape[ SHAPE_BTNNUMBER ] == 0 ) } , nD + 1 ) - nD )
 
-		IF .NOT.( Len( aRestG ) == nEL )
+		IF .NOT.( Len( aRestG ) == nJ )
 			BREAK	
 		EndIF
 
@@ -1536,7 +1544,7 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
             IF .NOT.( Len( aRestG[nBTn] ) == SHAPE_ELEM )
             	BREAK
             EndIF
-			nAT := aScan( aShapes , { |aShape| Compare( aShape[SHAPE_TOOLTIP] , aRestG[nBTn][SHAPE_TOOLTIP] ) } , nBL , nEL )
+			nAT := aScan( aShapes , { |aShape| Compare( aShape[SHAPE_TOOLTIP] , aRestG[nBTn][SHAPE_TOOLTIP] ) } , nD , nJ )
 			IF ( nAT == 0 )
 				BREAK
 			EndIF
@@ -1552,7 +1560,7 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
 		Next nBTn
 
 		For nBTn := 1 To nBTns
-			nAT := aScan( aShapes , { |aShape| Compare( aShape[SHAPE_TOOLTIP] , aRestG[nBTn][SHAPE_TOOLTIP] ) } , nBL , nEL )
+			nAT := aScan( aShapes , { |aShape| Compare( aShape[SHAPE_TOOLTIP] , aRestG[nBTn][SHAPE_TOOLTIP] ) } , nD , nJ )
 			aShapes[nAT][SHAPE_TOP]			:= aRestG[nBTn][SHAPE_TOP]
 			aShapes[nAT][SHAPE_LEFT]		:= aRestG[nBTn][SHAPE_LEFT]
 			aShapes[nAT][SHAPE_BTNINDEX]	:= aRestG[nBTn][SHAPE_BTNINDEX]

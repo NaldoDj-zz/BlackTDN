@@ -458,9 +458,9 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
 		n4Diff				:= Abs( n4AShape - n4PShape )
 
 		cDirection			:= aShapes[nShape][oTHash:GetPropertyValue("SapuReca_Index","DIRECTION")]
-		IF ( cDirection == "D" )
+		IF ( cDirection == "R" )
 			lClicked	:= ( n4Diff >= 1 .and. n4Diff <= 2 )
-		ElseIF ( cDirection == "E" )
+		ElseIF ( cDirection == "L" )
 			lClicked	:= ( n4Diff >= .4 .and. n4Diff <= 2 )		
 		EndIF
 	
@@ -489,7 +489,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
             nATPos		:= aScan( __aStonesJump , nIndex )
             nATJump		:= nATPos
 			
-			IF ( cDirection == "D" )
+			IF ( cDirection == "R" )
             	IF ( __aStonesJump[ nATPos ] == nIndex )
 					IF ( ++nATJump <= 7 )
 				   		lJump := ( __aStonesJump[ nATJump ] == 0 )
@@ -503,7 +503,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
 				   		EndIF
 				   	EndIF	
 				EndIF
-			ElseIF ( cDirection == "E" )
+			ElseIF ( cDirection == "L" )
             	IF ( __aStonesJump[ nATPos ] == nIndex )
 					IF ( --nATJump >= 1 )
 						lJump := ( __aStonesJump[ nATJump ] == 0 )
@@ -1327,7 +1327,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "D"
+	aShapes[nShapes][nDirection]	:= "R"
 	aShapes[nShapes][nMove1Top]		:= 146.5
 	aShapes[nShapes][nMove1Left]	:= 008
 	aShapes[nShapes][nMove1Width]	:= 190
@@ -1381,7 +1381,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "D"
+	aShapes[nShapes][nDirection]	:= "R"
 	aShapes[nShapes][nMove1Top]		:= 146.5
 	aShapes[nShapes][nMove1Left]	:= 008+45
 	aShapes[nShapes][nMove1Width]	:= 190
@@ -1435,7 +1435,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "D"
+	aShapes[nShapes][nDirection]	:= "R"
 	aShapes[nShapes][nMove1Top]		:= 146.5
 	aShapes[nShapes][nMove1Left]	:= 008+(45*2)
 	aShapes[nShapes][nMove1Width]	:= 190
@@ -1489,7 +1489,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "E"
+	aShapes[nShapes][nDirection]	:= "L"
 	aShapes[nShapes][nMove1Top]		:= 152.6
 	aShapes[nShapes][nMove1Left]	:= 221-(45*2)
 	aShapes[nShapes][nMove1Width]	:= 180
@@ -1543,7 +1543,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "E"
+	aShapes[nShapes][nDirection]	:= "L"
 	aShapes[nShapes][nMove1Top]		:= 152.6
 	aShapes[nShapes][nMove1Left]	:= 220.5-45
 	aShapes[nShapes][nMove1Width]	:= 180
@@ -1597,7 +1597,7 @@ Static Function AddShapes(oTPPanel,oTHash)
 	aShapes[nShapes][nContainer]	:= 0
 	aShapes[nShapes][nVisible]		:= .T.
 	aShapes[nShapes][nbAction]		:= { |x,y,oTPPanel,aShapes,oTHash| JumpFrog(@x,@y,@oTPPanel,@aShapes,@oTHash) }
-	aShapes[nShapes][nDirection]	:= "E"
+	aShapes[nShapes][nDirection]	:= "L"
 	aShapes[nShapes][nMove1Top]		:= 152.6
 	aShapes[nShapes][nMove1Left]	:= 221
 	aShapes[nShapes][nMove1Width]	:= 180
