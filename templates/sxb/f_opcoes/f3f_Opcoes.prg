@@ -2,6 +2,126 @@
 Static __aF3Ret
 /*
     Programa    : f3f_Opcoes
+    Funcao      : f3f_Opcoes
+    Data        : 16/06/2014
+    Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
+    Descricao   : Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+    Sintaxe     : f3f_Opcoes(@uVarRet,@cTitulo,@aOpcoes,@cOpcoes,@nSize,@cF3,@cF3Name,@nElemRet,@lRet1Elem,@lCBox,@cField,@lNotOrdena,@lNotPesq,@lRetArray)
+*/
+Static Function f3f_Opcoes(uVarRet,cTitulo,aOpcoes,cOpcoes,nSize,cF3,cF3Name,nElemRet,lRet1Elem,lCBox,cField,lNotOrdena,lNotPesq,lRetArray)
+
+    //------------------------------------------------------------------------------------------------
+    // Salva os Dados de Entrada que serao restaurados antes do Retorno do Procedimento
+    Local aArea    := GetArea()
+
+    Local cReadVar
+
+    Local lMultiplos
+ 
+    Local nF3Ret
+    Local nTamKey
+    Local nElemRet
+
+    Local uF3Ret
+    Local uVarRet
+
+    //------------------------------------------------------------------------------------------------
+    //Verifica a Existencia de __READVAR para ReadVar()
+    IF (.NOT.(Type("__READVAR" )=="C").or.Empty(__READVAR))
+        Private M->_f3fOpcSX5 := Space(nSize) 
+        Private __READVAR     := "M->_f3fOpcSX5"
+    EndIF
+
+    //------------------------------------------------------------------------------------------------
+    // Obtem a Variavel de Memória que será utilizada como Referencia à Consulta
+    cReadVar := ReadVar()
+
+    //------------------------------------------------------------------------------------------------
+    // Obtem o conteúdo do campo utilizado na Consulta Padrao Customizada
+    DEFAULT uVarRet := GetMemVar(cReadVar)
+
+    //------------------------------------------------------------------------------------------------
+    // Valor padrão para Tamanho do Campo
+    DEFAULT nSize := Len(uVarRet)
+
+    //------------------------------------------------------------------------------------------------
+    // Obtem o conteúdo do campo utilizado na Consulta Padrao Customizada
+    nTamKey    := nSize
+    
+    //------------------------------------------------------------------------------------------------
+    // Verifica o Máximo de Elementos para Retorno/Seleção
+    nElemRet    := Int(Len(uVarRet)/nTamKey)
+   
+    //------------------------------------------------------------------------------------------------
+    // Valores DEFAULT para os Parâmetros Formais
+    //------------------------------------------------------------------------------------------------
+    // Verifica se a Seleção será de apenas 1 Elemento por Vez
+    DEFAULT lRet1Elem  := .F.
+    DEFAULT lCBox      := .F.
+    DEFAULT lNotOrdena := .F.
+    DEFAULT lNotPesq   := .F.
+    DEFAULT lRetArray  := .F.
+
+    //------------------------------------------------------------------------------------------------
+    // Redefine o Máximo de Elementos para Retorno/Seleção
+    nElemRet    := IF(lRet1Elem,1,nElemRet)
+    
+    //------------------------------------------------------------------------------------------------
+    // Inclui Botoes para Selecao de Multiplos Itens
+    lMultiplos    := .NOT.(lRet1Elem)
+    
+    //------------------------------------------------------------------------------------------------
+    // Executa f_Opcoes para Selecionar ou Mostrar os Registros Selecionados
+    IF f_Opcoes(    @uVarRet            ,;    //Variavel de Retorno
+                    @cTitulo            ,;    //Titulo da Coluna com as opcoes
+                    @aOpcoes            ,;    //Opcoes de Escolha (Array de Opcoes)
+                    @cOpcoes            ,;    //String de Opcoes para Retorno
+                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
+                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
+                    @lRet1Elem          ,;    //Se a Selecao sera de apenas 1 Elemento por vez
+                    @nTamKey            ,;    //Tamanho da Chave
+                    @nElemRet           ,;    //No maximo de elementos na variavel de retorno
+                    @lMultiplos         ,;    //Inclui Botoes para Selecao de Multiplos Itens
+                    @lCBox              ,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
+                    @cField             ,;    //Qual o Campo para a Montagem do aOpcoes
+                    @lNotOrdena         ,;    //Nao Permite a Ordenacao
+                    @lNotPesq           ,;    //Nao Permite a Pesquisa    
+                    @lRetArray          ,;    //Forca o Retorno Como Array
+                    @cF3                 ;    //Consulta F3    
+                  )
+        //------------------------------------------------------------------------------------------------
+        // Atualiza a Variável de Retorno
+        uF3Ret    := uVarRet
+        //------------------------------------------------------------------------------------------------
+        // Atualiza a Variável de Memória com o Conteúdo do Retorno
+        SetMemVar(cReadVar,uF3Ret)
+        //------------------------------------------------------------------------------------------------
+        // Força a atualização dos Componentes (Provavelmente não irá funcionar). A solução. ENTER
+        SysRefresh(.T.)
+    Else
+        //------------------------------------------------------------------------------------------------
+        // Se nao confirmou a f_Opcoes retorna o Conteudo de entrada
+        uF3Ret    := uVarRet
+    EndIF
+    
+    //------------------------------------------------------------------------------------------------
+    // Alimenta a variável Static para uso no Retorno da Consulta Padrao.
+    DEFAULT __aF3Ret := Array(0)
+    nF3Ret := aScan(__aF3Ret,{|e|e[1]==cF3Name})
+    IF (nF3Ret==0)
+        aAdd(__aF3Ret,{cF3Name,NIL})
+        nF3Ret := Len(__aF3Ret)
+    EndIF
+    __aF3Ret[nF3Ret][2] := uF3Ret
+    
+    //------------------------------------------------------------------------------------------------
+    // Restaura os Dados de Entrada
+    RestArea(aArea)
+
+Return(uF3Ret)
+
+/*
+    Programa    : f3f_Opcoes
     Funcao      : f3fOpcSX5
     Data        : 16/06/2014
     Autor       : Marinaldo de Jesus ( http://www.blacktdn.com.br )
@@ -25,23 +145,21 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     // Obtem um alias válido par uso
     Local cAlias   := GetNextAlias()
 
+    Local cF3Ret
     Local cTitulo  := ""
     Local cOpcoes  := ""
-
+    
     Local cReadVar
     
     Local nCnt     := 0
     
     Local nRecno
-    Local nF3Ret
     Local nTamKey
     Local nElemRet
 
     //------------------------------------------------------------------------------------------------
     // Obtem a Ordem para a tabela SX5
     Local nSX5Order := RetOrder("SX5","X5_FILIAL+X5_TABELA+X5_CHAVE")
-
-    Local uVarRet
 
     //------------------------------------------------------------------------------------------------
     //Verifica a Existencia de __READVAR para ReadVar()
@@ -125,49 +243,9 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     nElemRet    := IF(lRet1Elem,1,Min(nCnt,nElemRet))
 
     //------------------------------------------------------------------------------------------------
-    // Executa f_Opcoes para Selecionar ou Mostrar os Registros Selecionados
-    IF f_Opcoes(    @uVarRet            ,;    //Variavel de Retorno
-                    cTitulo             ,;    //Titulo da Coluna com as opcoes
-                    @aOpcoes            ,;    //Opcoes de Escolha (Array de Opcoes)
-                    @cOpcoes            ,;    //String de Opcoes para Retorno
-                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
-                    NIL                 ,;    //Nao Utilizado (Compatibilidade)
-                    lRet1Elem           ,;    //Se a Selecao sera de apenas 1 Elemento por vez
-                    nTamKey             ,;    //Tamanho da Chave
-                    nElemRet            ,;    //No maximo de elementos na variavel de retorno
-                    .NOT.(lRet1Elem)    ,;    //Inclui Botoes para Selecao de Multiplos Itens
-                    .F.                 ,;    //Se as opcoes serao montadas a partir de ComboBox de Campo ( X3_CBOX )
-                    NIL                 ,;    //Qual o Campo para a Montagem do aOpcoes
-                    .F.                 ,;    //Nao Permite a Ordenacao
-                    .F.                 ,;    //Nao Permite a Pesquisa    
-                    .F.                 ,;    //Forca o Retorno Como Array
-                    cF3                  ;    //Consulta F3    
-                  )
-        //------------------------------------------------------------------------------------------------
-        // Atualiza a Variável de Retorno
-        cF3Ret    := uVarRet
-        //------------------------------------------------------------------------------------------------
-        // Atualiza a Variável de Memória com o Conteúdo do Retorno
-        SetMemVar(cReadVar,cF3Ret)
-        //------------------------------------------------------------------------------------------------
-        // Força a atualização dos Componentes (Provavelmente não irá funcionar). A solução. ENTER
-        SysRefresh(.T.)
-    Else
-        //------------------------------------------------------------------------------------------------
-        // Se nao confirmou a f_Opcoes retorna o Conteudo de entrada
-        cF3Ret    := uVarRet
-    EndIF
-    
-    //------------------------------------------------------------------------------------------------
-    // Alimenta a variável Static para uso no Retorno da Consulta Padrao.
-    DEFAULT __aF3Ret := Array(0)
-    nF3Ret := aScan(__aF3Ret,{|e|e[1]==cF3Name})
-    IF (nF3Ret==0)
-        aAdd(__aF3Ret,{cF3Name,NIL})
-        nF3Ret := Len(__aF3Ret)
-    EndIF
-    __aF3Ret[nF3Ret][2] := cF3Ret
-    
+    // Executa f3f_Opcoes para Selecionar ou Mostrar os Registros Selecionados
+    cF3Ret := f3f_Opcoes(@uVarRet,@cTitulo,@aOpcoes,@cOpcoes,@nSize,@cF3,@cF3Name,@nElemRet,@lRet1Elem,NIL,NIL,NIL,NIL,NIL)
+
     //------------------------------------------------------------------------------------------------
     // Restaura os Dados de Entrada
     RestArea(aAreaSX5)
