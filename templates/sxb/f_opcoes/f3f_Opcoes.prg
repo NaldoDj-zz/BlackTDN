@@ -78,13 +78,24 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     EndIF
     
     //------------------------------------------------------------------------------------------------
+    // Verifica cFilAnt
+    IF (.NOT.(Type("cFilAnt")=="C").or.Empty(cFilAnt))
+    	Private cFilAnt := FWFilial()
+    	IF Empty(cFilAnt)
+    		cFilAnt := FWCodFil()
+    	EndIF
+    EndIF
+    
+    //------------------------------------------------------------------------------------------------
     // Seleciona os Registros
     BEGINSQL ALIAS cAlias
-        COLUMN R_E_C_N_O_ AS NUMERIC(16,0)
+        COLUMN R_E_C_N_O_ AS NUMERIC(18,0)
         SELECT SX5.R_E_C_N_O_
           FROM %table:SX5% SX5
          WHERE SX5.%notDel%
-           AND SX5.X5_FILIAL=%xFilial:SX5%
+		    //------------------------------------------------------------------------------------------------
+		    // Priorizo a Filial Corrente
+           AND (SX5.X5_FILIAL=%exp:cFilAnt% OR SX5.X5_FILIAL=%xFilial:SX5%)
            AND SX5.X5_TABELA=%exp:cTabela% 
     ENDSQL
     
@@ -153,7 +164,7 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     nF3Ret := aScan(__aF3Ret,{|e|e[1]==cF3Name})
     IF (nF3Ret==0)
         aAdd(__aF3Ret,{cF3Name,NIL})
-        nF3Ret    := Len(__aF3Ret)
+        nF3Ret := Len(__aF3Ret)
     EndIF
     __aF3Ret[nF3Ret][2] := cF3Ret
     
@@ -174,10 +185,10 @@ Return(cF3Ret)
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSitF)
 */
 Static Function f3fOpcSitF(lRet1Elem)
-    Local cCustomF3        := "%F3SIT"
-    Local cX5Tabela     := "31"
-    Local nSize            := 1
-    DEFAULT lRet1Elem    := .F.
+    Local cCustomF3   := "%F3SIT"
+    Local cX5Tabela   := "31"
+    Local nSize       := 1
+    DEFAULT lRet1Elem := .F.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -190,10 +201,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSit1)
 */
 Static Function f3fOpcSit1(lRet1Elem)
-    Local cCustomF3        := "%FSIT1"
-    Local cX5Tabela     := "31"
-    Local nSize            := 1
-    DEFAULT lRet1Elem    := .T.
+    Local cCustomF3   := "%FSIT1"
+    Local cX5Tabela   := "31"
+    Local nSize       := 1
+    DEFAULT lRet1Elem := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -206,10 +217,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCatF,lRet1Elem)
 */
 Static Function f3fOpcCatF(lRet1Elem)
-    Local cCustomF3        := "%F3CAT"
-    Local cX5Tabela     := "28"
-    Local nSize            := 1
-    DEFAULT lRet1Elem    := .F.
+    Local cCustomF3   := "%F3CAT"
+    Local cX5Tabela   := "28"
+    Local nSize       := 1
+    DEFAULT lRet1Elem := .F.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -222,10 +233,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcCat1,lRet1Elem)
 */
 Static Function f3fOpcCat1(lRet1Elem)
-    Local cCustomF3        := "%FCAT1"
-    Local cX5Tabela     := "28"
-    Local nSize            := 1
-    DEFAULT lRet1Elem    := .T.
+    Local cCustomF3   := "%FCAT1"
+    Local cX5Tabela   := "28"
+    Local nSize       := 1
+    DEFAULT lRet1Elem := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -238,10 +249,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF,lRet1Elem)
 */
 Static Function f3fOpcSNF(lRet1Elem)
-    Local cCustomF3        := "%F3SNF"
-    Local cX5Tabela     := "01"
-    Local nSize            := 1
-    DEFAULT lRet1Elem    := .F.     
+    Local cCustomF3   := "%F3SNF"
+    Local cX5Tabela   := "01"
+    Local nSize       := 1
+    DEFAULT lRet1Elem := .F.     
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -254,10 +265,10 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcSNF1,lRet1Elem)
 */
 Static Function f3fOpcSNF1(lRet1Elem)
-    Local cCustomF3        := "%F3SN1"
-    Local cX5Tabela     := "01"
-    Local nSize            := 1 
-    DEFAULT lRet1Elem    := .T.
+    Local cCustomF3   := "%F3SN1"
+    Local cX5Tabela   := "01"
+    Local nSize       := 1 
+    DEFAULT lRet1Elem := .T.
 Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
 
 /*
@@ -277,7 +288,7 @@ Static Function f3fOpcRetD(cF3Name)
     EndIF   
     nF3Ret := aScan(__aF3Ret,{|e|e[1]==cF3Name})
     IF (nF3Ret>0)
-        cF3Ret    := __aF3Ret[nF3Ret][2]
+        cF3Ret := __aF3Ret[nF3Ret][2]
         aSize(aDel(__aF3Ret,nF3Ret),Len(__aF3Ret)-1)
     Else
         //------------------------------------------------------------------------------------------------
@@ -288,6 +299,6 @@ Static Function f3fOpcRetD(cF3Name)
         EndIF
         //------------------------------------------------------------------------------------------------
         // TODO : Testar a Falha no Retorno da Consulta.
-        uF3Ret    := &(ReadVar())
+        uF3Ret := &(ReadVar())
     EndIF
 Return(uF3Ret)
