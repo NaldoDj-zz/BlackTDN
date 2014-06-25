@@ -280,7 +280,7 @@ Return(f3fOpcSX5(@cX5Tabela,@nSize,@cX5Tabela,@cCustomF3,@lRet1Elem))
     Uso         : Retorno da Consulta F3
     Sintaxe     : StaticCall(F3F_OPCOES,f3fOpcRetD,cF3Name)
 */
-Static Function f3fOpcRetD(cF3Name)
+Static Function f3fOpcRetD(cF3Name,cType)
     Local uF3Ret
     Local nF3Ret
     IF(__aF3Ret==NIL)
@@ -297,6 +297,27 @@ Static Function f3fOpcRetD(cF3Name)
             Private M->_f3fOpcSX5 := "ERROR"
             Private __READVAR     := "M->_f3fOpcSX5"
         EndIF
+        //------------------------------------------------------------------------------------------------
+        //Verifica o Tipo de Retorno
+        DEFAULT cType := "C"
+        IF .NOT.(ValType(cType)=="C")
+            cType := "C"
+        EndIF
+        cType := Upper(cType)
+        DO CASE
+            CASE (cType=="A")
+                M->_f3fOpcSX5 := Array(0)
+            CASE (cType=="B")
+                M->_f3fOpcSX5 := {||.F.}
+            CASE (cType=="D")
+                M->_f3fOpcSX5 := CToD("")
+            CASE (cType=="L")
+                M->_f3fOpcSX5 := .F.
+            CASE (cType=="N")
+                M->_f3fOpcSX5 := 0
+            OTHERWISE
+                M->_f3fOpcSX5 := ".F."
+        END CASE
         //------------------------------------------------------------------------------------------------
         // TODO : Testar a Falha no Retorno da Consulta.
         uF3Ret := &(ReadVar())
