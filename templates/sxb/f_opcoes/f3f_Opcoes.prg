@@ -80,10 +80,10 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
     //------------------------------------------------------------------------------------------------
     // Verifica cFilAnt
     IF (.NOT.(Type("cFilAnt")=="C").or.Empty(cFilAnt))
-    	Private cFilAnt := FWFilial()
-    	IF Empty(cFilAnt)
-    		cFilAnt := FWCodFil()
-    	EndIF
+        Private cFilAnt := FWFilial()
+        IF Empty(cFilAnt)
+            cFilAnt := FWCodFil()
+        EndIF
     EndIF
     
     //------------------------------------------------------------------------------------------------
@@ -93,8 +93,8 @@ Static Function f3fOpcSX5(cTabela,nSize,cF3,cF3Name,lRet1Elem)
         SELECT SX5.R_E_C_N_O_
           FROM %table:SX5% SX5
          WHERE SX5.%notDel%
-		    //------------------------------------------------------------------------------------------------
-		    // Priorizo a Filial Corrente
+            //------------------------------------------------------------------------------------------------
+            // Priorizo a Filial Corrente
            AND (SX5.X5_FILIAL=%exp:cFilAnt% OR SX5.X5_FILIAL=%xFilial:SX5%)
            AND SX5.X5_TABELA=%exp:cTabela% 
     ENDSQL
