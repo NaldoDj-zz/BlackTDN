@@ -8,7 +8,7 @@
 #include "protheus.ch"
 
 #define Alert( c ) 	APMsgAlert( c , "LoadGIF" )
-#define TRUE .T.
+#define TRUE  .T.
 #define FALSE .F.
 
 STATIC FUNCTION LoadGIF( cGIF , aGifInfo , aFrames , aImgInfo , cPath )
@@ -199,7 +199,7 @@ RETURN( Bin2W( Substr( cImageInfo , 4 , 2 ) ) * nDelay )
 STATIC FUNCTION __Dummy( lRecursa )
 	DEFAULT lRecursa := .F.
 	IF !( lRecursa )
-		BREAK
+		Return( lRecursa )
 	EndIF
    	__Dummy( .F. )
    	LoadGIF()
