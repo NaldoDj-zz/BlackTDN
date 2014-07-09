@@ -20,8 +20,7 @@ Static Function f3f_Opcoes(uVarRet,cTitulo,aOpcoes,cOpcoes,nSize,cF3,cF3Name,nEl
  
     Local nF3Ret
     Local nTamKey
-    Local nElemRet
-
+ 
     Local uF3Ret
     Local uVarRet
 

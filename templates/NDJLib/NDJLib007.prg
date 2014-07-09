@@ -7,7 +7,7 @@
 	Sintaxe:	<Vide Parametros Formais>
 /*/
 Static Function MakeTmpFile(;
-								cAlias		,;	//01 -> Alias aberto para a Cria磯 do Temporario ( Obrigatorio )
+								cAlias		,;	//01 -> Alias aberto para a Criação do Temporario ( Obrigatorio )
 								cAliasTmp	,;	//02 -> Alias atribuido a Area de Trabalho do Temporario ( Por Referencia )
 								cTempFile	,;	//03 -> Nome do Arquivo Temporario Criado ( Por Referencia )
 								bdbSeek		,;	//04 -> Bloco para Posicionamento de Registro ( Opcional )
@@ -160,7 +160,7 @@ Static Function CloseTmpFile( cAlias , cTableName , aBagName , cRddName )
 					( Len( aBagName ) >= 1 );
 				)	
 				IF ( cRddName == "TOPCONN" )
-					TCDropIndex( cTableName , aOrdBag )
+					TCDropIndex( cTableName , aBagName )
 				Else
 					IF (;
 							MsFile( cTableName , aBagName[ 1 ] , cRddName );
