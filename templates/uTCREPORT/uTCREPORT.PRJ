@@ -1,0 +1,69 @@
+Group uTCReport
+   Version=7.0
+   VSSDB=
+   HasProperties=1
+   Properties
+      BeforeApply=
+      AfterApply=
+      Icon=
+      ID=
+      Version=
+      PalmName=
+      OutPut=
+   End
+   ProjectsCount=1
+   Project uTCReport
+      FoldersCount=3
+      Folder Definições
+         VSSPath=Nova Pasta2
+         FilesCount=2
+         File \GitHub\BlackTDN\templates\uTCREPORT\include\uTCREPORT.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\include\uTCREPORTDef.ch
+             Type=T
+         End
+      End
+      Folder source
+         VSSPath=Nova Pasta2
+         FilesCount=2
+         File \GitHub\BlackTDN\templates\uTCREPORT\src\btdnChkSum.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\src\uTCREPORT.prg
+             Type=T
+         End
+      End
+      Folder samples
+         VSSPath=Nova Pasta3
+         FilesCount=9
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\absent.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\absent.prx
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\impesp.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\IMPESP.PRX
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\ponqdhr.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\PONQDHR.PRX
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\U_SZDR001.PRW
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\CSImpEsp.ch
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\uTCREPORT\samples\CSImpEsp.PRW
+             Type=T
+         End
+      End
+   End
+End

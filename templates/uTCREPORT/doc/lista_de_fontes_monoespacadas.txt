@@ -1,0 +1,25 @@
+Lista de Fontes Monoespaçadas
+
+Bitstream Vera Sans Mono
+ti92pluspc
+Crystal
+Monaco
+Anonymous
+Andale Mono
+Raize
+ProFontWindows
+Sheldon
+BSU Kermit
+Lucida Sans Typewriter Regular
+Courier New
+Courier
+Lucida Console
+ProggyTiny
+ProggyClean
+Fixedsys
+Topaz-8
+Free Monospaced
+MS Mincho
+Hyperfont
+Squareshooter Mono
+Ms LineDraw
