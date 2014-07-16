@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------------
     /*
-        include     : uTCREPORTDef.ch
+        include     : uTCREPORT.ch
         Autor       : Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data        : 27/09/2012 
     */
@@ -204,12 +204,12 @@
     Return(StaticCall(uTCREPORT,__Interrupt,@__nOpcRpt,@lEnd))
     
     Static Function __SWOpcRpt()
-        Local aRadio    := Array(0)
-        Local aParamBox    := Array(0)
-        Local nRpt         := RPT_TREPORT
+        Local aRadio	:= Array(0)
+        Local aParamBox	:= Array(0)
+        Local nRpt		:= RPT_TREPORT
         Local nParamBox
         IF ( __CheckSum() )
-            Private MV_PAR01    := 3
+            Private MV_PAR01	:= 3
             aAdd(aParamBox,Array(8))
             nParamBox := Len(aParamBox)            
             aAdd( aRadio , "1-"+__STR0004 )    //"R3"

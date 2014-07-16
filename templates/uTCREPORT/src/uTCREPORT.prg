@@ -124,14 +124,14 @@ METHOD SetTReport() CLASS uTCREPORT
         END SEQUENCE
         ErrorBlock(bErrorBlock)
 
-        Self:lEdit := ( Self:GetEdit() .and. VerSenha(110) ) //acesso para alterar configuracao de impressao
+        Self:lEdit  := ( Self:GetEdit() .and. VerSenha(110) ) //acesso para alterar configuracao de impressao
 
         oSection    := Self:Section(Self:cTitle)
         lSection    := ( ValType(oSection)=="O" )
         
         IF ( Self:lEdit )
-            Self:nHLine     := Self:nLineHeight
-            __nLHeigth      := Self:nHLine
+            Self:nHLine := Self:nLineHeight
+            __nLHeigth  := Self:nHLine
             IF ( lSection )
                 oSection:nLineHeight := __nLHeigth
             EndIF    
@@ -166,15 +166,15 @@ METHOD SetTReport() CLASS uTCREPORT
 
         Self:SetFont()
         Self:SetFont(,.T.)
-        DEFAULT Self:bHPrint    := { |aHeader| Self:HeaderPrint(@aHeader) }
-        DEFAULT Self:nHPag      := Self:PageWidth()
-        DEFAULT Self:nVPag      := Self:PageHeight()
-        DEFAULT Self:nLine      := ( Self:nVPag+1 )
+        DEFAULT Self:bHPrint        := { |aHeader| Self:HeaderPrint(@aHeader) }
+        DEFAULT Self:nHPag          := Self:PageWidth()
+        DEFAULT Self:nVPag          := Self:PageHeight()
+        DEFAULT Self:nLine          := ( Self:nVPag+1 )
         Self:nVPag -= ( TCR_LINE_HEIGHT * 3 )
         Self:SetLineHeight(Self:nHLine)
-        Self:lExcel     := ( Self:nDevice == TCR_IMP_EXCEL )
+        Self:lExcel                 := ( Self:nDevice == TCR_IMP_EXCEL )
         IF ( Self:lExcel )
-            Self:lXlsHeader     := .T.
+            Self:lXlsHeader         := .T.
             Self:lEmptyLineExcel    := .F.
         EndIF
         IF ( lSection )
@@ -221,7 +221,7 @@ METHOD SetFont(oFont,lHeader) CLASS uTCREPORT
     
     cFont    := IF( lHeader , "__oTHFont" , "__oTBFont" )
     
-    DEFAULT oFont     := IF((Type(cFont)=="O"),IF(lHeader,__oTHFont,__oTBFont),NIL)
+    DEFAULT oFont   := IF((Type(cFont)=="O"),IF(lHeader,__oTHFont,__oTBFont),NIL)
 
     IF ( lHeader )
         oLFont := IF((Self:oHFont==NIL),Self:oFontHeader,Self:oHFont)
@@ -244,12 +244,12 @@ METHOD SetFont(oFont,lHeader) CLASS uTCREPORT
     EndIF
 
     IF ( lHeader )
-        __oTHFont       := Self:oHFont
+        __oTHFont           := Self:oHFont
         DEFAULT oLFont      := Self:oHFont
         Self:oFontHeader    := Self:oHFont
     Else
-        __oTBFont       := Self:oBFont
-        DEFAULT oLFont       := Self:oBFont
+        __oTBFont           := Self:oBFont
+        DEFAULT oLFont      := Self:oBFont
         IF ( ValType(Self:oBFont) == "O" )
             Self:oFontBody  := Self:oBFont
             Self:cFontBody  := Self:oBFont:Name
@@ -259,10 +259,10 @@ METHOD SetFont(oFont,lHeader) CLASS uTCREPORT
             Self:lUnderline := Self:oBFont:Underline
         Else
             Self:cFontBody  := "Courier New"
-            Self:nFontBody    := 10
+            Self:nFontBody  := 10
             Self:lBold      := .F.
             Self:lItalic    := .F.
-            Self:lUnderline     := .F.
+            Self:lUnderline := .F.
         EndIF    
     EndIF    
 
@@ -299,15 +299,15 @@ METHOD ChkBreak() CLASS uTCREPORT
 
         IF ( Self:lHeaderVisible )
         
-            cDate    := DtoC(Date())
+            cD= DtoC(Date())
             Self:SetFont(,.T.)
             
-            cHFName    := Self:oFontHeader:Name
+            cHFName := Self:oFontHeader:Name
             nHFSize := Self:oFontHeader:nHeight
 
-            Self:nPxPage    := Self:Char2Pix("BLACKTDN"+cDate,cHFName,nHFSize)    
-            Self:nPxDate    := Self:Char2Pix("BLACKTDN"+cDate,cHFName,nHFSize)
-            Self:nPxTitle    := (Self:Char2Pix(Self:cTitle,cHFName,nHFSize)/2)
+            Self:nPxPage        := Self:Char2Pix("BLACKTDN"+cDate,cHFName,nHFSize)    
+            Self:nPxDate        := Self:Char2Pix("BLACKTDN"+cDate,cHFName,nHFSize)
+            Self:nPxTitle       := (Self:Char2Pix(Self:cTitle,cHFName,nHFSize)/2)
             Self:nPxDataBase    := Self:Char2Pix("BLACKTDN"+cDate,cHFName,nHFSize)
         
             Self:oPage:nHorzRes -= Self:Char2Pix("BTDN",cHFName,nHFSize)
@@ -317,7 +317,7 @@ METHOD ChkBreak() CLASS uTCREPORT
         Self:StartPage()
 
         Self:oPage:nHorzRes := nHorzRes
-        Self:nLine      := Self:Row()
+        Self:nLine          := Self:Row()
         
         Self:IncLine(1,.F.)
 
@@ -452,10 +452,10 @@ Return(Self:nLine)
 //----------------------------------------------------------------------------
 METHOD IncLine(nLines,lChkPgBreak) CLASS uTCREPORT
     Local nIncRow
-    DEFAULT nLines     := 1
-    DEFAULT lChkPgBreak    := .T.
-    nIncRow    := (Self:nHLine*nLines)
-    Self:nLine    := Self:IncRow(@nIncRow)
+    DEFAULT nLines          := 1
+    DEFAULT lChkPgBreak     := .T.
+    nIncRow     := (Self:nHLine*nLines)
+    Self:nLine  := Self:IncRow(@nIncRow)
     IF ( lChkPgBreak )
         Self:ChkPgBreak()
     EndIF
@@ -473,11 +473,11 @@ METHOD PrintOut(nPosH,cLinePrt,nNewLine,oBFontPrt,nAlign,cPict) CLASS uTCREPORT
     
     Local bErrorBlock
     
-    Local cType    := ValType(cLinePrt)
+    Local cType     := ValType(cLinePrt)
     
-    Local lPrtLine    := .F.
-    Local lFatLine    := .F.
-    Local lThinLine    := .F.
+    Local lPrtLine  := .F.
+    Local lFatLine  := .F.
+    Local lThinLine := .F.
 
     Local nRow
     Local nCol
@@ -486,11 +486,11 @@ METHOD PrintOut(nPosH,cLinePrt,nNewLine,oBFontPrt,nAlign,cPict) CLASS uTCREPORT
 
     Self:SetFont()
 
-    DEFAULT nPosH    := 0
+    DEFAULT nPosH       := 0
     DEFAULT cLinePrt    := ""    
     DEFAULT nNewLine    := 0
-    DEFAULT oBFontPrt    := Self:oBFont
-    DEFAULT nAlign       := TCR_AL_LEFT
+    DEFAULT oBFontPrt   := Self:oBFont
+    DEFAULT nAlign      := TCR_AL_LEFT
 
     IF .NOT.( Self:lExcel )
         lPrtLine    := ((cType=="C").and.(("-"$cLinePrt).or.("."$cLinePrt).or.("="$cLinePrt).or.("*"$cLinePrt)))
@@ -615,9 +615,9 @@ Static Function __SetPrint(__nOpcRpt,cAlias,cProgram,cPergunte,cTitle,cDesc1,cDe
         cDescription   := cDesc1 + CRLF
         cDescription   += cDesc2 + CRLF
         cDescription   += cDesc3 + CRLF
-        __Dummy     := U_uTCREPORT(@cProgram,@cTitle,@cPergunte,/*bAction*/,@cDescription)
-        cPergunte   := cSvPerg  
-        oTRSection  := TRSection():New(@__Dummy,@cTitle,@cAlias,@aOrd)
+        __Dummy             := U_uTCREPORT(@cProgram,@cTitle,@cPergunte,/*bAction*/,@cDescription)
+        cPergunte           := cSvPerg  
+        oTRSection          := TRSection():New(@__Dummy,@cTitle,@cAlias,@aOrd)
         oTRSection:cAlias    := cAlias
         lFLandScape := (((Type("TAMANHO")=="C").and.TAMANHO=="G").or.((Type("NTAMANHO")=="C").and.NTAMANHO=="G"))
         IF (lFLandScape)
@@ -778,11 +778,11 @@ Static Function __Impr(__nOpcRpt,cDetalhe,cFimFolha,nReg,cRoda,nColuna,lSalta,lM
 
         BEGIN SEQUENCE
         
-            DEFAULT cFimFolha    := ""
-            DEFAULT nReg    := 0
+            DEFAULT cFimFolha   := ""
+            DEFAULT nReg        := 0
     
-            lbRoda    := ( ValType(bRoda) == "B" )
-            lIsInBreak    := __IsInPageBreak(__nOpcRpt)    
+            lbRoda      := ( ValType(bRoda) == "B" )
+            lIsInBreak  := __IsInPageBreak(__nOpcRpt)    
             IF (;
                     ( cFimFolha $ "FP" );
                     .or.;
@@ -816,7 +816,7 @@ Static Function __Impr(__nOpcRpt,cDetalhe,cFimFolha,nReg,cRoda,nColuna,lSalta,lM
                 BREAK
             EndIF
 
-            lIsInBreak    := __IsInPageBreak(__nOpcRpt)
+            lIsInBreak  := __IsInPageBreak(__nOpcRpt)
 
             IF ( lIsInBreak )
                 lbCabec     := ( ValType( bCabec ) == "B" )
@@ -845,13 +845,13 @@ Static Function __Impr(__nOpcRpt,cDetalhe,cFimFolha,nReg,cRoda,nColuna,lSalta,lM
 
             DEFAULT nColuna := 0
             
-            nRow     := __oTCPrint:nLine
+            nRow    := __oTCPrint:nLine
             nCol    := nColuna
             
             __Dummy := __PrintOut(@__nOpcRpt,@nRow,@nCol,@cDetalhe)
             
-            DEFAULT lSalta     := .T.
-            DEFAULT lQbLinDet    := .F.
+            DEFAULT lSalta      := .T.
+            DEFAULT lQbLinDet   := .F.
     
             IF ( ( lSalta ) .or. ( lQbLinDet ) )
                 __IncLine(@__nOpcRpt,1)
@@ -938,36 +938,36 @@ Static Function __ChkPgBreak(__nOpcRpt,nLPrn)
             varRef( __Dummy , nLin )
         EndIF
         IF ( __IsInPageBreak(@__nOpcRpt,@__Dummy,@nLPrn) )
-               IF ( Type("__bR3Cabec") == "B" )
-                   bCabec    := __bR3Cabec
-              Else
-                  lDHeader := ( ( Type("__lDHeader") == "L" ) .and. __lDHeader )
-                  IF ( lDHeader )
-                       cTitulo      := IF((Type("TITULO")=="C"),TITULO,"")
-                       cCabec1      := IF((Type("wCabec1")=="C"),wCabec1,IF((Type("Cabec1")=="C"),Cabec1,""))
-                    cCabec2      := IF((Type("wCabec2")=="C"),wCabec2,IF((Type("Cabec2")=="C"),Cabec2,""))
-                    cTamanho  := IF((Type("TAMANHO")=="C"),TAMANHO,IF((Type("NTAMANHO")=="C"),NTAMANHO,"G"))
-                    cNomeProg := IF((Type("NOMEPROG")=="C"),NOMEPROG,FunName())
-                    nComp      := IF((Type("aReturn")=="A").and.(Len(aReturn)>=4),IF((aReturn[4]==1),15,18),18)
-                       bCabec    := { || Cabec(@cTitulo,@cCabec1,@cCabec2,@cNomeProg,@cTamanho,@nComp) }
-                   EndIF
-               EndIF
-               DEFAULT bCabec := { || 0 }
-              __Dummy := Eval( bCabec )
-              __Dummy += 1
-             __Dummy    := __HeaderPrint()
+            IF ( Type("__bR3Cabec") == "B" )
+                bCabec   := __bR3Cabec
+            Else
+                lDHeader  := ( ( Type("__lDHeader") == "L" ) .and. __lDHeader )
+                IF ( lDHeader )
+                    cTitulo     := IF((Type("TITULO")=="C"),TITULO,"")
+                    cCabec1     := IF((Type("wCabec1")=="C"),wCabec1,IF((Type("Cabec1")=="C"),Cabec1,""))
+                    cCabec2     := IF((Type("wCabec2")=="C"),wCabec2,IF((Type("Cabec2")=="C"),Cabec2,""))
+                    cTamanho    := IF((Type("TAMANHO")=="C"),TAMANHO,IF((Type("NTAMANHO")=="C"),NTAMANHO,"G"))
+                    cNomeProg   := IF((Type("NOMEPROG")=="C"),NOMEPROG,FunName())
+                    nComp       := IF((Type("aReturn")=="A").and.(Len(aReturn)>=4),IF((aReturn[4]==1),15,18),18)
+                    bCabec      := { || Cabec(@cTitulo,@cCabec1,@cCabec2,@cNomeProg,@cTamanho,@nComp) }
+                EndIF
+            EndIF
+            DEFAULT bCabec := { || 0 }
+            __Dummy := Eval( bCabec )
+            __Dummy += 1
+            __Dummy := __HeaderPrint()
         EndIF
     EndIF
 Return( __Dummy )
 
 Static Function __IsInPageBreak(__nOpcRpt,nLine,nLPrn)
-    Local lPGBreak    := .F.
-    Local __Dummy    := nLine
+    Local lPGBreak  := .F.
+    Local __Dummy   := nLine
     IF (__nOpcRpt==RPT_TREPORT)
-        lPGBreak := IsInBreak()
+        lPGBreak    := IsInBreak()
     ElseIF (__nOpcRpt==RPT_R3)
         DEFAULT __Dummy := 0
-        DEFAULT nLPrn    := 0
+        DEFAULT nLPrn   := 0
         __SetMaxLine(__nOpcRpt)
         //----------------------------------------------------------------------------
         // Salto de Página. Neste caso o formulario tem TCR_MAX_LINEREL linhas...
@@ -1029,8 +1029,8 @@ Static Function __OurSpool(__nOpcRpt,wNRel)
     IF (__nOpcRpt==RPT_R3)
         __Dummy := OurSpool(wNRel)
     ElseIF (__nOpcRpt==RPT_TREPORT)
-        bError    := {|e|BREAK(e)}
-        bErrorBlock    := ErrorBlock(bError)
+        bError      := {|e|BREAK(e)}
+        bErrorBlock := ErrorBlock(bError)
         BEGIN SEQUENCE
             oSection := __oTCPrint:Section(__oTCPrint:cTitle)
             IF ( ValType( oSection ) == "O" )
@@ -1128,11 +1128,11 @@ Return(__Dummy)
 Static Function __GetOrder(__nOpcRpt)
     Local __Dummy
     IF (__nOpcRpt==RPT_TREPORT)
-        __Dummy := __oTCPrint:GetOrder()
+        __Dummy     := __oTCPrint:GetOrder()
     Else
-        __Dummy := IF(((Type("aReturn")=="A").and.(Len(aReturn)>=8)),aReturn[8],1)
+        __Dummy     := IF(((Type("aReturn")=="A").and.(Len(aReturn)>=8)),aReturn[8],1)
     EndIF
-    DEFAULT __Dummy    := 1
+    DEFAULT __Dummy := 1
 Return(__Dummy) 
 
 Static Function __SetFont(__nOpcRpt,cName,uPar2,nHeight,uPar4,lBold,uPar6,uPar7,uPar8,uPar9,lUnderline,lItalic)
@@ -1148,7 +1148,7 @@ Return(n)
 
 Static Function __SetEdit(__nOpcRpt,x)
     Local cType    := ValType(x)
-    Local __Dummy    := .F.
+    Local __Dummy  := .F.
     IF (__nOpcRpt==RPT_TREPORT)
         DO CASE
         CASE ( cType == "C")
@@ -1243,25 +1243,25 @@ Return(__Dummy)
 
 Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime,bCabec,nTamLin)
 
-    Local cAlias    := Alias()
+    Local cAlias        := Alias()
 
-    Local cCnt    := ""
-    Local cChr    := ""
-    Local nAT    := 0
+    Local cCnt          := ""
+    Local cChr          := ""
+    Local nAT           := 0
 
-    Local i    := 0
-    Local j    := 0
-    Local nFor    := 1
+    Local i             := 0
+    Local j             := 0
+    Local nFor          := 1
 
-    Local cFrmt    := ""
+    Local cFrmt         := ""
     
-    Local cPictNPad    := "@E 999,999,999.99"
-    Local cPictCPad    := "@!"
+    Local cPictNPad     := "@E 999,999,999.99"
+    Local cPictCPad     := "@!"
     
     Local cDet
     
-    Local cFind      := "#"
-    Local cReplace    := "±"
+    Local cFind         := "#"
+    Local cReplace      := "±"
     
     Local cTypeFundo    := ValType(xFundo)
 
@@ -1269,10 +1269,10 @@ Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime
     Local nCol
     
     Local nFundo
-    Local nValores    := 0
+    Local nValores      := 0
 
     IF ( cTypeFundo == "C" )
-        xFundo    :=    StrTran(xFundo,cFind,cReplace)
+        xFundo := StrTran(xFundo,cFind,cReplace)
     ElseIF ( cTypeFundo == "A" )
         nFundo := Len(xFundo)
         For i := 1 To nFundo
@@ -1297,7 +1297,7 @@ Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime
     
     IF ( lbCabec )
         nTamLin := IF(nTamLin==NIL,220,nTamLin)
-        xFundo    := ("+"+Replic("-",nTamLin-2)+"+")
+        xFundo  := ("+"+Replic("-",nTamLin-2)+"+")
         nRow    := __IncLine(@__nOpcRpt,1,.F.)
         nLin    := nRow
         nCol    := 0
@@ -1317,18 +1317,18 @@ Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime
                 EndIf
             EndIF
         Else
-            cPictN    := IF(Empty(cPictN),cPictNPad,cPictN)
-            cPictC    := IF(Empty(cPictC),cPictCPad,cPictC)
-            aValores[i]    := IF(aValores[i]==NIL,"",aValores[i])
+            cPictN      := IF(Empty(cPictN),cPictNPad,cPictN)
+            cPictC      := IF(Empty(cPictC),cPictCPad,cPictC)
+            aValores[i] := IF(aValores[i]==NIL,"",aValores[i])
             IF ( ValType(aValores[i] ) == "N" )
                 cCnt:=Transform(aValores[i],cPictN)
             Else
                 cCnt:=Transform(aValores[i],cPictC)
             EndIF
         EndIF
-        nAT    := 0
-        cFrmt    := ""
-        nAT    := At(cReplace,xFundo)
+        nAT     := 0
+        cFrmt   := ""
+        nAT     := At(cReplace,xFundo)
         IF ( nAT > 0 )
             cChr:=cReplace
             j    := nAT
@@ -1352,8 +1352,8 @@ Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime
 
     IF (lImprime)
         IF (cTypeFundo=="C")
-            xFundo    := {xFundo}
-            cTypeFundo    := "A"
+            xFundo      := {xFundo}
+            cTypeFundo  := "A"
         EndIF
         IF ( cTypeFundo == "A" )
             nFundo := Len(xFundo)
@@ -1392,12 +1392,12 @@ Static Function Interrupt(__nOpcRpt,lEnd)
     
     Local lRet
     
-    Local nRow  := 0
-    Local nCol  := 0
+    Local nRow      := 0
+    Local nCol      := 0
     
     SysRefresh()
     DEFAULT lEnd    := .F.
-    lRet    := lEnd
+    lRet            := lEnd
     
     IF ( lRet )
         __PrintOut(@__nOpcRpt,@nRow,@nCol,@cDetalhe)
@@ -1406,21 +1406,21 @@ Static Function Interrupt(__nOpcRpt,lEnd)
 Return( lRet )
 
 Static Function btdnChkSum()
-    Local lChecked    := StaticCall(btdnChkSum,BTDNRPTCHK,"UTCREPORT",ProcName(1)) 
+    Local lChecked  := StaticCall(btdnChkSum,BTDNRPTCHK,"UTCREPORT",ProcName(1)) 
     BEGIN SEQUENCE
         DEFAULT lChecked    := .F.
         IF .NOT.( lChecked )
             BREAK
         ENDIF
-        lChecked     := ((Type("__lBTDNRPTCHK")=="L").and.(__lBTDNRPTCHK))
+        lChecked    := ((Type("__lBTDNRPTCHK")=="L").and.(__lBTDNRPTCHK))
         IF .NOT.( lChecked )
             BREAK
         EndIF
-        lChecked     := ((Type("__cBTDNRPTCHK")=="C").and.(__cBTDNRPTCHK=="UTCREPORT"))
+        lChecked    := ((Type("__cBTDNRPTCHK")=="C").and.(__cBTDNRPTCHK=="UTCREPORT"))
         IF .NOT.( lChecked )
             BREAK
         EndIF
-        lChecked     := ((Type("__dBTDNRPTCHK")=="D").and.(DtoS(__dBTDNRPTCHK)>=DtoS(MsDate())))
+        lChecked    := ((Type("__dBTDNRPTCHK")=="D").and.(DtoS(__dBTDNRPTCHK)>=DtoS(MsDate())))
     END SEQUENCE
 Return(lChecked)
 

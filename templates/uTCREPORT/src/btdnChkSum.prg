@@ -96,11 +96,11 @@ Static Function CheckSM0( aSM0 , nEmps , cTypeChk )
     Local cLockByName
     Local cFieldName
     
-    Local lSM0OK     := .F.
+    Local lSM0OK        := .F.
     
     Local nEmp
     Local nRecno
-    Local nField    := 0
+    Local nField        := 0
     
     Local nAttempts
     
@@ -116,19 +116,19 @@ Static Function CheckSM0( aSM0 , nEmps , cTypeChk )
         nRecno    := aSM0[nEmp]
         SM0->( dbGoTo( nRecno ) )
         cCGC    := AllTrim(SM0->M0_CGC)
-        cFile    := cCGC
-        cFile    += "_"
-        cFile    += cTypeChk
-        lSM0OK    := File("\btdn\"+cFile+".mzp")
+        cFile   := cCGC
+        cFile   += "_"
+        cFile   += cTypeChk
+        lSM0OK  := File("\btdn\"+cFile+".mzp")
         IF .NOT.(lSM0OK)
             EXIT
         EndIF
         cLockByName := cFile
         aAdd( aLockByName , cLockByName )
-        lSM0OK        := LockByName( @cLockByName , .T. , .F. , .T. )
-        nAttempts    := 0
+        lSM0OK      := LockByName( @cLockByName , .T. , .F. , .T. )
+        nAttempts   := 0
         While .NOT.( lSM0OK )
-            lSM0OK    := LockByName( @cLockByName , .T. , .F. , .T. )    
+            lSM0OK  := LockByName( @cLockByName , .T. , .F. , .T. )    
             IF ( lSM0OK )
                 EXIT
             EndIF
@@ -144,19 +144,19 @@ Static Function CheckSM0( aSM0 , nEmps , cTypeChk )
         IF .NOT.(lSM0OK)
             EXIT
         EndIF
-        cFile    := ("\btdn\"+cFile)
-        lSM0OK    := File(cFile)
+        cFile   := ("\btdn\"+cFile)
+        lSM0OK  := File(cFile)
         IF .NOT.(lSM0OK)
             EXIT
         EndIF
-        aFEmp    := RestArray( cFile )
+        aFEmp   := RestArray( cFile )
         fErase(cFile)
         UnLockByName( @cLockByName , .T. , .F. , .T. )
-        aREmp    := SM0->( RegToArray() )
-        lSM0OK    := Compare(aFEmp,aREmp,@nField)
+        aREmp   := SM0->( RegToArray() )
+        lSM0OK  := Compare(aFEmp,aREmp,@nField)
         IF .NOT.(lSM0OK) .and. ( nField > 0 )
-            cFieldName    := Upper(AllTrim(SM0->(FieldName(nField))))
-            lSM0OK := (aScan(aFieldName,{|cField|(cField==cFieldName)})==0)
+            cFieldName  := Upper(AllTrim(SM0->(FieldName(nField))))
+            lSM0OK      := (aScan(aFieldName,{|cField|(cField==cFieldName)})==0)
         EndIF
         IF (lSM0OK)
             EXIT
@@ -169,21 +169,21 @@ Return(lSM0OK)
 
 Static Function RegToArray( cAlias , nRecno )
 
-    Local aValues        := Array(0)
+    Local aValues   := Array(0)
     Local adbStruct
     
     Local nField
     Local nFields
 
-    DEFAULT cAlias    := Alias()
-    DEFAULT nRecno    := (cAlias)->( Recno() )
+    DEFAULT cAlias  := Alias()
+    DEFAULT nRecno  := (cAlias)->( Recno() )
 
-    adbStruct        := (cAlias)->( dbStruct() )
+    adbStruct   := (cAlias)->( dbStruct() )
 
     (cAlias)->( MsGoto( nRecno ) )
     
-    nFields    := Len( adbStruct )
-    aValues    := Array( nFields )
+    nFields := Len( adbStruct )
+    aValues := Array( nFields )
 
     For nField := 1 To nFields
         aValues[ nField ] := (cAlias)->( FieldGet( nField ) )
@@ -193,8 +193,8 @@ Return( aValues  )
 
 Static Function ArrayCompare( aArray1 , aArray2 , nPosDif )
 
-    Local cType1        := ValType( aArray1 )
-    Local cType2        := ValType( aArray2 )
+    Local cType1    := ValType( aArray1 )
+    Local cType2    := ValType( aArray2 )
     
     Local lCompare
     Local nArray
@@ -397,11 +397,11 @@ Static Function RestArr( nfHandle )
     
     While ( ( ++nLoop ) <= nLoops )
     
-        cElemType    := fReadStr( nfHandle , 1 )
+        cElemType   := fReadStr( nfHandle , 1 )
         IF ( cElemType $ "A/O" )
             aArray[ nLoop ] := RestArr( nfHandle )
         Else
-            cElemSize    := fReadStr( nfHandle , 5 )
+            cElemSize   := fReadStr( nfHandle , 5 )
             uCnt        := fReadStr( nfHandle , Val( cElemSize ) )
             IF ( cElemType $ "B/L" )
                 aArray[ nLoop ] := __ExecMacro( uCnt )
