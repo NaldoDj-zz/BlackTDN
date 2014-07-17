@@ -186,6 +186,9 @@ METHOD SetTReport() CLASS uTCREPORT
             Self:oBRDTop    := oSection:oBRDTop
             Self:oCLRBack   := oSection:oCLRBack
             IF( Self:lUserFilter )
+                //TODO: Verificar o porque da ocorrencia de erros quando usa (restaura) os filtros salvos nos relatorios R3
+                //      A solução para a não ocorrência do erro, ao final do relatório, e criar e salvar um novo     filtro
+                //      usando o próprio tReport.
                 bErrorBlock := ErrorBlock({|e|BREAK(e)})
                 BEGIN SEQUENCE
                     cAlias  := oSection:cAlias
@@ -1025,7 +1028,7 @@ Static Function __OurSpool(__nOpcRpt,wNRel)
     IF FindFunction(__Dummy)
         &__Dummy.(,)    
     EndIF
-    MS_FLUSH()
+    __Ms_Flush(__nOpcRpt)
     IF (__nOpcRpt==RPT_R3)
         __Dummy := OurSpool(wNRel)
     ElseIF (__nOpcRpt==RPT_TREPORT)
@@ -1066,7 +1069,7 @@ Static Function __OurSpool(__nOpcRpt,wNRel)
     IF FindFunction(__Dummy)
         &__Dummy.(,)    
     EndIF
-    MS_FLUSH()
+    __Ms_Flush(__nOpcRpt)
 Return(NIL)
 
 Static Function __Ms_Flush(__nOpcRpt)
@@ -1074,14 +1077,14 @@ Static Function __Ms_Flush(__nOpcRpt)
     aFill(__aHeaders,0)
     __cAlias     := NIL
     __SetMaxLine(__nOpcRpt,TCR_MAX_LINEREL)
-    IF (__nOpcRpt==RPT_TREPORT)
+    IF ((__nOpcRpt==RPT_TREPORT).and.(Type("__oTCPrint")=="O"))
         oSection := __oTCPrint:Section(__oTCPrint:cTitle)
-        IF ( ValType( oSection ) == "O" )
-            IF ( ( __oTCPrint:lUserFilter ) .OR. .NOT.( Empty(oSection:cFilter) ) )
+        IF (ValType(oSection)=="O")
+            IF ((__oTCPrint:lUserFilter).OR..NOT.(Empty(oSection:cFilter)))
                 oSection:CloseFilter()
             EndIF
-        EndIF    
-    EndIF    
+        EndIF
+    EndIF   
 Return(MS_FLUSH())
 
 Static Function __Cabec(__nOpcRpt,cTitulo,cCabec1,cCabec2,cPrograma,cTamanho,nFormato,uPar7,lPerg,cLogo)
