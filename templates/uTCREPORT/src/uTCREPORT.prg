@@ -1138,6 +1138,20 @@ Static Function __GetOrder(__nOpcRpt)
     DEFAULT __Dummy := 1
 Return(__Dummy) 
 
+Static Function __SetOrder(__nOpcRpt,nOrder)
+    Local __Dummy   := __GetOrder(__nOpcRpt)
+    Local oSection
+    DEFAULT nOrder  := 1
+    IF (__nOpcRpt==RPT_TREPORT)
+        oSection    := __oTCPrint:Section(__oTCPrint:cTitle)
+        IF (ValType(oSection)=="O")
+            oSection:SetOrder(nOrder)
+        EndIF    
+    ElseIF ((Type("aReturn")=="A").and.(Len(aReturn)>=8))
+        aReturn[8]  := nOrder
+    EndIF
+Return(__Dummy) 
+
 Static Function __SetFont(__nOpcRpt,cName,uPar2,nHeight,uPar4,lBold,uPar6,uPar7,uPar8,uPar9,lUnderline,lItalic)
     Local __Dummy
     IF (__nOpcRpt==RPT_TREPORT)
@@ -1450,6 +1464,7 @@ Static Function __Dummy(lRecursa)
         __Cabec()
         __Roda()
         __GetOrder()
+        __SetOrder()
         __SetFont()
         __SetLineHeight()
         __SetEdit()

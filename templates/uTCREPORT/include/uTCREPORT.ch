@@ -63,22 +63,25 @@
     #xcommand @ <nRow>,<nCol> PSAY <cText> [FONT <oFont> ][ PICTURE <cPict> ] => __PrintOut(@__nOpcRpt,<nRow>,<nCol>,<cText>,[<cPict>],[<oFont>])
     #xtranslate PrintOut([<prm,...>])   => __PrintOut(@__nOpcRpt,[<prm>])
 
-    #xcommand uTCREPORT ADD HEADER <aHeader>  => __HeaderAdd(@__nOpcRpt,<aHeader>)
-    #xcommand uTCREPORT DEL HEADER <aHeader>  => __HeaderDel(@__nOpcRpt,<aHeader>)
-    #xcommand uTCREPORT GET HEADER <aHeader>  => <aHeader> := __HeaderGet(@__nOpcRpt)
+    #xcommand uTCREPORT ADD HEADER <aHeader>   => __HeaderAdd(@__nOpcRpt,<aHeader>)
+    #xcommand uTCREPORT DEL HEADER <aHeader>   => __HeaderDel(@__nOpcRpt,<aHeader>)
+    #xcommand uTCREPORT GET HEADER <aHeader>   => <aHeader> := __HeaderGet(@__nOpcRpt)
 
-    #xcommand uTCREPORT HIDE DEFAULT HEADER   => ( __lDHeader := .F. )
-    #xcommand uTCREPORT SHOW DEFAULT HEADER   => ( __lDHeader := .T. )
+    #xcommand uTCREPORT HIDE DEFAULT HEADER    => ( __lDHeader := .F. )
+    #xcommand uTCREPORT SHOW DEFAULT HEADER    => ( __lDHeader := .T. )
 
-    #xcommand uTCREPORT SET PAGE BREAK        => __SetPageBreak(@__nOpcRpt)
-    #xcommand uTCREPORT CHK PAGE BREAK [<n>]  => __ChkPgBreak(@__nOpcRpt,[<n>])    
-    #xcommand uTCREPORT SET LINE HEIGHT <n>   => __SetLineHeight(@__nOpcRpt,<n>)
-    #xcommand uTCREPORT SET EDIT <x:ON,OFF,&> => __SetEdit(@__nOpcRpt,<(x)>)
-    #xcommand uTCREPORT SET EDIT (<x>)        => __SetEdit(@__nOpcRpt,<(x)>)
+    #xcommand uTCREPORT SET PAGE BREAK         => __SetPageBreak(@__nOpcRpt)
+    #xcommand uTCREPORT CHK PAGE BREAK [<n>]   => __ChkPgBreak(@__nOpcRpt,[<n>])    
+    #xcommand uTCREPORT SET LINE HEIGHT <n>    => __SetLineHeight(@__nOpcRpt,<n>)
+    #xcommand uTCREPORT SET EDIT <x:ON,OFF,&>  => __SetEdit(@__nOpcRpt,<(x)>)
+    #xcommand uTCREPORT SET EDIT (<x>)         => __SetEdit(@__nOpcRpt,<(x)>)
 
-    #xcommand uTCREPORT SET R3 MAX LINE <n>   => __SetMaxLine(@__nOpcRpt,<n>)
-    #xcommand uTCREPORT GET R3 MAX LINE <n>   => <n> := __GetMaxLine(@__nOpcRpt)
-    #xcommand uTCREPORT SET R3 CABEC <b>      => __SetR3Cabec(<b>)
+    #xcommand uTCREPORT SET R3 MAX LINE <n>    => __SetMaxLine(@__nOpcRpt,<n>)
+    #xcommand uTCREPORT GET R3 MAX LINE <n>    => <n> := __GetMaxLine(@__nOpcRpt)
+    #xcommand uTCREPORT SET R3 CABEC <b>       => __SetR3Cabec(<b>)
+    
+    #xcommand uTCREPORT GETORDER TO <v>        => <v> := __GetOrder(@__nOpcRpt)
+    #xcommand uTCREPORT SETORDER <n>           => __SetOrder(@__nOpcRpt,<n>)
 
     #xcommand uTCREPORT SET FONT ;
                  [<cName>] ;
@@ -162,6 +165,9 @@
     Static Function __GetOrder(__nOpcRpt)
     Return(StaticCall(uTCREPORT,__GetOrder,@__nOpcRpt))
 
+    Static Function __SetOrder(__nOpcRpt,nOrder)
+    Return(StaticCall(uTCREPORT,__SetOrder,@__nOpcRpt,@nOrder))
+
     Static Function __SetFont(__nOpcRpt,lHeader,cName,uPar2,nHeight,uPar4,lBold,uPar6,uPar7,uPar8,uPar9,lUnderline,lItalic)
         Local cVar
         lHeader := IF((lHeader==NIL),.F.,lHeader)
@@ -204,12 +210,12 @@
     Return(StaticCall(uTCREPORT,__Interrupt,@__nOpcRpt,@lEnd))
     
     Static Function __SWOpcRpt()
-        Local aRadio	:= Array(0)
-        Local aParamBox	:= Array(0)
-        Local nRpt		:= RPT_TREPORT
+        Local aRadio    := Array(0)
+        Local aParamBox    := Array(0)
+        Local nRpt        := RPT_TREPORT
         Local nParamBox
         IF ( __CheckSum() )
-            Private MV_PAR01	:= 3
+            Private MV_PAR01    := 3
             aAdd(aParamBox,Array(8))
             nParamBox := Len(aParamBox)            
             aAdd( aRadio , "1-"+__STR0004 )    //"R3"
@@ -250,6 +256,7 @@
             __Cabec()
             __Roda()
             __GetOrder()
+            __SetOrder()
             __SetLineHeight()
             __SetEdit()
             __SetMaxLine()

@@ -274,6 +274,11 @@ If !fTabTurno(aTabPadrao)
 	Return Nil
 EndIf
 
+//------------------------------------------------------------------------------------
+//Redefine a Ordem de Impressao
+uTCREPORT GETORDER TO nOrdem
+uTCREPORT SETORDER nOrdem
+
 //-- Posiciona registro inicial de acordo com de/ate
 dbSelectArea('SRA')
 dbGoTop()

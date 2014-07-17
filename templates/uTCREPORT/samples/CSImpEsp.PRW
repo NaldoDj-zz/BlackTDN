@@ -156,10 +156,13 @@
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 User Function CSImpEsp( lTerminal , cFilTerminal , cMatTerminal , cPerAponta )
-	uTCREPORT ACTIVATE
-	uTCREPORT SET FONT "Lucida Console" SIZE 0,-10 BOLD 
-    uTCREPORT SET LINE HEIGHT 45
-	uTCREPORT SET EDIT ON
+	DEFAULT lTerminal := .F.
+	IF .NOT.(lTerminal)
+		uTCREPORT ACTIVATE
+		uTCREPORT SET FONT "Lucida Console" SIZE 0,-10 BOLD 
+	    uTCREPORT SET LINE HEIGHT 45
+		uTCREPORT SET EDIT ON
+	ENDIF
 Return(ImpEsp( @lTerminal , @cFilTerminal , @cMatTerminal , @cPerAponta ))
 Static Function ImpEsp( lTerminal , cFilTerminal , cMatTerminal , cPerAponta )
 /*
@@ -442,6 +445,12 @@ dFimCale   := dPerFim   //-- Data Final a considerar para o calendario
 ³namento													   ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 dbSelectArea('SRA')
+
+//------------------------------------------------------------------------------------
+//Redefine a Ordem de Impressao
+uTCREPORT GETORDER TO nOrdem
+uTCREPORT SETORDER nOrdem
+
 SRA->( dbSetOrder( nOrdem ) )
 IF ( ( nOrdem == 1 ) .or. ( lTerminal ) )
 	cInicio  := 'RA_FILIAL + RA_MAT'

@@ -1,5 +1,6 @@
 #INCLUDE "RWMAKE.CH"
 #INCLUDE "PONQDHR.CH"
+#INCLUDE "PROTHEUS.CH"
 #IFNDEF CRLF
 #DEFINE CRLF ( chr(13)+chr(10) )
 #ENDIF
@@ -30,9 +31,12 @@
 ?           ?       ?     ?os campos.                               ?
 읕컴컴컴컴컴컨컴컴컴컴좔컴컴컨컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴?*/
 User Function PONQDHR( lTerminal , cFilTerminal , cMatTerminal )  
-	uTCREPORT ACTIVATE
-	uTCREPORT SET FONT "MS Mincho" SIZE 0,8 BOLD 
-    uTCREPORT SET LINE HEIGHT 45
+	DEFAULT lTerminal := .F.
+	IF .NOT.(lTerminal)
+		uTCREPORT ACTIVATE
+		uTCREPORT SET FONT "MS Mincho" SIZE 0,8 BOLD 
+		uTCREPORT SET LINE HEIGHT 45
+	ENDIF
 Return(PONQDHR( @lTerminal , @cFilTerminal , @cMatTerminal )  )
 
 Static Function PONQDHR( lTerminal , cFilTerminal , cMatTerminal )  
