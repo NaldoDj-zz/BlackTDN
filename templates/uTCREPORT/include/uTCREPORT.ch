@@ -210,25 +210,25 @@
     Return(StaticCall(uTCREPORT,__Interrupt,@__nOpcRpt,@lEnd))
     
     Static Function __SWOpcRpt()
-        Local aRadio    := Array(0)
-        Local aParamBox    := Array(0)
-        Local nRpt        := RPT_TREPORT
+        Local aRadio        := Array(0)
+        Local aParamBox     := Array(0)
+        Local nRpt          := RPT_TREPORT
         Local nParamBox
-        IF ( __CheckSum() )
+        IF (__CheckSum())
             Private MV_PAR01    := 3
             aAdd(aParamBox,Array(8))
             nParamBox := Len(aParamBox)            
-            aAdd( aRadio , "1-"+__STR0004 )    //"R3"
-            aAdd( aRadio , "2-"+__STR0001 )    //"TReport"
-              aParamBox[nParamBox][1] := 3                      //Radio
-              aParamBox[nParamBox][2] := OemToAnsi(__STR0006)   //Descrição : "Imprimir em?"
-              aParamBox[nParamBox][3] := RPT_TREPORT            //Numérico contendo a opção inicial do Radio
-              aParamBox[nParamBox][4] := aRadio                 //Array contendo as opções do Radio
-              aParamBox[nParamBox][5] := 100                    //Tamanho do Radio
-              aParamBox[nParamBox][6] := "AllWaysTrue()"        //Validação
-              aParamBox[nParamBox][7] := .T.                    //Flag .T./.F. Parâmetro Obrigatório ?
-              aParamBox[nParamBox][8] := "AllWaysTrue()"        //String contendo a validação When
-               IF ParamBox( @aParamBox , __STR0005 , NIL , NIL , NIL , .T. ) //"Opções de Impressão"
+            aAdd( aRadio , "1-"+__STR0004 )                     //"R3"
+            aAdd( aRadio , "2-"+__STR0001 )                     //"TReport"
+            aParamBox[nParamBox][1] := 3                        //Radio
+            aParamBox[nParamBox][2] := OemToAnsi(__STR0006)     //Descrição : "Imprimir em?"
+            aParamBox[nParamBox][3] := nRpt                     //Numérico contendo a opção inicial do Radio
+            aParamBox[nParamBox][4] := aRadio                   //Array contendo as opções do Radio
+            aParamBox[nParamBox][5] := 100                      //Tamanho do Radio
+            aParamBox[nParamBox][6] := "AllWaysTrue()"          //Validação
+            aParamBox[nParamBox][7] := .T.                      //Flag .T./.F. Parâmetro Obrigatório ?
+            aParamBox[nParamBox][8] := "AllWaysTrue()"          //String contendo a validação When
+            IF ParamBox(@aParamBox,__STR0005,NIL,NIL,NIL,.T.)   //"Opções de Impressão"
                 nRpt := MV_PAR01
             EndIF    
         EndIF    
