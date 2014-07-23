@@ -408,6 +408,13 @@ Local nX			:= 0.00
 Local lMvAbosEve	:= .F.
 Local lMvSubAbAp	:= .F.
 
+Local nD
+Local nJ
+Local nDJ
+
+Local cMAbono
+Local dDAbono
+
 Private aFuncFunc  := {SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1)}		
 Private aMarcacoes := {}
 Private aTabPadrao := {}
@@ -761,6 +768,33 @@ While SRA->( !Eof() .and. &(cInicio) <= cFim )
 		ЁCarrega os Abonos Conforme Periodo       					  Ё
 		юддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды*/
 		fAbonosPer( @aAbonosPer , dPerIni , dPerFim , cLastFil , SRA->RA_MAT )
+
+		//----------------------------------------------------------------------------------------
+		//Aglutina Motivo de Abono
+		IF GetNewPar("CSIESPAGAB",.T.)
+			//----------------------------------------------------------------------------------------
+			//Aglutina os Abonos por Motivo e Data
+			nJ := Len(aAbonosPer)
+			For nD := 1 To nJ
+				cMAbono	:= aAbonosPer[nD][1]
+				dDAbono := aAbonosPer[nD][5]
+				//----------------------------------------------------------------------------------------
+				//Procura Abonos a serem Algutinados
+				For nDJ := (nD+1) To nJ
+					IF .NOT.(cMAbono==aAbonosPer[nDJ][1].and.dDAbono==aAbonosPer[nDJ][5])
+						EXIT
+					EndIF
+					aAbonosPer[nD][2]  := SomaHoras(aAbonosPer[nD][2],aAbonosPer[nDJ][2])
+					aAbonosPer[nD][4]  := Max(aAbonosPer[nD][4],aAbonosPer[nDJ][4])
+					aAbonosPer[nDJ][2] := 0					
+				Next nDJ
+			Next nD
+			//----------------------------------------------------------------------------------------
+			//Exclui os valores Zerados
+			While ((nD:=aScan(aAbonosPer,{|e|(e[2]==0)}))>0)
+				aSize(aDel(aAbonosPer,nD),Len(aAbonosPer)-1)
+			End While
+		EndIF
 
 	    /*
 		зддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд©
