@@ -3,13 +3,15 @@
 Static __aReadVar		:= {}
 Static __cMbrRstFilter
 
-/*/
-	Funcao:		IsCpoVar
-	Autor:		Marinaldo de Jesus
-	Data:		20/11/2010
-	Descricao:	Verificar se a Variavel de Memoria Ativa corresponde ao campo passado por parametro
-    Sintaxe:    StaticCall(NDJLIB001,IsCpoVar,cField)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		IsCpoVar
+        Autor:		Marinaldo de Jesus
+        Data:		20/11/2010
+        Descricao:	Verificar se a Variavel de Memoria Ativa corresponde ao campo passado por parametro
+        Sintaxe:    StaticCall(NDJLIB001,IsCpoVar,cField)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function IsCpoVar( cField )
 
 	Local cVar
@@ -25,13 +27,15 @@ Static Function IsCpoVar( cField )
 
 Return( ( cVar == cField ) )
 
-/*/
-	Funcao:		ForceReadVar
-	Autor:		Marinaldo de Jesus
-	Data:		20/11/2010
-	Descricao:	Forca a Validacao de um Determinado Campo
-    Sintaxe:    StaticCall(NDJLIB001,ForceReadVar,cField,uCnt,lTrigger,lCheckSX3)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		ForceReadVar
+        Autor:		Marinaldo de Jesus
+        Data:		20/11/2010
+        Descricao:	Forca a Validacao de um Determinado Campo
+        Sintaxe:    StaticCall(NDJLIB001,ForceReadVar,cField,uCnt,lTrigger,lCheckSX3)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function ForceReadVar( cField , uCnt , lTrigger , lCheckSX3 )
 
 	Local cReadVar
@@ -96,13 +100,15 @@ Static Function ForceReadVar( cField , uCnt , lTrigger , lCheckSX3 )
 
 Return( lFieldOk )
 
-/*/
-    Funcao:		NDJMV2Mail
-	Autor:		Marinaldo de Jesus
-	Data:		14/07/2010
-    Descricao:	Retorna Array com Lista de e-mail de Usuarios de Parametros
-    Sintaxe:    StaticCall( NDJLIB001 , NDJMV2Mail , cGetMv , cToken )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		NDJMV2Mail
+        Autor:		Marinaldo de Jesus
+        Data:		14/07/2010
+        Descricao:	Retorna Array com Lista de e-mail de Usuarios de Parametros
+        Sintaxe:    StaticCall( NDJLIB001 , NDJMV2Mail , cGetMv , cToken )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function NDJMV2Mail( cGetMv , cToken )
 
     Local aListMail	:= {}
@@ -116,13 +122,15 @@ Static Function NDJMV2Mail( cGetMv , cToken )
 
 Return( aListMail )
 
-/*/
-	Funcao:		IsInGetDados
-	Autor:		Marinaldo de Jesus
-	Data:		21/11/2010
-	Descricao:	Verifica se Esta executando a partir da GetDados
-    Sintaxe:    StaticCall(NDJLIB001,IsInGetDados,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		IsInGetDados
+        Autor:		Marinaldo de Jesus
+        Data:		21/11/2010
+        Descricao:	Verifica se Esta executando a partir da GetDados
+        Sintaxe:    StaticCall(NDJLIB001,IsInGetDados,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function IsInGetDados( uField , aLocalHeader , aLocalCols , nLocalN )
 
 	Local aFields
@@ -211,13 +219,15 @@ Static Function IsInGetDados( uField , aLocalHeader , aLocalCols , nLocalN )
 
 Return( lIsInGetDados )
 
-/*/
-    Funcao:		NDJFromTo
-	Autor:		Marinaldo de Jesus
-	Data:		21/11/2010
-    Descricao:	De para NDJ
-    Sintaxe:    StaticCall(NDJLIB001,NDJFromTo,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		NDJFromTo
+        Autor:		Marinaldo de Jesus
+        Data:		21/11/2010
+        Descricao:	De para NDJ
+        Sintaxe:    StaticCall(NDJLIB001,NDJFromTo,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function NDJFromTo( cFromAlias , cToAlias , aFromTo )
 
 	Local aArea			:= GetArea()
@@ -301,13 +311,15 @@ Static Function NDJFromTo( cFromAlias , cToAlias , aFromTo )
 
 Return( NIL )
 
-/*/
-	Funcao:		dbPack
-	Autor:		Marinaldo de Jesus
-	Data:		27/11/2010
-	Descricao:	Pack dos Registros
-    Sintaxe:    StaticCall(NDJLIB001,dbPack,<cAlias>,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		dbPack
+        Autor:		Marinaldo de Jesus
+        Data:		27/11/2010
+        Descricao:	Pack dos Registros
+        Sintaxe:    StaticCall(NDJLIB001,dbPack,<cAlias>,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function dbPack( cAlias , lShowHelp , lQuitProgram , lChkFile , lMa280Flock , cRddName , cRetSqlName )
 	DEFAULT cAlias	 		:= Alias()
 	DEFAULT lShowHelp		:= .F.
@@ -317,13 +329,15 @@ Static Function dbPack( cAlias , lShowHelp , lQuitProgram , lChkFile , lMa280Flo
 	DEFAULT cRddName		:= ( cAlias )->( RddName() )
 Return( dbZap( @cAlias , @lShowHelp , @lQuitProgram , @lChkFile , @lMa280Flock , .T. , @cRddName , @cRetSqlName ) )
 
-/*/
-	Funcao:		dbZap
-	Autor:		Marinaldo de Jesus
-	Data:		27/11/2010
-	Descricao:	Deletar todos os Registros de uma Determinada Tabela
-    Sintaxe:    StaticCall(NDJLIB001,dbZap,<cAlias>,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		dbZap
+        Autor:		Marinaldo de Jesus
+        Data:		27/11/2010
+        Descricao:	Deletar todos os Registros de uma Determinada Tabela
+        Sintaxe:    StaticCall(NDJLIB001,dbZap,<cAlias>,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function dbZap( cAlias , lShowHelp , lQuitProgram , lChkFile , lMa280Flock , lPack , cRddName , cRetSqlName , lSX2 )
 
 	Local aArea				:= GetArea()
@@ -384,13 +398,15 @@ Static Function dbZap( cAlias , lShowHelp , lQuitProgram , lChkFile , lMa280Floc
 
 Return( NIL )
 
-/*/
-    Funcao:		__dbDelete
-	Autor:		Marinaldo de Jesus
-	Data:		08/11/2005
-	Descricao:	Deletar todos os Registros de uma Determinada Tabela
-    Sintaxe:    StaticCall(NDJLIB001,__dbDelete,<cAlias>,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		__dbDelete
+        Autor:		Marinaldo de Jesus
+        Data:		08/11/2005
+        Descricao:	Deletar todos os Registros de uma Determinada Tabela
+        Sintaxe:    StaticCall(NDJLIB001,__dbDelete,<cAlias>,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function __dbDelete( cAlias , lPack , cRddName , cRetSqlName )
 
 	Local cQuery
@@ -480,13 +496,15 @@ Static Function __dbDelete( cAlias , lPack , cRddName , cRetSqlName )
 
 Return( NIL )
 
-/*/
-	Funcao:		RegToArray
-	Autor:		Marinaldo de Jesus 
-	Data:		07/12/2010
-	Descricao:	Carregar Valores de um Determinado Registro em Memoria
-    Sintaxe:    StaticCall( NDJLIB001 , RegToArray , cAlias , nRecno )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		RegToArray
+        Autor:		Marinaldo de Jesus 
+        Data:		07/12/2010
+        Descricao:	Carregar Valores de um Determinado Registro em Memoria
+        Sintaxe:    StaticCall( NDJLIB001 , RegToArray , cAlias , nRecno )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function RegToArray( cAlias , nRecno )
 
 	Local aValues		:= {}
@@ -511,13 +529,15 @@ Static Function RegToArray( cAlias , nRecno )
 
 Return( aValues  )
 
-/*/
-	Funcao:		PutIncHrs
-	Autor:		Marinaldo de Jesus 
-	Data:		08/12/2010
-	Descricao:	Gravar o Campo IncHrs
-    Sintaxe:    StaticCall(NDJLIB001,PutIncHrs,cAlias)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		PutIncHrs
+        Autor:		Marinaldo de Jesus 
+        Data:		08/12/2010
+        Descricao:	Gravar o Campo IncHrs
+        Sintaxe:    StaticCall(NDJLIB001,PutIncHrs,cAlias)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function PutIncHrs( cAlias , lForceTable )
 
 	Local cTime			:= Time()
@@ -547,13 +567,15 @@ Static Function PutIncHrs( cAlias , lForceTable )
 
 Return( cTime )
 
-/*/
-	Progama:	XALTHRS
-	Autor:		Marinaldo de Jesus
-	Data:		10/11/2010
-	Descricao:	Gravar a Data da Alteração da Informacao
-	Sintaxe:	StaticCall(NDJLIB001,XALTHRS)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:	    XALTHRS
+        Autor:		Marinaldo de Jesus
+        Data:		10/11/2010
+        Descricao:	Gravar a Data da Alteração da Informacao
+        Sintaxe:	StaticCall(NDJLIB001,XALTHRS)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function XALTHRS( cAlias , cField , cXAltHrs , lChkChange )
 
 	Local cReadVar
@@ -650,13 +672,15 @@ Static Function XALTHRS( cAlias , cField , cXAltHrs , lChkChange )
 
 Return( .T. )
 
-/*/
-	Funcao:		SetStackVar
-	Autor:		Marinaldo de Jesus 
-	Data:		10/11/2010
-	Descricao:	Armazena Valores na Pilha
-	Sintaxe:	StaticCall(NDJLIB001,SetStackVar)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		SetStackVar
+        Autor:		Marinaldo de Jesus 
+        Data:		10/11/2010
+        Descricao:	Armazena Valores na Pilha
+        Sintaxe:	StaticCall(NDJLIB001,SetStackVar)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function SetStackVar()
 
 	Local cReadVar		:= ReadVar()
@@ -678,13 +702,15 @@ Static Function SetStackVar()
 
 Return( .T. )
 
-/*/
-	Funcao:		GetStackVar
-	Autor:		Marinaldo de Jesus 
-	Data:		10/11/2010
-	Descricao:	Obtem valor da Pilha
-	Sintaxe:	StaticCall(NDJLIB001,GetStackVar)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		GetStackVar
+        Autor:		Marinaldo de Jesus 
+        Data:		10/11/2010
+        Descricao:	Obtem valor da Pilha
+        Sintaxe:	StaticCall(NDJLIB001,GetStackVar)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetStackVar( cReadVar )
 	
 	Local nReadVar
@@ -700,14 +726,16 @@ Static Function GetStackVar( cReadVar )
 
 Return( uLastVal )
 
-/*/
-	Funcao:		ClsStackVar
-	Autor:		Marinaldo de Jesus 
-	Data:		10/11/2010
-	Descricao:	Limpa a Pilha
-	Sintaxe:	StaticCall(NDJLIB001,ClsStackVar)
-	Uso:		X3_VLDUSER
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		ClsStackVar
+        Autor:		Marinaldo de Jesus 
+        Data:		10/11/2010
+        Descricao:	Limpa a Pilha
+        Sintaxe:	StaticCall(NDJLIB001,ClsStackVar)
+        Uso:		X3_VLDUSER
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function ClsStackVar( cReadVar , lForce )
 	
 	Local nReadVar
@@ -727,13 +755,15 @@ Static Function ClsStackVar( cReadVar , lForce )
 
 Return( NIL )
 
-/*/
-	Funcao:		__FieldPut
-	Autor:		Marinaldo de Jesus 
-	Data:		08/12/2010
-	Descricao:	Gravar Conteudo em Determinado Campo de Uma Tabela
-    Sintaxe:    StaticCall(NDJLIB001,__FieldPut,cAlias,uField,uCntPut,lForceTable)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		__FieldPut
+        Autor:		Marinaldo de Jesus 
+        Data:		08/12/2010
+        Descricao:	Gravar Conteudo em Determinado Campo de Uma Tabela
+        Sintaxe:    StaticCall(NDJLIB001,__FieldPut,cAlias,uField,uCntPut,lForceTable)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function __FieldPut(cAlias,uField,uCntPut,lForceTable)
 
 	Local cField
@@ -812,13 +842,15 @@ Static Function __FieldPut(cAlias,uField,uCntPut,lForceTable)
 
 Return( uCntPut )
 
-/*/
-	Funcao:		__FieldGet
-	Autor:		Marinaldo de Jesus 
-	Data:		08/12/2010
-	Descricao:	Obter o Conteudo a partir de Determinado Campo uma Tabela
-    Sintaxe:    StaticCall( NDJLIB001 , __FieldGet , cAlias , cField , lForceTable , lGdChkCpoVar )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		__FieldGet
+        Autor:		Marinaldo de Jesus 
+        Data:		08/12/2010
+        Descricao:	Obter o Conteudo a partir de Determinado Campo uma Tabela
+        Sintaxe:    StaticCall( NDJLIB001 , __FieldGet , cAlias , cField , lForceTable , lGdChkCpoVar )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function __FieldGet( cAlias , cField , lForceTable , lGdChkCpoVar )
 
 	Local nFieldPos
@@ -874,13 +906,15 @@ Static Function __FieldGet( cAlias , cField , lForceTable , lGdChkCpoVar )
 
 Return( uCntGet )
 
-/*/
-	Funcao:		DlgMemoEdit
-	Autor:		Marinaldo de Jesus 
-	Data:		11/12/2010
-	Descricao:	Dialog com Campo Memo para uso diverso
-    Sintaxe:    StaticCall(NDJLIB001,DlgMemoEdit,...)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		DlgMemoEdit
+        Autor:		Marinaldo de Jesus 
+        Data:		11/12/2010
+        Descricao:	Dialog com Campo Memo para uso diverso
+        Sintaxe:    StaticCall(NDJLIB001,DlgMemoEdit,...)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function DlgMemoEdit(;
 								bAction		,;	//01 -> Acao a ser executada se tudo Ok
 								cTitle		,;	//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
@@ -889,7 +923,8 @@ Static Function DlgMemoEdit(;
 								oMemoEdit	,;	//05 -> Objeto MemoEdit
 								cMemoEdit	,;	//06 -> Conteudo do Campo Memo
 								oFont		,;	//07 -> Objeto Font
-								aAdvSize     ;	//08 -> Coordenadas do Dialogo
+								aAdvSize    ,;	//08 -> Coordenadas do Dialogo
+                                bAValid      ;  //09 -> Pré-Validação para execução de bAction
 							)
 Local aSvKeys
 Local aInfoAdvSize
@@ -957,8 +992,11 @@ Begin Sequence
 
 	IF ( lModify )
 		IF ( lConfOk )		//<CTRL-O>
-			DEFAULT bAction	:= { || .T. }
-			Eval( bAction )
+			DEFAULT bAValid := { || .T. }
+ 			IF Eval( bAValid )
+                DEFAULT bAction	:= { || .T. }
+                Eval( bAction )
+            EndIF    
 		ElseIF .NOT.( lConfOk )	//<CTRL-X>
 			IF .NOT.( cSvMemoEdit == cMemoEdit )
 				IF .NOT.( MsgNoYes( OemToAnsi( "Abandonar as Alterações?" ) , cTitCompl ) )
@@ -970,7 +1008,8 @@ Begin Sequence
 									@oMemoEdit	,;	//05 -> Objeto MemoEdit
 									@cMemoEdit	,;	//06 -> Conteudo do Campo Memo
 									@oFont		,;	//07 -> Objeto Font
-									@aAdvSize    ;	//08 -> Coordenadas do Dialogo
+									@aAdvSize   ,;	//08 -> Coordenadas do Dialogo
+                                    @bAValid     ;  //09 -> Pré-Validação para execução de bAction
 								)
 				EndIF
 			EndIF
@@ -981,13 +1020,15 @@ End Sequence
 
 Return( cMemoEdit )
 
-/*/
-	Funcao: 	GetAlias4Fields
-	Autor:		Marinaldo de Jesus
-	Data:		14/12/2010
-	Uso:		Obtem o Alias a partir dos campos Fornecidos como Parametros
-    Sintaxe:    StaticCall(NDJLIB001,GetAlias4Fields,cAlias,aFields)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao: 	GetAlias4Fields
+        Autor:		Marinaldo de Jesus
+        Data:		14/12/2010
+        Uso:		Obtem o Alias a partir dos campos Fornecidos como Parametros
+        Sintaxe:    StaticCall(NDJLIB001,GetAlias4Fields,cAlias,aFields)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetAlias4Fields( cAlias , aFields )
 
 	Local aAlias		:= {}
@@ -1063,13 +1104,15 @@ Static Function GetAlias4Fields( cAlias , aFields )
 
 Return( lFoundAlias )	
 
-/*/
-    Funcao:     SetMemVar
-	Autor:		Marinaldo de Jesus
-	Data:		26/12/2010
-    Uso:        Setar Variavel de Memoria
-    Sintaxe:    StaticCall(NDJLIB001,SetMemVar,cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:     SetMemVar
+        Autor:		Marinaldo de Jesus
+        Data:		26/12/2010
+        Uso:        Setar Variavel de Memoria
+        Sintaxe:    StaticCall(NDJLIB001,SetMemVar,cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
 
 	Local cVarAux
@@ -1130,13 +1173,15 @@ Static Function SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
 
 Return( uRetValue )
 
-/*/
-    Funcao:     GetMemVar
-	Autor:		Marinaldo de Jesus
-	Data:		26/12/2010
-    Uso:        Obter Variavel de Memoria
-    Sintaxe:    StaticCall( NDJLIB001 , GetMemVar , cVar , lInitPad , cLado )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:     GetMemVar
+        Autor:		Marinaldo de Jesus
+        Data:		26/12/2010
+        Uso:        Obter Variavel de Memoria
+        Sintaxe:    StaticCall( NDJLIB001 , GetMemVar , cVar , lInitPad , cLado )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetMemVar( cVar , lInitPad , cLado )
 
 	Local cVarAux
@@ -1173,13 +1218,15 @@ Static Function GetMemVar( cVar , lInitPad , cLado )
 	
 Return( uRetValue )
 
-/*/
-    Funcao:     IsMemVar
-	Autor:		Marinaldo de Jesus
-	Data:		26/12/2010
-    Uso:        Verificar Variavel de Memoria
-    Sintaxe:    StaticCall( NDJLIB001 , IsMemVar , cVar )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:     IsMemVar
+        Autor:		Marinaldo de Jesus
+        Data:		26/12/2010
+        Uso:        Verificar Variavel de Memoria
+        Sintaxe:    StaticCall( NDJLIB001 , IsMemVar , cVar )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function IsMemVar( cVar )
 
 	Local cType
@@ -1210,14 +1257,16 @@ Static Function IsMemVar( cVar )
 
 Return( lIsMemVar )
 
-/*/
-	Funcao:		GetCallStack
-	Autor:		Marinaldo de Jesus 
-	Data:		18/11/2010
-	Descricao:	Retorna Array Com Pilha de Chamadas
-	Sintaxe:	1 ) GetCallStack(<nStartt>) 
-                2 ) StaticCall(NDJLIB001,GetCallStack,<nStartt>) 
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		GetCallStack
+        Autor:		Marinaldo de Jesus 
+        Data:		18/11/2010
+        Descricao:	Retorna Array Com Pilha de Chamadas
+        Sintaxe:	1 ) GetCallStack(<nStartt>) 
+                    2 ) StaticCall(NDJLIB001,GetCallStack,<nStartt>) 
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetCallStack( nStart )
 
 	Local aCallStack	:= {}
@@ -1235,13 +1284,15 @@ Static Function GetCallStack( nStart )
 
 Return( aCallStack )
 
-/*/
-	Funcao:		QryMaxCod
-	Autor:		Marinaldo de Jesus 
-	Data:		31/01/2011
-	Descricao:	Retorna o Ultimo Numero Conforme Parametros de Entrada
-    Sintaxe:    StaticCall( NDJLIB001 , QryMaxCod , cAlias , cField , cWhere , lDeleted , lForceWhere , lChkFilial )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		QryMaxCod
+        Autor:		Marinaldo de Jesus 
+        Data:		31/01/2011
+        Descricao:	Retorna o Ultimo Numero Conforme Parametros de Entrada
+        Sintaxe:    StaticCall( NDJLIB001 , QryMaxCod , cAlias , cField , cWhere , lDeleted , lForceWhere , lChkFilial )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function QryMaxCod( cAlias , cField , cWhere , lDeleted , lForceWhere , lChkFilial )
     
 	Local aArea			:= GetArea()
@@ -1296,13 +1347,15 @@ Static Function QryMaxCod( cAlias , cField , cWhere , lDeleted , lForceWhere , l
 
 Return( cMaxCod )
 
-/*/
-	Funcao:		ClearQuery
-	Autor:		Marinaldo de Jesus 
-	Data:		31/01/2011
-	Descricao:	Limpar Tab, espacos e CRLF em uma expressao de Query
-    Sintaxe:    StaticCall( NDJLIB001 , ClearQuery , cQuery )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		ClearQuery
+        Autor:		Marinaldo de Jesus 
+        Data:		31/01/2011
+        Descricao:	Limpar Tab, espacos e CRLF em uma expressao de Query
+        Sintaxe:    StaticCall( NDJLIB001 , ClearQuery , cQuery )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function ClearQuery( cQuery ) 
 
 	Local cTab			:= "	"
@@ -1321,13 +1374,15 @@ Static Function ClearQuery( cQuery )
 
 Return( cQuery  )
 
-/*/
-	Funcao:		ChgFilial
-	Autor:		Marinaldo de Jesus 
-	Data:		31/01/2011
-	Descricao:	Atualizar Campo _FILIAL quando Modo de Acesso Compartilhado
-    Sintaxe:    StaticCall( NDJLIB001 , ChgFilial )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		ChgFilial
+        Autor:		Marinaldo de Jesus 
+        Data:		31/01/2011
+        Descricao:	Atualizar Campo _FILIAL quando Modo de Acesso Compartilhado
+        Sintaxe:    StaticCall( NDJLIB001 , ChgFilial )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function ChgFilial()
 
 	Local aCallStack	:= GetCallStack()
@@ -1417,13 +1472,15 @@ Static Function ChgFilial()
 
 Return( NIL )
 
-/*/
-	Function:	GetSetMbFilter
-	Autor:		Marinaldo de Jesus
-	Data:		27/01/2011
-	Descricao:	GetSet do Filtro da mBrowse
-    Sintaxe:    StaticCall( NDJLIB001 , GetSetMbFilter , cExprFilTop )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Function:	GetSetMbFilter
+        Autor:		Marinaldo de Jesus
+        Data:		27/01/2011
+        Descricao:	GetSet do Filtro da mBrowse
+        Sintaxe:    StaticCall( NDJLIB001 , GetSetMbFilter , cExprFilTop )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetSetMbFilter( cExprFilTop )
 
 	Local bError 			:= { || &(cError) }
@@ -1442,13 +1499,15 @@ Static Function GetSetMbFilter( cExprFilTop )
 
 Return( cLastFilter )
 
-/*/
-	Funcao:		RetPictVal
-	Autor:		Marinaldo de Jesus 
-	Data:		17/03/2011
-	Descricao:	Retorna a Picture para Campo Numerico Conforme Valor
-    Sintaxe:    StaticCall( NDJLIB001 , RetPictVal , nVal , lDecZero , nInt , nDec , lPictSepMil )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		RetPictVal
+        Autor:		Marinaldo de Jesus 
+        Data:		17/03/2011
+        Descricao:	Retorna a Picture para Campo Numerico Conforme Valor
+        Sintaxe:    StaticCall( NDJLIB001 , RetPictVal , nVal , lDecZero , nInt , nDec , lPictSepMil )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function RetPictVal( nVal , lDecZero , nInt , nDec , lPictSepMil )
 
 	Local cPict
@@ -1495,13 +1554,15 @@ Static Function RetPictVal( nVal , lDecZero , nInt , nDec , lPictSepMil )
 
 Return( cPict )
 
-/*/
-	Funcao:		GetTopSource
-	Autor:		Marinaldo de Jesus
-	Data:		28/03/2011
-	Descricao:	Obtem Conexao ao Top
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		GetTopSource
+        Autor:		Marinaldo de Jesus
+        Data:		28/03/2011
+        Descricao:	Obtem Conexao ao Top
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GetTopSource( cTopServer , nTopPort , cTopAlias , cTitle )
                                
 	Local aKeys				:= GetKeys()
@@ -1574,13 +1635,15 @@ Static Function GetTopSource( cTopServer , nTopPort , cTopAlias , cTitle )
 
 Return( lOk )
 
-/*/
-	Funcao:		TopGetInfo
-	Autor:		Marinaldo de Jesus
-	Data:		28/03/2011
-	Descricao:	Retorna Informacoes do INI sobre o TopConnect
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		TopGetInfo
+        Autor:		Marinaldo de Jesus
+        Data:		28/03/2011
+        Descricao:	Retorna Informacoes do INI sobre o TopConnect
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function TopGetInfo( cType )
 
 	Local cIniFile		:= GetAdv97()
@@ -1611,13 +1674,15 @@ Static Function TopGetInfo( cType )
 
 Return( uTopGetInfo )
 
-/*/
-	Funcao:		TopGetString
-	Autor:		Marinaldo de Jesus
-	Data:		28/03/2011
-	Descricao:	Retorna Informacoes do INI sobre o TopConnect
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		TopGetString
+        Autor:		Marinaldo de Jesus
+        Data:		28/03/2011
+        Descricao:	Retorna Informacoes do INI sobre o TopConnect
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function TopGetString( cEnvServer , cIniFile , cTopString )
 
 	Local cTopGetString	:= GetPvProfString( cEnvServer , "Top" + cTopString , "" , cIniFile )
@@ -1628,13 +1693,15 @@ Static Function TopGetString( cEnvServer , cIniFile , cTopString )
 
 Return( cTopGetString )
 
-/*/
-	Funcao:		DirMake
-	Autor:		Marinaldo de Jesus
-	Data:		28/03/2011
-	Descricao:	Cria um Diretorio
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		DirMake
+        Autor:		Marinaldo de Jesus
+        Data:		28/03/2011
+        Descricao:	Cria um Diretorio
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function DirMake( cMakeDir , nTimes , nSleep )
 
 	Local lMakeOk
@@ -1657,13 +1724,15 @@ Static Function DirMake( cMakeDir , nTimes , nSleep )
 
 Return( lMakeOk )
 
-/*/
-	Funcao:		BrwLegenda
-	Autor:		Marinaldo de Jesus
-	Data:		28/03/2011
-	Descricao:	Legenda de Cores
-    Sintaxe:    StaticCall( NDJLIB001 , BrwLegenda , cTitulo , cMensagem , aLegend , bAction , cMsgAction )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		BrwLegenda
+        Autor:		Marinaldo de Jesus
+        Data:		28/03/2011
+        Descricao:	Legenda de Cores
+        Sintaxe:    StaticCall( NDJLIB001 , BrwLegenda , cTitulo , cMensagem , aLegend , bAction , cMsgAction )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function BrwLegenda( cTitulo , cMensagem , aLegend , bAction , cMsgAction )
 
 	Local aListBox
@@ -1720,13 +1789,15 @@ Static Function BrwLegenda( cTitulo , cMensagem , aLegend , bAction , cMsgAction
 
 Return( NIL )
 
-/*/
-	Funcao:		BrwGetSLeg
-	Autor:		Marinaldo de Jesus
-	Data:		20/04/2011
-	Descricao:	Retornar o Status  conforme Array de Cores da mBrowse
-    Sintaxe:    StaticCall( NDJLIB001 , BrwGetSLeg , cAlias , bGetColors , bGetLegend , cResName , lArrColors )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		BrwGetSLeg
+        Autor:		Marinaldo de Jesus
+        Data:		20/04/2011
+        Descricao:	Retornar o Status  conforme Array de Cores da mBrowse
+        Sintaxe:    StaticCall( NDJLIB001 , BrwGetSLeg , cAlias , bGetColors , bGetLegend , cResName , lArrColors )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function BrwGetSLeg( cAlias , bGetColors , bGetLegend , cResName , lArrColors )
 
 	Local cBmpColor 	:= ""
@@ -1808,13 +1879,15 @@ Static Function BrwGetSLeg( cAlias , bGetColors , bGetLegend , cResName , lArrCo
 
 Return( uC1Ret )
 
-/*/
-	Funcao:		BrwFiltLeg
-	Autor:		Marinaldo de Jesus
-	Data:		20/04/2011
-	Descricao:	Filtra o Browse de acordo com a Opcao da Legenda da mBrowse
-    Sintaxe:    StaticCall( NDJLIB001 , BrwFiltLeg , cAlias , aColors , aLegend , cTitle , cMsg , cMsgAction , cVarName )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		BrwFiltLeg
+        Autor:		Marinaldo de Jesus
+        Data:		20/04/2011
+        Descricao:	Filtra o Browse de acordo com a Opcao da Legenda da mBrowse
+        Sintaxe:    StaticCall( NDJLIB001 , BrwFiltLeg , cAlias , aColors , aLegend , cTitle , cMsg , cMsgAction , cVarName )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function BrwFiltLeg( cAlias , aColors , aLegend , cTitle , cMsg , cMsgAction , cVarName )
 
 	Local aIndex
@@ -1859,13 +1932,15 @@ Static Function BrwFiltLeg( cAlias , aColors , aLegend , cTitle , cMsg , cMsgAct
 
 Return( cSvExprFilTop )
 
-/*/
-	Funcao:		MbrRstFilter
-	Autor:		Marinaldo de Jesus
-	Data:		20/04/2011
-	Descricao:	Restaura o Filtro de Browse
-    Sintaxe:    StaticCall( NDJLIB001 , MbrRstFilter, cAlias , cVarName )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		MbrRstFilter
+        Autor:		Marinaldo de Jesus
+        Data:		20/04/2011
+        Descricao:	Restaura o Filtro de Browse
+        Sintaxe:    StaticCall( NDJLIB001 , MbrRstFilter, cAlias , cVarName )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function MbrRstFilter( cAlias , cVarName )
 	Local oObjBrow
 	Local cMbrRstFilter
@@ -1883,13 +1958,15 @@ Static Function MbrRstFilter( cAlias , cVarName )
 	oObjBrow:Refresh()
 Return( NIL )
 
-/*/
-    Funcao:		NDJEvalF3
-	Data:		20/12/2010
-	Autor:		Marinaldo de Jesus
-	Descricao:	Retorna a Consulta Padrao e Atualiza Resultados
-    Sintaxe:    StaticCall( NDJLIB001 , NDJEvalF3 , cF3 )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		NDJEvalF3
+        Data:		20/12/2010
+        Autor:		Marinaldo de Jesus
+        Descricao:	Retorna a Consulta Padrao e Atualiza Resultados
+        Sintaxe:    StaticCall( NDJLIB001 , NDJEvalF3 , cF3 )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function NDJEvalF3( cF3 , lShowHelp , cException )
 
 	Local lConpad1			:= .F.
@@ -1934,23 +2011,27 @@ Static Function NDJEvalF3( cF3 , lShowHelp , cException )
 
 Return( lConpad1 )
 
-/*/
-	Funcao:		RunInSrv
-	Data:		28/04/2011
-	Autor:		Marinaldo de Jesus
-	Descricao:	Executa uma Aplicacao no Servidor
-    Sintaxe:    StaticCall( NDJLIB001 , RunInSrv , cCommandLine , lWaitRun , cPath )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		RunInSrv
+        Data:		28/04/2011
+        Autor:		Marinaldo de Jesus
+        Descricao:	Executa uma Aplicacao no Servidor
+        Sintaxe:    StaticCall( NDJLIB001 , RunInSrv , cCommandLine , lWaitRun , cPath )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function RunInSrv( cCommandLine , lWaitRun , cPath )
 Return( WaitRunSrv( @cCommandLine , @lWaitRun , @cPath ) )
 
-/*/
-	Funcao:		MemoToaPrn
-	Autor:		Marinaldo de Jesus 
-	Data:		06/09/2011
-	Descricao:	Preparar o Texto do Tipo Memo para impressao
-    Sintaxe:    StaticCall( NDJLIB001 , MemoToaPrn , cMemo , nBytes , lUseCrLf )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		MemoToaPrn
+        Autor:		Marinaldo de Jesus 
+        Data:		06/09/2011
+        Descricao:	Preparar o Texto do Tipo Memo para impressao
+        Sintaxe:    StaticCall( NDJLIB001 , MemoToaPrn , cMemo , nBytes , lUseCrLf )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function MemoToaPrn( cMemo , nBytes , lUseCrLf )
 
 	Local aMemoToPrn	:= {}
@@ -2038,13 +2119,15 @@ Static Function MemoToaPrn( cMemo , nBytes , lUseCrLf )
 
 Return( aMemoToPrn )
 
-/*/
-	Funcao:		StrToArray
-	Autor:		Marinaldo de Jesus
-	Data:		06/09/2011
-	Descricao:	Retornar Array com o Parser de Uma String Concatenada
-    Sintaxe:    StaticCall( NDJLIB001 , StrToArray , cString , cConcat , bAddParser )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		StrToArray
+        Autor:		Marinaldo de Jesus
+        Data:		06/09/2011
+        Descricao:	Retornar Array com o Parser de Uma String Concatenada
+        Sintaxe:    StaticCall( NDJLIB001 , StrToArray , cString , cConcat , bAddParser )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function StrToArray( cString , cConcat , bAddParser )
 
 	Local aStrTokArr		:= {}
@@ -2086,13 +2169,15 @@ Static Function StrToArray( cString , cConcat , bAddParser )
 
 return( aStrTokArr )
 
-/*/
-	Funcao:		StrDelChr
-	Autor:		Marinaldo de Jesus
-	Data:		08/11/2005
-	Descricao:	Excluir o Conteudo de uma String conforme aChrDelStr
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		StrDelChr
+        Autor:		Marinaldo de Jesus
+        Data:		08/11/2005
+        Descricao:	Excluir o Conteudo de uma String conforme aChrDelStr
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function StrDelChr( cStrDelChr , aChrDelStr )
 
 	Local nChar
@@ -2105,13 +2190,15 @@ Static Function StrDelChr( cStrDelChr , aChrDelStr )
 
 Return( cStrDelChr )
 
-/*/
-	Funcao:		_GetMvPar
-	Autor:		Marinaldo de Jesus
-	Data:		23/09/2011
-	Descricao:	Obtem o Parametro de Acordo com a Empresa de Referencia
-	Sintaxe:	StaticCall(NDJFGEN,_GetMvPar,cEmp,cFil,uMvPar,uDefault,lReset)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		_GetMvPar
+        Autor:		Marinaldo de Jesus
+        Data:		23/09/2011
+        Descricao:	Obtem o Parametro de Acordo com a Empresa de Referencia
+        Sintaxe:	StaticCall(NDJFGEN,_GetMvPar,cEmp,cFil,uMvPar,uDefault,lReset)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function _GetMvPar( cEmp , cFil , uMvPar , uDefault , lReset )
 	Local uMvRet
 	DEFAULT cEmp	:= cEmpAnt
@@ -2123,13 +2210,15 @@ Static Function _GetMvPar( cEmp , cFil , uMvPar , uDefault , lReset )
 	EndIF
 Return( uMvRet )
 
-/*/
-	Funcao:		_PutMvPar
-	Autor:		Marinaldo de Jesus
-	Data:		23/09/2011
-	Descricao:	Salva o Conteudo do Parametro de Acordo com a Empresa de Referencia
-	Sintaxe:	StaticCall(NDJFGEN,_PutMvPar,cEmp,cFil,uMvPar,uMvCntPut)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		_PutMvPar
+        Autor:		Marinaldo de Jesus
+        Data:		23/09/2011
+        Descricao:	Salva o Conteudo do Parametro de Acordo com a Empresa de Referencia
+        Sintaxe:	StaticCall(NDJFGEN,_PutMvPar,cEmp,cFil,uMvPar,uMvCntPut)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function _PutMvPar( cEmp , cFil , uMvPar , uMvCntPut )
 	Local uMvRet
 	DEFAULT cEmp	:= cEmpAnt
@@ -2141,13 +2230,15 @@ Static Function _PutMvPar( cEmp , cFil , uMvPar , uMvCntPut )
 	EndIF
 Return( uMvRet )
 
-/*/
-	Funcao:		U_GetMvPar
-	Autor:		Marinaldo de Jesus
-	Data:		23/09/2011
-	Descricao:	Obtem o Parametro de Acordo com a Empresa de Referencia
-	Sintaxe:	U_GetMvPar( cEmp , cFil , uMvPar , uDefault , lRpcSet , lReset , lHelp )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		U_GetMvPar
+        Autor:		Marinaldo de Jesus
+        Data:		23/09/2011
+        Descricao:	Obtem o Parametro de Acordo com a Empresa de Referencia
+        Sintaxe:	U_GetMvPar( cEmp , cFil , uMvPar , uDefault , lRpcSet , lReset , lHelp )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 User Function GetMvPar( cEmp , cFil , uMvPar , uDefault , lRpcSet , lReset , lHelp )
 
 	Local bGetMv		:= { |cMvPar,uByDef| SuperGetMv( @cMvPar , @lHelp , @uByDef , @cFil ) }
@@ -2206,13 +2297,15 @@ User Function GetMvPar( cEmp , cFil , uMvPar , uDefault , lRpcSet , lReset , lHe
 
 Return( uMvRet )
 
-/*/
-	Funcao:		U_PutMvPar
-	Autor:		Marinaldo de Jesus
-	Data:		23/09/2011
-	Descricao:	Grava o Conteudo Parametro de Acordo com a Empresa de Referencia
-	Sintaxe:	U_PutMvPar( cEmp , cFil , uMvPar , uMvCntPut , lRpcSet )
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		U_PutMvPar
+        Autor:		Marinaldo de Jesus
+        Data:		23/09/2011
+        Descricao:	Grava o Conteudo Parametro de Acordo com a Empresa de Referencia
+        Sintaxe:	U_PutMvPar( cEmp , cFil , uMvPar , uMvCntPut , lRpcSet )
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 User Function PutMvPar( cEmp , cFil , uMvPar , uMvCntPut , lRpcSet )
 
 	Local bPutMV		:= { |cMvPar,uMvPut| PutMv( @cMvPar , @uMvPut ) }
@@ -2266,13 +2359,15 @@ User Function PutMvPar( cEmp , cFil , uMvPar , uMvCntPut , lRpcSet )
 
 Return( uMvRet )
 
-/*/
-	Funcao:		EvalPrg
-	Autor:		Marinaldo de Jesus
-	Data:		23/09/2011
-	Descricao:	Executa um Programa Diretamente
-	Sintaxe:	StaticCall(NDJLIB001,EvalPrg,bExec,cEmp,cFil,cModulo,cFunName)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		EvalPrg
+        Autor:		Marinaldo de Jesus
+        Data:		23/09/2011
+        Descricao:	Executa um Programa Diretamente
+        Sintaxe:	StaticCall(NDJLIB001,EvalPrg,bExec,cEmp,cFil,cModulo,cFunName)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function EvalPrg( bExec , cEmp , cFil , cModName , cFunName )
 
 	Local bWindowInit	:= { || Eval( bExec ) }
@@ -2327,12 +2422,14 @@ Static Function EvalPrg( bExec , cEmp , cFil , cModName , cFunName )
 
 Return( uRet )
 
-/*
-	Funcao:	DesvPad
-	Autor:	Marinaldo de Jesus
-	Data:	16/04/2012
-	Uso:	Calcula o Desvio Padrao 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao:	DesvPad
+        Autor:	Marinaldo de Jesus
+        Data:	16/04/2012
+        Uso:	Calcula o Desvio Padrao 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function DesvPad( aValores , lPolarizado )
 
 	Local nSoma		:= 0
@@ -2372,13 +2469,15 @@ Static Function DesvPad( aValores , lPolarizado )
 
 Return( nDesvPad )
 
-/*/
-	Funcao:		FileToArr
-	Autor:		Marinaldo de Jesus
-	Data:		08/11/2005
-	Descricao:	Retorna Array com as informacoes de um arquivo Texto
-	Sintaxe:	<Vide Parametros Formais>
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		FileToArr
+        Autor:		Marinaldo de Jesus
+        Data:		08/11/2005
+        Descricao:	Retorna Array com as informacoes de um arquivo Texto
+        Sintaxe:	<Vide Parametros Formais>
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function FileToArr( cFile )
          
 	Local aFile := {}
@@ -2414,14 +2513,16 @@ Static Function FileToArr( cFile )
 
 Return( aFile )
 
-/*
-	Funcao		: PutSX1
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Adiciona e/ou Remove Perguntas utilizadas no Programa
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: PutSX1
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Adiciona e/ou Remove Perguntas utilizadas no Programa
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Procedure PutSX1(cPerg,aPerg)
 
 	Local cKeySeek
@@ -2483,14 +2584,16 @@ Static Procedure PutSX1(cPerg,aPerg)
 
 Return
 
-/*
-	Funcao		: AddPerg
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Adiciona Informacoes do compo
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: AddPerg
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Adiciona Informacoes do compo
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Procedure AddPerg(aPerg,cGrupo,cOrdem,cField,uCNT)
 
 	Local bEval
@@ -2595,14 +2698,16 @@ Static Procedure AddPerg(aPerg,cGrupo,cOrdem,cField,uCNT)
 
 Return
 
-/*
-	Funcao		: SXGSize
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Obtem Informações do Grupo em SXG (Size e Picture)
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: SXGSize
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Obtem Informações do Grupo em SXG (Size e Picture)
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function SXGSize( cGRPSXG , nSize , nDec , cPicture )
 
 	Local cSXGPict
@@ -2640,65 +2745,74 @@ Static Function SXGSize( cGRPSXG , nSize , nDec , cPicture )
 
 Return( { nSXGSize , nSXGDec , cSXGPict } )
 
-/*
-	Funcao		: X3Tipo
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Obtem Informações do Campo X3_TIPO
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: X3Tipo
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Obtem Informações do Campo X3_TIPO
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function X3Tipo( cField )
 Return( GetSx3Cache( cField , "X3_TIPO" ) ) 
 
 
-/*
-	Funcao		: X3Tamanho
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Obtem Informações do Campo X3_TAMANHO
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: X3Tamanho
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Obtem Informações do Campo X3_TAMANHO
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function X3Tamanho( cField )
 Return( GetSx3Cache( cField , "X3_TAMANHO" ) )
 
-/*
-	Funcao		: X3Decimal
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Obtem Informações do Campo X3_DECIMAL
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: X3Decimal
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Obtem Informações do Campo X3_DECIMAL
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function X3Decimal(cField)
 Return( GetSx3Cache( cField , "X3_DECIMAL" ) )
 
-/*
-	Funcao		: X3Picture
-	Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
-	Data		: 02/07/2012
-	Descrição	: Obtem Informações do Campo X3_PICTURE
-	Uso			: Generico
-	Obs.		: 
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao		: X3Picture
+        Autor		: Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data		: 02/07/2012
+        Descrição	: Obtem Informações do Campo X3_PICTURE
+        Uso			: Generico
+        Obs.		: 
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function X3Picture(cField)
 Return( GetSx3Cache( cField , "X3_PICTURE" ) )
 
-/*/
-    Function:   FolderSetOption
-    Autor:      Marinaldo de Jesus
-    Data:       24/04/2013
-    Descricao:  Valida a MudanÃƒÂ§a de Folder
-    Sintaxe:    FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
-	nTarget		01 -> Folder Para o Qual se Vai
-    nSource		02 -> Folder de Onde se Vem
-    aObjFolder	03 -> Objetos do Folder
-    aGdObjects	04 -> Verifica se o Objeto eh uma GetDados
-    nActFolder	05 -> Folder Ativo
-    lVldFolder	06 -> Verifica se Deve Efetuar a Validacao do Folder quando nTarget nLastFoder forem iguais
-
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Function:   FolderSetOption
+        Autor:      Marinaldo de Jesus
+        Data:       24/04/2013
+        Descricao:  Valida a MudanÃƒÂ§a de Folder
+        Sintaxe:    FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
+        nTarget		01 -> Folder Para o Qual se Vai
+        nSource		02 -> Folder de Onde se Vem
+        aObjFolder	03 -> Objetos do Folder
+        aGdObjects	04 -> Verifica se o Objeto eh uma GetDados
+        nActFolder	05 -> Folder Ativo
+        lVldFolder	06 -> Verifica se Deve Efetuar a Validacao do Folder quando nTarget nLastFoder forem iguais
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
 
     Local lSetOption    := .T.
@@ -2804,13 +2918,15 @@ Static Function FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
 
 Return( lSetOption )
 
-/*/
-	Funcao:		GDToExcel
-	Autor:		Marinaldo de Jesus 
-	Data:		01/06/2013
-	Descricao:	Mostrar os Dados no Excel
-	Sintaxe:	StaticCall(NDJLIB001,GDToExcel,aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
-/*/
+//--------------------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:		GDToExcel
+        Autor:		Marinaldo de Jesus 
+        Data:		01/06/2013
+        Descricao:	Mostrar os Dados no Excel
+        Sintaxe:	StaticCall(NDJLIB001,GDToExcel,aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
+    /*/
+//--------------------------------------------------------------------------------------------------------------
 Static Function GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
 	Local oFWMSExcel := FWMSExcel():New()
@@ -2923,13 +3039,15 @@ Static Function GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
 Return( cFile )
 
-/*
-	Funcao:		dbQuery()
-	Autor:		Marinaldo de Jesus 
-	Data:		07/12/2013
-	Descricao:	Providenciar um Alias Valido para Abertura da View
-    Sintaxe:    StaticCall(NDJLIB001,dbQuery,adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao:		dbQuery()
+        Autor:		Marinaldo de Jesus 
+        Data:		07/12/2013
+        Descricao:	Providenciar um Alias Valido para Abertura da View
+        Sintaxe:    StaticCall(NDJLIB001,dbQuery,adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function dbQuery(adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
 	Local ldbQuery 		:= .F.
 	Local lTCSetConn	:= .F.
@@ -2958,13 +3076,15 @@ Static Function dbQuery(adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
     EndIF	
 Return( ldbQuery )
 
-/*
-	Funcao:		dbQueryClear()
-	Autor:		Marinaldo de Jesus 
-	Data:		07/12/2013
-	Descricao:	Limpar o Cache da dbQuery
-    Sintaxe:    StaticCall(NDJLIB001,dbQueryClear,adbQuery)
-*/
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao:		dbQueryClear()
+        Autor:		Marinaldo de Jesus 
+        Data:		07/12/2013
+        Descricao:	Limpar o Cache da dbQuery
+        Sintaxe:    StaticCall(NDJLIB001,dbQueryClear,adbQuery)
+    */
+//--------------------------------------------------------------------------------------------------------------
 Static Function dbQueryClear(adbQuery)
 	Local nTCLink
 	Local nAdvLink
@@ -2989,6 +3109,7 @@ Static Function dbQueryClear(adbQuery)
 	EndIF	
 Return( .T. )
 
+//--------------------------------------------------------------------------------------------------------------
 Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
 	Local aClassData
 	Local laMeter
@@ -3045,6 +3166,251 @@ Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
 	EndIF
 Return(lProcRedefine)
 
+//--------------------------------------------------------------------------------------------------------------
+Static Function GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
+
+	Local aAux      		:= {}
+	Local aLinhas   		:= {}
+	Local aEmptys			:= {}
+	Local aChkNoEmpty		:= {}
+
+	Local cCRLF     		:= CRLF
+	Local cEmptyString	    := ""
+
+	Local lRet		 		:= .T.
+	Local lDuplic			:= .F.
+	Local lEmpty			:= .F.
+
+	Local nLoop     		:= 0
+	Local nLoop2    		:= 0
+	Local nPosAtu   		:= 0
+	Local nDuplic			:= 0
+	Local nPosCampo 		:= 0
+
+	Local nAux
+	Local nChkNoEmpty
+
+	DEFAULT nModelo 		:= 1
+	DEFAULT aNoEmpty		:= {}
+	DEFAULT lShowAviso	:= .T.
+
+	//----------------------------------------------------------------------------
+		//Monta o array auxiliar com os campos a serem validados
+	//----------------------------------------------------------------------------
+	For nLoop := 1 To Len(aCpo)
+		IF ((nPosCampo := GDFieldPos(aCpo[nLoop]))==0)
+			Loop
+		EndIF
+		aAdd(aAux,{aCpo[nLoop],nPosCampo,.F.})
+	Next nLoop
+
+	//----------------------------------------------------------------------------
+		//Obtem o Total de Campos a serem Validados
+	//----------------------------------------------------------------------------
+	nAux := Len(aAux)
+
+	//----------------------------------------------------------------------------
+		//Monta o array auxiliar com os campos a serem validados
+	//----------------------------------------------------------------------------
+	For nLoop := 1 To Len(aNoEmpty)
+		IF ((nPosCampo := GDFieldPos(aNoEmpty[nLoop]))==0)
+			Loop
+		EndIF
+		aAdd(aChkNoEmpty,{aNoEmpty[nLoop],nPosCampo, .F.})
+	Next nLoop
+
+	//----------------------------------------------------------------------------
+		//Obtem o Total de Campos a serem Validados
+	//----------------------------------------------------------------------------
+	nChkNoEmpty := Len(aChkNoEmpty)
+
+	//----------------------------------------------------------------------------
+		//Ordena por posicao no acols
+	//----------------------------------------------------------------------------
+	aSort(aAux,,,{|x,y|y[2]>x[2]})
+	aSort(aChkNoEmpty,,,{|x,y|y[2]>x[2]})
+
+	//----------------------------------------------------------------------------
+		//Percorre o acols para verificar as linhas duplicadas
+	//----------------------------------------------------------------------------
+	For nLoop := 1 To Len(aCols)
+
+		//----------------------------------------------------------------------------
+			//Apenas para Linhas não Deletadas
+		//----------------------------------------------------------------------------
+		IF .NOT.(GDDeleted(nLoop))
+
+		//----------------------------------------------------------------------------
+			//Considera a Validação apenas quando a Linha não for a Linha Atual
+		//----------------------------------------------------------------------------
+			IF .NOT.((n==nLoop))
+
+				nDuplic := 0
+
+				For nLoop2 := 1 To nAux
+
+					//----------------------------------------------------------------------------
+						//Marca no array caso o campo esteja duplicado
+					//----------------------------------------------------------------------------
+					nPosAtu 		:= aAux[nLoop2][2]
+					aAux[nLoop2][3]	:= (aCols[nLoop][nPosAtu]==aCols[n][nPosAtu])
+					//----------------------------------------------------------------------------
+						//Acumula Campos Duplicados
+					//----------------------------------------------------------------------------
+					IF (aAux[nLoop2][3])
+						++nDuplic
+					EndIF
+
+				Next nLoop2
+
+				//----------------------------------------------------------------------------
+					//Se Todos os Elementos Estiverem Duplicados
+				//----------------------------------------------------------------------------
+				lDuplic	:= (nDuplic==nAux)
+
+			EndIF
+
+			For nLoop2 := 1 To nChkNoEmpty
+
+				//----------------------------------------------------------------------------
+					//Marca no array caso o campo esteja Vazio
+				//----------------------------------------------------------------------------
+				nPosAtu 				:= aChkNoEmpty[nLoop2][2]
+				aChkNoEmpty[nLoop2][3]	:= Empty(aCols[nLoop][nPosAtu])
+
+			Next nLoop2
+
+			//----------------------------------------------------------------------------
+				//Pesquisa algum campo que esteja vazio
+			//----------------------------------------------------------------------------
+			lEmpty	:= .NOT.(Empty(aScan(aChkNoEmpty,{|x|x[3]})))
+
+			IF ((lDuplic) .or. (lEmpty))
+
+				lRet := .F.
+				IF nModelo==4
+					IF (lDuplic)
+						aAdd(aLinhas,nLoop)
+					EndIF
+					IF (lEmpty)
+						aAdd(aEmptys,nLoop)
+					EndIF
+				Else
+					Exit
+				EndIF
+
+			EndIF
+
+			//----------------------------------------------------------------------------
+				//Marca todos os campos como nao duplicados novamente
+			//----------------------------------------------------------------------------
+			IF (lDuplic)
+				aEval(aAux,{|x|x[3]:=.F.})
+			EndIF
+
+			//----------------------------------------------------------------------------
+				//Marca todos os campos como nao vazios novamente
+			//----------------------------------------------------------------------------
+			IF (lEmpty)
+				aEval(aChkNoEmpty,{|x|x[3]:=.F.})
+			EndIF
+
+		EndIF
+
+	Next nLoop
+
+	IF .NOT.(lRet) .And. nModelo <> 1
+
+		//----------------------------------------------------------------------------
+			//Monta a mensagem conforme o modelo                                     ³
+		//----------------------------------------------------------------------------
+
+		IF (lDuplic := .NOT.(Empty(aLinhas)))
+			cString := "A linha atual possui uma chave duplicada no browse."
+		EndIF
+
+		IF (lEmpty := .NOT.(Empty(aEmptys)))
+			cEmptyString := "A linha atual possui campo de Preenchimento Obrigat¢rio."
+		EndIF
+
+		IF nModelo==3 .Or. nModelo==4
+
+			IF (lDuplic)
+
+				cString += cCRLF+"Campo(s):  "
+
+				For nLoop := 1 To nAux
+					cString += aHeader[aAux[nLoop][2],1]+", "
+				Next nLoop
+
+				cString := Left(cString, Len(cString)-2)+"."
+
+			EndIF
+
+			IF (lEmpty)
+
+				cEmptyString += cCRLF+"Campo(s):  "
+
+				For nLoop := 1 To nChkNoEmpty
+					cEmptyString += aHeader[aChkNoEmpty[nLoop][2],1]+", "
+				Next nLoop
+
+				cEmptyString := Left(cEmptyString,Len(cEmptyString)-2)+"."
+
+			EndIF
+
+			IF nModelo==4
+
+				IF (lDuplic)
+
+					cString += cCRLF+"Linha(s):  "
+
+					For nLoop := 1 To Len(aLinhas)
+						cString += AllTrim(Str(aLinhas[nLoop]))+", "
+					Next nLoop
+
+					cString := Left(cString, Len(cString)-2)+"."
+
+				EndIF
+
+				IF (lEmpty)
+
+					cEmptyString += cCRLF+"Linha(s):  "
+
+					For nLoop := 1 To Len(aEmptys)
+						cEmptyString += AllTrim(Str(aEmptys[nLoop]))+", "
+					Next nLoop
+
+					cEmptyString := Left(cEmptyString, Len(cEmptyString)-2)+"."
+
+				EndIF
+
+			EndIF
+
+		EndIF
+
+		//----------------------------------------------------------------------------
+			//Exibe a mensagem
+		//----------------------------------------------------------------------------
+		IF ((lDuplic) .and. (lEmpty))
+			cMsgAviso := cString
+			cMsgAviso += cCRLF
+			cMsgAviso += cCRLF
+			cMsgAviso += cEmptyString
+		ElseIF (lDuplic)
+			cMsgAviso := cString
+		ElseIF (lEmpty)
+			cMsgAviso := cEmptyString
+		EndIF
+		IF (lShowAviso)
+			Aviso("Atencao!",OemToAnsi(cMsgAviso),{"&"+"Ok"},2)
+		EndIF
+
+	EndIF
+
+Return(lRet)
+
+//--------------------------------------------------------------------------------------------------------------
 Static Function __Dummy( lRecursa )
 	Local oException
 	TRYEXCEPTION
@@ -3095,6 +3461,7 @@ Static Function __Dummy( lRecursa )
 		dbQuery()
 		dbQueryClear()
 		ProcRedefine()
+        GDCheckKey()
 		lRecursa := __Dummy( .F. )
 		SYMBOL_UNUSED( __cCRLF )
 	CATCHEXCEPTION USING oException
