@@ -12,20 +12,23 @@ Static __cMbrRstFilter
         Sintaxe:    StaticCall(NDJLIB001,IsCpoVar,cField)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function IsCpoVar( cField )
+Static Function IsCpoVar(cField)
 
 	Local cVar
 
-	IF .NOT.( Type( "__READVAR" ) == "C" )
+	IF .NOT.(Type("__READVAR" )=="C")
 		Private __READVAR := ""	
 	EndIF
 
-	cVar	:= Upper( AllTrim( SubStr( ReadVar() , 4 ) ) )
+	cVar	 := Upper(AllTrim(ReadVar()))
+    IF ("M->"$cVar)
+        cVar := SubStr(cVar,4)
+    EndIF    
 
 	DEFAULT cField := ""                  
-	cField := Upper( AllTrim( cField ) )
+	cField := Upper(AllTrim(cField))
 
-Return( ( cVar == cField ) )
+Return((cVar==cField))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
