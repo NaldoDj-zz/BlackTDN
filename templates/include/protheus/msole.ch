@@ -17,6 +17,7 @@
 #define oleWdVisible     "206"
 #define oleWdWindowState "207"
 #define oleWdPrintBack	 "208"
+#define oleWdVersion	 "209"
 
 #define oleWdFormatDocument 		 "0" 
 #define oleWdFormatTemplate 		 "1" 
@@ -26,6 +27,9 @@
 #define oleWdFormatDOSTextLineBreaks "5" 
 #define oleWdFormatRTF 				 "6" 
 #define oleWdFormatUnicodeText 		 "7" 
+#define wdFormatHTML				 "8"
+#define wdFormatDocumentDefault		 "16"
 #define oleWdFormatHTML 			 "102"
 
 #endif
+

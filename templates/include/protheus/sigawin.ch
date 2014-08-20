@@ -35,6 +35,17 @@
 #XCOMMAND USERHTML Function <cNome> => Function L_<cNome>
 #XCOMMAND Template Function <cNome> => Function T_<cNome>
 
+#xcommand BEGIN REPORT QUERY <oSection> ;
+	=> ;
+	<oSection>:BeginQuery()
+	
+#xcommand END REPORT QUERY <oSection> [ PARAM <param,...> ];
+	=> ;
+	<oSection>:EndQuery([ \{<param> \} ]) ;;
+	If <oSection>:bCompQuery <> NIL ;;
+		<oSection>:bRealQuery := {|__section| __runcb(__section:bCompQuery,.T.)} ;;
+	EndIf
+
 #xcommand STACKVAR <uVar1> [, <uVarN> ] => ;
                   _STKVARDEF(<uVar1>) ;;
                 [ _STKVARDEF(<uVarN>); ]
@@ -519,9 +530,9 @@
 #define MsArea 		Val(SubStr(MouseRet,2,2))
 #define MsTecla		Val(SubStr(MouseRet,4,3))
 #define MsLinha		Val(SubStr(MouseRet,7,2))
-#define MsColuna		Val(SubStr(MouseRet,9,2))
-#define cFilial		IIF(AT(Alias()+"E",cArqTab)>0,cFilAnt,"  ")
-#define cVer			"8.11  "
+#define MsColuna	Val(SubStr(MouseRet,9,2))
+#define cFilial		xFilial(Alias())
+#define cVer		"8.11  "
 #define ADVWINDLL 	"ADVANCED.DLL"
 #command  MouseOn  => IF Have_A_Mouse;MS_CURON();MS_CURSOR(1);MS_CURON();END
 #command  MouseOff => IIF(Have_A_Mouse,MS_CUROFF(),"")
@@ -531,6 +542,8 @@
 #xcommand  BEGIN TRANSACTION EXTENDED => Begin Sequence; BeginTran()
 #Translate END TRANSACTION   => EndTran(); End Sequence
 #Translate END TRANSACTION EXTENDED   => EndTran(); End Sequence
+#xcommand  CLOSETRANSACTION LOCKIN <aAlias,...>   => EndTran( \{ <aAlias> \}  ); End Sequence
+
 
 #Translate Enchoice => Zero();MsMGet():New
 #Translate GetDados => MsGetDados():New

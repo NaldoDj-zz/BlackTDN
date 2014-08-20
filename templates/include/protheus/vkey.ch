@@ -1,7 +1,7 @@
 
 /*
 	Header : vkey.ch
-	Copyright (c) 1997-2003, Microsiga Software SA
+	Copyright (c) 1997-2008, TOTVS SA
 	All rights reserved.
 */
 
@@ -85,5 +85,137 @@
 #define ACC_SHIFT         4
 #define ACC_CONTROL       8
 #define ACC_ALT          16
+
+//                                                             
+// Retirado do Inkey.ch do Clipper 5.3, devido a bug do        
+// FiveWin nas combinações (SHIFT, CTRL, ALT) + FN             
+//-----------------------------------------------------        
+// Control keys                                                
+#define K_CTRL_A            1    //   Ctrl-A, Home                 
+#define K_CTRL_B            2    //   Ctrl-B, Ctrl-Right arrow     
+#define K_CTRL_C            3    //   Ctrl-C, PgDn, Ctrl-ScrollLock
+#define K_CTRL_D            4    //   Ctrl-D, Right arrow          
+#define K_CTRL_E            5    //   Ctrl-E, Up arrow             
+#define K_CTRL_F            6    //   Ctrl-F, End                  
+#define K_CTRL_G            7    //   Ctrl-G, Del                  
+#define K_CTRL_H            8    //   Ctrl-H, Backspace            
+#define K_CTRL_I            9    //   Ctrl-I, Tab                  
+#define K_CTRL_J            10   //   Ctrl-J                        
+#define K_CTRL_K            11   //   Ctrl-K                        
+#define K_CTRL_L            12   //   Ctrl-L                        
+#define K_CTRL_M            13   //   Ctrl-M, Return                
+#define K_CTRL_N            14   //   Ctrl-N                        
+#define K_CTRL_O            15   //   Ctrl-O                        
+#define K_CTRL_P            16   //   Ctrl-P                        
+#define K_CTRL_Q            17   //   Ctrl-Q                        
+#define K_CTRL_R            18   //   Ctrl-R, PgUp                  
+#define K_CTRL_S            19   //   Ctrl-S, Left arrow            
+#define K_CTRL_T            20   //   Ctrl-T                        
+#define K_CTRL_U            21   //   Ctrl-U                        
+#define K_CTRL_V            22   //   Ctrl-V, Ins                   
+#define K_CTRL_W            23   //   Ctrl-W, Ctrl-End              
+#define K_CTRL_X            24   //   Ctrl-X, Down arrow            
+#define K_CTRL_Y            25   //   Ctrl-Y                        
+#define K_CTRL_Z            26   //   Ctrl-Z, Ctrl-Left arrow       
+#define K_CTRL_1            50   //   Ctrl-1
+#define K_CTRL_2            51   //   Ctrl-2
+#define K_CTRL_3            52   //   Ctrl-3
+#define K_CTRL_4            53   //   Ctrl-4
+#define K_CTRL_5            54   //   Ctrl-5
+#define K_CTRL_6            55   //   Ctrl-6
+#define K_CTRL_7            56   //   Ctrl-7
+#define K_CTRL_8            57   //   Ctrl-8
+#define K_CTRL_9            58   //   Ctrl-9
+#define K_CTRL_0            59   //   Ctrl-0
+#define K_CTRL_UNDERSCORE   60   //   Ctrl-UNDERSCORE
+#define K_CTRL_EQUAL        61   //   Ctrl-EQUAL
+#define K_CTRL_KEYPAD_1     62   //   Ctrl-Keypad_1
+#define K_CTRL_KEYPAD_2     63   //   Ctrl-Keypad_2
+#define K_CTRL_KEYPAD_3     64   //   Ctrl-Keypad_3
+#define K_CTRL_KEYPAD_4     65   //   Ctrl-Keypad_4
+#define K_CTRL_KEYPAD_5     66   //   Ctrl-Keypad_5
+#define K_CTRL_KEYPAD_6     67   //   Ctrl-Keypad_6
+#define K_CTRL_KEYPAD_7     68   //   Ctrl-Keypad_7
+#define K_CTRL_KEYPAD_8     69   //   Ctrl-Keypad_8
+#define K_CTRL_KEYPAD_9     70   //   Ctrl-Keypad_9
+#define K_CTRL_KEYPAD_0     71   //   Ctrl-Keypad_0
+#define K_CTRL_LEFT         72   //   Ctrl-LEFT
+#define K_CTRL_UP           73   //   Ctrl-UP
+#define K_CTRL_RIGHT        74   //   Ctrl-RIGHT
+#define K_CTRL_DOWN         75   //   Ctrl-DOWN
+#define K_CTRL_KEYPAD_LEFT  76   //   Ctrl-Keypad_LEFT
+#define K_CTRL_KEYPAD_UP    77   //   Ctrl-Keypad_UP
+#define K_CTRL_KEYPAD_RIGHT 78   //   Ctrl-Keypad_RIGHT
+#define K_CTRL_KEYPAD_DOWN  79   //   Ctrl-Keypad_DOWN
+                                                               
+// Alt keys                                                    
+#define K_ALT_A         286   //   Alt-A                       
+#define K_ALT_B         304   //   Alt-B                       
+#define K_ALT_C         302   //   Alt-C                       
+#define K_ALT_D         288   //   Alt-D                       
+#define K_ALT_E         274   //   Alt-E                       
+#define K_ALT_F         289   //   Alt-F                       
+#define K_ALT_G         290   //   Alt-G                       
+#define K_ALT_H         291   //   Alt-H                       
+#define K_ALT_I         279   //   Alt-I                       
+#define K_ALT_J         292   //   Alt-J                       
+#define K_ALT_K         293   //   Alt-K                       
+#define K_ALT_L         294   //   Alt-L                       
+#define K_ALT_M         306   //   Alt-M                       
+#define K_ALT_N         305   //   Alt-N                       
+#define K_ALT_O         280   //   Alt-O                       
+#define K_ALT_P         281   //   Alt-P                       
+#define K_ALT_Q         272   //   Alt-Q                       
+#define K_ALT_R         275   //   Alt-R                       
+#define K_ALT_S         287   //   Alt-S                       
+#define K_ALT_T         276   //   Alt-T                       
+#define K_ALT_U         278   //   Alt-U                       
+#define K_ALT_V         303   //   Alt-V                       
+#define K_ALT_W         273   //   Alt-W                       
+#define K_ALT_X         301   //   Alt-X                       
+#define K_ALT_Y         277   //   Alt-Y                       
+#define K_ALT_Z         300   //   Alt-Z                       
+                                                               
+// Control-function keys                                       
+#define K_CTRL_F1       -20   //   Ctrl-F1                     
+#define K_CTRL_F2       -21   //   Ctrl-F2                     
+#define K_CTRL_F3       -22   //   Ctrl-F4                     
+#define K_CTRL_F4       -23   //   Ctrl-F3                     
+#define K_CTRL_F5       -24   //   Ctrl-F5                     
+#define K_CTRL_F6       -25   //   Ctrl-F6                     
+#define K_CTRL_F7       -26   //   Ctrl-F7                     
+#define K_CTRL_F8       -27   //   Ctrl-F8                     
+#define K_CTRL_F9       -28   //   Ctrl-F9                     
+#define K_CTRL_F10      -29   //   Ctrl-F10                    
+#define K_CTRL_F11      -44   // * Ctrl-F11                    
+#define K_CTRL_F12      -45   // * Ctrl-F12                    
+                                                               
+// Alt-function keys                                           
+#define K_ALT_F1       -30   //   Alt-F1                       
+#define K_ALT_F2       -31   //   Alt-F2                       
+#define K_ALT_F3       -32   //   Alt-F3                       
+#define K_ALT_F4       -33   //   Alt-F4                       
+#define K_ALT_F5       -34   //   Alt-F5                       
+#define K_ALT_F6       -35   //   Alt-F6                       
+#define K_ALT_F7       -36   //   Alt-F7                       
+#define K_ALT_F8       -37   //   Alt-F8                       
+#define K_ALT_F9       -38   //   Alt-F9                       
+#define K_ALT_F10      -39   //   Alt-F10                      
+#define K_ALT_F11      -46   // * Alt-F11                      
+#define K_ALT_F12      -47   // * Alt-F12                      
+                                                               
+// Shift-function keys                                         
+#define K_SH_F1       -10   //   Shift-F1                      
+#define K_SH_F2       -11   //   Shift-F2                      
+#define K_SH_F3       -12   //   Shift-F3                      
+#define K_SH_F4       -13   //   Shift-F4                      
+#define K_SH_F5       -14   //   Shift-F5                      
+#define K_SH_F6       -15   //   Shift-F6                      
+#define K_SH_F7       -16   //   Shift-F7                      
+#define K_SH_F8       -17   //   Shift-F8                      
+#define K_SH_F9       -18   //   Shift-F9                      
+#define K_SH_F10      -19   //   Shift-F10                     
+#define K_SH_F11      -42   // * Shift-F11                     
+#define K_SH_F12      -43   // * Shift-F12                     
 
 #endif

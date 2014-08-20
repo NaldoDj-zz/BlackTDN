@@ -13,11 +13,13 @@
 					[ TIMEOUT <nTimeOut> ]									;
 					[ IN <lRemote: SERVER> <oRpcSrv> ]	  					;
 					[ RESULT <lResult> ]									;
+					[ <lUseTLSMail:TLS> ] ;
+					[ <lUseSSLMail:SSL> ] ;
 			=>	;													 
 					If ( <.lRemote.> )										; ;
-						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailSmtpOn', <cServer>, <cUser>, <cPass>, <nTimeOut> ) ; ;
+						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailSmtpOn', <cServer>, <cUser>, <cPass>, <nTimeOut>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					Else													; ;
-						[<lResult>:=]MailSmtpOn( <cServer>, <cUser>, <cPass>, <nTimeOut> ) 				; ;
+						[<lResult>:=]MailSmtpOn( <cServer>, <cUser>, <cPass>, <nTimeOut>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					EndIf													; ;
 
 #xcommand CONNECT POP SERVER <cServer>										;
@@ -26,11 +28,13 @@
 					[ TIMEOUT <nTimeOut> ]									;
 					[ IN <lRemote: SERVER> <oRpcSrv> ]	  					;
 					[ RESULT <lResult> ]									;
+					[ <lUseTLSMail:TLS> ] ;
+					[ <lUseSSLMail:SSL> ] ;
 			=>	;													 
 					If ( <.lRemote.> )										; ;
-						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailPopOn', <cServer>, <cUser>, <cPass>, <nTimeOut> ) ; ;
+						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailPopOn', <cServer>, <cUser>, <cPass>, <nTimeOut>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					Else													; ;
-						[<lResult>:=]MailPopOn( <cServer>, <cUser>, <cPass>, <nTimeOut> ) 				; ;
+						[<lResult>:=]MailPopOn( <cServer>, <cUser>, <cPass>, <nTimeOut>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					EndIf													; ;
 
 #xcommand DISCONNECT SMTP SERVER ;
@@ -75,11 +79,13 @@
 					[ ATTACHMENT <aFiles,...> ]								;
 					[ IN <lRemote: SERVER> <oRpcSrv> ]	  					;
 					[ RESULT <lResult> ]									;
+					[ <lUseTLSMail:TLS> ] ;
+					[ <lUseSSLMail:SSL> ] ;
 			=>	;													 
 					If ( <.lRemote.> )										; ;
-						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailSend', <cFrom>, \{ <aTo> \}, \{ <aCc> \}, \{ <aBcc> \}, <cSubject>, <cBody>, \{ <aFiles> \}, <.lText.> ) ; ;
+						[<lResult>:=][<oRpcSrv>:]CallProc( 'MailSend', <cFrom>, \{ <aTo> \}, \{ <aCc> \}, \{ <aBcc> \}, <cSubject>, <cBody>, \{ <aFiles> \}, <.lText.>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					Else													; ;
-						[<lResult>:=]MailSend( <cFrom>, \{ <aTo> \}, \{ <aCc> \}, \{ <aBcc> \}, <cSubject>, <cBody>, \{ <aFiles> \}, <.lText.> ) ; ;
+						[<lResult>:=]MailSend( <cFrom>, \{ <aTo> \}, \{ <aCc> \}, \{ <aBcc> \}, <cSubject>, <cBody>, \{ <aFiles> \}, <.lText.>, [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					EndIf													; ;
 					
 #xcommand GET MAIL ERROR <cErrorMsg> 										;
@@ -99,12 +105,14 @@
 					[SUBJECT <cSubject>]										;
 					[BODY <cBody>]											;
 					[ATTACHMENT <aFiles> [SAVE IN <cPath>] ]				;
-				   [<lDelete: DELETE>] ;
+					[<lDelete: DELETE>] ;
 					[IN <lRemote: SERVER> <oRpcSrv> ]	  					;
 					[RESULT <lResult> ]									;
+					[<lUseTLSMail:TLS> ] ;
+					[<lUseSSLMail:SSL> ] ;
 			=>	;													 
 				If ( <.lRemote.> )										; ;
-					_aResult := [<oRpcSrv>:]CallProc('_MailReceive', <nNumber>,  [<cPath>], [<.lDelete.>] ) ; ;
+					_aResult := [<oRpcSrv>:]CallProc('_MailReceive', <nNumber>,  [<cPath>], [<.lDelete.>], [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 					[<cFrom> :=] _aResult\[1\];;
 					[<cTo> :=] _aResult\[2\];;
 					[<cCc> :=] _aResult\[3\];;
@@ -114,7 +122,8 @@
 					[<aFiles> :=] aClone(_aResult\[7\]);;
 					[<lResult>:=] _aResult\[8\];;
 				Else													; ;
-					[<lResult>:=]MailReceive(<nNumber>, [@<cFrom>], [@<cTo>], [@<cCc>], [@<cBcc>], [@<cSubject>], [@<cBody>], [<aFiles>], [<cPath>], [<.lDelete.>] ) ; ;
+					[<lResult>:=]MailReceive(<nNumber>, [@<cFrom>], [@<cTo>], [@<cCc>], [@<cBcc>], [@<cSubject>], [@<cBody>], [<aFiles>], [<cPath>], [<.lDelete.>], [<.lUseTLSMail.>], [<.lUseSSLMail.>] ) ; ;
 				EndIf ; ;
 
 #endif
+

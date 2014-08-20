@@ -85,3 +85,4 @@
 #xtranslate OSEND <o>() METHOD <m> PARAM <param> => PT_oSend( <(o)>+"()",<m>, ,<param> )
 
 #endif
+

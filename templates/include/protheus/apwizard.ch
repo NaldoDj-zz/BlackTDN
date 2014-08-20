@@ -16,9 +16,11 @@
 				 [ FINISH <bFinish> ];
 				 [ <lPanel: PANEL> ];
 				 [ <lNoFirst: NOFIRSTPANEL> ];
+				 [ SIZE <aCoors,...> ] ;
+				 [ MODEL <nModel>  ] ;
 		 => ;
 			 <oWizard> = APWizard():New( <chTitle>, <chMsg>, <cTitle>, <cText>,;
-										 <bNext>, <bFinish>, <.lPanel.>, , , <.lNoFirst.> )
+										 <bNext>, <bFinish>, <.lPanel.>, , , <.lNoFirst.> , [\{<aCoors>\}] , [<nModel>])
 					  
 #xcommand ACTIVATE WIZARD <oWizard> ;
 				 [ <lCenter: CENTER, CENTERED> ];

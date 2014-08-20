@@ -11,11 +11,14 @@
 #define FWVERSION   'Microsiga Software SA'
 #define FWCOPYRIGHT "Copyright (c) 1997-2003"
 
+//#xtranslate Main Function <cNome> => Function <cNome>
+#xtranslate Pyme Function <cNome> => Function E_<cNome>
 #xtranslate Project Function <cNome> => Function P_<cNome>
 #xtranslate Template Function <cNome> => Function T_<cNome>
 #xtranslate Web Function <cNome> => Function W_<cNome>
 #xtranslate HTML Function <cNome> => Function H_<cNome>
 #xtranslate USER Function <cNome> => Function U_<cNome>
+#xtranslate WebUSER Function <cNome> => Function B_<cNome>
 
 #xcommand STACKVAR <uVar1> [, <uVarN> ] => ;
                   _STKVARDEF(<uVar1>) ;;
@@ -26,7 +29,6 @@
 //#include "Ini.ch"
 #include "PTMenu.ch"
 #include "Print.ch"
-#include "sigawin.ch"
 
 #ifndef CLIPPER501
   #include "Colors.ch"
@@ -41,7 +43,44 @@
   #include "WinApi.ch"
 #endif
 
+#include "FWCommand.ch"
+#include "FWCSS.CH"
+
+
 #define CRLF Chr(13)+Chr(10)
+
+// ----------------------------------------------------------------------
+// Modos de Acessibilidade Disponiveis
+// ----------------------------------------------------------------------
+#DEFINE ACC_VISUAL				1	// Acessibilidade Visual
+#DEFINE ACC_DALTONIC			2	// Daltonico
+#DEFINE ACC_MOTOR				4	// Deficiência Motora (Reconhecimento de Voz)
+
+// ----------------------------------------------------------------------
+// Padronizações para Acessibilidade Visual - INICIO
+// ----------------------------------------------------------------------
+	#xtranslate cGetFile([<cMascara>] ,[<cTitulo>] ,[<nMascPadrao>] ,[<cDirInicial>] [,<lSalvar> [,<nOpcoes> [,<aRmtDir> [,<lKeepCase> [,U1 [,U2 [,U3 [,U4 [,U5] ] ] ] ] ] ] ] ]) => ;
+		Iif(FindFunction("FWHasAccMode") .And. FindFunction("AVGetFile") .And. FWHasAccMode(ACC_VISUAL),;
+		 AVGetFile(<cMascara>, <cTitulo>, <nMascPadrao>, <cDirInicial>, <lSalvar>, <nOpcoes>, <aRmtDir>, <lKeepCase>, <U1>, <U2>, <U3>, <U4>, <U5>),;
+		 cGetFile(<cMascara>, <cTitulo>, <nMascPadrao>, <cDirInicial>, <lSalvar>, <nOpcoes>, <aRmtDir>, <lKeepCase>, <U1>, <U2>, <U3>, <U4>, <U5>))
+	
+	#xcommand MsgAlert(<cMsg> [,<cTitle>]) => ;
+		Iif(FindFunction("APMsgAlert"), APMsgAlert(<cMsg>, <cTitle>), MsgAlert(<cMsg>, <cTitle>))
+		
+	#xcommand MsgStop(<cMsg> [,<cTitle>]) => ;
+		Iif(FindFunction("APMsgStop"), APMsgStop(<cMsg>, <cTitle>), MsgStop(<cMsg>, <cTitle>))
+	
+	#xcommand MsgInfo(<cMsg> [,<cTitle>]) => ;
+		Iif(FindFunction("APMsgInfo"), APMsgInfo(<cMsg>, <cTitle>), MsgInfo(<cMsg>, <cTitle>))
+	
+	#xtranslate MsgYesNo(<cMsg> [,<cTitle>]) => ;
+		Iif(FindFunction("APMsgYesNo"), APMsgYesNo(<cMsg>, <cTitle>), (cMsgYesNo:="MsgYesNo", &cMsgYesNo.(<cMsg>, <cTitle>)))
+	
+	#xtranslate MsgNoYes(<cMsg> [,<cTitle>]) => ;
+		Iif(FindFunction("APMsgNoYes"), APMsgNoYes(<cMsg>, <cTitle>), (cMsgNoYes:="MsgNoYes", &cMsgNoYes.(<cMsg>, <cTitle>)))
+// ----------------------------------------------------------------------
+// Padronizações para Acessibilidade Visual - FIM
+// ----------------------------------------------------------------------
 
 #xtranslate bSETGET(<uVar>) => ;
     { | u | If( PCount() == 0, <uVar>, <uVar> := u ) }
@@ -763,5 +802,7 @@
     <{uAction}>, <nWidth>, <nHeight>, <nHelpId>, <oFont>, <.default.>,;
     <.pixel.>, <.design.>, <cMsg>, <.update.>, <{WhenFunc}>,;
     <{uValid}>, <.lCancel.> , <cBitmap>, <nLayout> )
+#xcommand @ ASSUME <oObj> AS <cClassName>;
+	=> ;
 
 #endif
