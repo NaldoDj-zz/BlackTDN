@@ -41,6 +41,7 @@ Return((cVar==cField))
 //--------------------------------------------------------------------------------------------------------------
 Static Function ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
 
+    Local aArea     := GetArea()
     Local cReadVar
 
     Local lInGetD   := .F.
@@ -79,6 +80,8 @@ Static Function ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
 
         &(__ReadVar)    := uCnt
 
+        dbSelectArea("SX3")
+
         DEFAULT lTrigger    := .T.
         IF ((lTrigger).and.ExistTrigger(cField))
             IF (lInGetD)
@@ -100,6 +103,8 @@ Static Function ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
     IF (lReadVar)
         __ReadVar := cReadVar
     EndIF
+
+    RestArea(aArea)
 
 Return(lFieldOk)
 
