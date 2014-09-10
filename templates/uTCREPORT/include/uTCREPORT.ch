@@ -34,15 +34,23 @@
         #endif
     #endif
 
-    #xcommand uTCREPORT ACTIVATE => ;
+    #xcommand uTCREPORT [<force: FORCE>] ACTIVATE => ;
     _SetOwnerPrvt("__oTCPrint",NIL);;
     _SetOwnerPrvt("__nOpcRpt",.F.);;
     _SetOwnerPrvt("__lDHeader",.T.);;
     IF ( IsBlind() );;
-        __nOpcRpt := RPT_R3;;
+        IF (<.force.>);;
+            __nOpcRpt   := RPT_TREPORT;;
+        ELSE;;
+            __nOpcRpt   := RPT_R3;;
+        ENDIF;;    
     ELSE;;
-        __nOpcRpt := __SWOpcRpt();;
-    ENDIF;;    
+        IF (<.force.>);;
+            __nOpcRpt   := RPT_TREPORT;;
+        ELSE;;
+            __nOpcRpt   := __SWOpcRpt();;
+        ENDIF;;
+    ENDIF;;
 
     #xtranslate SetPrint([<prm,...>])    => __SetPrint(@__nOpcRpt,[<prm>])
     #xtranslate SetDefault([<prm,...>])  => __SetDefault(@__nOpcRpt,[<prm>])
@@ -71,7 +79,7 @@
     #xcommand uTCREPORT SHOW DEFAULT HEADER    => ( __lDHeader := .T. )
 
     #xcommand uTCREPORT SET PAGE BREAK         => __SetPageBreak(@__nOpcRpt)
-    #xcommand uTCREPORT CHK PAGE BREAK [<n>]   => __ChkPgBreak(@__nOpcRpt,[<n>])    
+    #xcommand uTCREPORT CHK PAGE BREAK [<n>]   => __ChkPgBreak(@__nOpcRpt,[<n>])
     #xcommand uTCREPORT SET LINE HEIGHT <n>    => __SetLineHeight(@__nOpcRpt,<n>)
     #xcommand uTCREPORT SET EDIT <x:ON,OFF,&>  => __SetEdit(@__nOpcRpt,<(x)>)
     #xcommand uTCREPORT SET EDIT (<x>)         => __SetEdit(@__nOpcRpt,<(x)>)
@@ -217,7 +225,7 @@
         IF (__CheckSum())
             Private MV_PAR01    := 3
             aAdd(aParamBox,Array(8))
-            nParamBox := Len(aParamBox)            
+            nParamBox := Len(aParamBox)
             aAdd( aRadio , "1-"+__STR0004 )                     //"R3"
             aAdd( aRadio , "2-"+__STR0001 )                     //"TReport"
             aParamBox[nParamBox][1] := 3                        //Radio
