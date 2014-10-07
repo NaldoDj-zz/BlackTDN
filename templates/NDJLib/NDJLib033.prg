@@ -14,7 +14,7 @@ Class tNDJTimeCalc From LongClassName
 	Method DecTime(cTime,nDecHours,nDecMinuts,nDecSeconds)
 	Method Time2NextDay(cTime,dDate)
 	Method ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet)
-	Method MediumTime(cTime,nDividendo,lMiliSecs)
+	Method AverageTime(cTime,nDividendo,lMiliSecs)
 EndClass
 
 Method New() Class tNDJTimeCalc
@@ -188,12 +188,12 @@ Method ExtractTime(cTime,nHours,nMinutes,nSeconds,cRet) Class tNDJTimeCalc
 
 Return(nRet)
 
-Method MediumTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
+Method AverageTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
 
-	Local cMediumTime	:= "00:00:00:000"
+	Local cAverageTime	:= "00:00:00:000"
 	
 	Local nSeconds
-	Local nMediumTime
+	Local nAverageTime
 	Local nMiliSecs
 	
 	DEFAULT nDividendo := 0
@@ -202,27 +202,27 @@ Method MediumTime(cTime,nDividendo,lMiliSecs) Class tNDJTimeCalc
 	
 		nSeconds	:= self:TimeToSecs(cTime)
 		nSeconds	:= (nSeconds/nDividendo)
-		nMediumTime	:= Int(nSeconds)
+		nAverageTime	:= Int(nSeconds)
 	
-		nMiliSecs	:= (nSeconds-nMediumTime)
+		nMiliSecs	:= (nSeconds-nAverageTime)
 		nMiliSecs	*= 1000
 		nMiliSecs	:= Int(nMiliSecs)
 	
-		cMediumTime	:= self:SecsToTime(nMediumTime)
+		cAverageTime	:= self:SecsToTime(nAverageTime)
 
 	EndIF
 	
 	DEFAULT lMiliSecs		:= .T.
 	IF (lMiliSecs)
 		DEFAULT nMiliSecs	:= 0
- 		cMediumTime += (":"+StrZero(nMiliSecs,IF(nMiliSecs>999,4,3)))
+ 		cAverageTime += (":"+StrZero(nMiliSecs,IF(nMiliSecs>999,4,3)))
 	EndIF
 
-Return(cMediumTime)
+Return(cAverageTime)
 
 Class tNDJRemaining From tNDJTimeCalc
 	
-	DATA cMediumTime	AS CHARACTER INIT "00:00:00:000" HIDDEN
+	DATA cAverageTime	AS CHARACTER INIT "00:00:00:000" HIDDEN
 	DATA cEndTime  		AS CHARACTER INIT "00:00:00"     HIDDEN
 	DATA cStartTime  	AS CHARACTER INIT "00:00:00"     HIDDEN
 	DATA cTimeDiff  	AS CHARACTER INIT "00:00:00"     HIDDEN
@@ -251,7 +251,7 @@ Class tNDJRemaining From tNDJTimeCalc
 
 	//-------------------------------------------------------------------
 	// EXPORTED: Retorna os Valores das Propriedades
-	Method GetcMediumTime()
+	Method GetcAverageTime()
 	Method GetcEndTime()
 	Method GetcStartTime()
 	Method GetcTimeDiff()
@@ -274,7 +274,7 @@ Return("TNDJREMAINING")
 
 Method SetRemaining(nTotal) Class tNDJRemaining
 	DEFAULT nTotal 		:= 1
-	self:cMediumTime	:= "00:00:00:000"
+	self:cAverageTime	:= "00:00:00:000"
 	self:cEndTime		:= "00:00:00"
 	self:cStartTime		:= Time()
 	self:cTimeDiff		:= "00:00:00"
@@ -318,7 +318,7 @@ Method Calcule(lProgress) Class tNDJRemaining
 		++self:nProgress
 	EndIF
 
-	self:cMediumTime		:= self:MediumTime(self:cTimeDiff,self:nProgress,.T.)
+	self:cAverageTime		:= self:AverageTime(self:cTimeDiff,self:nProgress,.T.)
 
 	IF self:nTotal<self:nProgress
 		nTimeEnd       := self:nTotal
@@ -334,8 +334,8 @@ Method Calcule(lProgress) Class tNDJRemaining
 
 Return(self)
 
-Method GetcMediumTime() Class tNDJRemaining
-Return(self:cMediumTime)
+Method GetcAverageTime() Class tNDJRemaining
+Return(self:cAverageTime)
 
 Method GetcEndTime() Class tNDJRemaining
 Return(self:cEndTime)

@@ -289,31 +289,31 @@ Static Function ExtractTime( cTime , nHours , nMinuts , nSeconds , cRet )
 Return( nRet )
 
 /*
-	Fun‡„o		: MediumTime
+	Fun‡„o		: AverageTime
 	Autor		: Marinaldo de Jesus
 	Data		: 20/04/2012
 	Descri‡„o	: Retornar o Tempo Medio
-	Retorno		: cMediumTime
+	Retorno		: cAverageTime
 */
-Static Function MediumTime( cTime , nDividendo , lMiliSecs )
+Static Function AverageTime( cTime , nDividendo , lMiliSecs )
 
-	Local cMediumTime	:= "00:00:00"
+	Local cAverageTime	:= "00:00:00"
 	
 	Local nSeconds
-	Local nMediumTime
+	Local nAverageTime
 	Local nMiliSecs
 	
 	IF ( nDividendo > 0 )
 	
 		nSeconds	:= TimeToSecs( cTime )
 		nSeconds	:= ( nSeconds / nDividendo )
-		nMediumTime	:= Int( nSeconds )
+		nAverageTime	:= Int( nSeconds )
 	
-		nMiliSecs	:= ( nSeconds - nMediumTime )
+		nMiliSecs	:= ( nSeconds - nAverageTime )
 		nMiliSecs	*= 100
 		nMiliSecs	:= Int( nMiliSecs )
 	
-		cMediumTime	:= SecsToTime( nMediumTime )
+		cAverageTime	:= SecsToTime( nAverageTime )
 	
 		DEFAULT lMiliSecs	:= .F.
 		IF (;
@@ -321,12 +321,12 @@ Static Function MediumTime( cTime , nDividendo , lMiliSecs )
 				.and.;
 				( nMiliSecs > 0 );
 			)
-			cMediumTime += ( ":" + StrZero( nMiliSecs , 02 ) )
+			cAverageTime += ( ":" + StrZero( nMiliSecs , 02 ) )
 		EndIF
 	
 	EndIF
 
-Return( cMediumTime )
+Return( cAverageTime )
 
 Static Function __Dummy( lRecursa )
 	Local oException
@@ -337,7 +337,7 @@ Static Function __Dummy( lRecursa )
 		EndIF
     	lRecursa	:= __Dummy( .F. )
     	INCTIME()
-    	MEDIUMTIME()
+    	AverageTIME()
     	TIME2NEXTDAY()
     	TIMETOSECONDS()
     	SYMBOL_UNUSED( __cCRLF )
