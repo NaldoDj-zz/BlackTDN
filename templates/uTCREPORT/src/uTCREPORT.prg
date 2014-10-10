@@ -187,8 +187,8 @@ METHOD SetTReport() CLASS uTCREPORT
             Self:oCLRBack   := oSection:oCLRBack
             IF( Self:lUserFilter )
                 //TODO: Verificar o porque da ocorrencia de erros quando usa (restaura) os filtros salvos nos relatorios R3
-                //      A solução para a não ocorrência do erro, ao final do relatório, e criar e salvar um novo     filtro
-                //      usando o próprio tReport.
+                //      A soluÃ§Ã£o para a nÃ£o ocorrÃªncia do erro, ao final do relatÃ³rio, e criar e salvar um novo     filtro
+                //      usando o prÃ³prio tReport.
                 bErrorBlock := ErrorBlock({|e|BREAK(e)})
                 BEGIN SEQUENCE
                     cAlias  := oSection:cAlias
@@ -302,7 +302,7 @@ METHOD ChkBreak() CLASS uTCREPORT
 
         IF ( Self:lHeaderVisible )
         
-            cD= DtoC(Date())
+            cDate:=DtoC(Date())
             Self:SetFont(,.T.)
             
             cHFName := Self:oFontHeader:Name
@@ -628,7 +628,7 @@ Static Function __SetPrint(__nOpcRpt,cAlias,cProgram,cPergunte,cTitle,cDesc1,cDe
             //Define o modo de Impressao como Paisagem
             __Dummy:SetLandScape()          
             //----------------------------------------------------------------------------
-            //Desabilita a escolha da Orientação de Impressao
+            //Desabilita a escolha da OrientaÃ§Ã£o de Impressao
             __Dummy:DisableOrientation() 
         EndIF    
     EndIF
@@ -973,7 +973,7 @@ Static Function __IsInPageBreak(__nOpcRpt,nLine,nLPrn)
         DEFAULT nLPrn   := 0
         __SetMaxLine(__nOpcRpt)
         //----------------------------------------------------------------------------
-        // Salto de Página. Neste caso o formulario tem TCR_MAX_LINEREL linhas...
+        // Salto de PÃ¡gina. Neste caso o formulario tem TCR_MAX_LINEREL linhas...
         lPGBreak    := ( __Dummy > ( __nTCRMaxLine - nLPrn ) ) 
         IF ( lPGBreak )
             __Dummy := __SetPageBreak(__nOpcRpt)
@@ -1278,7 +1278,7 @@ Static Function _TCRFmtLin(__nOpcRpt,aValores,xFundo,cPictN,cPictC,nLin,lImprime
     Local cDet
     
     Local cFind         := "#"
-    Local cReplace      := "±"
+    Local cReplace      := "Â±"
     
     Local cTypeFundo    := ValType(xFundo)
 
