@@ -105,11 +105,13 @@
            __SetFont(__nOpcRpt,[<.header.>],[<cName>],[<nWidth>],[<nHeight>],[<.from.>],[<.bold.>],[<nEscapement>],NIL,[<nWeight>],[<.italic.>],[<.underline.>])
     
     #xcommand nLin := nLin+<n> => __IncLine(@__nOpcRpt,<n>)
+    #xcommand nLin += <n> 	   => __IncLine(@__nOpcRpt,<n>)
     #xcommand ++nLin           => __IncLine(@__nOpcRpt,1)
     #xcommand nLin++           => __IncLine(@__nOpcRpt,1)
     #xcommand ++ nLin          => __IncLine(@__nOpcRpt,1)
     #xcommand nLin ++          => __IncLine(@__nOpcRpt,1)
     #xcommand LI := LI+<n>     => __IncLine(@__nOpcRpt,<n>)
+	#xcommand LI += <n>        => __IncLine(@__nOpcRpt,<n>)
     #xcommand ++LI             => __IncLine(@__nOpcRpt,1)
     #xcommand LI++             => __IncLine(@__nOpcRpt,1)
     #xcommand ++ LI            => __IncLine(@__nOpcRpt,1)
