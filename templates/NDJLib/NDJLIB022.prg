@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "NDJ.CH"
 
 Static __uSession
 Static __nSession:=0
@@ -8,7 +8,7 @@ Static __nLTHashID:=0
 //------------------------------------------------------------------------------------------------
     /*/
         CLASS:THash
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Simular Hash no Protheus
         Sintaxe:THash():New()->Objeto do Tipo THash
@@ -55,7 +55,7 @@ Return(THash():New())
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:New
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:CONSTRUCTOR
         Sintaxe:THash():New()->self
@@ -72,7 +72,7 @@ Return(self)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:ClassName
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Retornar o Nome da Classe
         Sintaxe:THash():ClassName()->cClassName
@@ -84,7 +84,7 @@ Return(self:cClassName)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:Set
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:31/12/2014
         Descricao:Adicionar uma nova propriedade/Valor
         Sintaxe:THash():Set(uPropertyKey,uValue)
@@ -108,7 +108,7 @@ Return(self)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:Get
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:31/12/2014
         Descricao:Obter o Valor atribuido a uma Propriedade
         Sintaxe:THash():Get(uPropertyKey)->uValue
@@ -121,7 +121,7 @@ Return(self:GetPropertyValue(uSession,uPropertyKey,uDefaultValue))
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetAtProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter a Posicao da Propriedade Passada por parametro e de acordo com a Secao
         Sintaxe:THash():GetAtProperty(uSession,uPropertyKey,nSession)->nATProperty
@@ -148,7 +148,7 @@ Return(nATProperty)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetNameProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter o Nome da Propriedade Passada por parametro e de acordo com a Secao
         Sintaxe:THash():GetNameProperty(uSession,uPropertyKey)->cNameProperty
@@ -160,7 +160,7 @@ Return(self:GetKeyProperty(uSession,uPropertyKey))
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetKeyProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter o Chave da Propriedade Passada por parametro e de acordo com a Secao
         Sintaxe:THash():GetKeyProperty(uSession,uPropertyKey)->uKeyProperty
@@ -193,7 +193,7 @@ Return(uKeyProperty)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:SetKeyProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Setar a Chave da Propriedade Passada por parametro e de acordo com a Secao
         Sintaxe:THash():SetKeyProperty(uSession,uPropertyKey,uNewPropertyKey)->lSuccess
@@ -227,7 +227,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetPropertyValue
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter o valor da Propriedade Passada por parametro e de acordo com a Secao
         Sintaxe:THash():GetPropertyValue(uSession,uPropertyKey,uDefaultValue)->uPropertyValue
@@ -268,7 +268,7 @@ Return(uPropertyValue)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:SetPropertyValue
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Setar o Valor em uma determinada Propriedade
         Sintaxe:THash():SetPropertyValue(uSession,uPropertyKey,uValue)->cPropertyLastValue
@@ -302,7 +302,7 @@ Return(cPropertyLastValue)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:AddNewProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Adicionar uma nova propriedade
         Sintaxe:THash():AddNewProperty(uSession,uPropertyKey,uValue)->lSuccess
@@ -328,7 +328,7 @@ METHOD AddNewProperty(uSession,uPropertyKey,uValue) CLASS THASH
             nProperty:=Len(self:aTHash[nSession][PROPERTY_POSITION])
         EndIF
 
-        self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY  ]:=uPropertyKey
+        self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]:=uPropertyKey
         self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]:=uValue
 
         lSuccess:=.T.
@@ -340,7 +340,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:RemoveProperty
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Remover Determinada Propriedade
         Sintaxe:THash():RemoveProperty(uSession,uPropertyKey)->lSuccess
@@ -377,7 +377,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetAllProperties
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Retornar todas as propriedades
         Sintaxe:THash():GetAllProperties(uSession)->aAllProperties
@@ -404,7 +404,7 @@ Return(aAllProperties)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:AddNewSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Adicionar nova Secao
         Sintaxe:THash():AddNewSession(uSession)->lSuccess
@@ -437,7 +437,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:RemoveSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Remover Determinada Secao
         Sintaxe:THash():RemoveSession(uSession)->lSuccess
@@ -472,7 +472,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter uma Secao
         Sintaxe:THash():GetSession(uSession)->aSession
@@ -499,7 +499,7 @@ Return(aSession)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:CloneSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Clonar uma Secao
         Sintaxe:THash():CloneSession(uSession)->aClone
@@ -511,7 +511,7 @@ Return(aClone(self:GetSession(uSession)))
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:GetAllSessions
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Obter Todas as Secoes do INI
         Sintaxe:THash():GetAllSessions()->aAllSessions
@@ -542,7 +542,7 @@ Return(aAllSessions)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:CopySession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Copiar uma Secao
         Sintaxe:THash():CopySession(uSession,uNewSession)->lSuccess
@@ -583,7 +583,7 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:ExistSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Copiar uma Secao
         Sintaxe:THash():ExistSession(uSession,nSession)->lExist
@@ -608,7 +608,7 @@ Return(lExistSession)
 //------------------------------------------------------------------------------------------------
     /*/
         METHOD:ChangeSession
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Renomear uma Secao
         Sintaxe:THash():ChangeSession(uSession,nSession)->lSuccess
@@ -617,11 +617,11 @@ Return(lExistSession)
 METHOD ChangeSession(uSession,uNewSession) CLASS THASH
 
     Local nSession
-    Local lSuccess                        :=.F.
+    Local lSuccess:=.F.
 
     IF (self:ExistSession(uSession,@nSession))
         self:aTHash[nSession][SESSION_POSITION]:=uNewSession
-        lSuccess                        :=.T.
+        lSuccess:=.T.
     EndIF
 
 Return(lSuccess)
