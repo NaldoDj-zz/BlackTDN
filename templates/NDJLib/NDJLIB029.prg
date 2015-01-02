@@ -3,7 +3,7 @@
     /*/
         Funcao:ArrayCompare
         Autor:Marinaldo de Jesus
-        Data:04/08/2004³
+        Data:04/08/2004
         Descricao:Efetua a Comparacao de Arrays
         Retorno:lCompare<=>False se Houver Diferca, True se Nao Houver
     /*/
