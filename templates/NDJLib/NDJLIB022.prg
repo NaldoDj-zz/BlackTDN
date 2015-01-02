@@ -25,6 +25,9 @@ CLASS THASH FROM LongClassName
 
     METHOD ClassName()
 
+    METHOD Set(uPropertyKey,uValue)
+    METHOD Get(uPropertyKey,uDefaultValue)
+
     METHOD GetAtProperty(uSession,uPropertyKey,nSession)
     METHOD GetNameProperty(uSession,uPropertyKey)
     METHOD GetKeyProperty(uSession,uPropertyKey)
@@ -43,9 +46,6 @@ CLASS THASH FROM LongClassName
     METHOD CopySession(uSession,uNewSession)
     METHOD ExistSession(uSession,nSession)
     METHOD ChangeSession(uSession,uNewSession)
-
-    METHOD Set(uPropertyKey,uValue)
-    METHOD Get(uPropertyKey,uDefaultValue)
 
 ENDCLASS
 
@@ -80,6 +80,43 @@ Return(self)
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS THASH
 Return(self:cClassName)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:Set
+        Autor:Marinaldo de Jesus
+        Data:31/12/2014
+        Descricao:Adicionar uma nova propriedade/Valor
+        Sintaxe:THash():Set(uPropertyKey,uValue)
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD Set(uPropertyKey,uValue) CLASS THASH
+    Local nSession
+    Local nProperty
+    Local uSession:=uPropertyKey
+    IF .NOT.(self:ExistSession(@uSession,@nSession))
+        self:AddNewSession(@uSession)
+    EndIF
+    nProperty:=self:GetAtProperty(@uSession,@uPropertyKey,@nSession)
+    IF (nProperty==0)
+        self:AddNewProperty(@uSession,@uPropertyKey,uValue)
+    Else
+        self:SetPropertyValue(@uSession,@uPropertyKey,uValue)
+    EndIF
+Return(self)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:Get
+        Autor:Marinaldo de Jesus
+        Data:31/12/2014
+        Descricao:Obter o Valor atribuido a uma Propriedade
+        Sintaxe:THash():Get(uPropertyKey)->uValue
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD Get(uPropertyKey,uDefaultValue) CLASS THASH
+    Local uSession:=uPropertyKey
+Return(self:GetPropertyValue(uSession,uPropertyKey,uDefaultValue))
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -230,19 +267,6 @@ Return(uPropertyValue)
 
 //------------------------------------------------------------------------------------------------
     /*/
-        METHOD:Get
-        Autor:Marinaldo de Jesus
-        Data:21/12/2014
-        Descricao:Obter o Valor de Uma Propriedade
-        Sintaxe:THash():Get(uPropertyKey)->uValue
-    /*/
-//------------------------------------------------------------------------------------------------
-METHOD Get(uPropertyKey,uDefaultValue) CLASS THASH
-    Local uSession:=uPropertyKey
-Return(self:GetPropertyValue(uSession,uPropertyKey,uDefaultValue))
-
-//------------------------------------------------------------------------------------------------
-    /*/
         METHOD:SetPropertyValue
         Autor:Marinaldo de Jesus
         Data:04/12/2011
@@ -274,30 +298,6 @@ METHOD SetPropertyValue(uSession,uPropertyKey,uValue) CLASS THASH
     END SEQUENCE
 
 Return(cPropertyLastValue)
-
-//------------------------------------------------------------------------------------------------
-    /*/
-        METHOD:Set
-        Autor:Marinaldo de Jesus
-        Data:21/12/2014
-        Descricao:Adicionar uma nova propriedade/Valor
-        Sintaxe:THash():Set(uPropertyKey,uValue)
-    /*/
-//------------------------------------------------------------------------------------------------
-METHOD Set(uPropertyKey,uValue) CLASS THASH
-    Local nSession
-    Local nProperty
-    Local uSession:=uPropertyKey
-    IF .NOT.(self:ExistSession(@uSession,@nSession))
-        self:AddNewSession(@uSession)
-    EndIF
-    nProperty:=self:GetAtProperty(@uSession,@uPropertyKey,@nSession)
-    IF (nProperty==0)
-        self:AddNewProperty(@uSession,@uPropertyKey,uValue)
-    Else
-        self:SetPropertyValue(@uSession,@uPropertyKey,uValue)
-    EndIF
-Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
