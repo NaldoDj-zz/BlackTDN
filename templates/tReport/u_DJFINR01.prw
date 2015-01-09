@@ -850,7 +850,6 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         //Calcula o Tamanho da Pagina
     //-------------------------------------------------------------------------------------
     Local nPageWidth:=oReport:PageWidth()
-    Local nPGPxToPrn:=Int(nPageWidth*_nPGPx2Prn)
 
     Local nTSaldo
     Local nSA2RecNo
