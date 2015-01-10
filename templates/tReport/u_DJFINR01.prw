@@ -140,7 +140,8 @@ User Function DJFINR01()
             //...Mostra-o ao usuário
         //------------------------------------------------------------------------------------------------
         TRY EXCEPTION
-            fMakeLog(@aLogDet,@aLogCab,NIL,.T.,NIL,cCadastro,NIL,NIL,NIL,.F.)
+            cLogT:="LOG: "+cCadastro
+            fMakeLog(@aLogDet,@aLogCab,NIL,.T.,NIL,@cLogT,NIL,NIL,NIL,.F.)
         CATCH EXCEPTION USING oException
             cLogT:="Problema na Geração do LOG."
             IF (ValType(oException=="O"))
@@ -967,7 +968,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         cKeyBreak:=SE2->(E2_FILIAL+E2_FORNECE+E2_LOJA)
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section Local&Data
+            //Inicia a Impressão da  Section SkipLine
         //-------------------------------------------------------------------------------------
         cSection:="SkipLine"
         oSection:=oSections:Get(cSection)
