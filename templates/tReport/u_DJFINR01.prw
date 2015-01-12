@@ -1608,6 +1608,7 @@ Static Function A2CodVendF3()
     Local cSA2Cod:=""
 
     Local cF3Ret:=""
+    Local cToken:=","
     Local cOpcoes:=""
     Local cCodRet:=""
 
@@ -1637,7 +1638,7 @@ Static Function A2CodVendF3()
     //------------------------------------------------------------------------------------------------
         //Remove o Separador
     //------------------------------------------------------------------------------------------------
-    uVarRet:=StrTran(_cSA2F3Ret,",","")
+    uVarRet:=StrTran(_cSA2F3Ret,cToken,"")
 
     //------------------------------------------------------------------------------------------------
         //Define a Ordem para Pesquisa na Tabela SA2
@@ -1694,8 +1695,8 @@ Static Function A2CodVendF3()
         //------------------------------------------------------------------------------------------------
             //Ajusta o Retorno caso exista o separador
         //------------------------------------------------------------------------------------------------
-        IF (","$cOpcoes)
-            aOpcoes:=_StrToKArr(uVarRet)
+        IF (cToken$cOpcoes)
+            aOpcoes:=_StrToKArr(uVarRet,cToken)
             uVarRet:=""
             aEval(aOpcoes,{uVarRet+=PadR(e,nTamKey)})
         EndIF
@@ -1716,7 +1717,7 @@ Static Function A2CodVendF3()
                 //Define o Retorno com o separador ","
             //------------------------------------------------------------------------------------------------
             IF (nD<nJ)
-                cF3Ret+=","
+                cF3Ret+=cToken
             EndIF
         Next nD
     Else
