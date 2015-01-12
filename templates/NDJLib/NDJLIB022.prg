@@ -94,16 +94,18 @@ METHOD Set(uPropertyKey,uValue) CLASS THASH
     Local nSession
     Local nProperty
     Local uSession:=uPropertyKey
+    Local uPropertyLastValue
     IF .NOT.(self:ExistSession(@uSession,@nSession))
         self:AddNewSession(@uSession)
     EndIF
     nProperty:=self:GetAtProperty(@uSession,@uPropertyKey,@nSession)
     IF (nProperty==0)
+        uPropertyLastValue:=uValue
         self:AddNewProperty(@uSession,@uPropertyKey,uValue)
     Else
-        self:SetPropertyValue(@uSession,@uPropertyKey,uValue)
+        uPropertyLastValue:=self:SetPropertyValue(@uSession,@uPropertyKey,uValue)
     EndIF
-Return(self)
+Return(uPropertyLastValue)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -271,12 +273,12 @@ Return(uPropertyValue)
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:04/12/2011
         Descricao:Setar o Valor em uma determinada Propriedade
-        Sintaxe:THash():SetPropertyValue(uSession,uPropertyKey,uValue)->cPropertyLastValue
+        Sintaxe:THash():SetPropertyValue(uSession,uPropertyKey,uValue)->uPropertyLastValue
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD SetPropertyValue(uSession,uPropertyKey,uValue) CLASS THASH
 
-    Local cPropertyLastValue
+    Local uPropertyLastValue
 
     Local nSession
     Local nProperty
@@ -292,12 +294,12 @@ METHOD SetPropertyValue(uSession,uPropertyKey,uValue) CLASS THASH
             BREAK
         EndIF
 
-        cPropertyLastValue:=self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]
+        uPropertyLastValue:=self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]
         self:aTHash[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]:=uValue
 
     END SEQUENCE
 
-Return(cPropertyLastValue)
+Return(uPropertyLastValue)
 
 //------------------------------------------------------------------------------------------------
     /*/
