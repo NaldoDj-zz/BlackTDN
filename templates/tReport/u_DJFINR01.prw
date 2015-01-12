@@ -204,6 +204,10 @@ Static Function ReportQst(oReportQst)
     Local aPBoxRet:=Array(0)
 
     //------------------------------------------------------------------------------------------------
+    
+    Local cPBoxTit:=OemToAnsi("Informe os Parâmetros para Filtro dos Dados")
+    
+    //------------------------------------------------------------------------------------------------
 
     Local cSizeFil
     Local cSizeFor
@@ -486,9 +490,9 @@ Static Function ReportQst(oReportQst)
         //Carrega a Interface com o usuário
         //Parambox(aParametros,@cTitle,@aRet,[bOk],[aButtons],[lCentered],[nPosX],[nPosy],[oDlgWizard],[cLoad],[lCanSave],[lUserSave])
     //------------------------------------------------------------------------------------------------
-    While (.NOT.(lParamBox:=ParamBox(@aPBoxPrm,"Informe os Parâmetros para Filtro dos Dados",@aPBoxRet,NIL,NIL,.T.,NIL,NIL,NIL,NIL,.T.,.T.)))
+    While (.NOT.(lParamBox:=ParamBox(@aPBoxPrm,@cPBoxTit,@aPBoxRet,NIL,NIL,.T.,NIL,NIL,NIL,NIL,.T.,.T.)))
         //------------------------------------------------------------------------------------------------
-            //...Verifica se Deseja "Aborta" a Geração e...
+            //...Verifica se Deseja "Abortar" a Geração e...
         //------------------------------------------------------------------------------------------------
         lParamBox:=MsgYesNo("Deseja Abortar a Geração?","Atenção!")
         //------------------------------------------------------------------------------------------------
