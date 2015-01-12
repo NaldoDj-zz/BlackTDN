@@ -1,4 +1,4 @@
-u#include "totvs.ch"
+#include "totvs.ch"
 #include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
 Static _cSA2F3Ret
@@ -632,7 +632,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Instancia as Células SkipLine
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||""}/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||""}/*{|| CB de Impressao }*/)
 
     //-------------------------------------------------------------------------------------
         //Instancia a Section Local&Data
@@ -645,7 +645,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
         //Instancia as Células Local&Data
     //-------------------------------------------------------------------------------------
     bLocalData:={||PadL(AllTrim(SM0->M0_CIDCOB)+", "+Day2Str(dDataBase)+" de "+MesExtenso(dDataBase)+" de "+Year2Str(dDataBase),nPGPxToPrn/2)}
-    TRCell():New(oSection,cSection,"SM0",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bLocalData/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"SM0",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bLocalData/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -654,7 +654,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Define o(s) Posicionamento(s)
     //-------------------------------------------------------------------------------------
-    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| code-block de impressao }*/)
+    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Impressao }*/)
 
     //-------------------------------------------------------------------------------------
         //Instancia a Section AutorizacaoCab
@@ -666,7 +666,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Instancia as Células Autorizacao
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDC(" AUTORIZAÇÃO ",Int(nPGPxToPrn/2))}/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDC(" AUTORIZAÇÃO ",Int(nPGPxToPrn/2))}/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -682,7 +682,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Instancia as Células Autorizacao
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDR("Autorizamos a debitar em nossa conta corrente para emissão de DOC/TED.",nPGPxToPrn)}/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDR("Autorizamos a debitar em nossa conta corrente para emissão de DOC/TED.",nPGPxToPrn)}/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -700,9 +700,9 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Instancia as Células Remetente
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
-    TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
-    TRCell():New(oSection,"DET","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(84/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,"DET","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(84/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -711,8 +711,8 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Define o(s) Posicionamento(s)
     //-------------------------------------------------------------------------------------
-    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| code-block de impressao }*/)
-    TRPosition():New(oSection,"SA6",RetOrder("SA6","A6_FILIAL+A6_COD+A6_AGENCIA+A6_NUMCON"),{||cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta")}/*{|| code-block de impressao }*/)
+    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Impressao }*/)
+    TRPosition():New(oSection,"SA6",RetOrder("SA6","A6_FILIAL+A6_COD+A6_AGENCIA+A6_NUMCON"),{||cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta")}/*{|| CB de Impressao }*/)
 
     //-------------------------------------------------------------------------------------
         //Instancia a Section Favorecido
@@ -731,9 +731,9 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //------------------------------------------------------------------------------------
         //Instancia as Células Favorecido
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
-    TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
-    TRCell():New(oSection,"DET","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(84/100)))/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,"DET","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(84/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -749,7 +749,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //--------------------------------------------------------------------------------------
         //Instancia as Células VlrExtenso
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",""/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",""/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -766,7 +766,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
         //Instancia as Células AssineAqui
     //-------------------------------------------------------------------------------------
     bAssineAqui:={||PadC(Replicate("_",Int(nPGPxToPrn/3)),nPGPxToPrn)}
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssineAqui/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssineAqui/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -783,7 +783,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
         //Instancia as Células AssineAqui
     //-------------------------------------------------------------------------------------
     bAssinatura:={||PadC("Assinatura",nPGPxToPrn)}
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssinatura/*{|| code-block de impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssinatura/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
