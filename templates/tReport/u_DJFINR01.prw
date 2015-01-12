@@ -1,4 +1,4 @@
-#include "totvs.ch"
+u#include "totvs.ch"
 #include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
 Static _cSA2F3Ret
@@ -273,132 +273,132 @@ Static Function ReportQst(oReportQst)
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //01----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Filial De"                     //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeFil                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SM0"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeFil                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Filial De"             //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeFil                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SM0"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeFil               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //02----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Filial Ate"                    //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeFil                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SM0"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeFil                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Filial Ate"            //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeFil                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SM0"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeFil               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //03----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Fornecedor De"                 //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeFor                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SA2"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeFor                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Fornecedor De"         //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeFor                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SA2"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeFor               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //04----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Loja De"                       //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeLoj                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeLoj                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Loja De"               //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeLoj                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeLoj               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //05----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Fornecedor Ate"                //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeFor                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SA2"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeFor                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Fornecedor Ate"        //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeFor                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SA2"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeFor               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //06----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Loja Ate"                      //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeLoj                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeLoj                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Loja Ate"              //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeLoj                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeLoj               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //07----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Emissao De"                    //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=dSizeEmi                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeEmi                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Emissao De"            //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=dSizeEmi                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeEmi               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //08----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Emissao Ate"                   //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=dSizeEmi                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeEmi                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Emissao Ate"           //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=dSizeEmi                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeEmi               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //09----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Vencimento De"                 //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=dSizeVct                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeVct                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Vencimento De"         //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=dSizeVct                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeVct               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //10----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Vencimento Ate"                //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=dSizeVct                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeVct                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Vencimento Ate"        //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=dSizeVct                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeVct               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(8))
     nPBox:= Len(aPBoxPrm)
@@ -407,79 +407,79 @@ Static Function ReportQst(oReportQst)
     aAdd(aRadio,"1-Sim")
     aAdd(aRadio,"2-Não" )
     //11----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=3                               //[1]:3 - Radio
-    aPBoxPrm[nPBox][2]:="Filtrar Fornecedor"            //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=2                               //[3]:Numerico contendo a opcao inicial do Radio
-    aPBoxPrm[nPBox][4]:=aClone(aRadio)                  //[4]:Array contendo as opcoes do Radio
-    aPBoxPrm[nPBox][5]:=100                             //[5]:Tamanho do Radio
-    aPBoxPrm[nPBox][6]:="AllWaysTrue()"                 //[6]:Valicacao
-    aPBoxPrm[nPBox][7]:=.T.                             //[7]:Flag .T./.F. Par?metro Obrigatorio ?
-    aPBoxPrm[nPBox][8]:="AllWaysTrue()"                 //[8]:String contendo a validacao When
+    aPBoxPrm[nPBox][1]:=3                       //[1]:3 - Radio
+    aPBoxPrm[nPBox][2]:="Filtrar Fornecedor"    //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=2                       //[3]:Numerico contendo a opcao inicial do Radio
+    aPBoxPrm[nPBox][4]:=aClone(aRadio)          //[4]:Array contendo as opcoes do Radio
+    aPBoxPrm[nPBox][5]:=100                     //[5]:Tamanho do Radio
+    aPBoxPrm[nPBox][6]:="AllWaysTrue()"         //[6]:Valicacao
+    aPBoxPrm[nPBox][7]:=.T.                     //[7]:Flag .T./.F. Par?metro Obrigatorio ?
+    aPBoxPrm[nPBox][8]:="AllWaysTrue()"         //[8]:String contendo a validacao When
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //12----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Remetente"                     //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeRem                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SM0"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeRem                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Remetente"             //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeRem                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SM0"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeRem               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //13----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Banco"                         //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeBco                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:="SA6"                           //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeBco                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Banco"                 //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeBco                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:="SA6"                   //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeBco               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //14----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Agencia"                       //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeAge                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeAge                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Agencia"               //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeAge                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeAge               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //15----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Conta"                         //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeCta                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"                    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeCta                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Conta"                 //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeCta                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"            //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeCta               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //16----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="DV Conta"                      //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeDvC                        //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:=""                              //[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="AllWaysTrue()"                 //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                              //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"                 //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeDvC                       //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.F.                             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="DV Conta"              //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeDvC                //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:=""                      //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()"         //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""                      //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeDvC               //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
 
     //------------------------------------------------------------------------------------------------
@@ -488,41 +488,42 @@ Static Function ReportQst(oReportQst)
     //------------------------------------------------------------------------------------------------
     While (.NOT.(lParamBox:=ParamBox(@aPBoxPrm,"Informe os Parâmetros para Filtro dos Dados",@aPBoxRet,NIL,NIL,.T.,NIL,NIL,NIL,NIL,.T.,.T.)))
         //------------------------------------------------------------------------------------------------
-            //Se cancelou a seleção dos parâmetros...
+            //...Verifica se Deseja "Aborta" a Geração e...
         //------------------------------------------------------------------------------------------------
-        IF .NOT.(lParamBox)
+        lParamBox:=MsgYesNo("Deseja Abortar a Geração?","Atenção!")
+        //------------------------------------------------------------------------------------------------
+            //...Se optou por "Abortar" ...
+        //------------------------------------------------------------------------------------------------
+        IF (lParamBox)
             //------------------------------------------------------------------------------------------------
-                //...Verifica se Deseja "Aborta" a Geração e...
+                //...Inverte o Estado de lParamBox ...
             //------------------------------------------------------------------------------------------------
-            lParamBox:=MsgYesNo("Deseja Abortar a Geração?","Atenção!")
+            lParamBox:=.F.
             //------------------------------------------------------------------------------------------------
-                //...Se optou por "Abortar" ...
+                //...Abandona.
             //------------------------------------------------------------------------------------------------
-            IF (lParamBox)
-                //------------------------------------------------------------------------------------------------
-                    //...Inverte o Estado de lParamBox ...
-                //------------------------------------------------------------------------------------------------
-                lParamBox:=.F.
-                //------------------------------------------------------------------------------------------------
-                    //...Abandona.
-                //------------------------------------------------------------------------------------------------
-                EXIT
-            EndIF
+            EXIT
         EndIF
     End While
 
     //------------------------------------------------------------------------------------------------
+        //Se confirmou ParamBox...
+    //------------------------------------------------------------------------------------------------
     IF (lParamBox)
+        //------------------------------------------------------------------------------------------------
+            //...Processa cada elemento e...
+        //------------------------------------------------------------------------------------------------
         For nPBox:=1 To Len(aPBoxPrm)
             //------------------------------------------------------------------------------------------------
-                //Carrega os Parâmetros/Conteúdos em oReportQst
+                //...Carrega os Parâmetros/Conteúdos em oReportQst
             //------------------------------------------------------------------------------------------------
             oReportQst:Set(aPBoxPrm[nPBox][2],aPBoxRet[nPBox])
         Next nPBox
     EndIF
 
-    //------------------------------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------------------------
+    //Retorna .T. se confirmou ParamBox, caso contrário: .F.
+//------------------------------------------------------------------------------------------------
 Return(lParamBox)
 
 //------------------------------------------------------------------------------------------------
