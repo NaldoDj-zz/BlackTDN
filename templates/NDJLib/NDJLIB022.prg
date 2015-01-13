@@ -27,6 +27,7 @@ CLASS THASH FROM LongClassName
 
     METHOD Set(uPropertyKey,uValue)
     METHOD Get(uPropertyKey,uDefaultValue)
+    METHOD Del(uPropertyKey)
 
     METHOD GetAtProperty(uSession,uPropertyKey,nSession)
     METHOD GetNameProperty(uSession,uPropertyKey)
@@ -113,12 +114,28 @@ Return(uPropertyLastValue)
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:31/12/2014
         Descricao:Obter o Valor atribuido a uma Propriedade
-        Sintaxe:THash():Get(uPropertyKey)->uValue
+        Sintaxe:THash():Get(uPropertyKey,uDefaultValue)->uValue
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD Get(uPropertyKey,uDefaultValue) CLASS THASH
     Local uSession:=uPropertyKey
 Return(self:GetPropertyValue(uSession,uPropertyKey,uDefaultValue))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:Del
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
+        Data:13/01/2015
+        Descricao:Excluir uma Propriedade
+        Sintaxe:THash():Del(uPropertyKey)->lDel
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD Del(uPropertyKey) CLASS THASH
+    Local nSession
+    Local uSession:=uPropertyKey
+    self:RemoveProperty(@uSession,@uPropertyKey)
+    self:RemoveSession(@uSession)
+Return(.NOT.(self:ExistSession(@uSession,@nSession)))
 
 //------------------------------------------------------------------------------------------------
     /*/
