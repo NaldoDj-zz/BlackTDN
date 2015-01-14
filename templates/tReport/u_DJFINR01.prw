@@ -877,8 +877,8 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     //-------------------------------------------------------------------------------------
         //Define os Blocos de Impressão para a Section Remetente
     //-------------------------------------------------------------------------------------
-    oRemetente:Set("REMETENTE",{||AllTrim(SM0->M0_NOMECOM)})
-    oRemetente:Set("CNPJ/CPF",{||Transform(AllTrim(SM0->M0_CGC),cCGCPict)})
+    oRemetente:Set("REMETENTE",{||SM0->M0_NOMECOM})
+    oRemetente:Set("CNPJ/CPF",{||Transform(SM0->M0_CGC,cCGCPict)})
     oRemetente:Set("Banco",{||IF(lSA6Found,SA6->A6_COD,oReportQst:Get("Banco"))})
     oRemetente:Set("Agencia",{||IF(lSA6Found,SA6->A6_AGENCIA,oReportQst:Get("Agencia"))})
     oRemetente:Set("Conta",{||IF(lSA6Found,SA6->A6_NUMCON,oReportQst:Get("Conta"))})
@@ -892,7 +892,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     //-------------------------------------------------------------------------------------
         //Define os Blocos de Impressão para a Section Favorecido
     //-------------------------------------------------------------------------------------
-    oFavorecido:Set("FAVORECIDO",{||AllTrim(SA2->A2_NOME)})
+    oFavorecido:Set("FAVORECIDO",{||SA2->A2_NOME})
     oFavorecido:Set("CNPJ/CPF",{||SA2->(Transform(A2_CGC,IF(A2_TIPO=="J",cCGCPict,cCPFPict)))})
     oFavorecido:Set("Banco",{||SA2->A2_BANCO})
     oFavorecido:Set("Agencia",{||SA2->A2_AGENCIA})
@@ -1056,6 +1056,8 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
             oSection:Init()
                 //-------------------------------------------------------------------------------------
                     //Verifica se o Banco/Agencia/Conta do Remetente estão Cadastrados no SA6
+                    //O posicionamento é Garantido pela TRPosition, e, por isso, uso MsSeek ao invés de 
+                    //dbSeek
                 //-------------------------------------------------------------------------------------
                 lSA6Found:=SA6->(MsSeek(cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta"),.F.))
                 //-------------------------------------------------------------------------------------
