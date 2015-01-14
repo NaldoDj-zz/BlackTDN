@@ -658,7 +658,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Define o(s) Posicionamento(s)
     //-------------------------------------------------------------------------------------
-    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Impressao }*/)
+    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Posicionamento }*/)
 
     //-------------------------------------------------------------------------------------
         //Instancia a Section AutorizacaoCab
@@ -715,8 +715,8 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     //-------------------------------------------------------------------------------------
         //Define o(s) Posicionamento(s)
     //-------------------------------------------------------------------------------------
-    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Impressao }*/)
-    TRPosition():New(oSection,"SA6",RetOrder("SA6","A6_FILIAL+A6_COD+A6_AGENCIA+A6_NUMCON"),{||cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta")}/*{|| CB de Impressao }*/)
+    TRPosition():New(oSection,"SM0",1,{||cEmpAnt+oReportQst:Get("Remetente")}/*{|| CB de Posicionamento }*/)
+    TRPosition():New(oSection,"SA6",RetOrder("SA6","A6_FILIAL+A6_COD+A6_AGENCIA+A6_NUMCON"),{||cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta")}/*{|| CB de Posicionamento }*/)
 
     //-------------------------------------------------------------------------------------
         //Instancia a Section Favorecido
