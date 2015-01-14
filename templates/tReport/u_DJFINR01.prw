@@ -1306,7 +1306,7 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
         //-------------------------------------------------------------------------------------
             //Obtem os Fornecedores Filtrados
         //-------------------------------------------------------------------------------------
-        cExpFor:=A2CodVendF3()
+        cExpFor:=A2CodForF3()
         //-------------------------------------------------------------------------------------
             //Remove Asteriscos
         //-------------------------------------------------------------------------------------
@@ -1582,14 +1582,14 @@ Return(nRecCount)
 //-------------------------------------------------------------------------------------
     /*
         Programa:u_DJFINR01.prw
-        Funcao:A2CodVendF3()
+        Funcao:A2CodForF3()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:30/12/2014
         Desc.:Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
         Uso:Retorno da Consulta F3 (A2REF3)
     */
 //-------------------------------------------------------------------------------------
-Static Function A2CodVendF3()
+Static Function A2CodForF3()
 
     //------------------------------------------------------------------------------------------------
         // Salva os Dados de Entrada que serao restaurados antes do Retorno do Procedimento
@@ -1650,7 +1650,7 @@ Static Function A2CodVendF3()
     SA2->(dbSetOrder(nSA2Order))
 
     //------------------------------------------------------------------------------------------------
-        //Seleciona Todos os Vendedores
+        //Seleciona Todos os Fornecedores
     //------------------------------------------------------------------------------------------------
     BEGINSQL ALIAS cAlias
         SELECT SA2.A2_COD
