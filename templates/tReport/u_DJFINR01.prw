@@ -581,7 +581,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
         //Desabilita personalizacao do Relatorio
     //-------------------------------------------------------------------------------------
     oReport:SetEdit(.F.)
-    oReport:SetPortrait()
+    oReport:SetLandScape()
     oReport:SetTotalInLine(.F.)
     //-------------------------------------------------------------------------------------
         //Habilita(.T.)/Desabilita(.F.) a Impressão do Header
