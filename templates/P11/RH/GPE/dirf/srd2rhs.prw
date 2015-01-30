@@ -40,7 +40,7 @@ User Function SRD2RHS()
 		    //------------------------------------------------------------------------------------------------------
 		        //Tenta abrir a tabela de Empresas
 		    //------------------------------------------------------------------------------------------------------
-			lSM0Open:=MyOpenSM0(.T.)
+			MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
 		    //------------------------------------------------------------------------------------------------------
 		        //Se não consegiu...
 		    //------------------------------------------------------------------------------------------------------
@@ -63,9 +63,9 @@ User Function SRD2RHS()
 		lSchedule:=IF(lMainWnd,.F.,lSchedule)
 
 		IF (;
-				!(lMainWnd);
+				.NOT.(lMainWnd);
 				.and.;
-				!(lSchedule);
+				.NOT.(lSchedule);
 			)	
 
 			Private oMainWnd
@@ -110,9 +110,9 @@ User Function SRD2RHS()
 		EndIF
 
 		IF (;
-				!(lMainWnd);
+				.NOT.(lMainWnd);
 				.or.;
-				!(lSchedule);
+				.NOT.(lSchedule);
 			)	
 			Break
 		EndIF
@@ -329,7 +329,7 @@ Static Procedure SRD2RHS(cTitle)
 			    //------------------------------------------------------------------------------------------------------
 			        //Tenta abrir a tabela de Empresas
 			    //------------------------------------------------------------------------------------------------------
-				lSM0Open:=MyOpenSM0(.T.)
+				MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
 			    //------------------------------------------------------------------------------------------------------
 			        //Se não consegiu...
 			    //------------------------------------------------------------------------------------------------------
@@ -1026,31 +1026,68 @@ Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
     EndIF
 Return(lProcRedefine)
 
+//-------------------------------------------------------------------------------------
+    /*
+        Programa:SRD2RHS.PRW
+        Funcao:MyOpenSM0()
+        Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
+        Data:29/01/2015
+        Desc.:Abrir a tabela de Cadastro de Empresas
+    */
+//-------------------------------------------------------------------------------------
 Static Function MyOpenSM0(lShared)
 
+    Local aRDDs:=Array(0)
+    
     Local cMsgStop
     
-    Local lOpen:=.F.
+    Local lOpenned:=.F.
     
     Local nLoop:=0
     
+    Local nRDD
+    Local nRDDS
+    
+    DEFAULT lShared:=.T.
+        
+    IF (Type("__LocalDriver")=="C")
+        aAdd(aRDDs,__LocalDriver)
+    EndIF    
+
+    aAdd(aRDDs,"DBFCDXAX")
+    aAdd(aRDDs,"DBFCDXADS")
+    aAdd(aRDDs,"CTREECDX")
+    aAdd(aRDDs,"BTVCDX")
+
+    nRDDs:=Len(aRDDs)
+    
     For nLoop:=1 To 20
-        dbUseArea(.T.,NIL,"SIGAMAT.EMP","SM0",lShared,.F.)
-        lOpen:=.NOT.(Empty(Select("SM0")))
-        IF (lOpen)
-            dbSetIndex("SIGAMAT.IND")
+        For nRDD:=1 To nRDDS
+            cRDD:=aRDDs[nRDD]
+            TRY EXCEPTION
+                dbUseArea(.T.,cRDD,"SIGAMAT.EMP","SM0",lShared,.F.)
+                lOpenned:=(Select("SM0")>0)
+                IF (lOpenned)
+                    SM0->(dbSetIndex("SIGAMAT.IND"))
+                    EXIT
+                EndIF
+            CATCH EXCEPTION
+                lOpenned:=.F.
+            END EXCEPTION
+        Next nRDD
+        IF (lOpenned)
             EXIT
         EndIF
         Sleep(500)
     Next nLoop
     
-    IF .NOT.(lOpen)
+    IF .NOT.(lOpenned)
     	cMsgStop:="Não foi possível a abertura da tabela "
         cMsgStop+=IF(lShared,"de empresas (SM0).","de empresas (SM0) de forma exclusiva.")
         MsgStop(cMsgStop,"ATENÇÃO")
     EndIF
     
-Return(lOpen)
+Return(lOpenned)
 
 //-------------------------------------------------------------------------------------
     /*
@@ -1266,15 +1303,15 @@ Static Function Pergunte(oPergunte)
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
     //01----------------------------------------------------------------------------------------------
-    aPBoxPrm[nPBox][1]:=1                       //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Competência"           //[2]:Descricao
-    aPBoxPrm[nPBox][3]:=cSizeYear               //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:="9999"					//[4]:String contendo a Picture do campo
-    aPBoxPrm[nPBox][5]:="NaoVazio()"      		//[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""		                //[6]:Consulta F3
-    aPBoxPrm[nPBox][7]:="AllWaysTrue()"         //[7]:String contendo a validacao When
-    aPBoxPrm[nPBox][8]:=nGSizeYear              //[8]:Tamanho do MsGet
-    aPBoxPrm[nPBox][9]:=.T.                     //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Competência"   //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=cSizeYear       //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:="9999"			//[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"    //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""		        //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.T.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
     aAdd(aPBoxPrm,Array(9))
     nPBox:=Len(aPBoxPrm)
