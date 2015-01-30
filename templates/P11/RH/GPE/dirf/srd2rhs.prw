@@ -519,15 +519,15 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
         //Obtem a Relação entre os Campos de Origem e Destino
     //------------------------------------------------------------------------------------------------------
     For nField:=1 To nFields
-        cField:=aFSource[nField][DBS_NAME]
         //------------------------------------------------------------------------------------------------------
             //Obtem a posição do Campo de Origem
         //------------------------------------------------------------------------------------------------------
-        nATFieldS:=(cAlias)->(FieldPos(cField))
+        nATFieldS:=nField
         //------------------------------------------------------------------------------------------------------
             //Obtem a posição do Campo de Destino
         //------------------------------------------------------------------------------------------------------
-        nATFieldT:=RHS->(FieldPos(cField))
+        cField:=aFSource[nField][DBS_NAME]
+        nATFieldT:=aScan(aFTarget,{|aField|(aField[DBS_NAME]==cField)})
         //------------------------------------------------------------------------------------------------------
             //Se encontrou o Campo nas Duas Tabelas...
         //------------------------------------------------------------------------------------------------------
