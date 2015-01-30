@@ -253,7 +253,7 @@ Return
 */
 Static Function SetFinalize(oTHash,lFinalize)
     DEFAULT lFinalize:=.T.
-    IF (__lStopTimers )
+    IF (__lStopTimers)
         lFinalize:=.T.
     EndIF
     oTHash:SetPropertyValue("FINALIZE","Finalize",lFinalize)
@@ -784,14 +784,14 @@ Static Function GIFFrames(cGIFFile,oTHash)
 
     IF .NOT.(StaticCall(H_GIF89,LoadGIF,@cGIFFile,@aPictInfo,@aPictures,@aImageInfo,@cTempPath))
         cMsg:=("Unable to Load "+cGIFFile)
-        ConOut("["+cMsg+"]" )
+        ConOut("["+cMsg+"]")
         MsgAlert(cMsg,"By By")
         __Quit()
     EndIF
 
     oTGIFHash:AddNewSession(cGIFFile)
-    oTGIFHash:AddNewProperty(cGIFFile,"aPictInfo" ,aPictInfo )
-    oTGIFHash:AddNewProperty(cGIFFile,"aPictures" ,aPictures )
+    oTGIFHash:AddNewProperty(cGIFFile,"aPictInfo",aPictInfo)
+    oTGIFHash:AddNewProperty(cGIFFile,"aPictures",aPictures)
     oTGIFHash:AddNewProperty(cGIFFile,"aImageInfo",aImageInfo)
 
 Return(oTGIFHash)
