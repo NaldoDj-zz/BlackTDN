@@ -347,14 +347,14 @@ Static Procedure SRD2RHS(cTitle)
     END SEQUENCE
     
     //------------------------------------------------------------------------------------------------------
-        //Salva ambiente para Tabela de Empresas
+        //Restauras ambiente para Tabela de Empresas
     //------------------------------------------------------------------------------------------------------
     IF .NOT.(Empty(aSM0Area))
         RestArea(aSM0Area)
     EndIF
 
     //------------------------------------------------------------------------------------------------------
-        //Salva Empresa/Filial Corrente
+        //Restaura Empresa/Filial Corrente
     //------------------------------------------------------------------------------------------------------
     IF .NOT.(lPrepEnv)
     	cEmpAnt:=cSvEmpAnt
