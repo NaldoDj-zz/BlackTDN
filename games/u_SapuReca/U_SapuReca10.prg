@@ -1,4 +1,4 @@
-#INCLUDE "PROTHEUS.CH"
+#INCLUDE "totvs.ch"
 
 #DEFINE ANIMATE_DELAY    5
 #DEFINE ANIMATE_SLEEP    100
@@ -520,7 +520,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
             EndIF
 
             IF .NOT.(lJump)
-                MsgInfo("SapuReca "+cToolTip+" Coach...!", OemToAnsi("Atenção"))
+                MsgInfo("SapuReca "+cToolTip+" Coach...!",OemToAnsi("Atenção"))
                 BREAK
             EndIF
 
@@ -711,7 +711,7 @@ Static Function Play_Wave(nTTimer,cWavFile,oTHash)
         Else    
             SplitPath(cWavFile,@cDriver,@cDir,@cFile,@cExt)
             //TODO:Resolver. Quem esta me executando? wmplayer.exe?
-            ShellExecute("Open",cWavFile,"", cDriver+cDir,0)
+            ShellExecute("Open",cWavFile,"",cDriver+cDir,0)
         EndIF    
         DEFAULT __cLastWave:=cWavFile
         cFile:=__cLastWave
@@ -739,11 +739,13 @@ Static Function Stop_Wave(oTHash,lLastWaveClear)
             oMediaPlayer:Stop()
             lSleep:=.F.
         RECOVER
-            WinExec(cWinExec)    //TODO:Resolver. Nem Todo Mundo usa wmplayer.exe
+            //TODO:Resolver. Nem Todo Mundo usa wmplayer.exe
+            WinExec(cWinExec)
         END SEQUENCE
         ErrorBlock(bErrorBlock)    
     Else
-        WinExec(cWinExec)        //TODO:Resolver. Nem Todo Mundo usa wmplayer.exe
+        //TODO:Resolver. Nem Todo Mundo usa wmplayer.exe
+        WinExec(cWinExec)
     EndIF    
     DEFAULT lLastWaveClear:=.F.
     IF (lLastWaveClear)
@@ -780,7 +782,7 @@ Static Function GIFFrames(cGIFFile,oTHash)
         MakeDir(cTempPath)
     EndIF
 
-    IF .NOT.(StaticCall(H_GIF89,LoadGIF,@cGIFFile,@aPictInfo, @aPictures, @aImageInfo,@cTempPath))
+    IF .NOT.(StaticCall(H_GIF89,LoadGIF,@cGIFFile,@aPictInfo,@aPictures,@aImageInfo,@cTempPath))
         cMsg:=("Unable to Load "+cGIFFile)
         ConOut("["+cMsg+"]" )
         MsgAlert(cMsg,"By By")
@@ -888,7 +890,7 @@ Static Function TPlayGIF(nTimer,nAnimeCGIF,cShape,oGIF,aShapes,oTHash,lHide)
         IF .NOT.(lPlay)
             BREAK
         EndIF
-        lPlay:=((++nAnimeCGIF % 15)==0)
+        lPlay:=((++nAnimeCGIF%15)==0)
         IF .NOT.(lPlay)
             BREAK
         EndIF
