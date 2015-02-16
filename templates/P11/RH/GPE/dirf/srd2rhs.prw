@@ -52,13 +52,14 @@ User Function SRD2RHS()
             EndIF
         EndIF    
 
-        DEFAULT cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS)")
-        DEFAULT bExec:={||SRD2RHS(cTitle)}
-        DEFAULT lMenu:=.F.
-        DEFAULT lSchedule:=.F.
-
+        //------------------------------------------------------------------------------------------------------
+            //Garanto que a Picture do Ano será mostrada com 4 Digitos
+        //------------------------------------------------------------------------------------------------------
         __SetCentury("on")
 
+        //------------------------------------------------------------------------------------------------------
+            //Define o Modo de Execução
+        //------------------------------------------------------------------------------------------------------
         lMainWnd:=(Type("oMainWnd")=="O")
         lSchedule:=IF(lMainWnd,.F.,lSchedule)
 
@@ -360,8 +361,6 @@ Static Procedure SRD2RHS(cTitle)
         cFilAnt:=cSvFilAnt
     EndIF     
     
-Return(NIL)
-
 Return
 
 //------------------------------------------------------------------------------------------------------
@@ -530,7 +529,7 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
         //------------------------------------------------------------------------------------------------------
             //Se encontrou o Campo nas Duas Tabelas...
         //------------------------------------------------------------------------------------------------------
-        IF ((nATFieldS>0).and.(nATFieldT>0))
+        IF (nATFieldT>0)
             //------------------------------------------------------------------------------------------------------
                 //...Adiciona-os para que sejam utilizados durante o processo de atualização
             //------------------------------------------------------------------------------------------------------
