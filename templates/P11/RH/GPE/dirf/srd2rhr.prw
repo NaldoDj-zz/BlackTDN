@@ -130,7 +130,7 @@ Return(NIL)
         Funcao:SRD2RHR()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHR (Histórico de Plano de Saúde) com os dados da tabela SRD
+        Uso:Popular a Tabela RHR (Cálculo Plano de Saúde) com os dados da tabela SRD
         Tabelas:RHR(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R) 
         Campos:RHR(*)
     */
@@ -409,7 +409,7 @@ Return
         Função:SRD2RHRProc()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHR (Histórico de Plano de Saúde) com os dados da tabela SRD
+        Uso:Popular a Tabela RHR (Cálculo Plano de Saúde) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
 Static Procedure SRD2RHRProc(oProcess,oLog,oPergunte)
@@ -500,7 +500,7 @@ Return
         Função:UPDSRD2RHR()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHR (Histórico de Plano de Saúde) com os dados da tabela SRD
+        Uso:Popular a Tabela RHR (Cálculo Plano de Saúde) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
 Static Procedure UPDSRD2RHR(cAlias,oProcess,oLog)
@@ -688,7 +688,7 @@ Return
         Função:QueryView()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHR (Histórico de Plano de Saúde) com os dados da tabela SRD
+        Uso:Popular a Tabela RHR (Cálculo Plano de Saúde) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
 Static Function QueryView(cAlias,cYear)
@@ -803,6 +803,9 @@ Static Function QueryView(cAlias,cYear)
                                                      WHERE RHL_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
                                                        AND RHL_C.RHL_FILIAL=SRD.RD_FILIAL
                                                        AND RHL_C.RHL_MAT=SRD.RD_MAT
+                                                       AND RHL_C.RHL_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHL_C.RHL_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHL_C.RHL_PLANO=RHK.RHK_PLANO
                                 ),0)
                         ) 
                         END
@@ -874,6 +877,22 @@ Static Function QueryView(cAlias,cYear)
                                  WHERE RHL.D_E_L_E_T_=SRD.D_E_L_E_T_
                                    AND RHL.RHL_MAT=SRD.RD_MAT 
                                    AND RHL.RHL_FILIAL=SRD.RD_FILIAL
+                                   AND RHL.RHL_TPFORN=RHK.RHK_TPFORN
+                                   AND RHL.RHL_CODFOR=RHK.RHK_CODFOR
+                                   AND RHL.RHL_PLANO=RHK.RHK_PLANO
+                                   AND (
+                                               CASE RHL.RHL_PERFIM
+                                            WHEN ' '
+                                                THEN 1
+                                            ELSE (
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM) 
+                                                        THEN 1 
+                                                    ELSE 0 
+                                                    END
+                                             )        
+                                             END                                                     
+                                   )=1
+
               ) 
             UNION ALL
             SELECT   SRD.RD_FILIAL  AS RHR_FILIAL
@@ -898,6 +917,9 @@ Static Function QueryView(cAlias,cYear)
                                                      WHERE RHM_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
                                                        AND RHM_C.RHM_FILIAL=SRD.RD_FILIAL
                                                        AND RHM_C.RHM_MAT=SRD.RD_MAT
+                                                       AND RHM_C.RHM_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHM_C.RHM_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHM_C.RHM_PLANO=RHK.RHK_PLANO
                                 ),0)
                         ) 
                         END
@@ -969,6 +991,23 @@ Static Function QueryView(cAlias,cYear)
                                  WHERE RHM.D_E_L_E_T_=SRD.D_E_L_E_T_
                                    AND RHM.RHM_MAT=SRD.RD_MAT 
                                    AND RHM.RHM_FILIAL=SRD.RD_FILIAL
+                                   AND RHM.RHM_TPFORN=RHK.RHK_TPFORN
+                                   AND RHM.RHM_CODFOR=RHK.RHK_CODFOR
+                                   AND RHM.RHM_PLANO=RHK.RHK_PLANO
+                                   AND SRD.RD_DATARQ>=RHM.RHM_PERINI
+                                   AND (
+                                               CASE RHM.RHM_PERFIM
+                                            WHEN ' '
+                                                THEN 1
+                                            ELSE (
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM) 
+                                                        THEN 1 
+                                                    ELSE 0 
+                                                    END
+                                            )        
+                                            END                                                     
+                                    )=1
+
               ) 
             ORDER BY SRD.RD_FILIAL 
                     ,SRD.RD_MAT 

@@ -969,6 +969,23 @@ Static Function QueryView(cAlias,cYear)
                                  WHERE RHM.D_E_L_E_T_=SRD.D_E_L_E_T_
                                    AND RHM.RHM_MAT=SRD.RD_MAT 
                                    AND RHM.RHM_FILIAL=SRD.RD_FILIAL
+                                   AND RHM.RHM_TPFORN=RHK.RHK_TPFORN
+                                   AND RHM.RHM_CODFOR=RHK.RHK_CODFOR
+                                   AND RHM.RHM_PLANO=RHK.RHK_PLANO
+                                   AND SRD.RD_DATARQ>=RHM.RHM_PERINI
+                                   AND (
+                                               CASE RHM.RHM_PERFIM
+                                            WHEN ' '
+                                                THEN 1
+                                            ELSE (
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM) 
+                                                        THEN 1 
+                                                    ELSE 0 
+                                                    END
+                                            )        
+                                            END                                                     
+                                    )=1
+
               ) 
             ORDER BY SRD.RD_FILIAL 
                     ,SRD.RD_MAT 
