@@ -1013,6 +1013,14 @@ Static Function QueryView(cAlias,cYear)
                     ,SRD.RD_MAT 
                     ,SRD.RD_DATARQ
                     ,SRD.RD_DATPGT
+                    ,RHS_ORIGEM
+                    ,RHS_CODIGO
+                    ,RHS_TPLAN
+                    ,RHS_TPFORN
+                    ,RHS_CODFOR
+                    ,RHS_VLREMP
+                    ,RHS_PLANO
+                    ,RHS_PD 
                     
         ENDSQL
         

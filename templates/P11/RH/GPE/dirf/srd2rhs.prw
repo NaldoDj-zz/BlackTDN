@@ -803,6 +803,9 @@ Static Function QueryView(cAlias,cYear)
                                                      WHERE RHL_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
                                                        AND RHL_C.RHL_FILIAL=SRD.RD_FILIAL
                                                        AND RHL_C.RHL_MAT=SRD.RD_MAT
+                                                       AND RHL_C.RHL_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHL_C.RHL_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHL_C.RHL_PLANO=RHK.RHK_PLANO
                                 ),0)
                         ) 
                         END
@@ -874,6 +877,22 @@ Static Function QueryView(cAlias,cYear)
                                  WHERE RHL.D_E_L_E_T_=SRD.D_E_L_E_T_
                                    AND RHL.RHL_MAT=SRD.RD_MAT 
                                    AND RHL.RHL_FILIAL=SRD.RD_FILIAL
+                                   AND RHL.RHL_TPFORN=RHK.RHK_TPFORN
+                                   AND RHL.RHL_CODFOR=RHK.RHK_CODFOR
+                                   AND RHL.RHL_PLANO=RHK.RHK_PLANO
+                                   AND (
+                                               CASE RHL.RHL_PERFIM
+                                            WHEN ' '
+                                                THEN 1
+                                            ELSE (
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM) 
+                                                        THEN 1 
+                                                    ELSE 0 
+                                                    END
+                                             )        
+                                             END                                                     
+                                   )=1
+
               ) 
             UNION ALL
             SELECT   SRD.RD_FILIAL  AS RHS_FILIAL
@@ -898,6 +917,9 @@ Static Function QueryView(cAlias,cYear)
                                                      WHERE RHM_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
                                                        AND RHM_C.RHM_FILIAL=SRD.RD_FILIAL
                                                        AND RHM_C.RHM_MAT=SRD.RD_MAT
+                                                       AND RHM_C.RHM_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHM_C.RHM_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHM_C.RHM_PLANO=RHK.RHK_PLANO
                                 ),0)
                         ) 
                         END
@@ -955,13 +977,13 @@ Static Function QueryView(cAlias,cYear)
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
               /*AND NOT EXISTS(
                                 SELECT 1 
-                                  FROM %table:RHS% RHS 
-                                 WHERE RHS.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHS.RHS_MAT=SRD.RD_MAT 
-                                   AND RHS.RHS_FILIAL=SRD.RD_FILIAL
-                                   AND RHS.RHS_COMPPG=SRD.RD_DATARQ
-                                   AND RHS.RHS_PD=SRD.RD_PD
-                                   AND RHS.RHS_ORIGEM='3'
+                                  FROM %table:RHR% RHR 
+                                 WHERE RHR.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                   AND RHR.RHR_MAT=SRD.RD_MAT 
+                                   AND RHR.RHR_FILIAL=SRD.RD_FILIAL
+                                   AND RHR.RHR_COMPPG=SRD.RD_DATARQ
+                                   AND RHR.RHR_PD=SRD.RD_PD
+                                   AND RHR.RHR_ORIGEM='3'
               )*/             
               AND EXISTS(
                                 SELECT 1 
@@ -991,6 +1013,14 @@ Static Function QueryView(cAlias,cYear)
                     ,SRD.RD_MAT 
                     ,SRD.RD_DATARQ
                     ,SRD.RD_DATPGT
+                    ,RHS_ORIGEM
+                    ,RHS_CODIGO
+                    ,RHS_TPLAN
+                    ,RHS_TPFORN
+                    ,RHS_CODFOR
+                    ,RHS_VLREMP
+                    ,RHS_PLANO
+                    ,RHS_PD 
                     
         ENDSQL
         
