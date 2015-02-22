@@ -18,109 +18,109 @@ Static _cSM0F3Ret
 //------------------------------------------------------------------------------------------------------
 User Function SRD2RHS()
 
-	Local cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS) : [AJUSTE DIRF ANUAL]")
-	Local cModName:="SIGAGPE"
-	
-	Local bExec:={||SRD2RHS(cTitle)}
-	
-	Local lMenu:=.F.
+    Local cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS) : [AJUSTE DIRF ANUAL]")
+    Local cModName:="SIGAGPE"
+    
+    Local bExec:={||SRD2RHS(cTitle)}
+    
+    Local lMenu:=.F.
     Local lSM0Open:=.F.
-	Local lSchedule:=.F.
+    Local lSchedule:=.F.
 
-	Local bWindowInit
-	Local lMainWnd
+    Local bWindowInit
+    Local lMainWnd
 
     Private lPrepEnv:=.NOT.(Type("cEmpAnt")=="C")
 
-	BEGIN SEQUENCE
+    BEGIN SEQUENCE
 
-	    //------------------------------------------------------------------------------------------------------
-	        //Verifica se Devera abrir o arquivo de Empresas
-	    //------------------------------------------------------------------------------------------------------
-	    IF (lPrepEnv)
-		    //------------------------------------------------------------------------------------------------------
-		        //Tenta abrir a tabela de Empresas
-		    //------------------------------------------------------------------------------------------------------
-			MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
-		    //------------------------------------------------------------------------------------------------------
-		        //Se não consegiu...
-		    //------------------------------------------------------------------------------------------------------
-		   	IF .NOT.(lSM0Open)
-			    //------------------------------------------------------------------------------------------------------
-			        //...Abandona
-			    //------------------------------------------------------------------------------------------------------
-	    		BREAK
-	    	EndIF
-	    EndIF	
+        //------------------------------------------------------------------------------------------------------
+            //Verifica se Devera abrir o arquivo de Empresas
+        //------------------------------------------------------------------------------------------------------
+        IF (lPrepEnv)
+            //------------------------------------------------------------------------------------------------------
+                //Tenta abrir a tabela de Empresas
+            //------------------------------------------------------------------------------------------------------
+            MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
+            //------------------------------------------------------------------------------------------------------
+                //Se não consegiu...
+            //------------------------------------------------------------------------------------------------------
+               IF .NOT.(lSM0Open)
+                //------------------------------------------------------------------------------------------------------
+                    //...Abandona
+                //------------------------------------------------------------------------------------------------------
+                BREAK
+            EndIF
+        EndIF    
 
-		DEFAULT cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS)")
-		DEFAULT bExec:={||SRD2RHS(cTitle)}
-		DEFAULT lMenu:=.F.
-		DEFAULT lSchedule:=.F.
+        DEFAULT cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS)")
+        DEFAULT bExec:={||SRD2RHS(cTitle)}
+        DEFAULT lMenu:=.F.
+        DEFAULT lSchedule:=.F.
 
-		__SetCentury("on")
+        __SetCentury("on")
 
-		lMainWnd:=(Type("oMainWnd")=="O")
-		lSchedule:=IF(lMainWnd,.F.,lSchedule)
+        lMainWnd:=(Type("oMainWnd")=="O")
+        lSchedule:=IF(lMainWnd,.F.,lSchedule)
 
-		IF (;
-				.NOT.(lMainWnd);
-				.and.;
-				.NOT.(lSchedule);
-			)	
+        IF (;
+                .NOT.(lMainWnd);
+                .and.;
+                .NOT.(lSchedule);
+            )    
 
-			Private oMainWnd
-			Private oMsgItem0
-			Private oMsgItem1
-			Private oMsgItem2
-			Private oMsgItem3
-			Private oMsgItem4
-		
-			MsApp():New(cModName)
-			oApp:CreateEnv()
+            Private oMainWnd
+            Private oMsgItem0
+            Private oMsgItem1
+            Private oMsgItem2
+            Private oMsgItem3
+            Private oMsgItem4
+        
+            MsApp():New(cModName)
+            oApp:CreateEnv()
 
-			bWindowInit:=bExec
-	        
-			DEFINE WINDOW oMainWnd FROM 001,001 TO 400,500 TITLE OemToAnsi(cTitle)
+            bWindowInit:=bExec
+            
+            DEFINE WINDOW oMainWnd FROM 001,001 TO 400,500 TITLE OemToAnsi(cTitle)
 
-				oMainWnd:oMsgBar:=TMsgBar():New(oMainWnd,Space(2)+OemToAnsi(GetVersao()),.F.,.F.,.F.,.F.,RGB(116,116,116),,,.F.,"fw_rodape_logo")
-				oApp:oMainWnd:=oMainWnd
-				
-				IF (Type("oApp:lShortCut")=="L")
-					oApp:lShortCut:=.F.
-				EndIF	
-				
-				oApp:lFlat:=.F.
-				
-				IF (Type("oApp:lMenu")=="L")
-					oApp:lMenu:=lMenu
-				Else
-					lMenu:=.F.
-				EndIF	
-				
-				DEFINE MSGITEM oMsgItem0 OF oMainWnd:oMsgBar PROMPT "NaldoDJ"      SIZE 100 ACTION GetSDIInfo()
-				DEFINE MSGITEM oMsgItem1 OF oMainWnd:oMsgBar PROMPT oApp:dDataBase SIZE 100 ACTION GetSDIInfo()
-				DEFINE MSGITEM oMsgItem2 OF oMainWnd:oMsgBar PROMPT "DIRF"         SIZE 100 ACTION GetSDIInfo()
-				DEFINE MSGITEM oMsgItem3 OF oMainWnd:oMsgBar PROMPT "SRD2RHS"	   SIZE 100 ACTION GetSDIInfo()
-				DEFINE MSGITEM oMsgItem4 OF oMainWnd:oMsgBar PROMPT "BlackTDN"     SIZE 100 ACTION GetSDIInfo()
+                oMainWnd:oMsgBar:=TMsgBar():New(oMainWnd,Space(2)+OemToAnsi(GetVersao()),.F.,.F.,.F.,.F.,RGB(116,116,116),,,.F.,"fw_rodape_logo")
+                oApp:oMainWnd:=oMainWnd
+                
+                IF (Type("oApp:lShortCut")=="L")
+                    oApp:lShortCut:=.F.
+                EndIF    
+                
+                oApp:lFlat:=.F.
+                
+                IF (Type("oApp:lMenu")=="L")
+                    oApp:lMenu:=lMenu
+                Else
+                    lMenu:=.F.
+                EndIF    
+                
+                DEFINE MSGITEM oMsgItem0 OF oMainWnd:oMsgBar PROMPT "NaldoDJ"      SIZE 100 ACTION GetSDIInfo()
+                DEFINE MSGITEM oMsgItem1 OF oMainWnd:oMsgBar PROMPT oApp:dDataBase SIZE 100 ACTION GetSDIInfo()
+                DEFINE MSGITEM oMsgItem2 OF oMainWnd:oMsgBar PROMPT "DIRF"         SIZE 100 ACTION GetSDIInfo()
+                DEFINE MSGITEM oMsgItem3 OF oMainWnd:oMsgBar PROMPT "SRD2RHS"       SIZE 100 ACTION GetSDIInfo()
+                DEFINE MSGITEM oMsgItem4 OF oMainWnd:oMsgBar PROMPT "BlackTDN"     SIZE 100 ACTION GetSDIInfo()
 
-		 	ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (Eval(bWindowInit),oMainWnd:End())
+             ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (Eval(bWindowInit),oMainWnd:End())
 
-		 	Break
+             Break
 
-		EndIF
+        EndIF
 
-		IF (;
-				.NOT.(lMainWnd);
-				.or.;
-				.NOT.(lSchedule);
-			)	
-			Break
-		EndIF
+        IF (;
+                .NOT.(lMainWnd);
+                .or.;
+                .NOT.(lSchedule);
+            )    
+            Break
+        EndIF
 
-		Eval(bExec)
+        Eval(bExec)
 
-	END SEQUENCE
+    END SEQUENCE
 
 Return(NIL)
 
@@ -176,211 +176,211 @@ Static Procedure SRD2RHS(cTitle)
         //Salva Empresa/Filial Corrente
     //------------------------------------------------------------------------------------------------------
     IF .NOT.(lPrepEnv)
-    	cSvEmpAnt:=cEmpAnt
-    	cSvFilAnt:=cFilAnt
-    EndIF 	
+        cSvEmpAnt:=cEmpAnt
+        cSvFilAnt:=cFilAnt
+    EndIF     
     
     BEGIN SEQUENCE 
 
-	    //------------------------------------------------------------------------------------------------------
-	        //Se não confirmar as perguntas....
-	    //------------------------------------------------------------------------------------------------------
-		TRY EXCEPTION
-			IF (lPrepEnv)
-				cEmp:=SM0->M0_CODIGO
-    			cFil:=SM0->M0_CODFIL
-    			//------------------------------------------------------------------------------------------------------
-	            	//Redefine o modo de Consumo de Lincença
-	        	//------------------------------------------------------------------------------------------------------
-	        	RPCSetType(3)
-				PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE"
-			ENDIF	
-	    CATCH EXCEPTION USING oException
-			ConOut(CaptureError())
-			//------------------------------------------------------------------------------------------------------
-				//Aborta o Processo
-			//------------------------------------------------------------------------------------------------------
-			BREAK
-	    END EXCEPTION	
+        //------------------------------------------------------------------------------------------------------
+            //Se não confirmar as perguntas....
+        //------------------------------------------------------------------------------------------------------
+        TRY EXCEPTION
+            IF (lPrepEnv)
+                cEmp:=SM0->M0_CODIGO
+                cFil:=SM0->M0_CODFIL
+                //------------------------------------------------------------------------------------------------------
+                    //Redefine o modo de Consumo de Lincença
+                //------------------------------------------------------------------------------------------------------
+                RPCSetType(3)
+                PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE"
+            ENDIF    
+        CATCH EXCEPTION USING oException
+            ConOut(CaptureError())
+            //------------------------------------------------------------------------------------------------------
+                //Aborta o Processo
+            //------------------------------------------------------------------------------------------------------
+            BREAK
+        END EXCEPTION    
 
-		IF .NOT.(Pergunte(@oPergunte))
-		    //------------------------------------------------------------------------------------------------------
-		        //Aborta o Processo
-		    //------------------------------------------------------------------------------------------------------
-			BREAK
-    	EndIF
-    	IF (lPrepEnv)
-	        //------------------------------------------------------------------------------------------------------
-	            //Libera o Ambiente
-	        //------------------------------------------------------------------------------------------------------
-    		RESET ENVIRONMENT
-		    //------------------------------------------------------------------------------------------------------
-		        //Tenta abrir a tabela de Empresas
-		    //------------------------------------------------------------------------------------------------------
-			MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
-		    //------------------------------------------------------------------------------------------------------
-		        //Se não consegiu...
-		    //------------------------------------------------------------------------------------------------------
-		   	IF .NOT.(lSM0Open)
-			    //------------------------------------------------------------------------------------------------------
-			        //...Abandona
-			    //------------------------------------------------------------------------------------------------------
-	    		BREAK
-	    	EndIF
-    	ENDIF
-    	
-	    //------------------------------------------------------------------------------------------------------
-	        //Salva ambiente para Tabela de Empresas
-	    //------------------------------------------------------------------------------------------------------
-	    IF (Select("SM0")>0)
-	        aSM0Area:=SM0->(GetArea())
-	    EndIF
+        IF .NOT.(Pergunte(@oPergunte))
+            //------------------------------------------------------------------------------------------------------
+                //Aborta o Processo
+            //------------------------------------------------------------------------------------------------------
+            BREAK
+        EndIF
+        IF (lPrepEnv)
+            //------------------------------------------------------------------------------------------------------
+                //Libera o Ambiente
+            //------------------------------------------------------------------------------------------------------
+            RESET ENVIRONMENT
+            //------------------------------------------------------------------------------------------------------
+                //Tenta abrir a tabela de Empresas
+            //------------------------------------------------------------------------------------------------------
+            MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
+            //------------------------------------------------------------------------------------------------------
+                //Se não consegiu...
+            //------------------------------------------------------------------------------------------------------
+               IF .NOT.(lSM0Open)
+                //------------------------------------------------------------------------------------------------------
+                    //...Abandona
+                //------------------------------------------------------------------------------------------------------
+                BREAK
+            EndIF
+        ENDIF
+        
+        //------------------------------------------------------------------------------------------------------
+            //Salva ambiente para Tabela de Empresas
+        //------------------------------------------------------------------------------------------------------
+        IF (Select("SM0")>0)
+            aSM0Area:=SM0->(GetArea())
+        EndIF
 
-	    //------------------------------------------------------------------------------------------------------
-	        //Seleciona As Empresas a serem Processadas
-	    //------------------------------------------------------------------------------------------------------
-		cEmpresas:=SM0Opcoes()
-		aEmpresas:=_StrToKArr(cEmpresas,",")
+        //------------------------------------------------------------------------------------------------------
+            //Seleciona As Empresas a serem Processadas
+        //------------------------------------------------------------------------------------------------------
+        cEmpresas:=SM0Opcoes()
+        aEmpresas:=_StrToKArr(cEmpresas,",")
 
-	    //------------------------------------------------------------------------------------------------------
-	        //Processa para Todas as Empresas Selecionadas
-	    //------------------------------------------------------------------------------------------------------
-	    nEmpresas:=Len(aEmpresas)
-	    For nEmpresa:=1 To nEmpresas
-	    
-		    //------------------------------------------------------------------------------------------------------
-		        //Instancia um novo Objeto do Tipo tLogReport
-		    //------------------------------------------------------------------------------------------------------
-		    oLog:=tLogReport():New()
-	        //------------------------------------------------------------------------------------------------
-	            //Inicializa Hash que armazenara informações de LOG
-	        //------------------------------------------------------------------------------------------------
-	        oLog:AddGroup("INCLUSÃO")
-	        oLog:AddGroup("ALTERAÇÃO")
-	
-		    //------------------------------------------------------------------------------------------------------
-		        //Obtem a Empresa
-		    //------------------------------------------------------------------------------------------------------
-	    	cEmp:=aEmpresas[nEmpresa]
-	    	IF .NOT.(SM0->(dbSeek(cEmp,.F.)))
-	    		Loop	    		
-	    	EndIF
-		    //------------------------------------------------------------------------------------------------------
-		        //Obtem a Filial
-		    //------------------------------------------------------------------------------------------------------
-	    	cFil:=SM0->M0_CODFIL
-	
-	        //------------------------------------------------------------------------------------------------------
-	            //Redefine o modo de Consumo de Lincença
-	        //------------------------------------------------------------------------------------------------------
-	        RPCSetType(3)
-	
-	        //------------------------------------------------------------------------------------------------------
-	            //PREPARA AMBIENTE PARA EXECUÇÃO
-	        //------------------------------------------------------------------------------------------------------
-	        IF (lPrepEnv)
-	        	PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE" TABLES "RHS","SRA","SRD","RHK","RHL","RHM" 
-	        EndIF
-	        
-	            //------------------------------------------------------------------------------------------------------
-	                //Redefine o modo Blind
-	            //------------------------------------------------------------------------------------------------------
-	            IF IsBlind()
-	                __cInternet:=NIL
-	            EndIF           
-	
-	            //------------------------------------------------------------------------------------------------------
-	                //Define Bloco de Codigo para a Execucao do Processo de Importacao
-	            //------------------------------------------------------------------------------------------------------
-	            bExec:={|lEnd,oProcess|ProcRedefine(@oProcess,NIL,0,450,450,.T.,.T.),oProcess:SetRegua1(@nRecCount),SRD2RHSProc(@oProcess,@oLog,@oPergunte)}
-	
-	            //------------------------------------------------------------------------------------------------------
-	                //Garante o Posicionamento da tabela SM0
-	            //------------------------------------------------------------------------------------------------------
-	            SM0->(dbSetOrder(1))
-	            SM0->(MsSeek(cEmp+cFil,.F.))
-	            aTSM0Area:=SM0->(GetArea())
-	
-	            //-------------------------------------------------------------------------------------
-	                //Obtem o total de registros a serem processados
-	            //-------------------------------------------------------------------------------------
-	            dbSelectArea("SM0")
-	            COUNT TO nRecCount FOR SM0->M0_CODIGO=cEmpAnt WHILE SM0->M0_CODIGO=cEmpAnt REST
-	            
-	            //-------------------------------------------------------------------------------------
-	                //Garante Posicionamento na SM0 depois do comando Count
-	            //-------------------------------------------------------------------------------------
-	            RestArea(aTSM0Area)
-	            
-	            //------------------------------------------------------------------------------------------------------
-	                //Instancia um novo objeto para o controle de Processamento visual
-	            //------------------------------------------------------------------------------------------------------
-	            oProcess:=MsNewProcess():New(bExec,OemToAnsi("Importação de Dados para RHS"),"Importando...",.T.)
-	
-	            //------------------------------------------------------------------------------------------------------
-	                //Ativa e executa o processo
-	            //------------------------------------------------------------------------------------------------------
-	            oProcess:Activate()            
-	                                    
-	            //------------------------------------------------------------------------------------------------------
-	                //No retorno do processo, se interface nao tiver sido finalizada ...
-	            //------------------------------------------------------------------------------------------------------
-	            IF .NOT.(oProcess:lEnd)
-	                //------------------------------------------------------------------------------------------------------
-	                    //...Finaliza-a
-	                //------------------------------------------------------------------------------------------------------
-	                oProcess:oDlg:End()
-	            EndIF
-	            
-	            //------------------------------------------------------------------------------------------------------
-	                //Se o objeto nao foi finalizado...
-	            //------------------------------------------------------------------------------------------------------
-	            IF (ValType(oProcess)=="O")
-	                //------------------------------------------------------------------------------------------------------
-	                    //...Finaliza-o
-	                //------------------------------------------------------------------------------------------------------
-	                oProcess:=FreeObj(oProcess)
-	            EndIF
-	                    
-	            //------------------------------------------------------------------------------------------------
-	                //Se existirem informações de LOG...
-	            //------------------------------------------------------------------------------------------------
-				cLogT:="LOG: "+cCadastro
-	           	TRY EXCEPTION
-	           		oLog:PrintDialog(cLogT)
-	            CATCH EXCEPTION
-	            	ApMsgAlert(CaptureError())
-	   			END EXCEPTION
-	            oLog:=oLog:FreeObj()
-	
-	        IF (lPrepEnv)
-		        //------------------------------------------------------------------------------------------------------
-		            //Libera o Ambiente
-		        //------------------------------------------------------------------------------------------------------
-	        	RESET ENVIRONMENT
-	        EndIF
+        //------------------------------------------------------------------------------------------------------
+            //Processa para Todas as Empresas Selecionadas
+        //------------------------------------------------------------------------------------------------------
+        nEmpresas:=Len(aEmpresas)
+        For nEmpresa:=1 To nEmpresas
+        
+            //------------------------------------------------------------------------------------------------------
+                //Instancia um novo Objeto do Tipo tLogReport
+            //------------------------------------------------------------------------------------------------------
+            oLog:=tLogReport():New()
+            //------------------------------------------------------------------------------------------------
+                //Inicializa Hash que armazenara informações de LOG
+            //------------------------------------------------------------------------------------------------
+            oLog:AddGroup("INCLUSÃO")
+            oLog:AddGroup("ALTERAÇÃO")
+    
+            //------------------------------------------------------------------------------------------------------
+                //Obtem a Empresa
+            //------------------------------------------------------------------------------------------------------
+            cEmp:=aEmpresas[nEmpresa]
+            IF .NOT.(SM0->(dbSeek(cEmp,.F.)))
+                Loop                
+            EndIF
+            //------------------------------------------------------------------------------------------------------
+                //Obtem a Filial
+            //------------------------------------------------------------------------------------------------------
+            cFil:=SM0->M0_CODFIL
+    
+            //------------------------------------------------------------------------------------------------------
+                //Redefine o modo de Consumo de Lincença
+            //------------------------------------------------------------------------------------------------------
+            RPCSetType(3)
+    
+            //------------------------------------------------------------------------------------------------------
+                //PREPARA AMBIENTE PARA EXECUÇÃO
+            //------------------------------------------------------------------------------------------------------
+            IF (lPrepEnv)
+                PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE" TABLES "RHS","SRA","SRD","RHK","RHL","RHM" 
+            EndIF
+            
+                //------------------------------------------------------------------------------------------------------
+                    //Redefine o modo Blind
+                //------------------------------------------------------------------------------------------------------
+                IF IsBlind()
+                    __cInternet:=NIL
+                EndIF           
+    
+                //------------------------------------------------------------------------------------------------------
+                    //Define Bloco de Codigo para a Execucao do Processo de Importacao
+                //------------------------------------------------------------------------------------------------------
+                bExec:={|lEnd,oProcess|ProcRedefine(@oProcess,NIL,0,450,450,.T.,.T.),oProcess:SetRegua1(@nRecCount),SRD2RHSProc(@oProcess,@oLog,@oPergunte)}
+    
+                //------------------------------------------------------------------------------------------------------
+                    //Garante o Posicionamento da tabela SM0
+                //------------------------------------------------------------------------------------------------------
+                SM0->(dbSetOrder(1))
+                SM0->(MsSeek(cEmp+cFil,.F.))
+                aTSM0Area:=SM0->(GetArea())
+    
+                //-------------------------------------------------------------------------------------
+                    //Obtem o total de registros a serem processados
+                //-------------------------------------------------------------------------------------
+                dbSelectArea("SM0")
+                COUNT TO nRecCount FOR SM0->M0_CODIGO=cEmpAnt WHILE SM0->M0_CODIGO=cEmpAnt REST
+                
+                //-------------------------------------------------------------------------------------
+                    //Garante Posicionamento na SM0 depois do comando Count
+                //-------------------------------------------------------------------------------------
+                RestArea(aTSM0Area)
+                
+                //------------------------------------------------------------------------------------------------------
+                    //Instancia um novo objeto para o controle de Processamento visual
+                //------------------------------------------------------------------------------------------------------
+                oProcess:=MsNewProcess():New(bExec,OemToAnsi("Importação de Dados para RHS"),"Importando...",.T.)
+    
+                //------------------------------------------------------------------------------------------------------
+                    //Ativa e executa o processo
+                //------------------------------------------------------------------------------------------------------
+                oProcess:Activate()            
+                                        
+                //------------------------------------------------------------------------------------------------------
+                    //No retorno do processo, se interface nao tiver sido finalizada ...
+                //------------------------------------------------------------------------------------------------------
+                IF .NOT.(oProcess:lEnd)
+                    //------------------------------------------------------------------------------------------------------
+                        //...Finaliza-a
+                    //------------------------------------------------------------------------------------------------------
+                    oProcess:oDlg:End()
+                EndIF
+                
+                //------------------------------------------------------------------------------------------------------
+                    //Se o objeto nao foi finalizado...
+                //------------------------------------------------------------------------------------------------------
+                IF (ValType(oProcess)=="O")
+                    //------------------------------------------------------------------------------------------------------
+                        //...Finaliza-o
+                    //------------------------------------------------------------------------------------------------------
+                    oProcess:=FreeObj(oProcess)
+                EndIF
+                        
+                //------------------------------------------------------------------------------------------------
+                    //Se existirem informações de LOG...
+                //------------------------------------------------------------------------------------------------
+                cLogT:="LOG: "+cCadastro
+                   TRY EXCEPTION
+                       oLog:PrintDialog(cLogT)
+                CATCH EXCEPTION
+                    ApMsgAlert(CaptureError())
+                   END EXCEPTION
+                oLog:=oLog:FreeObj()
+    
+            IF (lPrepEnv)
+                //------------------------------------------------------------------------------------------------------
+                    //Libera o Ambiente
+                //------------------------------------------------------------------------------------------------------
+                RESET ENVIRONMENT
+            EndIF
 
-		    //------------------------------------------------------------------------------------------------------
-		        //Verifica se Devera abrir o arquivo de Empresas
-		    //------------------------------------------------------------------------------------------------------
-		    IF (lPrepEnv)
-			    //------------------------------------------------------------------------------------------------------
-			        //Tenta abrir a tabela de Empresas
-			    //------------------------------------------------------------------------------------------------------
-				MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
-			    //------------------------------------------------------------------------------------------------------
-			        //Se não consegiu...
-			    //------------------------------------------------------------------------------------------------------
-			   	IF .NOT.(lSM0Open)
-				    //------------------------------------------------------------------------------------------------------
-				        //...Abandona
-				    //------------------------------------------------------------------------------------------------------
-		    		BREAK
-		    	EndIF
-		    EndIF
-		    
-		Next nEmpresa      
-	        	
+            //------------------------------------------------------------------------------------------------------
+                //Verifica se Devera abrir o arquivo de Empresas
+            //------------------------------------------------------------------------------------------------------
+            IF (lPrepEnv)
+                //------------------------------------------------------------------------------------------------------
+                    //Tenta abrir a tabela de Empresas
+                //------------------------------------------------------------------------------------------------------
+                MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
+                //------------------------------------------------------------------------------------------------------
+                    //Se não consegiu...
+                //------------------------------------------------------------------------------------------------------
+                   IF .NOT.(lSM0Open)
+                    //------------------------------------------------------------------------------------------------------
+                        //...Abandona
+                    //------------------------------------------------------------------------------------------------------
+                    BREAK
+                EndIF
+            EndIF
+            
+        Next nEmpresa      
+                
     
     END SEQUENCE
     
@@ -395,9 +395,9 @@ Static Procedure SRD2RHS(cTitle)
         //Restaura Empresa/Filial Corrente
     //------------------------------------------------------------------------------------------------------
     IF .NOT.(lPrepEnv)
-    	cEmpAnt:=cSvEmpAnt
-    	cFilAnt:=cSvFilAnt
-    EndIF 	
+        cEmpAnt:=cSvEmpAnt
+        cFilAnt:=cSvFilAnt
+    EndIF     
     
 Return(NIL)
 
@@ -1136,7 +1136,7 @@ Static Function MyOpenSM0(lShared)
     Next nLoop
     
     IF .NOT.(lOpenned)
-    	cMsgStop:="Não foi possível a abertura da tabela "
+        cMsgStop:="Não foi possível a abertura da tabela "
         cMsgStop+=IF(lShared,"de empresas (SM0).","de empresas (SM0) de forma exclusiva.")
         MsgStop(cMsgStop,"ATENÇÃO")
     EndIF
@@ -1215,23 +1215,23 @@ Static Function SM0Opcoes()
             //Verifica se elemento é Exclusivo
         //------------------------------------------------------------------------------------------------
         IF SM0->(UniqueKey({"M0_CODIGO"}))
-		    //------------------------------------------------------------------------------------------------
-		        //Calcula o Máximo de Elementos a serem Selecionados
-		    //------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
+                //Calcula o Máximo de Elementos a serem Selecionados
+            //------------------------------------------------------------------------------------------------
             ++nElemRet
-		    //------------------------------------------------------------------------------------------------
-		        //Adiciona os Elementos para Selecao: Codigo+Descrição
-		    //------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
+                //Adiciona os Elementos para Selecao: Codigo+Descrição
+            //------------------------------------------------------------------------------------------------
             SM0->(aAdd(aOpcoes,M0_CODIGO+"-"+M0_NOME))
-		    //------------------------------------------------------------------------------------------------
-		        //Concatena as Chaves
-		    //------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------
+                //Concatena as Chaves
+            //------------------------------------------------------------------------------------------------
             cOpcoes+=SM0->M0_CODIGO
         EndIF    
         //------------------------------------------------------------------------------------------------
             //Próximo Registro
         //------------------------------------------------------------------------------------------------
-		SM0->(dbSkip())
+        SM0->(dbSkip())
     End While
 
     //------------------------------------------------------------------------------------------------
@@ -1252,7 +1252,7 @@ Static Function SM0Opcoes()
                     .F.         ,;  //Nao Permite a Ordenacao
                     .F.         ,;  //Nao Permite a Pesquisa
                     .F.         ,;  //Forca o Retorno Como Array
-                    NIL	         ;  //Consulta F3
+                    NIL             ;  //Consulta F3
                   )
         //------------------------------------------------------------------------------------------------
             //Ajusta o Retorno caso exista o separador
@@ -1372,9 +1372,9 @@ Static Function Pergunte(oPergunte)
     aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
     aPBoxPrm[nPBox][2]:="Competência"   //[2]:Descricao
     aPBoxPrm[nPBox][3]:=cSizeYear       //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:="9999"			//[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][4]:="9999"            //[4]:String contendo a Picture do campo
     aPBoxPrm[nPBox][5]:="NaoVazio()"    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""		        //[6]:Consulta F3
+    aPBoxPrm[nPBox][6]:=""                //[6]:Consulta F3
     aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
     aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
     aPBoxPrm[nPBox][9]:=.T.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
