@@ -183,9 +183,12 @@ Static Procedure SRD2RHS(cTitle)
     BEGIN SEQUENCE 
 
         //------------------------------------------------------------------------------------------------------
-            //Se não confirmar as perguntas....
+            //Com a atualização do sistema ParamBox passou a exigir a abertura do SX6. Por isso....
         //------------------------------------------------------------------------------------------------------
         TRY EXCEPTION
+            //------------------------------------------------------------------------------------------------------
+                //PREPARE ENVIRONMENT para garantir que a SX6 estará aberta quando da chamada a ParamBox
+            //------------------------------------------------------------------------------------------------------
             IF (lPrepEnv)
                 cEmp:=SM0->M0_CODIGO
                 cFil:=SM0->M0_CODFIL
@@ -203,12 +206,16 @@ Static Procedure SRD2RHS(cTitle)
             BREAK
         END EXCEPTION    
 
+        //------------------------------------------------------------------------------------------------------
+            //Se não confirmar as perguntas....
+        //------------------------------------------------------------------------------------------------------
         IF .NOT.(Pergunte(@oPergunte))
             //------------------------------------------------------------------------------------------------------
                 //Aborta o Processo
             //------------------------------------------------------------------------------------------------------
             BREAK
         EndIF
+        
         IF (lPrepEnv)
             //------------------------------------------------------------------------------------------------------
                 //Libera o Ambiente
@@ -305,7 +312,7 @@ Static Procedure SRD2RHS(cTitle)
                     //Obtem o total de registros a serem processados
                 //-------------------------------------------------------------------------------------
                 dbSelectArea("SM0")
-                COUNT TO nRecCount FOR SM0->M0_CODIGO=cEmpAnt WHILE SM0->M0_CODIGO=cEmpAnt REST
+                COUNT TO nRecCount FOR SM0->M0_CODIGO==cEmpAnt WHILE SM0->M0_CODIGO==cEmpAnt REST
                 
                 //-------------------------------------------------------------------------------------
                     //Garante Posicionamento na SM0 depois do comando Count
