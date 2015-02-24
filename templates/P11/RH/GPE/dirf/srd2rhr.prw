@@ -53,11 +53,9 @@ User Function SRD2RHR()
             EndIF
         EndIF    
 
-        DEFAULT cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHR)")
-        DEFAULT bExec:={||SRD2RHR(cTitle)}
-        DEFAULT lMenu:=.F.
-        DEFAULT lSchedule:=.F.
-
+        //------------------------------------------------------------------------------------------------------
+            //Garanto que o Ano seja Mostrado com 4 Digitos
+        //------------------------------------------------------------------------------------------------------
         __SetCentury("on")
 
         lMainWnd:=(Type("oMainWnd")=="O")
@@ -260,10 +258,11 @@ Static Procedure SRD2RHR(cTitle)
             //------------------------------------------------------------------------------------------------------
             oLog:=tLogReport():New()
             //------------------------------------------------------------------------------------------------
-                //Inicializa Hash que armazenara informações de LOG
+                //Inicializa Grupos que armazenarão informações de LOG
             //------------------------------------------------------------------------------------------------
             oLog:AddGroup("INCLUSÃO")
             oLog:AddGroup("ALTERAÇÃO")
+            oLog:AddGroup("TTSERROR")
     
             //------------------------------------------------------------------------------------------------------
                 //Obtem a Empresa
@@ -387,7 +386,6 @@ Static Procedure SRD2RHR(cTitle)
             EndIF
             
         Next nEmpresa      
-                
     
     END SEQUENCE
     
@@ -405,8 +403,6 @@ Static Procedure SRD2RHR(cTitle)
         cEmpAnt:=cSvEmpAnt
         cFilAnt:=cSvFilAnt
     EndIF     
-    
-Return(NIL)
 
 Return
 
@@ -424,6 +420,7 @@ Static Procedure SRD2RHRProc(oProcess,oLog,oPergunte)
     Local cEmp:=cEmpAnt
     Local cFil:=cFilAnt
     Local cYear:=oPergunte:Get("Competência")
+    Local nProc:=oPergunte:Get("Processar Para")
 
     //------------------------------------------------------------------------------------------------------
         //Obtem um Alias válido para EmbeddedSQL
@@ -462,7 +459,7 @@ Static Procedure SRD2RHRProc(oProcess,oLog,oPergunte)
         //------------------------------------------------------------------------------------------------------
             //Obtem os Dados para Processamento
         //------------------------------------------------------------------------------------------------------
-        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear)},"Obtendo dados no SGBD","Aguarde...")
+        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear,@nProc)},"Obtendo dados no SGBD","Aguarde...")
         //------------------------------------------------------------------------------------------------------
             //Verifica se Existem Itens a serem processados
         //------------------------------------------------------------------------------------------------------
@@ -549,6 +546,7 @@ Static Procedure UPDSRD2RHR(cAlias,oProcess,oLog)
     //------------------------------------------------------------------------------------------------------
     Local nRHROrder:=RetOrder("RHR",cRHRKeyExp)
     
+    Local lTTS
     Local lFound
     Local lAddNew
     
@@ -636,6 +634,7 @@ Static Procedure UPDSRD2RHR(cAlias,oProcess,oLog)
             //------------------------------------------------------------------------------------------------------
                 //Inicia a Transação
             //------------------------------------------------------------------------------------------------------
+            lTTS:=.F.
             BEGIN TRANSACTION
                 //------------------------------------------------------------------------------------------------------
                     //Tenta Obter o Lock do Registro
@@ -666,16 +665,24 @@ Static Procedure UPDSRD2RHR(cAlias,oProcess,oLog)
                         //Libera o Lock do Registro
                     //------------------------------------------------------------------------------------------------------
                     RHR->(MsUnLock())
-                    //-------------------------------------------------------------------------------------
-                        //...Define o Grupo do LOG
-                    //-------------------------------------------------------------------------------------
-                    cLogT:=IF(lAddNew,"INCLUSÃO","ALTERAÇÃO")
-                    //-------------------------------------------------------------------------------------
-                        //...Adiciona informação ao LOG
-                    //-------------------------------------------------------------------------------------
-                    (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHR_FILIAL+"] Matricula:["+RHR_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(RHR->(RecNo()),"999999999999999999")+"]"))
-                EndIF     
+                    //------------------------------------------------------------------------------------------------------
+                        //TTS OK
+                    //------------------------------------------------------------------------------------------------------
+                    lTTS:=.T.
+                EndIF
             END TRANSACTION
+            //-------------------------------------------------------------------------------------
+                //...Define o Grupo do LOG
+            //-------------------------------------------------------------------------------------
+            cLogT:=IF(lTTS,IF(lAddNew,"INCLUSÃO","ALTERAÇÃO"),"TTSERROR")
+            //-------------------------------------------------------------------------------------
+                //...Adiciona informação ao LOG
+            //-------------------------------------------------------------------------------------
+            IF (lTTS)
+                (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHR_FILIAL+"] Matricula:["+RHR_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(RHR->(RecNo()),"999999999999999999")+"]"))
+            Else
+                (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHR_FILIAL+"] Matricula:["+RHR_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(0,"999999999999999999")+"]"))
+            EndIF
             //------------------------------------------------------------------------------------------------------
                 //Incrementa Regua de Processamento
             //------------------------------------------------------------------------------------------------------
@@ -698,7 +705,12 @@ Return
         Uso:Popular a Tabela RHR (Cálculo Plano de Saúde) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
-Static Function QueryView(cAlias,cYear)
+Static Function QueryView(cAlias,cYear,nProc)
+
+    Local cWProc0
+    Local cWProc1
+    Local cWProc2
+    Local cWProc3
 
     Local cExpYear:=(cYear+"%")
     
@@ -719,6 +731,40 @@ Static Function QueryView(cAlias,cYear)
         //Prepara cExpYear para EmbeddedSQL
     //-------------------------------------------------------------------------------------
     cExpYear:="%'"+cExpYear+"'%"
+
+    //-------------------------------------------------------------------------------------
+        //Define Tipo de Registro, conforme Origem, a ser Modificado
+    //-------------------------------------------------------------------------------------
+    IF (nProc==1).or.(nProc==2)
+        cWProc0:=""
+        IF (nProc==1)
+            cWProc0+=" NOT "
+        EndIF
+        cWProc0+="EXISTS("
+        cWProc0+="           SELECT 1" 
+        cWProc0+="             FROM "+RetSQLName("RHR")+" RHR_E"
+        cWProc0+="            WHERE RHR_E.D_E_L_E_T_=SRD.D_E_L_E_T_"
+        cWProc0+="              AND RHR_E.RHR_MAT=SRD.RD_MAT" 
+        cWProc0+="              AND RHR_E.RHR_FILIAL=SRD.RD_FILIAL"
+        cWProc0+="              AND RHR_E.RHR_COMPPG=SRD.RD_DATARQ"
+        cWProc0+="              AND RHR_E.RHR_PD=SRD.RD_PD"
+        cWProc0+="              AND RHR_E.RHR_ORIGEM='?'"
+        cWProc0+=") "
+    ElseIF (nProc==3)
+        cWProc0:="1=1"
+    EndIF
+
+    //-------------------------------------------------------------------------------------
+        //Prepara cWProc0 para EmbeddedSQL
+    //-------------------------------------------------------------------------------------
+    cWProc0:="%"+cWProc0+"%"
+
+    //-------------------------------------------------------------------------------------
+        //Carrega as Condições conforme Origem
+    //-------------------------------------------------------------------------------------
+    cWProc1:=StrTran(cWProc0,"?","1")
+    cWProc2:=StrTran(cWProc0,"?","2")
+    cWProc3:=StrTran(cWProc0,"?","3")
     
     TRY EXCEPTION
 
@@ -777,16 +823,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHR% RHR 
-                                 WHERE RHR.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHR.RHR_MAT=SRD.RD_MAT 
-                                   AND RHR.RHR_FILIAL=SRD.RD_FILIAL
-                                   AND RHR.RHR_COMPPG=SRD.RD_DATARQ
-                                   AND RHR.RHR_PD=SRD.RD_PD
-                                   AND RHR.RHR_ORIGEM='1'
-            )*/   
+              AND (%exp:cWProc1%)
             UNION ALL                    
             SELECT   SRD.RD_FILIAL  AS RHR_FILIAL
                     ,SRD.RD_MAT     AS RHR_MAT
@@ -868,16 +905,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHR% RHR 
-                                 WHERE RHR.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHR.RHR_MAT=SRD.RD_MAT 
-                                   AND RHR.RHR_FILIAL=SRD.RD_FILIAL
-                                   AND RHR.RHR_COMPPG=SRD.RD_DATARQ
-                                   AND RHR.RHR_PD=SRD.RD_PD
-                                   AND RHR.RHR_ORIGEM='2'
-              )*/ 
+              AND (%exp:cWProc2%)
               AND EXISTS(
                                 SELECT 1 
                                   FROM %table:RHL% RHL 
@@ -982,16 +1010,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHR% RHR 
-                                 WHERE RHR.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHR.RHR_MAT=SRD.RD_MAT 
-                                   AND RHR.RHR_FILIAL=SRD.RD_FILIAL
-                                   AND RHR.RHR_COMPPG=SRD.RD_DATARQ
-                                   AND RHR.RHR_PD=SRD.RD_PD
-                                   AND RHR.RHR_ORIGEM='3'
-              )*/             
+              AND (%exp:cWProc3%)   
               AND EXISTS(
                                 SELECT 1 
                                   FROM %table:RHM% RHM 
@@ -1379,6 +1398,7 @@ Return(StrToKArr(cStr,cToken))
 Static Function Pergunte(oPergunte)
 
     //------------------------------------------------------------------------------------------------
+    Local aRadio:=Array(0)
     Local aPBoxPrm:=Array(0)
     Local aPBoxRet:=Array(0)
 
@@ -1418,15 +1438,30 @@ Static Function Pergunte(oPergunte)
     aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
     aPBoxPrm[nPBox][2]:="Competência"   //[2]:Descricao
     aPBoxPrm[nPBox][3]:=cSizeYear       //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:="9999"            //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][4]:="9999"          //[4]:String contendo a Picture do campo
     aPBoxPrm[nPBox][5]:="NaoVazio()"    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                //[6]:Consulta F3
+    aPBoxPrm[nPBox][6]:=""              //[6]:Consulta F3
     aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
     aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
     aPBoxPrm[nPBox][9]:=.T.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
-    aAdd(aPBoxPrm,Array(9))
-    nPBox:=Len(aPBoxPrm)
+    aAdd(aPBoxPrm,Array(8))
+    nPBox:= Len(aPBoxPrm)
+    //------------------------------------------------------------------------------------------------
+    aSize(aRadio,0)
+    aAdd(aRadio,"1-Inclusão")
+    aAdd(aRadio,"2-Alteração")
+    aAdd(aRadio,"3-Ambos")
+    //02----------------------------------------------------------------------------------------------
+    aPBoxPrm[nPBox][1]:=3                   //[1]:3 - Radio
+    aPBoxPrm[nPBox][2]:="Processar Para"    //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=1                   //[3]:Numerico contendo a opcao inicial do Radio
+    aPBoxPrm[nPBox][4]:=aClone(aRadio)      //[4]:Array contendo as opcoes do Radio
+    aPBoxPrm[nPBox][5]:=100                 //[5]:Tamanho do Radio
+    aPBoxPrm[nPBox][6]:="AllWaysTrue()"     //[6]:Valicacao
+    aPBoxPrm[nPBox][7]:=.T.                 //[7]:Flag .T./.F. Par?metro Obrigatorio ?
+    aPBoxPrm[nPBox][8]:="AllWaysTrue()"     //[8]:String contendo a validacao When
+    //------------------------------------------------------------------------------------------------
 
     //------------------------------------------------------------------------------------------------
         //Carrega a Interface com o usuário

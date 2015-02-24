@@ -11,14 +11,14 @@ Static _cSM0F3Ret
         Funcao:U_SRD2RHS()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHS (Hist√≥rico de Plano de Sa√∫de) com os dados da tabela SRD
+        Uso:Popular a Tabela RHS (HistÛrico de Plano de Sa˙de) com os dados da tabela SRD
         Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R) 
         Campos:RHS(*)
     */
 //------------------------------------------------------------------------------------------------------
 User Function SRD2RHS()
 
-    Local cTitle:=OemToAnsi("Atualiza√ß√£o Hist√≥rico Plano de Sa√∫de/Odontol√≥gico (RHS) : [AJUSTE DIRF ANUAL]")
+    Local cTitle:=OemToAnsi("AtualizaÁ„o HistÛrico Plano de Sa˙de/OdontolÛgico (RHS) : [AJUSTE DIRF ANUAL]")
     Local cModName:="SIGAGPE"
     
     Local bExec:={||SRD2RHS(cTitle)}
@@ -43,7 +43,7 @@ User Function SRD2RHS()
             //------------------------------------------------------------------------------------------------------
             MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
             //------------------------------------------------------------------------------------------------------
-                //Se n√£o consegiu...
+                //Se n„o consegiu...
             //------------------------------------------------------------------------------------------------------
                IF .NOT.(lSM0Open)
                 //------------------------------------------------------------------------------------------------------
@@ -53,11 +53,9 @@ User Function SRD2RHS()
             EndIF
         EndIF    
 
-        DEFAULT cTitle:=OemToAnsi("Atualiza√ß√£o Hist√≥rico Plano de Sa√∫de/Odontol√≥gico (RHS)")
-        DEFAULT bExec:={||SRD2RHS(cTitle)}
-        DEFAULT lMenu:=.F.
-        DEFAULT lSchedule:=.F.
-
+        //------------------------------------------------------------------------------------------------------
+            //Garanto que o Ano seja Mostrado com 4 Digitos
+        //------------------------------------------------------------------------------------------------------
         __SetCentury("on")
 
         lMainWnd:=(Type("oMainWnd")=="O")
@@ -101,7 +99,7 @@ User Function SRD2RHS()
                 DEFINE MSGITEM oMsgItem0 OF oMainWnd:oMsgBar PROMPT "NaldoDJ"      SIZE 100 ACTION GetSDIInfo()
                 DEFINE MSGITEM oMsgItem1 OF oMainWnd:oMsgBar PROMPT oApp:dDataBase SIZE 100 ACTION GetSDIInfo()
                 DEFINE MSGITEM oMsgItem2 OF oMainWnd:oMsgBar PROMPT "DIRF"         SIZE 100 ACTION GetSDIInfo()
-                DEFINE MSGITEM oMsgItem3 OF oMainWnd:oMsgBar PROMPT "SRD2RHS"       SIZE 100 ACTION GetSDIInfo()
+                DEFINE MSGITEM oMsgItem3 OF oMainWnd:oMsgBar PROMPT "SRD2RHS"      SIZE 100 ACTION GetSDIInfo()
                 DEFINE MSGITEM oMsgItem4 OF oMainWnd:oMsgBar PROMPT "BlackTDN"     SIZE 100 ACTION GetSDIInfo()
 
              ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (Eval(bWindowInit),oMainWnd:End())
@@ -130,7 +128,7 @@ Return(NIL)
         Funcao:SRD2RHS()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHS (Hist√≥rico de Plano de Sa√∫de) com os dados da tabela SRD
+        Uso:Popular a Tabela RHS (HistÛrico de Plano de Sa˙de) com os dados da tabela SRD
         Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R) 
         Campos:RHS(*)
     */
@@ -160,7 +158,7 @@ Static Procedure SRD2RHS(cTitle)
     Local oLog
 
     //------------------------------------------------------------------------------------------------
-        //Define Objeto que conter√° o Retorno da ParamBox
+        //Define Objeto que conter· o Retorno da ParamBox
     //------------------------------------------------------------------------------------------------
     Local oPergunte:=tHash():New()
 
@@ -183,17 +181,17 @@ Static Procedure SRD2RHS(cTitle)
     BEGIN SEQUENCE 
 
         //------------------------------------------------------------------------------------------------------
-            //Com a atualiza√ß√£o do sistema ParamBox passou a exigir a abertura do SX6. Por isso....
+            //Com a atualizaÁ„o do sistema ParamBox passou a exigir a abertura do SX6. Por isso....
         //------------------------------------------------------------------------------------------------------
         TRY EXCEPTION
             //------------------------------------------------------------------------------------------------------
-                //PREPARE ENVIRONMENT para garantir que a SX6 estar√° aberta quando da chamada a ParamBox
+                //PREPARE ENVIRONMENT para garantir que a SX6 estar· aberta quando da chamada a ParamBox
             //------------------------------------------------------------------------------------------------------
             IF (lPrepEnv)
                 cEmp:=SM0->M0_CODIGO
                 cFil:=SM0->M0_CODFIL
                 //------------------------------------------------------------------------------------------------------
-                    //Redefine o modo de Consumo de Lincen√ßa
+                    //Redefine o modo de Consumo de LincenÁa
                 //------------------------------------------------------------------------------------------------------
                 RPCSetType(3)
                 PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE"
@@ -207,7 +205,7 @@ Static Procedure SRD2RHS(cTitle)
         END EXCEPTION    
 
         //------------------------------------------------------------------------------------------------------
-            //Se n√£o confirmar as perguntas....
+            //Se n„o confirmar as perguntas....
         //------------------------------------------------------------------------------------------------------
         IF .NOT.(Pergunte(@oPergunte))
             //------------------------------------------------------------------------------------------------------
@@ -226,7 +224,7 @@ Static Procedure SRD2RHS(cTitle)
             //------------------------------------------------------------------------------------------------------
             MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
             //------------------------------------------------------------------------------------------------------
-                //Se n√£o consegiu...
+                //Se n„o consegiu...
             //------------------------------------------------------------------------------------------------------
                IF .NOT.(lSM0Open)
                 //------------------------------------------------------------------------------------------------------
@@ -260,10 +258,11 @@ Static Procedure SRD2RHS(cTitle)
             //------------------------------------------------------------------------------------------------------
             oLog:=tLogReport():New()
             //------------------------------------------------------------------------------------------------
-                //Inicializa Hash que armazenara informa√ß√µes de LOG
+                //Inicializa Grupos que armazenar„o informaÁıes de LOG
             //------------------------------------------------------------------------------------------------
-            oLog:AddGroup("INCLUS√ÉO")
-            oLog:AddGroup("ALTERA√á√ÉO")
+            oLog:AddGroup("INCLUS√O")
+            oLog:AddGroup("ALTERA«√O")
+            oLog:AddGroup("TTSERROR")
     
             //------------------------------------------------------------------------------------------------------
                 //Obtem a Empresa
@@ -278,12 +277,12 @@ Static Procedure SRD2RHS(cTitle)
             cFil:=SM0->M0_CODFIL
     
             //------------------------------------------------------------------------------------------------------
-                //Redefine o modo de Consumo de Lincen√ßa
+                //Redefine o modo de Consumo de LincenÁa
             //------------------------------------------------------------------------------------------------------
             RPCSetType(3)
     
             //------------------------------------------------------------------------------------------------------
-                //PREPARA AMBIENTE PARA EXECU√á√ÉO
+                //PREPARA AMBIENTE PARA EXECU«√O
             //------------------------------------------------------------------------------------------------------
             IF (lPrepEnv)
                 PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE" TABLES "RHS","SRA","SRD","RHK","RHL","RHM" 
@@ -322,7 +321,7 @@ Static Procedure SRD2RHS(cTitle)
                 //------------------------------------------------------------------------------------------------------
                     //Instancia um novo objeto para o controle de Processamento visual
                 //------------------------------------------------------------------------------------------------------
-                oProcess:=MsNewProcess():New(bExec,OemToAnsi("Importa√ß√£o de Dados para RHS"),"Importando...",.T.)
+                oProcess:=MsNewProcess():New(bExec,OemToAnsi("ImportaÁ„o de Dados para RHS"),"Importando...",.T.)
     
                 //------------------------------------------------------------------------------------------------------
                     //Ativa e executa o processo
@@ -350,7 +349,7 @@ Static Procedure SRD2RHS(cTitle)
                 EndIF
                         
                 //------------------------------------------------------------------------------------------------
-                    //Se existirem informa√ß√µes de LOG...
+                    //Se existirem informaÁıes de LOG...
                 //------------------------------------------------------------------------------------------------
                 cLogT:="LOG: "+cCadastro
                    TRY EXCEPTION
@@ -376,7 +375,7 @@ Static Procedure SRD2RHS(cTitle)
                 //------------------------------------------------------------------------------------------------------
                 MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
                 //------------------------------------------------------------------------------------------------------
-                    //Se n√£o consegiu...
+                    //Se n„o consegiu...
                 //------------------------------------------------------------------------------------------------------
                    IF .NOT.(lSM0Open)
                     //------------------------------------------------------------------------------------------------------
@@ -387,7 +386,6 @@ Static Procedure SRD2RHS(cTitle)
             EndIF
             
         Next nEmpresa      
-                
     
     END SEQUENCE
     
@@ -405,33 +403,32 @@ Static Procedure SRD2RHS(cTitle)
         cEmpAnt:=cSvEmpAnt
         cFilAnt:=cSvFilAnt
     EndIF     
-    
-Return(NIL)
 
 Return
 
 //------------------------------------------------------------------------------------------------------
     /*
         Programa:SRD2RHS.PRW
-        Fun√ß√£o:SRD2RHSProc()
+        FunÁ„o:SRD2RHSProc()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHS (Hist√≥rico de Plano de Sa√∫de) com os dados da tabela SRD
+        Uso:Popular a Tabela RHS (HistÛrico de Plano de Sa˙de) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
 Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
 
     Local cEmp:=cEmpAnt
     Local cFil:=cFilAnt
-    Local cYear:=oPergunte:Get("Compet√™ncia")
+    Local cYear:=oPergunte:Get("CompetÍncia")
+    Local nProc:=oPergunte:Get("Processar Para")
 
     //------------------------------------------------------------------------------------------------------
-        //Obtem um Alias v√°lido para EmbeddedSQL
+        //Obtem um Alias v·lido para EmbeddedSQL
     //------------------------------------------------------------------------------------------------------
     Local cAlias:=GetNextAlias()
     
     //------------------------------------------------------------------------------------------------------
-        //Salva o Conte√∫do de cFilAnt
+        //Salva o Conte˙do de cFilAnt
     //------------------------------------------------------------------------------------------------------
     Local cSvFilAnt:=cFilAnt
     
@@ -451,7 +448,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
         cFil:=SM0->M0_CODFIL
         RpcSetEnv(cEmp,cFil)
         //------------------------------------------------------------------------------------------------------
-            //Redefine o modo de Consumo de Lincen√ßa
+            //Redefine o modo de Consumo de LincenÁa
         //------------------------------------------------------------------------------------------------------
         RPCSetType(3)
         //------------------------------------------------------------------------------------------------------
@@ -462,7 +459,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
         //------------------------------------------------------------------------------------------------------
             //Obtem os Dados para Processamento
         //------------------------------------------------------------------------------------------------------
-        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear)},"Obtendo dados no SGBD","Aguarde...")
+        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear,@nProc)},"Obtendo dados no SGBD","Aguarde...")
         //------------------------------------------------------------------------------------------------------
             //Verifica se Existem Itens a serem processados
         //------------------------------------------------------------------------------------------------------
@@ -472,7 +469,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
             //------------------------------------------------------------------------------------------------------
             oProcess:SetRegua2(nRecCount)
             //------------------------------------------------------------------------------------------------------
-                //Processa a Atualiza√ß√£o
+                //Processa a AtualizaÁ„o
             //------------------------------------------------------------------------------------------------------
             UPDSRD2RHS(@cAlias,@oProcess,@oLog)
         EndIF
@@ -483,7 +480,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
     End While
 
     //------------------------------------------------------------------------------------------------------
-        //Restaura o Conte√∫do de cFilAnt
+        //Restaura o Conte˙do de cFilAnt
     //------------------------------------------------------------------------------------------------------
     cFil:=cSvFilAnt
     //------------------------------------------------------------------------------------------------------
@@ -491,7 +488,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
     //------------------------------------------------------------------------------------------------------
     RpcSetEnv(cEmp,cFil)
     //------------------------------------------------------------------------------------------------------
-        //Restaura o Conte√∫do de cFilAnt
+        //Restaura o Conte˙do de cFilAnt
     //------------------------------------------------------------------------------------------------------
     cFilAnt:=cFil
     //------------------------------------------------------------------------------------------------------
@@ -504,10 +501,10 @@ Return
 //------------------------------------------------------------------------------------------------------
     /*
         Programa:SRD2RHS.PRW
-        Fun√ß√£o:UPDSRD2RHS()
+        FunÁ„o:UPDSRD2RHS()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHS (Hist√≥rico de Plano de Sa√∫de) com os dados da tabela SRD
+        Uso:Popular a Tabela RHS (HistÛrico de Plano de Sa˙de) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
 Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
@@ -549,27 +546,28 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
     //------------------------------------------------------------------------------------------------------
     Local nRHSOrder:=RetOrder("RHS",cRHSKeyExp)
     
+    Local lTTS
     Local lFound
     Local lAddNew
     
     Local xValue
     
     //------------------------------------------------------------------------------------------------------
-        //Obtem os Campos para composi√ß√£o da Chave de Pesquisa
+        //Obtem os Campos para composiÁ„o da Chave de Pesquisa
     //------------------------------------------------------------------------------------------------------
     aRHSKeyExp:=StrToKArr(cRHSKeyExp,"+")
     nKFields:=Len(aRHSKeyExp)
 
     //------------------------------------------------------------------------------------------------------
-        //Obtem a Rela√ß√£o entre os Campos de Origem e Destino
+        //Obtem a RelaÁ„o entre os Campos de Origem e Destino
     //------------------------------------------------------------------------------------------------------
     For nField:=1 To nFields
         //------------------------------------------------------------------------------------------------------
-            //Obtem a posi√ß√£o do Campo de Origem
+            //Obtem a posiÁ„o do Campo de Origem
         //------------------------------------------------------------------------------------------------------
         nATFieldS:=nField
         //------------------------------------------------------------------------------------------------------
-            //Obtem a posi√ß√£o do Campo de Destino
+            //Obtem a posiÁ„o do Campo de Destino
         //------------------------------------------------------------------------------------------------------
         cField:=aFSource[nField][DBS_NAME]
         nATFieldT:=aScan(aFTarget,{|aField|(aField[DBS_NAME]==cField)})
@@ -578,7 +576,7 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
         //------------------------------------------------------------------------------------------------------
         IF ((nATFieldS>0).and.(nATFieldT>0))
             //------------------------------------------------------------------------------------------------------
-                //...Adiciona-os para que sejam utilizados durante o processo de atualiza√ß√£o
+                //...Adiciona-os para que sejam utilizados durante o processo de atualizaÁ„o
             //------------------------------------------------------------------------------------------------------
             aAdd(aIFields,{nATFieldS,nATFieldT})
         EndIF    
@@ -630,12 +628,13 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
             //------------------------------------------------------------------------------------------------------
             lFound:=RHS->(dbSeek(cRHSKeySeek,.F.))
             //------------------------------------------------------------------------------------------------------
-                //Se n√£o existir chave correspondente, Define a Adi√ß√£o de uma nova
+                //Se n„o existir chave correspondente, Define a AdiÁ„o de uma nova
             //------------------------------------------------------------------------------------------------------
             lAddNew:=.NOT.(lFound)
             //------------------------------------------------------------------------------------------------------
-                //Inicia a Transa√ß√£o
+                //Inicia a TransaÁ„o
             //------------------------------------------------------------------------------------------------------
+            lTTS:=.F.
             BEGIN TRANSACTION
                 //------------------------------------------------------------------------------------------------------
                     //Tenta Obter o Lock do Registro
@@ -646,11 +645,11 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
                     //------------------------------------------------------------------------------------------------------
                     For nField:=1 To nFields
                         //------------------------------------------------------------------------------------------------------
-                            //Obtem a Posi√ß√£o do Campo de Origem
+                            //Obtem a PosiÁ„o do Campo de Origem
                         //------------------------------------------------------------------------------------------------------
                         nATFieldS:=aIFields[nField][1]
                         //------------------------------------------------------------------------------------------------------
-                            //Obtem a Posi√ß√£o do Campo de Destino
+                            //Obtem a PosiÁ„o do Campo de Destino
                         //------------------------------------------------------------------------------------------------------
                         nATFieldT:=aIFields[nField][2]
                         //------------------------------------------------------------------------------------------------------
@@ -666,16 +665,24 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
                         //Libera o Lock do Registro
                     //------------------------------------------------------------------------------------------------------
                     RHS->(MsUnLock())
-                    //-------------------------------------------------------------------------------------
-                        //...Define o Grupo do LOG
-                    //-------------------------------------------------------------------------------------
-                    cLogT:=IF(lAddNew,"INCLUS√ÉO","ALTERA√á√ÉO")
-                    //-------------------------------------------------------------------------------------
-                        //...Adiciona informa√ß√£o ao LOG
-                    //-------------------------------------------------------------------------------------
-                    (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHS_FILIAL+"] Matricula:["+RHS_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(RHS->(RecNo()),"999999999999999999")+"]"))
-                EndIF     
+                    //------------------------------------------------------------------------------------------------------
+                        //TTS OK
+                    //------------------------------------------------------------------------------------------------------
+                    lTTS:=.T.
+                EndIF
             END TRANSACTION
+            //-------------------------------------------------------------------------------------
+                //...Define o Grupo do LOG
+            //-------------------------------------------------------------------------------------
+            cLogT:=IF(lTTS,IF(lAddNew,"INCLUS√O","ALTERA«√O"),"TTSERROR")
+            //-------------------------------------------------------------------------------------
+                //...Adiciona informaÁ„o ao LOG
+            //-------------------------------------------------------------------------------------
+            IF (lTTS)
+                (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHS_FILIAL+"] Matricula:["+RHS_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(RHS->(RecNo()),"999999999999999999")+"]"))
+            Else
+                (cAlias)->(oLog:AddDetail(cLogT,"Filial:["+RHS_FILIAL+"] Matricula:["+RHS_MAT+"] Nome:["+cRANome+"] Registro:["+Transform(0,"999999999999999999")+"]"))
+            EndIF
             //------------------------------------------------------------------------------------------------------
                 //Incrementa Regua de Processamento
             //------------------------------------------------------------------------------------------------------
@@ -692,13 +699,18 @@ Return
 //------------------------------------------------------------------------------------------------------
     /*
         Programa:SRD2RHS.PRW
-        Fun√ß√£o:QueryView()
+        FunÁ„o:QueryView()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
-        Uso:Popular a Tabela RHS (Hist√≥rico de Plano de Sa√∫de) com os dados da tabela SRD
+        Uso:Popular a Tabela RHS (HistÛrico de Plano de Sa˙de) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
-Static Function QueryView(cAlias,cYear)
+Static Function QueryView(cAlias,cYear,nProc)
+
+    Local cWProc0
+    Local cWProc1
+    Local cWProc2
+    Local cWProc3
 
     Local cExpYear:=(cYear+"%")
     
@@ -709,7 +721,7 @@ Static Function QueryView(cAlias,cYear)
     DEFAULT cAlias:=GetNextAlias()
 
     //-------------------------------------------------------------------------------------
-        //Garante que o Alias, para EmbeddedSQL, n√£o esteja em uso
+        //Garante que o Alias, para EmbeddedSQL, n„o esteja em uso
     //-------------------------------------------------------------------------------------
     IF (Select(cAlias)>0)
         (cAlias)->(dbCloseArea())
@@ -719,6 +731,40 @@ Static Function QueryView(cAlias,cYear)
         //Prepara cExpYear para EmbeddedSQL
     //-------------------------------------------------------------------------------------
     cExpYear:="%'"+cExpYear+"'%"
+
+    //-------------------------------------------------------------------------------------
+        //Define Tipo de Registro, conforme Origem, a ser Modificado
+    //-------------------------------------------------------------------------------------
+    IF (nProc==1).or.(nProc==2)
+        cWProc0:=""
+        IF (nProc==1)
+            cWProc0+=" NOT "
+        EndIF
+        cWProc0+="EXISTS("
+        cWProc0+="           SELECT 1" 
+        cWProc0+="             FROM "+RetSQLName("RHS")+" RHS_E"
+        cWProc0+="            WHERE RHS_E.D_E_L_E_T_=SRD.D_E_L_E_T_"
+        cWProc0+="              AND RHS_E.RHS_MAT=SRD.RD_MAT" 
+        cWProc0+="              AND RHS_E.RHS_FILIAL=SRD.RD_FILIAL"
+        cWProc0+="              AND RHS_E.RHS_COMPPG=SRD.RD_DATARQ"
+        cWProc0+="              AND RHS_E.RHS_PD=SRD.RD_PD"
+        cWProc0+="              AND RHS_E.RHS_ORIGEM='?'"
+        cWProc0+=") "
+    ElseIF (nProc==3)
+        cWProc0:="1=1"
+    EndIF
+
+    //-------------------------------------------------------------------------------------
+        //Prepara cWProc0 para EmbeddedSQL
+    //-------------------------------------------------------------------------------------
+    cWProc0:="%"+cWProc0+"%"
+
+    //-------------------------------------------------------------------------------------
+        //Carrega as CondiÁıes conforme Origem
+    //-------------------------------------------------------------------------------------
+    cWProc1:=StrTran(cWProc0,"?","1")
+    cWProc2:=StrTran(cWProc0,"?","2")
+    cWProc3:=StrTran(cWProc0,"?","3")
     
     TRY EXCEPTION
 
@@ -777,16 +823,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHS% RHS 
-                                 WHERE RHS.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHS.RHS_MAT=SRD.RD_MAT 
-                                   AND RHS.RHS_FILIAL=SRD.RD_FILIAL
-                                   AND RHS.RHS_COMPPG=SRD.RD_DATARQ
-                                   AND RHS.RHS_PD=SRD.RD_PD
-                                   AND RHS.RHS_ORIGEM='1'
-            )*/   
+              AND (%exp:cWProc1%)
             UNION ALL                    
             SELECT   SRD.RD_FILIAL  AS RHS_FILIAL
                     ,SRD.RD_MAT     AS RHS_MAT
@@ -868,16 +905,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHS% RHS 
-                                 WHERE RHS.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHS.RHS_MAT=SRD.RD_MAT 
-                                   AND RHS.RHS_FILIAL=SRD.RD_FILIAL
-                                   AND RHS.RHS_COMPPG=SRD.RD_DATARQ
-                                   AND RHS.RHS_PD=SRD.RD_PD
-                                   AND RHS.RHS_ORIGEM='2'
-              )*/ 
+              AND (%exp:cWProc2%)
               AND EXISTS(
                                 SELECT 1 
                                   FROM %table:RHL% RHL 
@@ -982,16 +1010,7 @@ Static Function QueryView(cAlias,cYear)
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
               AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              /*AND NOT EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHR% RHR 
-                                 WHERE RHR.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHR.RHR_MAT=SRD.RD_MAT 
-                                   AND RHR.RHR_FILIAL=SRD.RD_FILIAL
-                                   AND RHR.RHR_COMPPG=SRD.RD_DATARQ
-                                   AND RHR.RHR_PD=SRD.RD_PD
-                                   AND RHR.RHR_ORIGEM='3'
-              )*/             
+              AND (%exp:cWProc3%)   
               AND EXISTS(
                                 SELECT 1 
                                   FROM %table:RHM% RHM 
@@ -1031,7 +1050,7 @@ Static Function QueryView(cAlias,cYear)
         EndIF
 
         //-------------------------------------------------------------------------------------
-            //Garante que a Area de Trabalho ser√° a da View
+            //Garante que a Area de Trabalho ser· a da View
         //-------------------------------------------------------------------------------------
         dbSelectArea(cAlias)
         
@@ -1182,9 +1201,9 @@ Static Function MyOpenSM0(lShared)
     Next nLoop
     
     IF .NOT.(lOpenned)
-        cMsgStop:="N√£o foi poss√≠vel a abertura da tabela "
+        cMsgStop:="N„o foi possÌvel a abertura da tabela "
         cMsgStop+=IF(lShared,"de empresas (SM0).","de empresas (SM0) de forma exclusiva.")
-        MsgStop(cMsgStop,"ATEN√á√ÉO")
+        MsgStop(cMsgStop,"ATEN«√O")
     EndIF
     
 Return(lOpenned)
@@ -1195,7 +1214,7 @@ Return(lOpenned)
         Funcao:SM0Opcoes()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:29/01/2015
-        Desc.:Programa para retornar Consulta Padrao "Espec√≠fica" baseada em f_Opcoes
+        Desc.:Programa para retornar Consulta Padrao "EspecÌfica" baseada em f_Opcoes
     */
 //-------------------------------------------------------------------------------------
 Static Function SM0Opcoes()
@@ -1227,7 +1246,7 @@ Static Function SM0Opcoes()
     //------------------------------------------------------------------------------------------------
     Local nTamKey:=Len(SM0->M0_CODIGO)
     //------------------------------------------------------------------------------------------------
-        //Calcula o M√°ximo de Elementos a serem Selecionados de Acordo com o Tamanho da Chave+Separador
+        //Calcula o M·ximo de Elementos a serem Selecionados de Acordo com o Tamanho da Chave+Separador
     //------------------------------------------------------------------------------------------------
     Local nElemRet:=0
     //------------------------------------------------------------------------------------------------
@@ -1238,7 +1257,7 @@ Static Function SM0Opcoes()
     Local uVarRet                     
 
     //------------------------------------------------------------------------------------------------
-        //Obtem o conte√∫do do campo utilizado na Consulta Padrao Customizada
+        //Obtem o conte˙do do campo utilizado na Consulta Padrao Customizada
     //------------------------------------------------------------------------------------------------
     DEFAULT _cSM0F3Ret:=""
 
@@ -1258,15 +1277,15 @@ Static Function SM0Opcoes()
     //------------------------------------------------------------------------------------------------
     While SM0->(.NOT.(Eof()))
         //------------------------------------------------------------------------------------------------
-            //Verifica se elemento √© Exclusivo
+            //Verifica se elemento È Exclusivo
         //------------------------------------------------------------------------------------------------
         IF SM0->(UniqueKey({"M0_CODIGO"}))
             //------------------------------------------------------------------------------------------------
-                //Calcula o M√°ximo de Elementos a serem Selecionados
+                //Calcula o M·ximo de Elementos a serem Selecionados
             //------------------------------------------------------------------------------------------------
             ++nElemRet
             //------------------------------------------------------------------------------------------------
-                //Adiciona os Elementos para Selecao: Codigo+Descri√ß√£o
+                //Adiciona os Elementos para Selecao: Codigo+DescriÁ„o
             //------------------------------------------------------------------------------------------------
             SM0->(aAdd(aOpcoes,M0_CODIGO+"-"+M0_NOME))
             //------------------------------------------------------------------------------------------------
@@ -1275,7 +1294,7 @@ Static Function SM0Opcoes()
             cOpcoes+=SM0->M0_CODIGO
         EndIF    
         //------------------------------------------------------------------------------------------------
-            //Pr√≥ximo Registro
+            //PrÛximo Registro
         //------------------------------------------------------------------------------------------------
         SM0->(dbSkip())
     End While
@@ -1336,7 +1355,7 @@ Static Function SM0Opcoes()
     EndIF
 
     //------------------------------------------------------------------------------------------------
-        //Alimenta a vari√°vel Static para uso no Retorno da Consulta Padrao.
+        //Alimenta a vari·vel Static para uso no Retorno da Consulta Padrao.
     //------------------------------------------------------------------------------------------------
     _cSM0F3Ret:=cF3Ret
 
@@ -1353,8 +1372,8 @@ Return(cF3Ret)
         Funcao:_StrToKArr()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:30/12/2014
-        Desc.:Autoriza√ß√£o para emiss√£o de DOC/TED
-        Uso:Impress√£o do Relat√≥rio Autoriza√ß√£o para emiss√£o de DOC/TED
+        Desc.:AutorizaÁ„o para emiss„o de DOC/TED
+        Uso:Impress„o do RelatÛrio AutorizaÁ„o para emiss„o de DOC/TED
     */
 //-------------------------------------------------------------------------------------
 Static Function _StrToKArr(cStr,cToken)
@@ -1373,18 +1392,19 @@ Return(StrToKArr(cStr,cToken))
         Funcao:Pergunte()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:29/01/2015
-        Descricao:Parametros para sele√ß√£o
+        Descricao:Parametros para seleÁ„o
     */
 //------------------------------------------------------------------------------------------------
 Static Function Pergunte(oPergunte)
 
     //------------------------------------------------------------------------------------------------
+    Local aRadio:=Array(0)
     Local aPBoxPrm:=Array(0)
     Local aPBoxRet:=Array(0)
 
     //------------------------------------------------------------------------------------------------
     
-    Local cPBoxTit:=OemToAnsi("Informe os par√¢metros")
+    Local cPBoxTit:=OemToAnsi("Informe os par‚metros")
     
     //------------------------------------------------------------------------------------------------
 
@@ -1416,27 +1436,42 @@ Static Function Pergunte(oPergunte)
     nPBox:=Len(aPBoxPrm)
     //01----------------------------------------------------------------------------------------------
     aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
-    aPBoxPrm[nPBox][2]:="Compet√™ncia"   //[2]:Descricao
+    aPBoxPrm[nPBox][2]:="CompetÍncia"   //[2]:Descricao
     aPBoxPrm[nPBox][3]:=cSizeYear       //[3]:String contendo o inicializador do campo
-    aPBoxPrm[nPBox][4]:="9999"            //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][4]:="9999"          //[4]:String contendo a Picture do campo
     aPBoxPrm[nPBox][5]:="NaoVazio()"    //[5]:String contendo a validacao
-    aPBoxPrm[nPBox][6]:=""                //[6]:Consulta F3
+    aPBoxPrm[nPBox][6]:=""              //[6]:Consulta F3
     aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
     aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
     aPBoxPrm[nPBox][9]:=.T.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
     //------------------------------------------------------------------------------------------------
-    aAdd(aPBoxPrm,Array(9))
-    nPBox:=Len(aPBoxPrm)
+    aAdd(aPBoxPrm,Array(8))
+    nPBox:= Len(aPBoxPrm)
+    //------------------------------------------------------------------------------------------------
+    aSize(aRadio,0)
+    aAdd(aRadio,"1-Inclus„o")
+    aAdd(aRadio,"2-AlteraÁ„o")
+    aAdd(aRadio,"3-Ambos")
+    //02----------------------------------------------------------------------------------------------
+    aPBoxPrm[nPBox][1]:=3                   //[1]:3 - Radio
+    aPBoxPrm[nPBox][2]:="Processar Para"    //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=1                   //[3]:Numerico contendo a opcao inicial do Radio
+    aPBoxPrm[nPBox][4]:=aClone(aRadio)      //[4]:Array contendo as opcoes do Radio
+    aPBoxPrm[nPBox][5]:=100                 //[5]:Tamanho do Radio
+    aPBoxPrm[nPBox][6]:="AllWaysTrue()"     //[6]:Valicacao
+    aPBoxPrm[nPBox][7]:=.T.                 //[7]:Flag .T./.F. Par?metro Obrigatorio ?
+    aPBoxPrm[nPBox][8]:="AllWaysTrue()"     //[8]:String contendo a validacao When
+    //------------------------------------------------------------------------------------------------
 
     //------------------------------------------------------------------------------------------------
-        //Carrega a Interface com o usu√°rio
+        //Carrega a Interface com o usu·rio
         //Parambox(aParametros,@cTitle,@aRet,[bOk],[aButtons],[lCentered],[nPosX],[nPosy],[oDlgWizard],[cLoad],[lCanSave],[lUserSave])
     //------------------------------------------------------------------------------------------------
     While (.NOT.(lParamBox:=ParamBox(@aPBoxPrm,@cPBoxTit,@aPBoxRet,NIL,NIL,.T.,NIL,NIL,NIL,NIL,.T.,.T.)))
         //------------------------------------------------------------------------------------------------
-            //...Verifica se Deseja "Abortar" a Gera√ß√£o e...
+            //...Verifica se Deseja "Abortar" a GeraÁ„o e...
         //------------------------------------------------------------------------------------------------
-        lParamBox:=MsgYesNo("Deseja Abortar a Importa√ß√£o?","Aten√ß√£o!")
+        lParamBox:=MsgYesNo("Deseja Abortar a ImportaÁ„o?","AtenÁ„o!")
         //------------------------------------------------------------------------------------------------
             //...Se optou por "Abortar" ...
         //------------------------------------------------------------------------------------------------
@@ -1461,13 +1496,13 @@ Static Function Pergunte(oPergunte)
         //------------------------------------------------------------------------------------------------
         For nPBox:=1 To Len(aPBoxPrm)
             //------------------------------------------------------------------------------------------------
-                //...Carrega os Par√¢metros/Conte√∫dos em oPergunte
+                //...Carrega os Par‚metros/Conte˙dos em oPergunte
             //------------------------------------------------------------------------------------------------
             oPergunte:Set(aPBoxPrm[nPBox][2],aPBoxRet[nPBox])
         Next nPBox
     EndIF
 
 //------------------------------------------------------------------------------------------------
-    //Retorna .T. se confirmou ParamBox, caso contr√°rio: .F.
+    //Retorna .T. se confirmou ParamBox, caso contr·rio: .F.
 //------------------------------------------------------------------------------------------------
 Return(lParamBox)
