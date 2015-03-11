@@ -26,15 +26,17 @@ CLASS tGetAdvFVal FROM tHash
     METHOD SetFields(uFields)
     METHOD SetKeySeek(uKeySeek)
     
+    METHOD GetValue(cField)
+    METHOD GetbyKey(uKeySeek,nOrder,uDefault)
     METHOD GetAdvFVal(cAlias,uFields,uKeySeek,nOrder,uDefault)
 
 ENDCLASS
 
-User Function tGetAdvFVal(cAlias,uFields,uKeySeek,nOrder,uDefault)
+User Function GetAdvFVal(cAlias,uFields,uKeySeek,nOrder,uDefault)
 Return(tGetAdvFVal():New(@cAlias,@uFields,@uKeySeek,@nOrder,@uDefault))
 
 METHOD NEW(cAlias,uFields,uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
-	_Super:New()
+    _Super:New()
     self:SetAlias(cAlias)
     self:SetOrder(nOrder)
     self:SetFields(uFields)
@@ -69,6 +71,12 @@ METHOD SetDefault(uDefault) CLASS tGetAdvFVal
     Local uLDefault:=self:uDefault
     self:uDefault:=uDefault
 Return(uLDefault)
+
+METHOD GetValue(cField) CLASS tGetAdvFVal
+Return(self:Get(cField))
+
+METHOD GetbyKey(uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
+Return(self:GetAdvFVal(NIL,NIL,@uKeySeek,@nOrder,@uDefault))
 
 METHOD GetAdvFVal(cAlias,uFields,uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
     local uAdvFVal
