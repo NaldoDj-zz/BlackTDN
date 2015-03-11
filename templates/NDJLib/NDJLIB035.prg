@@ -25,6 +25,7 @@ CLASS tGetAdvFVal FROM tHash
     METHOD SetOrder(nOrder)
     METHOD SetFields(uFields)
     METHOD SetKeySeek(uKeySeek)
+    METHOD SetDefault(uDefault)
     
     METHOD GetValue(cField)
     METHOD GetbyKey(uKeySeek,nOrder,uDefault)
@@ -59,7 +60,7 @@ Return(nLOrder)
 
 METHOD SetFields(uFields) CLASS tGetAdvFVal
     Local uLFields:=self:uFields
-    self:uKeySeek:=uFields
+    self:uFields:=uFields
 Return(uLFields)
 
 METHOD SetKeySeek(uKeySeek) CLASS tGetAdvFVal
