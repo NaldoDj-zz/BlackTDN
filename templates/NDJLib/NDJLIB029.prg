@@ -1,18 +1,22 @@
 #include "totvs.ch"
-#include "tryexception.ch"
+#xtranslate NToS([<n,...>])=>LTrim(Str([<n>]))
 CLASS ArrayUtils
+    DATA cATDiff
+    DATA nError
     METHOD NEW() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
-    METHOD Compare(uCompare1,uCompare2,nPosDif)
-    METHOD SaveArray(uArray,cFileName,nErr)
-    METHOD RestArray(cFileName,nErr)
+    METHOD Compare(uCompare1,uCompare2)
+    METHOD SaveArray(uArray,cFileName)
+    METHOD RestArray(cFileName)
 ENDCLASS
 
 User Function ArrayUtils()
 Return(ArrayUtils():New())
 
 METHOD NEW() CLASS ArrayUtils
+    self:nError:=0
+    self:cATDiff:=""
 RETURN(self)
 
 METHOD FreeObj() CLASS ArrayUtils
@@ -22,14 +26,26 @@ RETURN(self)
 METHOD ClassName() CLASS ArrayUtils
 Return("ARRAYUTILS")
 
-METHOD Compare(uCompare1,uCompare2,nPosDif) CLASS ArrayUtils
-RETURN(Compare(@uCompare1,@uCompare2,@nPosDif))
+METHOD Compare(uCompare1,uCompare2) CLASS ArrayUtils
+	Local lCompare
+	self:cATDiff:=""
+	lCompare:=Compare(@uCompare1,@uCompare2,@self:cATDiff)
+RETURN(lCompare)
 
-METHOD SaveArray(uArray,cFileName,nErr) CLASS ArrayUtils
-RETURN(SaveArray(@uArray,@cFileName,@nErr))
+METHOD SaveArray(uArray,cFileName) CLASS ArrayUtils
+	Local lSaveArray
+	self:nError:=0
+	lSaveArray:=SaveArray(@uArray,@cFileName,@self:nError)
+RETURN(lSaveArray)
 
-METHOD RestArray(cFileName,nErr) CLASS ArrayUtils
-RETURN(RestArray(@cFileName,@nErr))
+METHOD RestArray(cFileName) CLASS ArrayUtils
+	Local aRestArray
+	self:nError:=0
+	aRestArray:=RestArray(@cFileName,@self:nError)
+RETURN(aRestArray)
+
+METHOD Load2Str(cFileName) CLASS ArrayUtils
+Return(MemoRead(cFileName))
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -40,7 +56,7 @@ RETURN(RestArray(@cFileName,@nErr))
         Retorno:lCompare<=>False se Houver Diferca, True se Nao Houver
     /*/
 //------------------------------------------------------------------------------------------------
-Static Function ArrayCompare(aArray1,aArray2,nPosDif)
+Static Function ArrayCompare(aArray1,aArray2,cATDiff)
 
     Local cType1:=ValType(aArray1)
     Local cType2:=ValType(aArray2)
@@ -52,61 +68,61 @@ Static Function ArrayCompare(aArray1,aArray2,nPosDif)
     Local nHalfToBeg
     Local nHalfToEnd
     
-    Begin Sequence
+    BEGIN SEQUENCE
     
-        IF !(lCompare:=(cType1==cType2))
-            Break
+        IF .NOT.(lCompare:=(cType1==cType2))
+            BREAK
         EndIF
     
         IF (cType1=="O")
-            lCompare:=Compare(aArray1,aArray2,@nPosDif)
-            Break
+            lCompare:=Compare(aArray1,aArray2,@cATDiff)
+            BREAK
         EndIF
     
-        IF !(lCompare:=(cType1=="A"))
-            Break
+        IF .NOT.(lCompare:=(cType1=="A"))
+            BREAK
         EndIF
                 
-        IF !(lCompare:=((nArray1Size:=Len(aArray1))==(nArray2Size:=Len(aArray2))))
-            nPosDif:=(Min(nArray1Size,nArray2Size)+1)
-            Break
+        IF .NOT.(lCompare:=((nArray1Size:=Len(aArray1))==(nArray2Size:=Len(aArray2))))
+            cATDiff+=(NToS(Min(nArray1Size,nArray2Size)+1)+"|")
+            BREAK
         EndIF
                 
         nHalfToBeg:=(IF(((nArray1Size%2)>0),((nArray1Size+1)),nArray1Size)/2)
         nHalfToEnd:=Min(nArray1Size,(nHalfToBeg+1))
         For nArray:=1 To nArray1Size
             IF (nArray<=nHalfToBeg)
-                IF !(lCompare:=Compare(aArray1[nArray],aArray2[nArray]))
-                    nPosDif:=nArray
-                    Break
+                IF .NOT.(lCompare:=Compare(aArray1[nArray],aArray2[nArray]))
+                    cATDiff+=(NToS(nArray)+"|")
+                    BREAK
                 EndIF
             Else
-                Break
+                BREAK
             EndIF
             IF (nHalfToBeg>nArray)
-                IF !(lCompare:=Compare(aArray1[nHalfToBeg],aArray2[nHalfToBeg]))
-                    nPosDif:=nHalfToBeg
-                    Break
+                IF .NOT.(lCompare:=Compare(aArray1[nHalfToBeg],aArray2[nHalfToBeg]))
+                    cATDiff+=(NToS(nHalfToBeg)+"|")
+                    BREAK
                 EndIF
                 --nHalfToBeg
             EndIF
-            IF (nHalfToEnd < nArray1Size)
-                IF !(lCompare:=Compare(aArray1[nHalfToEnd],aArray2[nHalfToEnd]))
-                    nPosDif:=nHalfToEnd
-                    Break
+            IF (nHalfToEnd<nArray1Size)
+                IF .NOT.(lCompare:=Compare(aArray1[nHalfToEnd],aArray2[nHalfToEnd]))
+                    cATDiff+=(NToS(nHalfToEnd)+"|")
+                    BREAK
                 EndIF
                 ++nHalfToEnd
             EndIF
-            IF (nArray1Size >= nHalfToEnd)
-                IF !(lCompare:=Compare(aArray1[nArray1Size],aArray2[nArray1Size]))
-                    nPosDif:=nArray1Size
-                    Break
+            IF (nArray1Size>=nHalfToEnd)
+                IF .NOT.(lCompare:=Compare(aArray1[nArray1Size],aArray2[nArray1Size]))
+                    cATDiff+=(NToS(nArray1Size)+"|")
+                    BREAK
                 EndIF
                 --nArray1Size
             EndIF
         Next nArray
     
-    End Sequence
+    END SEQUENCE
 
 Return(lCompare)
 
@@ -119,7 +135,7 @@ Return(lCompare)
         Retorno:lCompare<=>False se Houver Diferenca, True se Nao Houver
     /*/
 //------------------------------------------------------------------------------------------------
-Static Function Compare(uCompare1,uCompare2,nPosDif)
+Static Function Compare(uCompare1,uCompare2,cATDiff)
 
     Local cType1:=ValType(uCompare1)
     Local cType2:=ValType(uCompare2)
@@ -128,9 +144,9 @@ Static Function Compare(uCompare1,uCompare2,nPosDif)
 
     IF (lCompare:=(cType1==cType2))
         IF (cType1=="A")
-            lCompare:=ArrayCompare(uCompare1,uCompare2,@nPosDif)
+            lCompare:=ArrayCompare(uCompare1,uCompare2,@cATDiff)
         ElseIF (cType1=="O")
-            lCompare:=ArrayCompare(ClassDataArr(uCompare1),ClassDataArr(uCompare2),@nPosDif)
+            lCompare:=ArrayCompare(ClassDataArr(uCompare1),ClassDataArr(uCompare2),@cATDiff)
         ElseIF (cType1=="B")
             lCompare:=(GetCBSource(uCompare1)==GetCBSource(uCompare2))
         Else
@@ -150,33 +166,33 @@ Return(lCompare)
 //------------------------------------------------------------------------------------------------
 Static Function SaveArray(uArray,cFileName,nErr)
 
-Local cValTypeuArray:=ValType(uArray)
-Local lSaveArray:=.F.
-
-Local aArray
-Local nfHandle
-
-Begin Sequence
-
-    IF !(cValTypeuArray$"A/O")
-        Break
-    EndIF
-
-    IF (cValTypeuArray=="O")
-        aArray:=ClassDataArr(uArray)
-    Else
-        aArray:=uArray
-    EndIF
-
-    lSaveArray:=FileCreate(cFileName,@nfHandle,@nErr)
-    IF !(lSaveArray)
-        Break
-    EndIF
-
-    SaveArr(nfHandle,aArray)
-    fClose(nfHandle)
-
-End Sequence    
+	Local cValTypeuArray:=ValType(uArray)
+	Local lSaveArray:=.F.
+	
+	Local aArray
+	Local nfHandle
+	
+	BEGIN SEQUENCE
+	
+	    IF .NOT.(cValTypeuArray$"A/O")
+	        BREAK
+	    EndIF
+	
+	    IF (cValTypeuArray=="O")
+	        aArray:=ClassDataArr(uArray)
+	    Else
+	        aArray:=uArray
+	    EndIF
+	
+	    lSaveArray:=FileCreate(cFileName,@nfHandle,@nErr)
+	    IF .NOT.(lSaveArray)
+	        BREAK
+	    EndIF
+	
+	    SaveArr(nfHandle,aArray)
+	    fClose(nfHandle)
+	
+	END SEQUENCE    
 
 Return(lSaveArray)
 
@@ -239,28 +255,28 @@ Return(NIL)
 //------------------------------------------------------------------------------------------------
 Static Function RestArray(cFileName,nErr)
 
-    Local aRestArray:={}
+    Local aRestArray:=Array(0)
     
     Local nfHandle
     
-    Begin Sequence
+    BEGIN SEQUENCE
     
-        IF !(File(cFileName))
-            Break
+        IF .NOT.(File(cFileName))
+            BREAK
         EndIF
         
         nfHandle:=fOpen(cFileName)
     
         IF (nfHandle<=0)
             nErr:=fError()
-            Break
+            BREAK
         EndIF
     
         fReadStr(nfHandle,1)
-        aRestArray:=RestArr(nfHandle)
+        aRestArray:=RestArr(@nfHandle)
         fClose(nfHandle)
     
-    End Sequence
+    END SEQUENCE
 
 Return(aRestArray)
 
@@ -310,18 +326,3 @@ Static Function RestArr(nfHandle)
     End While
     
 Return(aArray)
-
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF !(lRecursa)
-            BREAK
-        EndIF
-        lRecursa:=__Dummy(.F.)
-        RESTARRAY()
-        SAVEARRAY()
-        SYMBOL_UNUSED(__cCRLF)        
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)
