@@ -1,4 +1,36 @@
-#include "ndj.ch"
+#include "totvs.ch"
+#include "tryexception.ch"
+CLASS ArrayUtils
+    METHOD NEW() CONSTRUCTOR
+    METHOD FreeObj() /*DESTRUCTOR*/
+    METHOD ClassName()
+    METHOD Compare(uCompare1,uCompare2,nPosDif)
+    METHOD SaveArray(uArray,cFileName,nErr)
+    METHOD RestArray(cFileName,nErr)
+ENDCLASS
+
+User Function ArrayUtils()
+Return(ArrayUtils():New())
+
+METHOD NEW() CLASS ArrayUtils
+RETURN(self)
+
+METHOD FreeObj() CLASS ArrayUtils
+    self:=FreeObj(self)
+RETURN(self)
+
+METHOD ClassName() CLASS ArrayUtils
+Return("ARRAYUTILS")
+
+METHOD Compare(uCompare1,uCompare2,nPosDif) CLASS ArrayUtils
+RETURN(Compare(@uCompare1,@uCompare2,@nPosDif))
+
+METHOD SaveArray(uArray,cFileName,nErr) CLASS ArrayUtils
+RETURN(SaveArray(@uArray,@cFileName,@nErr))
+
+METHOD RestArray(cFileName,nErr) CLASS ArrayUtils
+RETURN(RestArray(@cFileName,@nErr))
+
 //------------------------------------------------------------------------------------------------
     /*/
         Funcao:ArrayCompare
