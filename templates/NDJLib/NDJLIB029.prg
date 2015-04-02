@@ -9,6 +9,7 @@ CLASS ArrayUtils
     METHOD Compare(uCompare1,uCompare2)
     METHOD SaveArray(uArray,cFileName)
     METHOD RestArray(cFileName)
+    METHOD Load4Str(cFileName)
 ENDCLASS
 
 User Function ArrayUtils()
@@ -44,7 +45,7 @@ METHOD RestArray(cFileName) CLASS ArrayUtils
 	aRestArray:=RestArray(@cFileName,@self:nError)
 RETURN(aRestArray)
 
-METHOD Load2Str(cFileName) CLASS ArrayUtils
+METHOD Load4Str(cFileName) CLASS ArrayUtils
 Return(MemoRead(cFileName))
 
 //------------------------------------------------------------------------------------------------
