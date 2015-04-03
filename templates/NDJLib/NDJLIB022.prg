@@ -1,4 +1,6 @@
-#include "NDJ.CH"
+#include "totvs.ch"
+#include "thash.ch"
+#include "tryexception.ch"
 
 Static __uSession
 Static __nSession:=0
@@ -28,6 +30,8 @@ CLASS THASH FROM LongClassName
     METHOD Set(uPropertyKey,uValue)
     METHOD Get(uPropertyKey,uDefaultValue)
     METHOD Del(uPropertyKey)
+
+    METHOD SetFromArray(atHash)
 
     METHOD GetAtProperty(uSession,uPropertyKey,nSession)
     METHOD GetNameProperty(uSession,uPropertyKey)
@@ -136,6 +140,25 @@ METHOD Del(uPropertyKey) CLASS THASH
     self:RemoveProperty(@uSession,@uPropertyKey)
     self:RemoveSession(@uSession)
 Return(.NOT.(self:ExistSession(@uSession,@nSession)))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:SetFromArray
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
+        Data:02/04/2015
+        Descricao:Carregar os Dados Baseados em Array
+        Sintaxe:THash():SetFromArray(atHash)->self
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD SetFromArray(atHash) CLASS THASH
+    Local nD
+    Local nJ
+    Private This:=self
+    nJ:=Len(atHash)
+    For nD:=1 to nJ
+        &("This:"+atHash[nD][1]):=atHash[nD][2]
+    Next nD
+Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -653,7 +676,6 @@ Static Function __Dummy(lRecursa)
             BREAK
         EndIF
         lRecursa:=__Dummy(.F.)
-        SYMBOL_UNUSED(__cCRLF)
     CATCHEXCEPTION USING oException
     ENDEXCEPTION
 Return(lRecursa)
