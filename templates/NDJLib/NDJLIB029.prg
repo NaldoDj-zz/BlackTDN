@@ -1,8 +1,17 @@
 #include "totvs.ch"
 #xtranslate NToS([<n,...>])=>LTrim(Str([<n>]))
+//------------------------------------------------------------------------------------------------
+    /*/
+        Class:ArrayUtils
+        Autor:Marinaldo de Jesus
+        Data:09/04/2015
+    /*/
+//------------------------------------------------------------------------------------------------
 CLASS ArrayUtils
     DATA cATDiff
     DATA nError
+    DATA nZipMod
+    DATA cZipPwd
     METHOD NEW() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
@@ -10,6 +19,8 @@ CLASS ArrayUtils
     METHOD SaveArray(uArray,cFileName)
     METHOD RestArray(cFileName)
     METHOD Load4Str(cFileName)
+    METHOD SetZipMod(nZipMod,cZipPwd)
+    METHOD SetZipPdw(cZipPwd)
 ENDCLASS
 
 User Function ArrayUtils()
@@ -18,6 +29,8 @@ Return(ArrayUtils():New())
 METHOD NEW() CLASS ArrayUtils
     self:nError:=0
     self:cATDiff:=""
+    self:nZipMod:=-1
+    self:cZipPwd:=""
 RETURN(self)
 
 METHOD FreeObj() CLASS ArrayUtils
@@ -28,25 +41,150 @@ METHOD ClassName() CLASS ArrayUtils
 Return("ARRAYUTILS")
 
 METHOD Compare(uCompare1,uCompare2) CLASS ArrayUtils
-	Local lCompare
-	self:cATDiff:=""
-	lCompare:=Compare(@uCompare1,@uCompare2,@self:cATDiff)
+    Local lCompare
+    self:cATDiff:=""
+    lCompare:=Compare(@uCompare1,@uCompare2,@self:cATDiff)
 RETURN(lCompare)
 
 METHOD SaveArray(uArray,cFileName) CLASS ArrayUtils
-	Local lSaveArray
-	self:nError:=0
-	lSaveArray:=SaveArray(@uArray,@cFileName,@self:nError)
+    Local aFZip
+    Local cfZip
+    Local cbZip
+    Local cfExt
+    Local cfPath
+    Local cfName
+    Local cfDrive
+    Local cbUnZip
+    Local lSaveArray
+    Local nbZip
+    Local nbUnZip
+    self:nError:=0
+    lSaveArray:=SaveArray(@uArray,@cFileName,@self:nError)
+    IF ((lSaveArray).and.(self:nZipMod>=0))
+        SplitPath(cFileName,@cfDrive,@cfPath,@cfName,@cfExt)
+        cfZip:=StrTran(cFileName,cfExt,IF((self:nZipMod==0),".cmp",IF((self:nZipMod==2),".zip",".mzp")))
+        cfPath:=(cfDrive+cfPath)
+        IF (self:nZipMod==2)
+            aFZip:={cFileName}
+            IF .NOT.(Empty(self:cZipPwd))
+                self:nError:=FZip(@cfZip,@aFZip,@cfPath,@self:cZipPwd)
+            Else
+                self:nError:=FZip(@cfZip,@aFZip,@cfPath)
+            EndIF
+            lSaveArray:=(self:nError==0)
+        ElseIF (self:nZipMod==1)
+            IF .NOT.(Empty(self:cZipPwd))
+                lSaveArray:=(cfZip$MsCompress(@cFileName,@cfZip,@self:cZipPwd))
+            Else
+                lSaveArray:=(cfZip$MsCompress(@cFileName,@cfZip))
+            EndIF            
+            IF .NOT.(lSaveArray)
+                self:nError:=-1
+            EndIF
+        Else  
+            cbUnZip:=self:Load4Str(cFileName)
+            nbUnZip:=Len(cbUnZip)
+            cbZip:=""
+            nbZip:=0
+            lSaveArray:=Compress(@cbZip,@nbZip,cbUnZip,nbUnZip)
+            IF (lSaveArray)
+                IF .NOT.(MemoWrite(cfZip,cbZip))
+                    self:nError:=fError()
+                EndIF    
+            Else
+                self:nError:=-1
+            EndIF
+        EndIF
+        IF (lSaveArray)
+            cFileName:=cfZip
+        EndIF
+    EndIF
 RETURN(lSaveArray)
 
 METHOD RestArray(cFileName) CLASS ArrayUtils
-	Local aRestArray
-	self:nError:=0
-	aRestArray:=RestArray(@cFileName,@self:nError)
+    Local aRestArray
+    Local cfZip
+    Local cbZip
+    Local cfExt
+    Local cfPath
+    Local cfName
+    Local cfDrive
+    Local cbUnZip
+    Local nbZip
+    Local nbUnZip
+    self:nError:=0
+    IF (self:nZipMod>=0)
+        SplitPath(cFileName,@cfDrive,@cfPath,@cfName,@cfExt)
+        IF Empty(cfPath)
+            cfPath:=IF(IsSrvUnix(),"/","\")
+        EndIF
+        cfPath:=(cfDrive+cfPath)
+        IF (self:nZipMod==2)
+            IF .NOT.(Empty(self:cZipPwd))
+                self:nError:=FUnZip(@cFileName,@cfPath,@self:cZipPwd)
+            Else
+                self:nError:=FUnZip(@cFileName,@cfPath)
+            EndIF
+        ElseIF (self:nZipMod==1)
+            IF .NOT.(Empty(self:cZipPwd))
+                IF .NOT.(MsDecomp(@cFileName,@cfPath,@self:cZipPwd))
+                    self:nError:=-1
+                EndIF
+            Else
+                IF .NOT.(MsDecomp(@cFileName,@cfPath))
+                    self:nError:=-1
+                EndIF
+            EndIF    
+        Else
+            cbZip:=self:Load4Str(cFileName)
+            nbZip:=Len(cbZip)
+            cbUZip:=""
+            nbUZip:=0
+            IF .NOT.(Uncompress(@cbUZip,@nbUZip,cbZip,nbZip))
+                self:nError:=-1
+            EndIF
+            cbZip:=NIL
+        EndIF
+        IF (self:nError==0)
+            cfZip:=cFileName
+            cFileName:=StrTran(cFileName,cfExt,".arr")
+            IF (self:nZipMod==0)
+                IF .NOT.(MemoWrite(cFileName,cbUZip))
+                    self:nError:=fError()
+                EndIF
+                cbUZip:=NIL
+            EndIF
+            aRestArray:=RestArray(@cFileName,@self:nError)
+            fErase(cfZip)
+        Else
+            aRestArray:=Array(0)
+        EndIF
+    Else
+        aRestArray:=RestArray(@cFileName,@self:nError)
+    EndIF
 RETURN(aRestArray)
 
 METHOD Load4Str(cFileName) CLASS ArrayUtils
-Return(MemoRead(cFileName))
+RETURN(MemoRead(cFileName))
+
+METHOD SetZipMod(nZipMod,cZipPwd) CLASS ArrayUtils
+    DEFAULT nZipMod:=self:nZipMod
+    IF (nZipMod>2)
+        nZipMod:=2
+    EndIF
+    IF ((nZipMod>1).and.(.NOT.(GetBuild()>"7.00.131227")))
+        nZipMod:=1
+    EndIF
+    self:nZipMod:=nZipMod
+    IF (self:nZipMod>0)
+        self:SetZipPdw(@cZipPwd)
+    EndIF
+RETURN(self:nZipMod)
+
+METHOD SetZipPdw(cZipPwd) CLASS ArrayUtils
+    DEFAULT cZipPwd:=self:cZipPwd
+    self:cZipPwd:=cZipPwd
+RETURN(self:cZipPwd)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -167,33 +305,33 @@ Return(lCompare)
 //------------------------------------------------------------------------------------------------
 Static Function SaveArray(uArray,cFileName,nErr)
 
-	Local cValTypeuArray:=ValType(uArray)
-	Local lSaveArray:=.F.
-	
-	Local aArray
-	Local nfHandle
-	
-	BEGIN SEQUENCE
-	
-	    IF .NOT.(cValTypeuArray$"A/O")
-	        BREAK
-	    EndIF
-	
-	    IF (cValTypeuArray=="O")
-	        aArray:=ClassDataArr(uArray)
-	    Else
-	        aArray:=uArray
-	    EndIF
-	
-	    lSaveArray:=FileCreate(cFileName,@nfHandle,@nErr)
-	    IF .NOT.(lSaveArray)
-	        BREAK
-	    EndIF
-	
-	    SaveArr(nfHandle,aArray)
-	    fClose(nfHandle)
-	
-	END SEQUENCE    
+    Local cValTypeuArray:=ValType(uArray)
+    Local lSaveArray:=.F.
+    
+    Local aArray
+    Local nfHandle
+    
+    BEGIN SEQUENCE
+    
+        IF .NOT.(cValTypeuArray$"A/O")
+            BREAK
+        EndIF
+    
+        IF (cValTypeuArray=="O")
+            aArray:=ClassDataArr(uArray)
+        Else
+            aArray:=uArray
+        EndIF
+    
+        lSaveArray:=FileCreate(cFileName,@nfHandle,@nErr)
+        IF .NOT.(lSaveArray)
+            BREAK
+        EndIF
+    
+        SaveArr(nfHandle,aArray)
+        fClose(nfHandle)
+    
+    END SEQUENCE    
 
 Return(lSaveArray)
 
@@ -318,7 +456,7 @@ Static Function RestArr(nfHandle)
             ElseIF (cElemType=="C")
                 aArray[nLoop]:=uCnt
             ElseIF (cElemType=="D")
-                aArray[nLoop]:=Stod(AllTrim(uCnt))
+                aArray[nLoop]:=StoD(AllTrim(uCnt))
             ElseIF (cElemType=="N")
                 aArray[nLoop]:=Val(AllTrim(uCnt))
             EndIF
