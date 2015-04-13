@@ -13,7 +13,7 @@ Static __nSetFreeLock:=0
 Static __aAliasLock:=Array(0)
 Static __nAliasLock:=0
 
-Static __oNDJLIB003
+Static oNDJLIB003
 
 CLASS NDJLIB003
 
@@ -24,6 +24,7 @@ CLASS NDJLIB003
     METHOD FreeAllCodes()
     METHOD UnLockAll()
     METHOD IFreeLocks(cAlias,lForce)
+    METHOD _FreeLocks(aFreeLocks)
     METHOD FreeLocks(aFreeLocks)
     METHOD SetFreeLock(cAlias,aRecnos,aKeys)
     METHOD GetFreeLock(cAlias)
@@ -33,45 +34,12 @@ CLASS NDJLIB003
     
 END CLASS
 
-User Function NDJLIB003()
-    DEFAULT __oNDJLIB003:=NDJLIB003():New()
-Return(__oNDJLIB003)
+User Function DJLIB003()
+    DEFAULT oNDJLIB003:=NDJLIB003():New()
+Return(oNDJLIB003)
 
 METHOD NEW() CLASS NDJLIB003
 RETURN(self)
-
-METHOD UseCode(cCodeIUse) CLASS NDJLIB003
-RETURN(UseCode(cCodeIUse))
-
-METHOD ReleaseCode(cCodeRelease) CLASS NDJLIB003 
-RETURN(ReleaseCode(cCodeRelease))
-
-METHOD FreeAllCodes() CLASS NDJLIB003
-RETURN(FreeAllCodes())
-
-METHOD UnLockAll() CLASS NDJLIB003
-RETURN(UnLockAll())
-
-METHOD IFreeLocks(cAlias,lForce) CLASS NDJLIB003
-RETURN(IFreeLocks(@cAlias,@lForce))
-
-METHOD FreeLocks(aFreeLocks) CLASS NDJLIB003
-RETURN(FreeLocks(@aFreeLocks))
-
-METHOD SetFreeLock(cAlias,aRecnos,aKeys) CLASS NDJLIB003
-RETURN(SetFreeLock(@cAlias,@aRecnos,@aKeys))
-
-METHOD GetFreeLock(cAlias) CLASS NDJLIB003
-RETURN(GetFreeLock(@cAlias))
-
-METHOD LockSoft(cAlias,aAliasLock) CLASS NDJLIB003
-RETURN(LockSoft(@cAlias,@aAliasLock))
-
-METHOD AliasLock(cAlias) CLASS NDJLIB003
-RETURN(AliasLock(@cAlias))
-
-METHOD AliasUnLock(aAliasLock) CLASS NDJLIB003
-RETURN(AliasUnLock(@aAliasLock))
 
 /*/
     Funcao:UseCode()
@@ -80,6 +48,8 @@ RETURN(AliasUnLock(@aAliasLock))
     Descricao:Lock by Name
     Sintaxe:StaticCall(NDJLIB003,UseCode,cCodeIUse)
 /*/
+METHOD UseCode(cCodeIUse) CLASS NDJLIB003
+RETURN(UseCode(@cCodeIUse))
 Static Function UseCode(cCodeIUse)
 
     Local cUserID
@@ -142,6 +112,8 @@ Return (lUsed)
     Descricao:UnLock by Name
     Sintaxe:StaticCall(NDJLIB003,ReleaseCode,cCodeRelease)
 /*/
+METHOD ReleaseCode(cCodeRelease) CLASS NDJLIB003
+RETURN(ReleaseCode(@cCodeRelease))
 Static Function ReleaseCode(cCodeRelease)
 
     Local cFSemaphore
@@ -196,6 +168,8 @@ Return(lRelease)
     Descricao:UnLock All by Name
     Sintaxe:StaticCall(NDJLIB003,FreeAllCodes)
 /*/
+METHOD FreeAllCodes() CLASS NDJLIB003
+RETURN(FreeAllCodes())
 Static Function FreeAllCodes()
 
     Local aCode:=aClone(__aUseCode)
@@ -223,6 +197,8 @@ Return(lReleased)
     Descricao:Commit e UnLockAll
     Sintaxe:StaticCall(NDJLIB003,UnLockAll)
 /*/
+METHOD UnLockAll() CLASS NDJLIB003
+RETURN(UnLockAll())
 Static Function UnLockAll()
 
     Local cAlias:=Alias()
@@ -231,7 +207,7 @@ Static Function UnLockAll()
             .NOT.(Empty(cAlias));
             .and.;
             (Select(cAlias)>0);
- )
+        )
         (cAlias)->(MsUnLock())
         (cAlias)->(MsUnLockAll())
         IF .NOT.(InTransact())
@@ -249,6 +225,8 @@ Return(NIL)
     Descricao:Libera o Lock
     Sintaxe:StaticCall(NDJLIB003,IFreeLocks,cAlias,lForce)
 /*/
+METHOD IFreeLocks(cAlias,lForce) CLASS NDJLIB003
+RETURN(IFreeLocks(@cAlias,@lForce))
 Static Function IFreeLocks(cAlias,lForce)
 
     Local lFreeLocks:=.F.
@@ -291,6 +269,8 @@ Return(lFreeLocks)
     Uso:Liberar Multiplos Locks
     Sintaxe:StaticCall(NDJLIB003,_FreeLocks,aFreeLocks)
 /*/
+METHOD _FreeLocks(aFreeLocks) CLASS NDJLIB003
+RETURN(_FreeLocks(@aFreeLocks))
 Static Function _FreeLocks(aFreeLocks)
 
     Local nLoop
@@ -322,8 +302,9 @@ Return(NIL)
     Uso:Armazena Locks Para Liberacao Futura
     Sintaxe:StaticCall(NDJLIB003,SetFreeLock,cAlias,aRecnos,aKeys)
 /*/
+METHOD SetFreeLock(cAlias,aRecnos,aKeys) CLASS NDJLIB003
+RETURN(SetFreeLock(@cAlias,@aRecnos,@aKeys))
 Static Function SetFreeLock(cAlias,aRecnos,aKeys)
-
     DEFAULT cAlias:=Alias()
 
     cAlias:=Upper(AllTrim(cAlias))
@@ -342,6 +323,8 @@ Return(__aSetFreeLock)
     Uso:Obtem os Locks a serem Liberados
     Sintaxe:StaticCall(NDJLIB003,GetFreeLock,cAlias)
 /*/
+METHOD GetFreeLock(cAlias) CLASS NDJLIB003
+RETURN(GetFreeLock(@cAlias))
 Static Function GetFreeLock(cAlias)
 
     Local aFreeLock:=Array(0)
@@ -367,6 +350,8 @@ Return(aFreeLock)
     Uso:Adiciona Alias para AliasUnLock
     Sintaxe:StaticCall(NDJLIB003,LockSoft,cAlias,@aAliasLock)
 /*/
+METHOD LockSoft(cAlias,aAliasLock) CLASS NDJLIB003
+RETURN(LockSoft(@cAlias,@aAliasLock))
 Static Function LockSoft(cAlias,aAliasLock)
 
     Local aLock:=Array(0)
@@ -405,6 +390,8 @@ Return(lLock)
     Uso:Adiciona Alias para AliasUnLock
     Sintaxe:StaticCall(NDJLIB003,AliasLock,cAlias)
 /*/
+METHOD AliasLock(cAlias) CLASS NDJLIB003
+RETURN(AliasLock(@cAlias))
 Static Function AliasLock(cAlias)
 
     DEFAULT cAlias:=Alias()
@@ -427,6 +414,8 @@ Return(__aAliasLock)
     Uso:Libera Todos os Locks Obtidos pela AliasLock 
     Sintaxe:StaticCall(NDJLIB003,AliasUnLock,aAliasLock)
 /*/
+METHOD AliasUnLock(aAliasLock) CLASS NDJLIB003
+RETURN(AliasUnLock(@aAliasLock))
 Static Function AliasUnLock(aAliasLock)
 
     Local aFreeLocks

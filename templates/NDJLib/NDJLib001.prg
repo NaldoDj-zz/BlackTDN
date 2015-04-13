@@ -1,18 +1,101 @@
-#INCLUDE "NDJ.CH"
+#include "totvs.ch"
+#include "topconn.ch"
+#include "tbiconn.ch"
+#include "tryexception.ch"
 
 Static __aReadVar:={}
 Static __cMbrRstFilter
+Static __cCRLF:=CRLF
+
+Static oNDJLIB001
+
+CLASS NDJLIB001
+
+    METHOD NEW() CONSTRUCTOR
+    
+    METHOD IsCpoVar(cField)
+    METHOD ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
+    METHOD NDJMV2Mail(cGetMv,cToken)
+    METHOD IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
+    METHOD NDJFromTo(cFromAlias,cToAlias,aFromTo)
+    METHOD dbPack(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,cRddName,cRetSqlName)
+    METHOD dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,cRddName,cRetSqlName,lSX2)
+    METHOD __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
+    METHOD RegToArray(cAlias,nRecno)
+    METHOD PutIncHrs(cAlias,lForceTable)
+    METHOD XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
+    METHOD SetStackVar()
+    METHOD GetStackVar(cReadVar)
+    METHOD ClsStackVar(cReadVar,lForce)
+    METHOD __FieldPut(cAlias,uField,uCntPut,lForceTable)
+    METHOD __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
+    METHOD DlgMemoEdit(bAction,cTitle,lModify,aButtons,oMemoEdit,cMemoEdit,oFont,aAdvSize,bAValid)
+    METHOD GetAlias4Fields(cAlias,aFields)
+    METHOD SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
+    METHOD GetMemVar(cVar,lInitPad,cLado)
+    METHOD IsMemVar(cVar)
+    METHOD GetCallStack(nStart)
+    METHOD QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
+    METHOD ClearQuery(cQuery)
+    METHOD ChgFilial()
+    METHOD GetSetMbFilter(cExprFilTop)
+    METHOD RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
+    METHOD GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle)
+    METHOD TopGetInfo(cType)
+    METHOD TopGetString(cEnvServer,cIniFile,cTopString)
+    METHOD DirMake(cMakeDir,nTimes,nSleep)
+    METHOD BrwLegenda(cTitulo,cMensagem,aLegend,bAction,cMsgAction)
+    METHOD BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
+    METHOD BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarName)
+    METHOD MbrRstFilter(cAlias,cVarName)
+    METHOD NDJEvalF3(cF3,lShowHelp,cException)
+    METHOD RunInSrv(cCommandLine,lWaitRun,cPath)
+    METHOD MemoToaPrn(cMemo,nBytes,lUseCrLf)
+    METHOD StrToArray(cString,cConcat,bAddParser)
+    METHOD _StrToKArr(cStr,cToken)
+    METHOD StrDelChr(cStrDelChr,aChrDelStr)
+    METHOD _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset)
+    METHOD _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut)
+    METHOD EvalPrg(bExec,cEmp,cFil,cModName,cFunName)
+    METHOD DesvPad(aValores,lPolarizado)
+    METHOD FileToArr(cFile)
+    METHOD SXGSize(cGRPSXG,nSize,nDec,cPicture)
+    METHOD X3Tipo(cField)
+    METHOD X3Tamanho(cField)
+    METHOD X3Decimal(cField)
+    METHOD X3Picture(cField)
+    METHOD FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
+    METHOD GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
+    METHOD dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
+    METHOD dbQueryClear(adbQuery)
+    METHOD ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
+    METHOD GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
+    METHOD pt_Default(xVar,xDefault)
+    METHOD pt_Normalize(cVal,cField,cSide,cPDValue)
+    METHOD xGetIKValue(cAlias,cIKValue,cToken)
+    METHOD xGetOrder(cAlias,cIKValue)
+    
+END CLASS
+
+User Function DJLIB001()
+    DEFAULT oNDJLIB001:=NDJLIB001():New()
+RETURN(oNDJLIB001)
+
+METHOD NEW() CLASS NDJLIB001
+RETURN(self)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:IsCpoVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:20/11/2010
         Descricao:Verificar se a Variavel de Memoria Ativa corresponde ao campo passado por parametro
         Sintaxe:StaticCall(NDJLIB001,IsCpoVar,cField)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function IsCpoVar(cField)
+METHOD IsCpoVar(cField) CLASS NDJLIB001
+RETURN(IsCpoVar(@cField))
+STATIC FUNCTION IsCpoVar(cField)
 
     Local cVar
 
@@ -28,18 +111,20 @@ Static Function IsCpoVar(cField)
     DEFAULT cField:=""
     cField:=Upper(AllTrim(cField))
 
-Return((cVar==cField))
+RETURN((cVar==cField))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:ForceReadVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:20/11/2010
         Descricao:Forca a Validacao de um Determinado Campo
         Sintaxe:StaticCall(NDJLIB001,ForceReadVar,cField,uCnt,lTrigger,lCheckSX3)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
+METHOD ForceReadVar(cField,uCnt,lTrigger,lCheckSX3) CLASS NDJLIB001
+RETURN(ForceReadVar(@cField,@uCnt,@lTrigger,@lCheckSX3))
+STATIC FUNCTION ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
 
     Local aArea:=GetArea()
     Local cReadVar
@@ -106,18 +191,20 @@ Static Function ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
 
     RestArea(aArea)
 
-Return(lFieldOk)
+RETURN(lFieldOk)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:NDJMV2Mail
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:14/07/2010
         Descricao:Retorna Array com Lista de e-mail de Usuarios de Parametros
         Sintaxe:StaticCall(NDJLIB001,NDJMV2Mail,cGetMv,cToken)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function NDJMV2Mail(cGetMv,cToken)
+METHOD NDJMV2Mail(cGetMv,cToken) CLASS NDJLIB001
+RETURN(NDJMV2Mail(@cGetMv,@cToken))
+STATIC FUNCTION NDJMV2Mail(cGetMv,cToken)
 
     Local aListMail:={}
 
@@ -128,18 +215,20 @@ Static Function NDJMV2Mail(cGetMv,cToken)
 
     aEval(aListMail,{|cMail,nElem|aListMail[nElem]:=StaticCall(NDJLIB014,WF4Mail,cMail)})
 
-Return(aListMail)
+RETURN(aListMail)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:IsInGetDados
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:21/11/2010
         Descricao:Verifica se Esta executando a partir da GetDados
         Sintaxe:StaticCall(NDJLIB001,IsInGetDados,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
+METHOD IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN) CLASS NDJLIB001
+RETURN(IsInGetDados(@uField,@aLocalHeader,@aLocalCols,@nLocalN))
+STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
 
     Local aFields
 
@@ -225,18 +314,20 @@ Static Function IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
 
     END SEQUENCE
 
-Return(lIsInGetDados)
+RETURN(lIsInGetDados)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:NDJFromTo
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:21/11/2010
         Descricao:De para NDJ
         Sintaxe:StaticCall(NDJLIB001,NDJFromTo,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function NDJFromTo(cFromAlias,cToAlias,aFromTo)
+METHOD NDJFromTo(cFromAlias,cToAlias,aFromTo) CLASS NDJLIB001
+RETURN(NDJFromTo(@cFromAlias,@cToAlias,@aFromTo))
+STATIC FUNCTION NDJFromTo(cFromAlias,cToAlias,aFromTo)
 
     Local aArea:=GetArea()
 
@@ -317,36 +408,40 @@ Static Function NDJFromTo(cFromAlias,cToAlias,aFromTo)
 
     RestArea(aArea)
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:dbPack
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:27/11/2010
         Descricao:Pack dos Registros
         Sintaxe:StaticCall(NDJLIB001,dbPack,<cAlias>,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function dbPack(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,cRddName,cRetSqlName)
+METHOD dbPack(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,cRddName,cRetSqlName) CLASS NDJLIB001
+RETURN(dbPack(@cAlias,@lShowHelp,@lQuitProgram,@lChkFile,@lMa280Flock,@cRddName,@cRetSqlName))
+STATIC FUNCTION dbPack(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,cRddName,cRetSqlName)
     DEFAULT cAlias:=Alias()
     DEFAULT lShowHelp:=.F.
     DEFAULT lQuitProgram:=.F.
     DEFAULT lChkFile:=.F.
     DEFAULT lMa280Flock:=.F.
     DEFAULT cRddName:=(cAlias)->(RddName())
-Return(dbZap(@cAlias,@lShowHelp,@lQuitProgram,@lChkFile,@lMa280Flock,.T.,@cRddName,@cRetSqlName))
+RETURN(dbZap(@cAlias,@lShowHelp,@lQuitProgram,@lChkFile,@lMa280Flock,.T.,@cRddName,@cRetSqlName))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:dbZap
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:27/11/2010
         Descricao:Deletar todos os Registros de uma Determinada Tabela
         Sintaxe:StaticCall(NDJLIB001,dbZap,<cAlias>,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,cRddName,cRetSqlName,lSX2)
+METHOD dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,cRddName,cRetSqlName,lSX2) CLASS NDJLIB001
+RETURN(dbZap(@cAlias,@lShowHelp,@lQuitProgram,@lChkFile,@lMa280Flock,@lPack,@cRddName,@cRetSqlName,@lSX2))
+STATIC FUNCTION dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,cRddName,cRetSqlName,lSX2)
 
     Local aArea:=GetArea()
     Local aAreaSX2:={}
@@ -404,19 +499,20 @@ Static Function dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,c
 
     RestArea(aArea)
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:__dbDelete
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/11/2005
         Descricao:Deletar todos os Registros de uma Determinada Tabela
         Sintaxe:StaticCall(NDJLIB001,__dbDelete,<cAlias>,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
-
+METHOD __dbDelete(cAlias,lPack,cRddName,cRetSqlName) CLASS NDJLIB001
+RETURN(__dbDelete(@cAlias,@lPack,@cRddName,@cRetSqlName))
+STATIC FUNCTION __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
     Local cQuery
     Local cNextAlias
 
@@ -490,7 +586,7 @@ Static Function __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
             cQuery+="    "+cRetSqlName+".R_E_C_N_O_<="+AllTrim(Str(nMinRecno+=1024,18,0))+__cCRLF
             IF (lPack)
                 cQuery+="AND"+__cCRLF
-                cQuery+="    "+cRetSqlName+".D_E_L_E_T_ = '*'"+__cCRLF
+                cQuery+="    "+cRetSqlName+".D_E_L_E_T_ ='*'"+__cCRLF
             EndIF
             TCSqlExec(cQuery)
             (cAlias)->(dbGoTop())
@@ -502,18 +598,20 @@ Static Function __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
 
     ENDEXCEPTION
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:RegToArray
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:07/12/2010
         Descricao:Carregar Valores de um Determinado Registro em Memoria
         Sintaxe:StaticCall(NDJLIB001,RegToArray,cAlias,nRecno)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function RegToArray(cAlias,nRecno)
+METHOD RegToArray(cAlias,nRecno) CLASS NDJLIB001
+RETURN(RegToArray(@cAlias,@nRecno))
+STATIC FUNCTION RegToArray(cAlias,nRecno)
 
     Local aValues:={}
     Local adbStruct
@@ -535,18 +633,20 @@ Static Function RegToArray(cAlias,nRecno)
         aValues[nField]:=(cAlias)->(FieldGet(nField))
     Next nField
 
-Return(aValues )
+RETURN(aValues )
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:PutIncHrs
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/12/2010
         Descricao:Gravar o Campo IncHrs
         Sintaxe:StaticCall(NDJLIB001,PutIncHrs,cAlias)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function PutIncHrs(cAlias,lForceTable)
+METHOD PutIncHrs(cAlias,lForceTable) CLASS NDJLIB001
+RETURN(PutIncHrs(@cAlias,@lForceTable))
+STATIC FUNCTION PutIncHrs(cAlias,lForceTable)
 
     Local cTime:=Time()
     Local cFldIniHrs
@@ -573,18 +673,20 @@ Static Function PutIncHrs(cAlias,lForceTable)
 
     ENDEXCEPTION
 
-Return(cTime)
+RETURN(cTime)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:XALTHRS
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:10/11/2010
         Descricao:Gravar a Data da Alteração da Informacao
         Sintaxe:StaticCall(NDJLIB001,XALTHRS)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
+METHOD XALTHRS(cAlias,cField,cXAltHrs,lChkChange) CLASS NDJLIB001
+RETURN(XALTHRS(@cAlias,@cField,@cXAltHrs,@lChkChange))
+STATIC FUNCTION XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
 
     Local cReadVar
 
@@ -678,18 +780,20 @@ Static Function XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
 
     ENDEXCEPTION
 
-Return(.T.)
+RETURN(.T.)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:SetStackVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:10/11/2010
         Descricao:Armazena Valores na Pilha
         Sintaxe:StaticCall(NDJLIB001,SetStackVar)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function SetStackVar()
+METHOD SetStackVar() CLASS NDJLIB001
+RETURN(SetStackVar())
+STATIC FUNCTION SetStackVar()
 
     Local cReadVar:=ReadVar()
 
@@ -708,18 +812,20 @@ Static Function SetStackVar()
         __aReadVar[nReadVar][2]:=NIL
     ENDEXCEPTION
 
-Return(.T.)
+RETURN(.T.)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:GetStackVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:10/11/2010
         Descricao:Obtem valor da Pilha
         Sintaxe:StaticCall(NDJLIB001,GetStackVar)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetStackVar(cReadVar)
+METHOD GetStackVar(cReadVar) CLASS NDJLIB001
+RETURN(GetStackVar(@cReadVar))
+STATIC FUNCTION GetStackVar(cReadVar)
 
     Local nReadVar
 
@@ -732,19 +838,21 @@ Static Function GetStackVar(cReadVar)
         uLastVal:=__aReadVar[nReadVar][2]
     EndIF
 
-Return(uLastVal)
+RETURN(uLastVal)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:ClsStackVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:10/11/2010
         Descricao:Limpa a Pilha
         Sintaxe:StaticCall(NDJLIB001,ClsStackVar)
         Uso:X3_VLDUSER
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function ClsStackVar(cReadVar,lForce)
+METHOD ClsStackVar(cReadVar,lForce) CLASS NDJLIB001
+RETURN(ClsStackVar(@cReadVar,@lForce))
+STATIC FUNCTION ClsStackVar(cReadVar,lForce)
 
     Local nReadVar
 
@@ -761,18 +869,20 @@ Static Function ClsStackVar(cReadVar,lForce)
         EndIF
     EndIF
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:__FieldPut
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/12/2010
         Descricao:Gravar Conteudo em Determinado Campo de Uma Tabela
         Sintaxe:StaticCall(NDJLIB001,__FieldPut,cAlias,uField,uCntPut,lForceTable)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function __FieldPut(cAlias,uField,uCntPut,lForceTable)
+METHOD __FieldPut(cAlias,uField,uCntPut,lForceTable) CLASS NDJLIB001
+RETURN(__FieldPut(@cAlias,@uField,@uCntPut,@lForceTable))
+STATIC FUNCTION __FieldPut(cAlias,uField,uCntPut,lForceTable)
 
     Local cField
 
@@ -848,18 +958,20 @@ Static Function __FieldPut(cAlias,uField,uCntPut,lForceTable)
 
     ENDEXCEPTION
 
-Return(uCntPut)
+RETURN(uCntPut)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:__FieldGet
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/12/2010
         Descricao:Obter o Conteudo a partir de Determinado Campo uma Tabela
         Sintaxe:StaticCall(NDJLIB001,__FieldGet,cAlias,cField,lForceTable,lGdChkCpoVar)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
+METHOD __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar) CLASS NDJLIB001
+RETURN(__FieldGet(@cAlias,@cField,@lForceTable,@lGdChkCpoVar))
+STATIC FUNCTION __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
 
     Local nFieldPos
 
@@ -912,7 +1024,7 @@ Static Function __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
 
     ENDEXCEPTION
 
-Return(uCntGet)
+RETURN(uCntGet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
@@ -923,7 +1035,30 @@ Return(uCntGet)
         Sintaxe:    StaticCall(NDJLIB001,DlgMemoEdit,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function DlgMemoEdit(;
+METHOD DlgMemoEdit(;
+                                bAction     ,;//01 -> Acao a ser executada se tudo Ok
+                                cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
+                                lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
+                                aButtons    ,;//04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
+                                oMemoEdit   ,;//05 -> Objeto MemoEdit
+                                cMemoEdit   ,;//06 -> Conteudo do Campo Memo
+                                oFont       ,;//07 -> Objeto Font
+                                aAdvSize    ,;//08 -> Coordenadas do Dialogo
+                                bAValid      ;//09 -> Pré-Validação para execução de bAction
+                  )  CLASS NDJLIB001
+RETURN(DlgMemoEdit(;
+                      @bAction     ,;//01 -> Acao a ser executada se tudo Ok
+                    @cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
+                    @aButtons    ,;//04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @oMemoEdit   ,;//05 -> Objeto MemoEdit
+                    @cMemoEdit   ,;//06 -> Conteudo do Campo Memo
+                    @oFont       ,;//07 -> Objeto Font
+                    @aAdvSize    ,;//08 -> Coordenadas do Dialogo
+                    @bAValid      ;//09 -> Pré-Validação para execução de bAction
+                  );
+)
+STATIC FUNCTION DlgMemoEdit(;
                                 bAction     ,;//01 -> Acao a ser executada se tudo Ok
                                 cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
                                 lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
@@ -1026,18 +1161,20 @@ Begin Sequence
 
 End Sequence
 
-Return(cMemoEdit)
+RETURN(cMemoEdit)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao: GetAlias4Fields
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:14/12/2010
         Uso:Obtem o Alias a partir dos campos Fornecidos como Parametros
         Sintaxe:  StaticCall(NDJLIB001,GetAlias4Fields,cAlias,aFields)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetAlias4Fields(cAlias,aFields)
+METHOD GetAlias4Fields(cAlias,aFields) CLASS NDJLIB001
+RETURN(GetAlias4Fields(@cAlias,@aFields))
+STATIC FUNCTION GetAlias4Fields(cAlias,aFields)
 
     Local aAlias:={}
 
@@ -1110,18 +1247,20 @@ Static Function GetAlias4Fields(cAlias,aFields)
 
     ENDEXCEPTION
 
-Return(lFoundAlias)
+RETURN(lFoundAlias)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:SetMemVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:26/12/2010
         Uso:Setar Variavel de Memoria
         Sintaxe:StaticCall(NDJLIB001,SetMemVar,cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
+METHOD SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack) CLASS NDJLIB001
+RETURN(SetMemVar(@cVar,@uSetValue,@lSetOwnerPrvt,@lForceSetOwner,@lRetLastValue,@lInitPad,@cLado,@lPublic,@cStack))
+STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastValue,lInitPad,cLado,lPublic,cStack)
 
     Local cVarAux
 
@@ -1179,18 +1318,20 @@ Static Function SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
 
     ENDEXCEPTION
 
-Return(uRetValue)
+RETURN(uRetValue)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao: GetMemVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:26/12/2010
         Uso:Obter Variavel de Memoria
         Sintaxe:  StaticCall(NDJLIB001,GetMemVar,cVar,lInitPad,cLado)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetMemVar(cVar,lInitPad,cLado)
+METHOD GetMemVar(cVar,lInitPad,cLado) CLASS NDJLIB001
+RETURN(GetMemVar(@cVar,@lInitPad,@cLado))
+STATIC FUNCTION GetMemVar(cVar,lInitPad,cLado)
 
     Local cVarAux
     Local uRetValue
@@ -1224,18 +1365,20 @@ Static Function GetMemVar(cVar,lInitPad,cLado)
 
     ENDEXCEPTION
 
-Return(uRetValue)
+RETURN(uRetValue)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao: IsMemVar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:26/12/2010
         Uso:Verificar Variavel de Memoria
         Sintaxe:  StaticCall(NDJLIB001,IsMemVar,cVar)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function IsMemVar(cVar)
+METHOD IsMemVar(cVar) CLASS NDJLIB001
+RETURN(IsMemVar(@cVar))
+STATIC FUNCTION IsMemVar(cVar)
 
     Local cType
     Local cTypeVar
@@ -1263,19 +1406,21 @@ Static Function IsMemVar(cVar)
 
     ENDEXCEPTION
 
-Return(lIsMemVar)
+RETURN(lIsMemVar)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:GetCallStack
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:18/11/2010
         Descricao:Retorna Array Com Pilha de Chamadas
         Sintaxe:1)GetCallStack(<nStartt>)
                 2)StaticCall(NDJLIB001,GetCallStack,<nStartt>)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetCallStack(nStart)
+METHOD GetCallStack(nStart) CLASS NDJLIB001
+RETURN(GetCallStack(@nStart))
+STATIC FUNCTION GetCallStack(nStart)
 
     Local aCallStack:={}
 
@@ -1290,18 +1435,20 @@ Static Function GetCallStack(nStart)
         aAdd(aCallStack,cCallStack)
     End While
 
-Return(aCallStack)
+RETURN(aCallStack)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:QryMaxCod
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:31/01/2011
         Descricao:Retorna o Ultimo Numero Conforme Parametros de Entrada
         Sintaxe:StaticCall(NDJLIB001,QryMaxCod,cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
+METHOD QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial) CLASS NDJLIB001
+RETURN(QryMaxCod(@cAlias,@cField,@cWhere,@lDeleted,@lForceWhere,@lChkFilial))
+STATIC FUNCTION QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
 
     Local aArea:=GetArea()
 
@@ -1353,18 +1500,21 @@ Static Function QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
 
     RestArea(aArea)
 
-Return(cMaxCod)
+RETURN(cMaxCod)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:ClearQuery
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:31/01/2011
         Descricao:Limpar Tab,espacos e CRLF em uma expressao de Query
         Sintaxe:StaticCall(NDJLIB001,ClearQuery,cQuery)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function ClearQuery(cQuery)
+METHOD ClearQuery(cQuery) CLASS NDJLIB001
+RETURN(ClearQuery(@cQuery))
+STATIC FUNCTION ClearQuery(cQuery)
+
 
     Local cTab:="    "
     Local c1Spc:=Space(1)
@@ -1380,18 +1530,20 @@ Static Function ClearQuery(cQuery)
         cQuery:=StrTran(cQuery,c2Spc,c1Spc)
     End While
 
-Return(cQuery )
+RETURN(cQuery )
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:ChgFilial
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:31/01/2011
         Descricao:Atualizar Campo _FILIAL quando Modo de Acesso Compartilhado
         Sintaxe:StaticCall(NDJLIB001,ChgFilial)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function ChgFilial()
+METHOD ChgFilial() CLASS NDJLIB001
+RETURN(ChgFilial())
+STATIC FUNCTION ChgFilial()
 
     Local aCallStack:=GetCallStack()
 
@@ -1478,18 +1630,20 @@ Static Function ChgFilial()
 
     END SEQUENCE
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Function:GetSetMbFilter
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:27/01/2011
         Descricao:GetSet do Filtro da mBrowse
         Sintaxe:StaticCall(NDJLIB001,GetSetMbFilter,cExprFilTop)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetSetMbFilter(cExprFilTop)
+METHOD GetSetMbFilter(cExprFilTop) CLASS NDJLIB001
+RETURN(GetSetMbFilter(@cExprFilTop))
+STATIC FUNCTION GetSetMbFilter(cExprFilTop)
 
     Local bError:={||&(cError)}
 
@@ -1505,7 +1659,7 @@ Static Function GetSetMbFilter(cExprFilTop)
         VerSenha(.T.)//Forco o erro. Primeiro parametro de VerSenha espera um valor Numerico.
     ENDEXCEPTION
 
-Return(cLastFilter)
+RETURN(cLastFilter)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
@@ -1516,7 +1670,9 @@ Return(cLastFilter)
         Sintaxe:    StaticCall(NDJLIB001,RetPictVal,nVal,lDecZero,nInt,nDec,lPictSepMil)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
+METHOD RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil) CLASS NDJLIB001
+RETURN(RetPictVal(@nVal,@lDecZero,@nInt,@nDec,@lPictSepMil))
+STATIC FUNCTION RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
 
     Local cPict
     Local cPictSepMil
@@ -1560,18 +1716,20 @@ Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
         EndIF
     EndIF
 
-Return(cPict)
+RETURN(cPict)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:GetTopSource
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:28/03/2011
         Descricao:Obtem Conexao ao Top
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle)
+METHOD GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle) CLASS NDJLIB001
+RETURN(GetTopSource(@cTopServer,@nTopPort,@cTopAlias,@cTitle))
+STATIC FUNCTION GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle)
 
     Local aKeys:=GetKeys()
     Local aAdvSize:={}
@@ -1641,18 +1799,20 @@ Static Function GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle)
 
     RestKeys(aKeys,.T.)
 
-Return(lOk)
+RETURN(lOk)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:TopGetInfo
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:28/03/2011
         Descricao:Retorna Informacoes do INI sobre o TopConnect
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function TopGetInfo(cType)
+METHOD TopGetInfo(cType) CLASS NDJLIB001
+RETURN(TopGetInfo(@cType))
+STATIC FUNCTION TopGetInfo(cType)
 
     Local cIniFile:=GetAdv97()
     Local cEnvServer:=GetEnvServer()
@@ -1680,18 +1840,20 @@ Static Function TopGetInfo(cType)
 
     End Sequence
 
-Return(uTopGetInfo)
+RETURN(uTopGetInfo)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:TopGetString
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:28/03/2011
         Descricao:Retorna Informacoes do INI sobre o TopConnect
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function TopGetString(cEnvServer,cIniFile,cTopString)
+METHOD TopGetString(cEnvServer,cIniFile,cTopString) CLASS NDJLIB001
+RETURN(TopGetString(@cEnvServer,@cIniFile,@cTopString))
+STATIC FUNCTION TopGetString(cEnvServer,cIniFile,cTopString)
 
     Local cTopGetString:=GetPvProfString(cEnvServer,"Top"+cTopString,"",cIniFile)
 
@@ -1699,18 +1861,20 @@ Static Function TopGetString(cEnvServer,cIniFile,cTopString)
         cTopGetString:=GetPvProfString("TopConnect",cTopString,"",cIniFile)
     EndIF
 
-Return(cTopGetString)
+RETURN(cTopGetString)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:DirMake
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:28/03/2011
         Descricao:Cria um Diretorio
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function DirMake(cMakeDir,nTimes,nSleep)
+METHOD DirMake(cMakeDir,nTimes,nSleep) CLASS NDJLIB001
+RETURN(DirMake(@cMakeDir,@nTimes,@nSleep))
+STATIC FUNCTION DirMake(cMakeDir,nTimes,nSleep)
 
     Local lMakeOk
     Local nMakeOk
@@ -1730,18 +1894,20 @@ Static Function DirMake(cMakeDir,nTimes,nSleep)
         End While
     EndIF
 
-Return(lMakeOk)
+RETURN(lMakeOk)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:BrwLegenda
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:28/03/2011
         Descricao:Legenda de Cores
         Sintaxe:StaticCall(NDJLIB001,BrwLegenda,cTitulo,cMensagem,aLegend,bAction,cMsgAction)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function BrwLegenda(cTitulo,cMensagem,aLegend,bAction,cMsgAction)
+METHOD BrwLegenda(cTitulo,cMensagem,aLegend,bAction,cMsgAction) CLASS NDJLIB001
+RETURN(BrwLegenda(@cTitulo,@cMensagem,@aLegend,@bAction,@cMsgAction))
+STATIC FUNCTION BrwLegenda(cTitulo,cMensagem,aLegend,bAction,cMsgAction)
 
     Local aListBox
 
@@ -1795,18 +1961,20 @@ Static Function BrwLegenda(cTitulo,cMensagem,aLegend,bAction,cMsgAction)
 
     END SEQUENCE
 
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:BrwGetSLeg
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:20/04/2011
         Descricao:Retornar o Status  conforme Array de Cores da mBrowse
         Sintaxe:StaticCall(NDJLIB001,BrwGetSLeg,cAlias,bGetColors,bGetLegend,cResName,lArrColors)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
+METHOD BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors) CLASS NDJLIB001
+RETURN(BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors))
+STATIC FUNCTION BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
 
     Local cBmpColor:=""
     Local cEvalGetCL:=""
@@ -1885,18 +2053,20 @@ Static Function BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
 
     END SEQUENCE
 
-Return(uC1Ret)
+RETURN(uC1Ret)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:BrwFiltLeg
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:20/04/2011
         Descricao:Filtra o Browse de acordo com a Opcao da Legenda da mBrowse
         Sintaxe:StaticCall(NDJLIB001,BrwFiltLeg,cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarName)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarName)
+METHOD BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarName) CLASS NDJLIB001
+RETURN(BrwFiltLeg(@cAlias,@aColors,@aLegend,@cTitle,@cMsg,@cMsgAction,@cVarName))
+STATIC FUNCTION BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarName)
 
     Local aIndex
 
@@ -1938,21 +2108,23 @@ Static Function BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarNam
     oObjBrow:GoTop()
     oObjBrow:Refresh()
 
-Return(cSvExprFilTop)
+RETURN(cSvExprFilTop)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:MbrRstFilter
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:20/04/2011
         Descricao:Restaura o Filtro de Browse
         Sintaxe:StaticCall(NDJLIB001,MbrRstFilter,cAlias,cVarName)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function MbrRstFilter(cAlias,cVarName)
+METHOD MbrRstFilter(cAlias,cVarName) CLASS NDJLIB001
+RETURN(MbrRstFilter(@cAlias,@cVarName))
+STATIC FUNCTION MbrRstFilter(cAlias,cVarName)
     Local oObjBrow
     Local cMbrRstFilter
-    IF ((ValType(cVarName)== "C"))
+    IF ((ValType(cVarName)=="C"))
         cMbrRstFilter:=&(cVarName)
     Else
         cMbrRstFilter:=&(__cMbrRstFilter)
@@ -1964,18 +2136,20 @@ Static Function MbrRstFilter(cAlias,cVarName)
     oObjBrow:ResetLen()
     oObjBrow:GoTop()
     oObjBrow:Refresh()
-Return(NIL)
+RETURN(NIL)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:NDJEvalF3
         Data:20/12/2010
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Descricao:Retorna a Consulta Padrao e Atualiza Resultados
         Sintaxe:StaticCall(NDJLIB001,NDJEvalF3,cF3)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function NDJEvalF3(cF3,lShowHelp,cException)
+METHOD NDJEvalF3(cF3,lShowHelp,cException) CLASS NDJLIB001
+RETURN(NDJEvalF3(@cF3,@lShowHelp,@cException))
+STATIC FUNCTION NDJEvalF3(cF3,lShowHelp,cException)
 
     Local lConpad1:=.F.
 
@@ -2017,30 +2191,34 @@ Static Function NDJEvalF3(cF3,lShowHelp,cException)
 
     ENDEXCEPTION
 
-Return(lConpad1)
+RETURN(lConpad1)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:RunInSrv
         Data:28/04/2011
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Descricao:Executa uma Aplicacao no Servidor
         Sintaxe:StaticCall(NDJLIB001,RunInSrv,cCommandLine,lWaitRun,cPath)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function RunInSrv(cCommandLine,lWaitRun,cPath)
-Return(WaitRunSrv(@cCommandLine,@lWaitRun,@cPath))
+METHOD RunInSrv(cCommandLine,lWaitRun,cPath) CLASS NDJLIB001
+RETURN(RunInSrv(@cCommandLine,@lWaitRun,@cPath))
+STATIC FUNCTION RunInSrv(cCommandLine,lWaitRun,cPath)
+RETURN(WaitRunSrv(@cCommandLine,@lWaitRun,@cPath))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:MemoToaPrn
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:06/09/2011
         Descricao:Preparar o Texto do Tipo Memo para impressao
         Sintaxe:StaticCall(NDJLIB001,MemoToaPrn,cMemo,nBytes,lUseCrLf)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function MemoToaPrn(cMemo,nBytes,lUseCrLf)
+METHOD MemoToaPrn(cMemo,nBytes,lUseCrLf) CLASS NDJLIB001
+RETURN(MemoToaPrn(@cMemo,@nBytes,@lUseCrLf))
+STATIC FUNCTION MemoToaPrn(cMemo,nBytes,lUseCrLf)
 
     Local aMemoToPrn:={}
     Local aMemoAux
@@ -2072,7 +2250,7 @@ Static Function MemoToaPrn(cMemo,nBytes,lUseCrLf)
         EndIF
 
         DEFAULT nBytes:=80
-        IF (Len(cMemo)<= nBytes)
+        IF (Len(cMemo)<=nBytes)
             aMemoToPrn:={cMemo}
             Break
         EndIF
@@ -2125,18 +2303,20 @@ Static Function MemoToaPrn(cMemo,nBytes,lUseCrLf)
 
     End Sequence
 
-Return(aMemoToPrn)
+RETURN(aMemoToPrn)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:StrToArray
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:06/09/2011
         Descricao:Retornar Array com o Parser de Uma String Concatenada
         Sintaxe:StaticCall(NDJLIB001,StrToArray,cString,cConcat,bAddParser)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function StrToArray(cString,cConcat,bAddParser)
+METHOD StrToArray(cString,cConcat,bAddParser) CLASS NDJLIB001
+RETURN(StrToArray(@cString,@cConcat,@bAddParser))
+STATIC FUNCTION StrToArray(cString,cConcat,bAddParser)
 
     Local aStrTokArr:={}
 
@@ -2145,8 +2325,8 @@ Static Function StrToArray(cString,cConcat,bAddParser)
     Local nATToken
     Local nRealSize
 
-    DEFAULT cToken        TO "+"
-    DEFAULT bEvalToken    TO {||.T.}
+    DEFAULT cToken:="+"
+    DEFAULT bEvalToken:={||.T.}
 
     if (at(cToken,cString)>0)
         nRealSize:=len(cToken)
@@ -2175,18 +2355,41 @@ Static Function StrToArray(cString,cConcat,bAddParser)
         endif
     endif
 
-return(aStrTokArr)
+RETURN(aStrTokArr)
+
+//--------------------------------------------------------------------------------------------------------------
+    /*
+        Funcao:_StrToKArr
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Funcao:_StrToKArr
+        Autor:Marinaldo de Jesus (TOTALIT:http://www.totalitsolutions.com.br)
+        Data:06/03/2015
+    */
+//--------------------------------------------------------------------------------------------------------------
+METHOD _StrToKArr(cStr,cToken) CLASS NDJLIB001
+RETURN(_StrToKArr(@cStr,@cToken))
+STATIC FUNCTION _StrToKArr(cStr,cToken)
+    Local cDToken
+    DEFAULT cStr:=""
+    DEFAULT cToken:=";"
+    cDToken:=(cToken+cToken)
+    While (cDToken$cStr)
+        cStr:=StrTran(cStr,cDToken,cToken+" "+cToken)
+    End While
+RETURN(StrToKArr(cStr,cToken))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:StrDelChr
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/11/2005
         Descricao:Excluir o Conteudo de uma String conforme aChrDelStr
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function StrDelChr(cStrDelChr,aChrDelStr)
+METHOD StrDelChr(cStrDelChr,aChrDelStr) CLASS NDJLIB001
+RETURN(StrDelChr(@cStrDelChr,@aChrDelStr))
+STATIC FUNCTION StrDelChr(cStrDelChr,aChrDelStr)
 
     Local nChar
     Local nChars
@@ -2196,18 +2399,20 @@ Static Function StrDelChr(cStrDelChr,aChrDelStr)
         cStrDelChr:=StrTran(cStrDelChr,aChrDelStr[nChar],"")
     Next nChar
 
-Return(cStrDelChr)
+RETURN(cStrDelChr)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:_GetMvPar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:23/09/2011
         Descricao:Obtem o Parametro de Acordo com a Empresa de Referencia
         Sintaxe:StaticCall(NDJFGEN,_GetMvPar,cEmp,cFil,uMvPar,uDefault,lReset)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset)
+METHOD _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset) CLASS NDJLIB001
+RETURN(_GetMvPar(@cEmp,@cFil,@uMvPar,@uDefault,@lReset))
+STATIC FUNCTION _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset)
     Local uMvRet
     DEFAULT cEmp:=cEmpAnt
     DEFAULT cFil:=cFilAnt
@@ -2216,18 +2421,20 @@ Static Function _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset)
     Else
         uMvRet:=StartJob("U_GetMvPar",GetEnvServer(),.T.,cEmp,cFil,uMvPar,uDefault,.T.,lReset,.F.)
     EndIF
-Return(uMvRet)
+RETURN(uMvRet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:_PutMvPar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:23/09/2011
         Descricao:Salva o Conteudo do Parametro de Acordo com a Empresa de Referencia
         Sintaxe:StaticCall(NDJFGEN,_PutMvPar,cEmp,cFil,uMvPar,uMvCntPut)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut)
+METHOD _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut) CLASS NDJLIB001
+RETURN(_PutMvPar(@cEmp,@cFil,@uMvPar,@uMvCntPut))
+STATIC FUNCTION _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut)
     Local uMvRet
     DEFAULT cEmp:=cEmpAnt
     DEFAULT cFil:=cFilAnt
@@ -2236,12 +2443,12 @@ Static Function _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut)
     Else
         uMvRet:=StartJob("U_PutMvPar",GetEnvServer(),.T.,@cEmp,@cFil,@uMvPar,@uMvCntPut,.T.)
     EndIF
-Return(uMvRet)
+RETURN(uMvRet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:U_GetMvPar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:23/09/2011
         Descricao:Obtem o Parametro de Acordo com a Empresa de Referencia
         Sintaxe:U_GetMvPar(cEmp,cFil,uMvPar,uDefault,lRpcSet,lReset,lHelp)
@@ -2303,12 +2510,12 @@ User Function GetMvPar(cEmp,cFil,uMvPar,uDefault,lRpcSet,lReset,lHelp)
 
     END SEQUENCE
 
-Return(uMvRet)
+RETURN(uMvRet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:U_PutMvPar
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:23/09/2011
         Descricao:Grava o Conteudo Parametro de Acordo com a Empresa de Referencia
         Sintaxe:U_PutMvPar(cEmp,cFil,uMvPar,uMvCntPut,lRpcSet)
@@ -2365,18 +2572,20 @@ User Function PutMvPar(cEmp,cFil,uMvPar,uMvCntPut,lRpcSet)
 
     END SEQUENCE
 
-Return(uMvRet)
+RETURN(uMvRet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:EvalPrg
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:23/09/2011
         Descricao:Executa um Programa Diretamente
         Sintaxe:StaticCall(NDJLIB001,EvalPrg,bExec,cEmp,cFil,cModulo,cFunName)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function EvalPrg(bExec,cEmp,cFil,cModName,cFunName)
+METHOD EvalPrg(bExec,cEmp,cFil,cModName,cFunName) CLASS NDJLIB001
+RETURN(EvalPrg(@bExec,@cEmp,@cFil,@cModName,@cFunName))
+STATIC FUNCTION EvalPrg(bExec,cEmp,cFil,cModName,cFunName)
 
     Local bWindowInit:={||Eval(bExec)}
 
@@ -2428,17 +2637,19 @@ Static Function EvalPrg(bExec,cEmp,cFil,cModName,cFunName)
 
     END SEQUENCE
 
-Return(uRet)
+RETURN(uRet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:DesvPad
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:16/04/2012
         Uso:Calcula o Desvio Padrao
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function DesvPad(aValores,lPolarizado)
+METHOD DesvPad(aValores,lPolarizado) CLASS NDJLIB001
+RETURN(DesvPad(@aValores,@lPolarizado))
+STATIC FUNCTION DesvPad(aValores,lPolarizado)
 
     Local nSoma:=0
     Local nMedia:=0
@@ -2474,18 +2685,20 @@ Static Function DesvPad(aValores,lPolarizado)
     nMedia:=(nSoma/(nLoops-IF(lPolarizado,0,1)))
     nDesvPad:=Sqrt(nMedia)
 
-Return(nDesvPad)
+RETURN(nDesvPad)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:FileToArr
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:08/11/2005
         Descricao:Retorna Array com as informacoes de um arquivo Texto
         Sintaxe:<Vide Parametros Formais>
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function FileToArr(cFile)
+METHOD FileToArr(cFile) CLASS NDJLIB001
+RETURN(FileToArr(@cFile))
+STATIC FUNCTION FileToArr(cFile)
 
     Local aFile:={}
 
@@ -2518,12 +2731,12 @@ Static Function FileToArr(cFile)
 
     End Sequence
 
-Return(aFile)
+RETURN(aFile)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:PutSX1
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Adiciona e/ou Remove Perguntas utilizadas no Programa
         Uso:Generico
@@ -2589,12 +2802,12 @@ Static Procedure PutSX1(cPerg,aPerg)
         EndIF
     Next nBL
 
-Return
+RETURN
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:AddPerg
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Adiciona Informacoes do compo
         Uso:Generico
@@ -2703,19 +2916,21 @@ Static Procedure AddPerg(aPerg,cGrupo,cOrdem,cField,uCNT)
 
         EndIF
 
-Return
+RETURN
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:SXGSize
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Obtem Informações do Grupo em SXG (Size e Picture)
         Uso:Generico
         Obs.:
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function SXGSize(cGRPSXG,nSize,nDec,cPicture)
+METHOD SXGSize(cGRPSXG,nSize,nDec,cPicture) CLASS NDJLIB001
+RETURN(SXGSize(@cGRPSXG,@nSize,@nDec,@cPicture))
+STATIC FUNCTION SXGSize(cGRPSXG,nSize,nDec,cPicture)
 
     Local cSXGPict
 
@@ -2750,65 +2965,73 @@ Static Function SXGSize(cGRPSXG,nSize,nDec,cPicture)
 
     EndIF
 
-Return({nSXGSize,nSXGDec,cSXGPict})
+RETURN({nSXGSize,nSXGDec,cSXGPict})
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funca:X3Tipo
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Obtem Informações do Campo X3_TIPO
         Uso:Generico
         Obs.:
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function X3Tipo(cField)
-Return(GetSx3Cache(cField,"X3_TIPO"))
+METHOD X3Tipo(cField) CLASS NDJLIB001
+RETURN(X3Tipo(@cField))
+STATIC FUNCTION X3Tipo(cField)
+RETURN(GetSx3Cache(cField,"X3_TIPO"))
 
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:X3Tamanho
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Obtem Informações do Campo X3_TAMANHO
         Uso:Generico
         Obs.:
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function X3Tamanho(cField)
-Return(GetSx3Cache(cField,"X3_TAMANHO"))
+METHOD X3Tamanho(cField) CLASS NDJLIB001
+RETURN(X3Tamanho(@cField))
+STATIC FUNCTION X3Tamanho(cField)
+RETURN(GetSx3Cache(cField,"X3_TAMANHO"))
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:X3Decimal
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descrição:Obtem Informações do Campo X3_DECIMAL
         Uso:Generico
         Obs.:
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function X3Decimal(cField)
-Return(GetSx3Cache(cField,"X3_DECIMAL"))
+METHOD X3Decimal(cField) CLASS NDJLIB001
+RETURN(X3Decimal(@cField))
+STATIC FUNCTION X3Decimal(cField)
+RETURN(GetSx3Cache(cField,"X3_DECIMAL"))
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:X3Picture
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
         Descriçã:Obtem Informações do Campo X3_PICTURE
         Uso:Generico
         Obs.:
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function X3Picture(cField)
-Return(GetSx3Cache(cField,"X3_PICTURE"))
+METHOD X3Picture(cField) CLASS NDJLIB001
+RETURN(X3Picture(@cField))
+STATIC FUNCTION X3Picture(cField)
+RETURN(GetSx3Cache(cField,"X3_PICTURE"))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Function:FolderSetOption
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:24/04/2013
         Descricao:Valida a MudanÃƒÂ§a de Folder
         Sintaxe:FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
@@ -2820,7 +3043,9 @@ Return(GetSx3Cache(cField,"X3_PICTURE"))
                         lVldFolder  06 -> Verifica se Deve Efetuar a Validacao do Folder quando nTarget nLastFoder forem iguais
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
+METHOD FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder) CLASS NDJLIB001
+RETURN(FolderSetOption(@nTarget,@nSource,@aObjFolder,@aGdObjects,@nActFolder,@lVldFolder))
+STATIC FUNCTION FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
 
     Local lSetOption:=.T.
     Local lObjisGd:=.F.
@@ -2923,18 +3148,20 @@ Static Function FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
     EndIF
     nActFolder:=nSetOption
 
-Return(lSetOption)
+RETURN(lSetOption)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
         Funcao:GDToExcel
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:01/06/2013
         Descricao:Mostrar os Dados no Excel
         Sintaxe:StaticCall(NDJLIB001,GDToExcel,aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
     /*/
 //--------------------------------------------------------------------------------------------------------------
-Static Function GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
+METHOD GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture) CLASS NDJLIB001
+RETURN(GDToExcel(@aHeader,@aCols,@cWorkSheet,@cTable,@lTotalize,@lPicture))
+STATIC FUNCTION GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
     Local oFWMSExcel:=FWMSExcel():New()
 
@@ -3044,88 +3271,147 @@ Static Function GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
     oFWMSExcel:=FreeObj(oFWMSExcel)
 
-Return(cFile)
+RETURN(cFile)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:dbQuery()
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:07/12/2013
         Descricao:Providenciar um Alias Valido para Abertura da View
-        Sintaxe:StaticCall(NDJLIB001,dbQuery,adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
+        Sintaxe:StaticCall(NDJLIB001,dbQuery,xTAFdbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function dbQuery(adbQuery,cQuery,cAlias,lChgQuery,nTCLink)
+METHOD dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField) CLASS NDJLIB001
+RETURN(dbQuery(@adbQuery,@cQuery,@cAlias,@lChgQuery,@aDBMSConn,@aSetField))
+STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
+  
+    Local cNewAlias
+    
+    Local cFWDBKey
+    Local lFWDBKey
+ 
     Local ldbQuery:=.F.
-    Local lTCSetConn:=.F.
-    Local nAdvLink:=AdvConnection()
+  
+    Local nAliasAT
+  
+    Local lNewFWDB
+    Local lFWDBACCESS:=.NOT.(Empty(aDBMSConn))
+    
+    Local oFWDBAccess
+  
+    DEFAULT adbQuery:=Array(0)
     DEFAULT cAlias:=GetNextAlias()
-    IF (Select(@cAlias)>0)
-        (cAlias)->(dbCloseArea())
+    
+       nAliasAT:=aScan(adbQuery,{|e|(e[1]==cAlias)})
+    IF nAliasAT==0
+        aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
+        nAliasAT:=Len(adbQuery)
     EndIF
+    
     DEFAULT lChgQuery:=.F.
-    IF (lChgQuery)
+    IF lChgQuery
         cQuery:=ChangeQuery(cQuery)
     EndIF
-    DEFAULT nTCLink:=nAdvLink
-    lTCSetConn:=.NOT.(nAdvLink==nTCLink)
-    IF (lTCSetConn)
-        TCSetConn(nTCLink)
+    
+    IF lFWDBACCESS
+        lNewFWDB:=.T.
+        IF adbQuery[nAliasAT][2]
+            IF ValType(adbQuery[nAliasAT][3])=="O"
+                IF .NOT.(Compare(adbQuery[nAliasAT][4],aDBMSConn))
+                    cAlias:=GetNextAlias()
+                    aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
+                    nAliasAT:=Len(adbQuery)
+                Else
+                    lNewFWDB:=.F.
+                    oFWDBAccess:=adbQuery[nAliasAT][3]
+                EndIF
+            Else
+                adbQuery[nAliasAT][2]:=.F.
+            EndIF
+        EndIF
+        IF Select(cAlias)>0
+            (cAlias)->(dbCloseArea())
+        EndIF
+        IF lNewFWDB
+            cFWDBKey:="@!!@"
+            lFWDBKey:=.NOT.(SubStr(cFWDBKey,1,1)$aDBMSConn[1])
+            oFWDBAccess:=FWDBAccess():New(IF(lFWDBKey,cFWDBKey,"")+aDBMSConn[1],aDBMSConn[2],aDBMSConn[3])
+            oFWDBAccess:SetConsoleError(.T.)
+        EndIF    
+        IF oFWDBAccess:HasConnection().or.oFWDBAccess:OpenConnection()
+            cNewAlias:=oFWDBAccess:NewAlias(cQuery,cAlias,aSetField)
+            IF .NOT.(oFWDBAccess:HasError())
+                cAlias:=cNewAlias
+                adbQuery[nAliasAT][1]:=cAlias
+                IF (lNewFWDB)
+                    adbQuery[nAliasAT][2]:=.T.
+                    adbQuery[nAliasAT][3]:=oFWDBAccess
+                    adbQuery[nAliasAT][4]:=aDBMSConn
+                EndIF
+            EndIF
+        EndIF
+    Else
+        IF Select(cAlias)>0
+            (cAlias)->(dbCloseArea())
+        EndIF
+        TCQUERY (cQuery) ALIAS (cAlias) NEW
+        IF .NOT.(aSetField==NIL)
+            aEval(aSetField,{|e|TCSetField(cAlias,e[DBS_NAME],e[DBS_TYPE],e[DBS_LEN],e[DBS_DEC])})
+        EndIF
     EndIF
-    TCQUERY (cQuery)ALIAS (cAlias)NEW
-    DEFAULT adbQuery:=Array(0)
-    IF (aScan(adbQuery,{|e|(e[1]==cAlias)})==0)
-        aAdd(adbQuery,{cAlias,nTCLink})
-       EndIF
-    ldbQuery:=((Select(cAlias)>0).and..NOT.((cAlias)->(Bof().and.Eof())))
-    IF (lTCSetConn)
-        TCSetConn(nAdvLink)
-    EndIF
-Return(ldbQuery)
+
+    ldbQuery:=(Select(cAlias)>0.and..NOT.((cAlias)->(Eof())))
+
+RETURN(ldbQuery)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:dbQueryClear()
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:07/12/2013
         Descricao:Limpar o Cache da dbQuery
         Sintaxe:StaticCall(NDJLIB001,dbQueryClear,adbQuery)
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function dbQueryClear(adbQuery)
-    Local nTCLink
-    Local nAdvLink
-    DEFAULT adbQuery:=Array(0)
+METHOD dbQueryClear(adbQuery) CLASS NDJLIB001
+RETURN(dbQueryClear(@adbQuery))
+STATIC FUNCTION dbQueryClear(adbQuery)
+    Local cAlias
+    Local nAlias
+    Local nAliases
     IF (ValType(adbQuery)=="A")
-        nAdvLink:=AdvConnection()
         nAliases:=Len(adbQuery)
         For nAlias:=1 To nAliases
             cAlias:=adbQuery[nAlias][1]
-            nTCLink:=adbQuery[nAlias][2]
-            IF .NOT.(nTCLink==nAdvLink)
-                TCSetConn(nTCLink)
-            EndIF
             IF (Select(cAlias)>0)
                 (cAlias)->(dbCloseArea())
             EndIF
+            IF (adbQuery[nAlias][2])
+                IF (ValType(adbQuery[nAlias][3])=="O")
+                    IF (adbQuery[nAlias][3]:HasConnection())
+                        adbQuery[nAlias][3]:CloseConnection()
+                    EndIF
+                    adbQuery[nAlias][3]:=FreeObj(adbQuery[nAlias][3])
+                EndIF
+            EndIF
         Next nAlias
         aSize(adbQuery,0)
-        IF .NOT.(nTCLink==nAdvLink)
-            TCSetConn(nAdvLink)
-        EndIF
-    EndIF
-Return(.T.)
+    EndIF    
+RETURN(.T.)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:ProcRedefine()
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:07/12/2013
         Descricao:Redefine Dialog da tNewProcess ou MsNewProcess
         Sintaxe:StaticCall(NDJLIB001,ProcRedefine,oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW))
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
+METHOD ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW) CLASS NDJLIB001
+RETURN(ProcRedefine(@oProcess,@oFont,@nLeft,@nWidth,@nCTLFLeft,@lODlgF,@lODlgW))
+STATIC FUNCTION ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW)
     Local aClassData
     Local laMeter
     Local nObj
@@ -3179,18 +3465,20 @@ Static Function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
         EndIF
         lProcRedefine:=.T.
     EndIF
-Return(lProcRedefine)
+RETURN(lProcRedefine)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
         Funcao:GDCheckKey()
-        Autor:Marinaldo de Jesus
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:07/12/2013
         Descricao:Valida a Linha da GetDados (Baseada na Original da TOTVS)
         Sintaxe:StaticCall(NDJLIB001,GDCheckKey,aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso))
     */
 //--------------------------------------------------------------------------------------------------------------
-Static Function GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
+METHOD GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso) CLASS NDJLIB001
+RETURN(GDCheckKey(@aCpo,@nModelo,@aNoEmpty,@cMsgAviso,@lShowAviso))
+STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
     Local aAux:={}
     Local aLinhas:={}
@@ -3273,7 +3561,7 @@ Static Function GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
         lChkDeleted:=(lGDDeleted.and.(Len(aCols[nLoop])>=nGDDeleted).and.(ValType(aCols[nLoop][nGDDeleted])=="L"))
         IF (lChkRow.and.IF(lChkDeleted,.NOT.(GDDeleted(nLoop)),.T.))
 
-	        //----------------------------------------------------------------------------
+            //----------------------------------------------------------------------------
                 //Considera a Validação apenas quando a Linha não for a Linha Atual
             //----------------------------------------------------------------------------
             IF .NOT.((n==nLoop))
@@ -3433,62 +3721,126 @@ Static Function GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
     EndIF
 
-Return(lRet)
+RETURN(lRet)        
 
-//--------------------------------------------------------------------------------------------------------------
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF .NOT.(lRecursa)
-            BREAK
+//-----------------------------------------------------------------------------------------------------
+    /*
+        Programa:NDJLIB001.prg
+        Function:pt_Default
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Data:24/03/2015
+    */
+//-----------------------------------------------------------------------------------------------------
+METHOD pt_Default(xVar,xDefault) CLASS NDJLIB001
+RETURN(pt_Default(@xVar,@xDefault))
+STATIC FUNCTION pt_Default(xVar,xDefault)
+    DEFAULT xDefault:=NIL
+RETURN(IF(Empty(xVar),xDefault,xVar))
+
+//-----------------------------------------------------------------------------------------------------
+    /*
+        Programa:NDJLIB001.prg
+        Function:pt_Normalize
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Data:24/03/2015
+    */
+//-----------------------------------------------------------------------------------------------------
+METHOD pt_Normalize(cVal,cField,cSide,cPDValue) CLASS NDJLIB001
+RETURN(pt_Normalize(@cVal,@cField,@cSide,@cPDValue))
+STATIC FUNCTION pt_Normalize(cVal,cField,cSide,cPDValue)
+    Local cNRet
+    Local cPadF:="PAD"
+    Local nTamP:=GetSx3Cache(cField,"X3_TAMANHO")
+    DEFAULT cSide:="R"
+    DEFAULT cPDValue:=" "
+    cPadF+=cSide
+    TRY EXCEPTION        
+        cNRet:=&cPadF.(@cVal,@nTamP,@cPDValue)
+    CATCH EXCEPTION
+        cNRet:=cVal
+    END EXCEPTION
+RETURN(cNRet)
+
+//-----------------------------------------------------------------------------------------------------
+/*
+    Programa:NDJLIB001.prg
+    Function:xGetIKValue
+    Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+    Data:16/03/2015
+*/
+//-----------------------------------------------------------------------------------------------------
+METHOD xGetIKValue(cAlias,cIKValue,cToken) CLASS NDJLIB001
+RETURN(xGetIKValue(@cAlias,@cIKValue,@cToken))
+STATIC FUNCTION xGetIKValue(cAlias,cIKValue,cToken)
+    Local aKFields
+    Local cValue
+    Local cField
+    Local xValue
+    Local cFType
+    TRY EXCEPTION
+        xValue:=(cAlias)->(&cIKValue)
+    CATCH EXCEPTION
+        TRY EXCEPTION
+            DEFAULT cToken:="+"
+            cValue:=""
+            aKFields:=_StrToKArr(@cIKValue,@cToken)
+            nKFields:=Len(aKFields)
+            For nField:=1 To nKFields
+                cField:=aKFields[nField]
+                xValue:=(cAlias)->(&cField)
+                cFType:=ValType(xValue)
+                DO CASE
+                CASE (cFType=="D")
+                    xValue:=DtoS(xValue)
+                OTHERWISE
+                    xValue:=cValToChar(xValue)
+                END CASE
+                cValue+=xValue
+            Next nField
+            xValue:=cValue
+        CATCH EXCEPTION
+            xValue:=NIL
+        END EXCEPTION    
+    END EXCEPTION    
+RETURN(xValue)
+
+//-----------------------------------------------------------------------------------------------------
+    /*
+        Programa:NDJLIB001.prg
+        Function:xGetOrder
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Data:16/03/2015
+    */
+//-----------------------------------------------------------------------------------------------------
+METHOD xGetOrder(cAlias,cIKValue) CLASS NDJLIB001
+RETURN(xGetOrder(@cAlias,@cIKValue))
+STATIC FUNCTION xGetOrder(cAlias,cIKValue)
+    Local nOrder
+    //-----------------------------------------------------------------------------------------------------
+    //Obtem a Chave Unica para a Tabela em Questão            
+    DEFAULT cIKValue:=GetSx2Unico(@cAlias)
+    //-----------------------------------------------------------------------------------------------------
+    //Verifica se Existe INDEX Correspondente...            
+    nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
+    //-----------------------------------------------------------------------------------------------------
+    //...Se não encontrou....            
+    IF (nOrder==0)
+        //-----------------------------------------------------------------------------------------------------
+        //...Transforma X2_UNICO em uma Expressão válida            
+        cIKValue:=X2Unique2Index(@cAlias)    
+        //-----------------------------------------------------------------------------------------------------
+        //Verifica se Existe INDEX Correspondente...            
+        nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
+        //-----------------------------------------------------------------------------------------------------
+        //...Se não encontrou....            
+        IF (nOrder==0)
+            //-----------------------------------------------------------------------------------------------------
+            //...Assume a Ordem 1             
+            nOrder:=1
+            (cAlias)->(dbSetOrder(nOrder))
+            //-----------------------------------------------------------------------------------------------------
+            //...Considera a chave como a Expressao de Indice Corrente
+            cIKValue:=(cAlias)->(IndexKey())
         EndIF
-        BRWLEGENDA()
-        DBPACK()
-        DIRMAKE()
-        GETALIAS4FIELDS()
-        GETSETMBFILTER()
-        GETTOPSOURCE()
-        ISCPOVAR()
-        PUTINCHRS()
-        QRYMAXCOD()
-        REGTOARRAY()
-        RETPICTVAL()
-        NDJFROMTO()
-        TOPGETINFO()
-        BrwGetSLeg()
-        __FIELDGET()
-        BRWFILTLEG()
-        MBRRSTFILTER()
-        NDJEVALF3()
-        RunInSrv()
-        NDJMV2Mail()
-        FORCEREADVAR()
-        STRDELCHR()
-        MEMOTOAPRN()
-        _PUTMVPAR()
-        EVALPRG()
-        ClsStackVar()
-        GetStackVar()
-        SetStackVar()
-        XALTHRS()
-        DesvPad()
-        FileToArr()
-        PutSX1()
-        AddPerg()
-        SXGSize()
-        X3Tipo()
-        X3Tamanho()
-        X3Decimal()
-        X3Picture()
-        FolderSetOption()
-        GdToExcel()
-        dbQuery()
-        dbQueryClear()
-        ProcRedefine()
-        GDCheckKey()
-        lRecursa:=__Dummy(.F.)
-        SYMBOL_UNUSED(__cCRLF)
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)
+    EndIF
+RETURN(nOrder)
