@@ -153,10 +153,10 @@ Return(.NOT.(self:ExistSession(@uSession,@nSession)))
 METHOD SetFromArray(atHash) CLASS THASH
     Local nD
     Local nJ
-    Private This:=self
+    Private pThis:=self
     nJ:=Len(atHash)
     For nD:=1 to nJ
-        &("This:"+atHash[nD][1]):=atHash[nD][2]
+        &("pThis:"+atHash[nD][1]):=atHash[nD][2]
     Next nD
 Return(self)
 

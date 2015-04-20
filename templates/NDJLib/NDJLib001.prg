@@ -9,6 +9,12 @@ Static __cCRLF:=CRLF
 
 Static oNDJLIB001
 
+// --------------------------------------------------------------------------------------------------------
+// Obtem o Caractere de PONTO E VIRGULA
+#IFNDEF PONTO_E_VIRGULA
+    #DEFINE PONTO_E_VIRGULA CHR(59)
+#ENDIF
+
 CLASS NDJLIB001
 
     METHOD NEW() CONSTRUCTOR
@@ -74,7 +80,8 @@ CLASS NDJLIB001
     METHOD pt_Normalize(cVal,cField,cSide,cPDValue)
     METHOD xGetIKValue(cAlias,cIKValue,cToken)
     METHOD xGetOrder(cAlias,cIKValue)
-    
+    METHOD GetToken(cTokenStr)
+
 END CLASS
 
 User Function DJLIB001()
@@ -3844,3 +3851,29 @@ STATIC FUNCTION xGetOrder(cAlias,cIKValue)
         EndIF
     EndIF
 RETURN(nOrder)
+
+//-----------------------------------------------------------------------------------------------------
+    /*
+        Programa:NDJLIB001.prg
+        Function:xGetOrder
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Data:16/03/2015
+    */
+//-----------------------------------------------------------------------------------------------------
+METHOD GetToken(cTokenStr) CLASS NDJLIB001
+RETURN(GetToken(@cTokenStr))
+Static Function GetToken(cTokenStr)
+    Local aTokens:={"!","@","#","$","%","¨","&","*","(",")","-","_","+","{","}","[","]","|","|","<",">","|","\","/",",",":","?","~","^","'",'"',"´","`",".",PONTO_E_VIRGULA}
+    Local cToken
+    Local nToken
+    Local nTokens
+    DEFAULT cTokenStr:=""
+    nTokens:=Len(aTokens)
+    For nToken:=1 To nTokens
+        IF (aTokens[nToken]$cTokenStr)
+            cToken:=aTokens[nToken]
+            Exit
+        EndIF
+    Next nToken
+    DEFAULT cToken:=""
+RETURN(cToken)
