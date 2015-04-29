@@ -1,10 +1,10 @@
 #include "totvs.ch"
 User Function SFTPPut()
     Local cSource:="\expordic\*.*"
-    Local cTarget:="TARGET"
+    Local cTarget:="/TARGET/"
     Local cURL:="URL"
     Local cUSR:="USER"
-    Local cPWD:="PDW"
+    Local cPWD:="P@SSWORD"
     Local cMode:="P"
     Local lSrv:=.T.
     Local cPort:="22"
@@ -19,8 +19,8 @@ User Function SFTPGet()
     Local cSource:="/SOURCE/*.*"
     Local cTarget:="\expordic\"
     Local cURL:="URL"
-    Local cUSR:="USR"
-    Local cPWD:="PDW"
+    Local cUSR:="USER"
+    Local cPWD:="P@SSWORD"
     Local cMode:="G"
     Local lSrv:=.T.
     Local cPort:="22"
