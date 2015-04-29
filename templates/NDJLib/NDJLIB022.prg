@@ -24,6 +24,7 @@ CLASS THASH FROM LongClassName
     DATA cClassName
 
     METHOD NEW() CONSTRUCTOR
+    METHOD FreeObj() /*DESTRUCTOR*/
 
     METHOD ClassName()
 
@@ -72,6 +73,22 @@ METHOD New() CLASS THASH
     self:cClassName:="THASH"
     self:nTHashID:=++__nTHashID
 
+Return(self)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:New
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
+        Data:29/04/2015
+        Descricao:CONSTRUCTOR
+        Sintaxe:THash():New()->self
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD FreeObj() CLASS THASH
+    Local aSessions:=self:GetAllSessions()
+    aEval(aSessions,{|c|self:Del(c)})
+    aSize(aSessions,0)
+    self:=FreeObj(self)
 Return(self)
 
 //------------------------------------------------------------------------------------------------
