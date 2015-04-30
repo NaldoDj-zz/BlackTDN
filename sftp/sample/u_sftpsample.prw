@@ -1,4 +1,14 @@
 #include "totvs.ch"
+//------------------------------------------------------------------------------------------------
+    /*/
+        Programa:u_sftpsample.prw
+        Funcao:U_SFTPPut()
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
+        Data:29/04/2015
+        Descricao:Transferencia de dados segura (PUT) usando o protocolo SFTP a partir do pscp.exe
+        Sintaxe:U_SFTPPut()
+    /*/
+//------------------------------------------------------------------------------------------------
 User Function SFTPPut()
     Local cSource:="\expordic\*.*"
     Local cTarget:="/TARGET/"
@@ -15,6 +25,16 @@ User Function SFTPPut()
     ouSFTP:=ouSFTP:FreeObj()
 Return(NIL)
 
+//------------------------------------------------------------------------------------------------
+    /*/
+        Programa:u_sftpsample.prw
+        Funcao:U_SFTPGet()
+        Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
+        Data:29/04/2015
+        Descricao:Transferencia de dados segura (GET) usando o protocolo SFTP a partir do pscp.exe
+        Sintaxe:U_SFTPPut()
+    /*/
+//------------------------------------------------------------------------------------------------
 User Function SFTPGet()
     Local cSource:="/SOURCE/*.*"
     Local cTarget:="\expordic\"
