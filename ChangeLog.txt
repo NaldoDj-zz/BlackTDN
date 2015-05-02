@@ -92,3 +92,6 @@
   * templates/NDJLib/ndjlib032.prg
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
+
+2015-05-02 20:30 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * .gitattributes
