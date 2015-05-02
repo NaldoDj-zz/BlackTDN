@@ -70,7 +70,7 @@ PROCEDURE dummy_delete(aH)
      ELSE 
         HB_HDel(aH, "dummy") 
      EndIF
-	 IF ( ( (nI + 1) % 10000 ) == 0 )
+     IF ( ( (nI + 1) % 10000 ) == 0 )
        ? nI + 1, hb_milliseconds() - nT1, "ms" 
        nT1 := hb_milliseconds() 
      ENDIF 
@@ -89,14 +89,14 @@ PROCEDURE dummy_seek(aH)
    FOR nK := 1 TO 100 
       FOR nI := 0 TO COUNT - 1 
         nJ := ( (nI * 13) % COUNT )  // randomize 
-	    IF ( nJ < 65536 )
-		  xI := aH["dummy"] 
+        IF ( nJ < 65536 )
+          xI := aH["dummy"] 
         ELSE 
           xI := aH["dummy"] 
         ENDIF
 
-	  NEXT 
-	  IF ( ( (nK + 1) % 10 ) == 0 )
+      NEXT 
+      IF ( ( (nK + 1) % 10 ) == 0 )
         ? nK + 1, hb_milliseconds() - nT1, "ms" 
         nT1 := hb_milliseconds() 
       ENDIF 
@@ -146,7 +146,7 @@ PROCEDURE hash_delete(aH)
        cIndex := LEFT(L2BIN(nJ), 3)
      ENDIF 
      HB_HDel(aH,cIndex) 
-	 IF ( ( (nI + 1) % 10000 ) == 0 )
+     IF ( ( (nI + 1) % 10000 ) == 0 )
        ? nI + 1, hb_milliseconds() - nT1, "ms" 
        nT1 := hb_milliseconds() 
      ENDIF 
@@ -170,16 +170,16 @@ PROCEDURE hash_seek(aH)
         ELSE 
           cIndex := LEFT(L2BIN(nJ), 3)
         ENDIF 
-	    xI := aH[cIndex] 
+        xI := aH[cIndex] 
       NEXT 
-	  IF ( ( (nK + 1) % 10 ) == 0 )
+      IF ( ( (nK + 1) % 10 ) == 0 )
         ? nK + 1, hb_milliseconds() - nT1, "ms" 
         nT1 := hb_milliseconds() 
       ENDIF 
-	NEXT 
+    NEXT 
 
    xI := NIL 
 
    ? "Hash seek", hb_milliseconds() - nT, "ms", "length", LEN(aH) 
 
-RETURN 
+RETURN

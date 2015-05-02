@@ -1,7 +1,7 @@
 #LB7#Var X Inteiro, Y Inteiro, ColSapo(7) Inteiro, S String, StrAux String, Cont Inteiro
 Var Pedra(8) Inteiro, PedraSapo(8) Inteiro, SapoClicado Inteiro, P Inteiro, Instrucoes Inteiro
 
-'transforma resolução da janela em pixels
+'transforma resoluÃ§Ã£o da janela em pixels
 X = 27 * TamLin
 Y = 79 * TamCol
 
@@ -12,7 +12,7 @@ Icone "Perereca.ico"
 GifAnimado Sapo1, "SapoDir1.gif"; GifAnimado Sapo2, "SapoDir1.gif"; GifAnimado Sapo3, "SapoDir1.gif"
 GifAnimado Sapo4, "SapaEsq1.gif"; GifAnimado Sapo5, "SapaEsq1.gif"; GifAnimado Sapo6, "SapaEsq1.gif"
 GifAnimado SapoInseto, "SapoInseto.gif"
-GifAnimado SapoInseto.Linha = 405; GifAnimado SapoInseto.Coluna = 420                                          
+GifAnimado SapoInseto.Linha = 405; GifAnimado SapoInseto.Coluna = 420
 GifAnimado SapoInseto.Visivel = SIM
 GifAnimado SapoInseto.Loop = 1
 GifAnimado SapoInseto.Animar
@@ -47,7 +47,7 @@ Enquanto 1 = 1
     S = Evento("GifAnimado")
     Aguarde 20
     Se StrAux <> "FIM"
-      StrAux = PedraSapo(1) & PedraSapo(2) & PedraSapo(3) & PedraSapo(4) & PedraSapo(5) & PedraSapo(6) 
+      StrAux = PedraSapo(1) & PedraSapo(2) & PedraSapo(3) & PedraSapo(4) & PedraSapo(5) & PedraSapo(6)
     FimSe  
     Se StrAux = "567123"
       Som Aplausos.Tocar
@@ -73,31 +73,31 @@ Enquanto 1 = 1
   Se SapoClicado <= 3
     Se PedraSapo(SapoClicado) < 7
       P = PedraSapo(SapoClicado) + 1
-      Se Pedra(P) = 0 'testa primeira pedra à frente
+      Se Pedra(P) = 0 'testa primeira pedra Ã  frente
         Se SapoClicado = 1; PuloSapo1(); FimSe
         Se SapoClicado = 2; PuloSapo2(); FimSe
         Se SapoClicado = 3; PuloSapo3(); FimSe
-        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 1; 
+        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 1;
         Pedra(P) = 1; P--; Pedra(P) = 0
       CasoContrario 
         P++ 
-        Se Pedra(P) = 0 'testa segunda pedra à frente
+        Se Pedra(P) = 0 'testa segunda pedra Ã  frente
           Se SapoClicado = 1; SaltoSapo1(); FimSe
           Se SapoClicado = 2; SaltoSapo2(); FimSe
           Se SapoClicado = 3; SaltoSapo3(); FimSe
-          PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 2; 
+          PedraSapo(SapoClicado) = PedraSapo(SapoClicado) + 2;
           Pedra(P) = 1; P -= 2; Pedra(P) = 0
         FimSe
       FimSe
     FimSe
-  CasoContrario 'sapos de números > 3
+  CasoContrario 'sapos de nÃºmeros > 3
     Se PedraSapo(SapoClicado) > 1
     P = PedraSapo(SapoClicado) - 1
     Se Pedra(P) = 0
       Se SapoClicado = 4; PuloSapo4(); FimSe
       Se SapoClicado = 5; PuloSapo5(); FimSe
       Se SapoClicado = 6; PuloSapo6(); FimSe
-      PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 1; 
+      PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 1;
       Pedra(P) = 1; P++; Pedra(P) = 0
     CasoContrario
       P--
@@ -105,14 +105,14 @@ Enquanto 1 = 1
         Se SapoClicado = 4; SaltoSapo4(); FimSe
         Se SapoClicado = 5; SaltoSapo5(); FimSe
         Se SapoClicado = 6; SaltoSapo6(); FimSe
-        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 2; 
+        PedraSapo(SapoClicado) = PedraSapo(SapoClicado) - 2;
         Pedra(P) = 1; P = P + 2; Pedra(P) = 0
       FimSe
     FimSe
     FimSe
   FimSe
 Repita
-                            
+
 FimPrograma
 
 Sub IniciaSapos()
@@ -223,13 +223,13 @@ Sub PuloSapo3()
   Enquanto Cont < 5
     GifAnimado Sapo3.ProximoFrame
     Cont++
-    Aguarde 50    
+    Aguarde 50
   Repita
   GifAnimado Sapo3.ProximoFrame
   ColSapo(3) += 88
   GifAnimado Sapo3.Coluna = ColSapo(3)
 FimSub
-                        
+
 Sub SaltoSapo3()
   Var Cont Inteiro
 
@@ -263,7 +263,7 @@ Sub PuloSapo4()
   ColSapo(4) -= 88
   GifAnimado Sapo4.Coluna = ColSapo(4)
 FimSub
-                        
+
 Sub SaltoSapo4()
   Var Cont Inteiro
 
@@ -302,7 +302,7 @@ Sub PuloSapo5()
   ColSapo(5) -= 88
   GifAnimado Sapo5.Coluna = ColSapo(5)
 FimSub
-                        
+
 Sub SaltoSapo5()
   Var Cont Inteiro
 
@@ -315,7 +315,7 @@ Sub SaltoSapo5()
   Enquanto Cont < 5
     GifAnimado Sapo5.ProximoFrame
     Cont++
-    Aguarde 50    
+    Aguarde 50
   Repita
   GifAnimado Sapo5.ProximoFrame
 
@@ -341,7 +341,7 @@ Sub PuloSapo6()
   ColSapo(6) -= 88
   GifAnimado Sapo6.Coluna = ColSapo(6)
 FimSub
-                        
+
 Sub SaltoSapo6()
   Var Cont Inteiro
 
@@ -354,7 +354,7 @@ Sub SaltoSapo6()
   Enquanto Cont < 5
     GifAnimado Sapo6.ProximoFrame
     Cont++
-    Aguarde 50    
+    Aguarde 50
   Repita
   GifAnimado Sapo6.ProximoFrame
   
@@ -363,4 +363,4 @@ Sub SaltoSapo6()
   ColSapo(6) -= 88
   GifAnimado Sapo6.Coluna = ColSapo(6)
 FimSub
-                            #%
+#%

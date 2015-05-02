@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "ndj.ch"
 #DEFINE MAIL_TIME_OUT    60
 /*/
     Funcao:        SendMail

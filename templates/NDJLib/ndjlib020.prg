@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "ndj.ch"
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -589,7 +589,7 @@ Static Function ToXML(aTFINI)
     Local nProperties
 
     aAdd(aXML,"<?xml version='1.0' encoding='ISO-8859-1'?>")
-    aAdd(aXML,"<"+cLClassName +">")
+    aAdd(aXML,"<"+cLClassName+">")
     nSessions:=Len(aTFINI)
     For nSession:=1 To nSessions
 

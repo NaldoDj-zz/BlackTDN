@@ -32,7 +32,7 @@ CLASS NDJLIB003
     METHOD AliasLock(cAlias)
     METHOD AliasUnLock(aAliasLock)
     
-END CLASS
+ENDCLASS
 
 User Function DJLIB003()
     DEFAULT oNDJLIB003:=NDJLIB003():New()
@@ -82,7 +82,7 @@ Static Function UseCode(cCodeIUse)
 
         StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,cCodeIUse)
         StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,__cCRLF)
-        StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,"Usu·rio:"+ cUserID)
+        StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,"Usu√°rio:"+ cUserID)
         StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,__cCRLF)
         StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,"Nome:"+ StaticCall(NDJLIB014,UsrRetName,cUserID))
         StaticCall(NDJLIB013,PutSemaphore,cCodeIUse,__cCRLF)

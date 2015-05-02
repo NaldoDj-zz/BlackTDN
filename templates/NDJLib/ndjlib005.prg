@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "ndj.ch"
 /*/
     Funcao:Modelo3
     Autor:Marinaldo de Jesus
@@ -109,7 +109,7 @@ Static Function Modelo3(;
                                     cTudoOk,;           //13->cTudoOk->String Com Funcao para o TudoOk da Enchoice
                                     oDlg,;              //14->oWnd->Objeto Dialog para a Enchoice
                                     lDisableF3,;        //15->lF3->Desabilitar Consulta via Tecla F3
-                                    lVirtual,;          //16->lMemoria->Se os Dados são de Memoria (DEFAULT) ou Arquivo
+                                    lVirtual,;          //16->lMemoria->Se os Dados sÃ£o de Memoria (DEFAULT) ou Arquivo
                                     lColumn,;           //17->lColumn->Se os Dados ficarao em apenas uma coluna
                                     cAtela,;            //18->cAtela
                                     lNoFolder;          //19->lNoFolder

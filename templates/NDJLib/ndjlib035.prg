@@ -83,7 +83,7 @@ Return(self:Get(cField))
 
 METHOD SetValue(cField,xValue) CLASS tGetAdvFVal
     Local xLValue:=self:GetValue(cField)
-    self:Set(cField,xValue)  
+    self:Set(cField,xValue)
 Return(xLValue)
 
 METHOD GetbyKey(uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal

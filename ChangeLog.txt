@@ -1,0 +1,94 @@
+/*
+ * $Id$
+ */
+
+/* Read doc/howtorep.txt and use this format for entry headers:
+   YYYY-MM-DD HH:MM UTC[-|+]hhmm Your Full Name (your_email address)
+   2013-12-31 13:59 UTC+0100 Foo Bar (foo.bar foobar.org)
+   See copyright/license at the end of the file.
+   Encoding: UTF-8 (No BOM)  Notation (in 5th position):
+     * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
+ */
+
+2015-05-02 17:08 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib002.prg
+  * templates/NDJLib/ndjlib003.prg
+  * templates/NDJLib/ndjlib004.prg
+  * templates/NDJLib/ndjlib005.prg
+  * templates/NDJLib/ndjlib006.prg
+  * templates/NDJLib/ndjlib007.prg
+  * templates/NDJLib/ndjlib008.prg
+  * templates/NDJLib/ndjlib009.prg
+  * templates/NDJLib/ndjlib010.prg
+  * templates/NDJLib/ndjlib011.prg
+  * templates/NDJLib/ndjlib012.prg
+  * templates/NDJLib/ndjlib013.prg
+  * templates/NDJLib/ndjlib014.prg
+  * templates/NDJLib/ndjlib015.prg
+  * templates/NDJLib/ndjlib016.prg
+  * templates/NDJLib/ndjlib017.prg
+  * templates/NDJLib/ndjlib018.prg
+  * templates/NDJLib/ndjlib019.prg
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib021.prg
+  * templates/NDJLib/ndjlib023.prg
+  * templates/NDJLib/ndjlib024.prg
+  * templates/NDJLib/ndjlib025.prg
+  * templates/NDJLib/ndjlib026.prg
+  * templates/NDJLib/ndjlib027.prg
+  * templates/NDJLib/ndjlib028.prg
+  * templates/NDJLib/ndjlib029.prg
+  * templates/NDJLib/ndjlib030.prg
+  * templates/NDJLib/ndjlib031.prg
+  * templates/NDJLib/ndjlib032.prg
+  * templates/NDJLib/ndjlib033.prg
+  * templates/NDJLib/ndjlib034.prg
+  
+2015-05-02 19:09 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  - check.hb
+  - commit.hb
+  - log
+  * ChangeLog.txt
+  * games/u_game15/source/u_Game15.prg
+  * games/u_game15/source/u_Game1510.prg
+  * games/u_game15/source/u_Game1511.prg
+  * games/u_SapuReca/lb/source/JogoPerereca.Lbc
+  * harbour/samples/hash/hashPTest.prg
+  * harbour/samples/hash/main.prg
+  * templates/NDJLib/ndjlib010.ch
+  * templates/NDJLib/ndjlib022.prg
+  * templates/NDJLib/ndjlib035.prg
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib002.prg
+  * templates/NDJLib/ndjlib003.prg
+  * templates/NDJLib/ndjlib004.prg
+  * templates/NDJLib/ndjlib005.prg
+  * templates/NDJLib/ndjlib006.prg
+  * templates/NDJLib/ndjlib007.prg
+  * templates/NDJLib/ndjlib008.prg
+  * templates/NDJLib/ndjlib009.prg
+  * templates/NDJLib/ndjlib010.prg
+  * templates/NDJLib/ndjlib011.prg
+  * templates/NDJLib/ndjlib012.prg
+  * templates/NDJLib/ndjlib013.prg
+  * templates/NDJLib/ndjlib014.prg
+  * templates/NDJLib/ndjlib015.prg
+  * templates/NDJLib/ndjlib016.prg
+  * templates/NDJLib/ndjlib017.prg
+  * templates/NDJLib/ndjlib018.prg
+  * templates/NDJLib/ndjlib019.prg
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib021.prg
+  * templates/NDJLib/ndjlib023.prg
+  * templates/NDJLib/ndjlib024.prg
+  * templates/NDJLib/ndjlib025.prg
+  * templates/NDJLib/ndjlib026.prg
+  * templates/NDJLib/ndjlib027.prg
+  * templates/NDJLib/ndjlib028.prg
+  * templates/NDJLib/ndjlib029.prg
+  * templates/NDJLib/ndjlib030.prg
+  * templates/NDJLib/ndjlib031.prg
+  * templates/NDJLib/ndjlib032.prg
+  * templates/NDJLib/ndjlib033.prg
+  * templates/NDJLib/ndjlib034.prg

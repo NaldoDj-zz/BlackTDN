@@ -138,7 +138,7 @@ Method Increment(cAlign) Class tNDJProgress
     EndIF
     nsProgress:=self:nProgress
     IF (cAlign=="C")
-        ++nsProgress
+++nsProgress
         IF (nsProgress>self:nMax)
             nsProgress:=1
         EndIF
@@ -205,7 +205,7 @@ Method Junction(cAlign) Class tNDJProgress
     cProgress+=cLToR
     cProgress+=Space(self:nMax-self:nProgress)
     cProgress+=cRToL
-    cPADFunc +=cAlign
+    cPADFunc+=cAlign
 Return(&cPADFunc.(cProgress,self:nMax))
 
 Method Dispersion(cAlign) Class tNDJProgress
@@ -263,7 +263,7 @@ Method Union(cAlign) Class tNDJProgress
         EndIF
         cProgress:=Stuff(cProgress,nAT,nQT,"")
     EndIF
-    cPADFunc +=cAlign
+    cPADFunc+=cAlign
 Return(&cPADFunc.(cProgress,self:nMax))
 
 Method Occult(cAlign) Class tNDJProgress
@@ -280,7 +280,7 @@ Method Occult(cAlign) Class tNDJProgress
     EndIF
     nsProgress:=self:nProgress
     IF (cAlign=="C")
-        ++nsProgress
+++nsProgress
         IF (nsProgress>self:nMax)
             nsProgress:=1
         EndIF
@@ -335,7 +335,7 @@ Static Function __Random(nB,nE)
     EndIF
 
     IF nB==nE
-        ++nE        
+++nE        
     EndIF
 
     nR:=Randomize(nB,nE)        

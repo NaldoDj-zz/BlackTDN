@@ -1,160 +1,175 @@
-#INCLUDE "NDJ.CH"
-/*/
-	Funcao: 	FindMsObject
-	Autor:		Marinaldo de Jesus
-	Data:		17/04/2011
-	Uso:		Retornar Array com os Objetos conforme cMsClassName
-    Sintaxe:    StaticCall( NDJLIB016 , FindMsObject , cMsClassName , oWnd )
-/*/
-Static Function FindMsObject( cMsClassName , oWnd )
+#include "ndj.ch"
 
-	Local aMsObject	:= {}
+Static oNDJLIB016
 
-	TRYEXCEPTION
-	
-		DEFAULT oWnd := GetWndDefault()
-		
-		IF !( ValType( oWnd ) == "O" )
-			BREAK
-		EndIF
-		
-		IF !( ValType( cMsClassName ) == "C" )
-			BREAK
-		EndIF
+CLASS NDJLIB016
 
-		cMsClassName	:= Upper( cMsClassName )
-		aMsObject		:= FindObject( @oWnd , @cMsClassName )
-		AddObj( @oWnd , @cMsClassName , @aMsObject )
+    METHOD NEW() CONSTRUCTOR
 
-	ENDEXCEPTION
+    METHOD FindMsObject(cMsClassName,oWnd)
+    METHOD GetOctlFocus(oWnd)    
+    
+ENDCLASS
 
-Return( aMsObject )
+User Function DJLIB016()
+    DEFAULT oNDJLIB016:=NDJLIB016():New()
+Return(oNDJLIB016)
 
-/*/
-	Funcao: 	FindObject
-	Autor:		Marinaldo de Jesus
-	Data:		17/04/2011
-	Uso:		Retornar Array com os Objetos conforme cMsClassName
-/*/
-Static Function FindObject( oWnd , cMsClassName , aMsObject )
-	
-	Local aChild
-	Local aControls
+METHOD NEW() CLASS NDJLIB016
+RETURN(self)
 
-	Local nChild
-	Local nChilds
-	Local nControl
-	Local nControls
-	
-	Local oChild
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:FindMsObject
+        Autor:Marinaldo de Jesus
+        Data:17/04/2011
+        Uso:Retornar Array com os Objetos conforme cMsClassName
+        Sintaxe:StaticCall(NDJLIB016,FindMsObject,cMsClassName,oWnd)
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD FindMsObject(cMsClassName,oWnd) CLASS NDJLIB016
+RETURN(FindMsObject(@cMsClassName,@oWnd))
+Static Function FindMsObject(cMsClassName,oWnd)
 
-	DEFAULT aMsObject := {}
-	
-	BEGIN SEQUENCE
+    Local aMsObject:={}
 
-		aControls	:= oWnd:aControls
+    TRYEXCEPTION
+    
+        DEFAULT oWnd:=GetWndDefault()
+        
+        IF !(ValType(oWnd)=="O")
+            BREAK
+        EndIF
+        
+        IF !(ValType(cMsClassName)=="C")
+            BREAK
+        EndIF
 
-		IF ( aControls == NIL )
-			AddObj( @oWnd , @cMsClassName , @aMsObject )
-			oChild := oWnd:oWnd
-			IF !( oChild == NIL )
-				AddObj( @oChild , @cMsClassName , @aMsObject )
-				FindObject( @oChild , @cMsClassName , @aMsObject )	
-			EndIF	
-			BREAK
-		EndIF
+        cMsClassName:=Upper(cMsClassName)
+        aMsObject:=FindObject(@oWnd,@cMsClassName)
+        AddObj(@oWnd,@cMsClassName,@aMsObject)
 
-		nControls	:= Len( aControls )
-		For nControl := 1 To nControls
-			oChild := aControls[ nControl ]
-			IF ( oChild == NIL )
-				Loop
-			EndIF
-			AddObj( @oChild , @cMsClassName , @aMsObject )
-			TRYEXCEPTION
-				aChild	:= oChild:aControls 
-				IF !( aChild == NIL )
-					nChilds := Len( aChild )
-					For nChild := 1 To nChilds
-						oChild := aChild[ nChild ]
-						IF !( oChild == NIL )
-							IF ( oChild == NIL )
-								Loop
-							EndIF
-							AddObj( @oChild , @cMsClassName , @aMsObject )
-							FindObject( @oChild , @cMsClassName , @aMsObject )	
-						EndIF	
-					Next nChild
-				EndIF		
-			ENDEXCEPTION
-		Next nControl
+    ENDEXCEPTION
 
-		oChild := oWnd:oWnd
-		IF !( oChild == NIL )
-			AddObj( @oChild , @cMsClassName , @aMsObject )
-			FindObject( @oChild , @cMsClassName , @aMsObject )	
-		EndIF	
+Return(aMsObject)
 
-	END SEQUENCE
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:FindObject
+        Autor:Marinaldo de Jesus
+        Data:17/04/2011
+        Uso:Retornar Array com os Objetos conforme cMsClassName
+    /*/
+//------------------------------------------------------------------------------------------------
+Static Function FindObject(oWnd,cMsClassName,aMsObject)
+    
+    Local aChild
+    Local aControls
 
-Return( aMsObject )
+    Local nChild
+    Local nChilds
+    Local nControl
+    Local nControls
+    
+    Local oChild
 
-/*/
-	Funcao: 	AddObj
-	Autor:		Marinaldo de Jesus
-	Data:		17/04/2011
-	Uso:		Adicionar o Objeto 
-/*/
-Static Function AddObj( oObj , cMsClassName , aMsObject )
+    DEFAULT aMsObject:={}
+    
+    BEGIN SEQUENCE
 
-	Local cClassName	:= Upper( oObj:ClassName() )
-	
-	Local lAddObj		:= .F.
+        aControls:=oWnd:aControls
 
-	IF ( cClassName == cMsClassName )
-		IF ( lAddObj := ( aScan( aMsObject , { |oFind| ( oFind == oObj ) } ) == 0 ) )
-			aAdd( aMsObject , oObj )
-		EndIF
-	EndIF
+        IF (aControls==NIL)
+            AddObj(@oWnd,@cMsClassName,@aMsObject)
+            oChild:=oWnd:oWnd
+            IF !(oChild==NIL)
+                AddObj(@oChild,@cMsClassName,@aMsObject)
+                FindObject(@oChild,@cMsClassName,@aMsObject)    
+            EndIF    
+            BREAK
+        EndIF
 
-Return( lAddObj )
+        nControls:=Len(aControls)
+        For nControl:=1 To nControls
+            oChild:=aControls[nControl]
+            IF (oChild==NIL)
+                Loop
+            EndIF
+            AddObj(@oChild,@cMsClassName,@aMsObject)
+            TRYEXCEPTION
+                aChild:=oChild:aControls 
+                IF !(aChild==NIL)
+                    nChilds:=Len(aChild)
+                    For nChild:=1 To nChilds
+                        oChild:=aChild[nChild]
+                        IF !(oChild==NIL)
+                            IF (oChild==NIL)
+                                Loop
+                            EndIF
+                            AddObj(@oChild,@cMsClassName,@aMsObject)
+                            FindObject(@oChild,@cMsClassName,@aMsObject)    
+                        EndIF    
+                    Next nChild
+                EndIF        
+            ENDEXCEPTION
+        Next nControl
 
-/*/
-	Funcao: 	GetOctlFocus
-	Autor:		Marinaldo de Jesus
-	Data:		26/06/2011
-	Uso:		Retorna o Objeto Ativo
-/*/
-Static Function GetOctlFocus( oWnd )
+        oChild:=oWnd:oWnd
+        IF !(oChild==NIL)
+            AddObj(@oChild,@cMsClassName,@aMsObject)
+            FindObject(@oChild,@cMsClassName,@aMsObject)    
+        EndIF    
 
-	Local oCtlFocus
+    END SEQUENCE
 
-	TRYEXCEPTION
-	
-		DEFAULT oWnd := GetWndDefault()
-		
-		IF !( ValType( oWnd ) == "O" )
-			BREAK
-		EndIF
+Return(aMsObject)
 
-		oCtlFocus	:= oWnd:oCtlFocus
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:AddObj
+        Autor:Marinaldo de Jesus
+        Data:17/04/2011
+        Uso:Adicionar o Objeto 
+    /*/
+//------------------------------------------------------------------------------------------------
+Static Function AddObj(oObj,cMsClassName,aMsObject)
 
-	ENDEXCEPTION
+    Local cClassName:=Upper(oObj:ClassName())
+    
+    Local lAddObj:=.F.
 
-Return( oCtlFocus )
+    IF (cClassName==cMsClassName)
+        IF (lAddObj:=(aScan(aMsObject,{|oFind|(oFind==oObj)})==0))
+            aAdd(aMsObject,oObj)
+        EndIF
+    EndIF
 
-Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
-        lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		FindMsObject()
-		FindObject()
-		GetOctlFocus()
-		lRecursa	:= __Dummy( .F. )
-		SYMBOL_UNUSED( __cCRLF )
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
-Return( lRecursa )
+Return(lAddObj)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:GetOctlFocus
+        Autor:Marinaldo de Jesus
+        Data:26/06/2011
+        Uso:Retorna o Objeto Ativo
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetOctlFocus(oWnd) CLASS NDJLIB016
+RETURN(GetOctlFocus(@oWnd))
+Static Function GetOctlFocus(oWnd)
+
+    Local oCtlFocus
+
+    TRYEXCEPTION
+    
+        DEFAULT oWnd:=GetWndDefault()
+        
+        IF !(ValType(oWnd)=="O")
+            BREAK
+        EndIF
+
+        oCtlFocus:=oWnd:oCtlFocus
+
+    ENDEXCEPTION
+
+Return(oCtlFocus)

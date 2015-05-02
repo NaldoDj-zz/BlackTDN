@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "ndj.ch"
 
 Static __aPublicV:={}
 Static __nPublicV:=0

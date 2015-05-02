@@ -8,7 +8,7 @@
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Alternativa aas funcoes tipo FT_F* devido as limitacoes apontadas em (http://tdn.totvs.com.br/kbm#9734)
-        Sintaxe:ftdb():New() :Objeto do Tipo ufT
+        Sintaxe:ftdb():New():Objeto do Tipo ufT
     /*/
 //------------------------------------------------------------------------------------------------
 CLASS fTdb FROM ufT
@@ -48,7 +48,7 @@ CLASS fTdb FROM ufT
     METHOD ft_fSetRddName(cRddName)
     METHOD ft_fSetBufferSize(nBufferSize)
 
-END CLASS
+ENDCLASS
 
 User Function ftdb()
 Return(ftdb():New())
@@ -59,7 +59,7 @@ Return(ftdb():New())
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:CONSTRUCTOR
-        Sintaxe:ftdb():New() :Object do Tipo fT                
+        Sintaxe:ftdb():New():Object do Tipo fT                
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD New() CLASS fTdb
@@ -81,7 +81,7 @@ Return(self)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retornar o Nome da Classe
-        Sintaxe:ftdb():ClassName() :Retorna o Nome da Classe
+        Sintaxe:ftdb():ClassName():Retorna o Nome da Classe
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS fTdb
@@ -93,7 +93,7 @@ Return(self:cClassName)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Abrir o Arquivo Passado como Parametro
-        Sintaxe:ftdb():ft_fUse(cFile) :nfHandle (nfHandle > 0 True, False)
+        Sintaxe:ftdb():ft_fUse(cFile):nfHandle (nfHandle>0 True,False)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fUse(cFile) CLASS fTdb
@@ -120,7 +120,7 @@ Return(self:nfHandle)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Abrir o Arquivo Passado como Parametro
-        Sintaxe:ftdb():ft_fOpen(cFile) :nfHandle (nfHandle > 0 True, False)
+        Sintaxe:ftdb():ft_fOpen(cFile):nfHandle (nfHandle>0 True,False)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fOpen(cFile) CLASS fTdb
@@ -185,7 +185,7 @@ Return(self:nfHandle)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Percorre o Arquivo a ser lido e alimento o Array aLines
-        Sintaxe:ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF) :nLines Read
+        Sintaxe:ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF):nLines Read
     /*/
 //------------------------------------------------------------------------------------------------
 Static Function ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF)
@@ -204,7 +204,7 @@ Static Function ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF)
         cBuffer+=fReadStr(@nfHandle,@nBufferSize)
         nBytesRead+=nBufferSize
         while (cCRLF$cBuffer)
-            ++nLines
+++nLines
             cLine:=subStr(cBuffer,1,(at(cCRLF,cBuffer)+nAtPlus))
             cBuffer:=subStr(cBuffer,len(cLine)+1)
             cLine:=strTran(cLine,cCRLF,"")
@@ -215,7 +215,7 @@ Static Function ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF)
     end while
 
     if .not.(empty(cBuffer))
-        ++nLines
+++nLines
         (cAlias)->(dbAppend(.T.))
         (cAlias)->(FieldPut(1,cBuffer))
         cBuffer:=""
@@ -229,7 +229,7 @@ Return(nLines)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Fechar o Arquivo aberto pela ft_fOpen ou ft_fUse
-        Sintaxe:ftdb():ft_fClose() :NIL
+        Sintaxe:ftdb():ft_fClose():NIL
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fClose() CLASS fTdb
@@ -238,7 +238,7 @@ METHOD ft_fClose() CLASS fTdb
     
     _Super:ft_fClose()
 
-    IF (Select(self:cDbAlias) > 0)
+    IF (Select(self:cDbAlias)>0)
         (self:cDbAlias)->(dbCloseArea())
     EndIF
 
@@ -263,7 +263,7 @@ Return(NIL)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retornar o Nome do Arquivo Atualmente Aberto
-        Sintaxe:ftdb():ft_fAlias() :cFile
+        Sintaxe:ftdb():ft_fAlias():cFile
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fAlias() CLASS fTdb
@@ -274,7 +274,7 @@ Return(self:cDbAlias)
     Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:01/05/2011
     Descricao:Verifica se o Arquivo Existe
-    Sintaxe:ftdb():ft_fExists(cFile) :lExists
+    Sintaxe:ftdb():ft_fExists(cFile):lExists
 /*/
 METHOD ft_fExists(cFile) CLASS fTdb
 Return(_Super:ft_fExists(cFile))
@@ -285,7 +285,7 @@ Return(_Super:ft_fExists(cFile))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retorna o Recno Atual
-        Sintaxe:ftdb():ft_fRecno() :nRecno
+        Sintaxe:ftdb():ft_fRecno():nRecno
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fRecno() CLASS fTdb
@@ -298,7 +298,7 @@ Return(self:nRecno)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Salta n Posicoes 
-        Sintaxe:ftdb():ft_fSkip(nSkipper) :nRecno
+        Sintaxe:ftdb():ft_fSkip(nSkipper):nRecno
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fSkip(nSkipper) CLASS fTdb
@@ -313,7 +313,7 @@ Return(self:nRecno)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Salta para o Registro informando em nGoto
-        Sintaxe:ftdb():ft_fGoTo(nGoTo) :nRecno
+        Sintaxe:ftdb():ft_fGoTo(nGoTo):nRecno
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fGoTo(nGoTo) CLASS fTdb
@@ -327,7 +327,7 @@ Return(self:nRecno)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Salta para o Inicio do Arquivo
-        Sintaxe:ftdb():ft_fGoTo(nGoTo) :nRecno
+        Sintaxe:ftdb():ft_fGoTo(nGoTo):nRecno
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fGoTop() CLASS fTdb
@@ -341,7 +341,7 @@ Return(self:nRecno)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Salta para o Final do Arquivo
-        Sintaxe:ftdb():ft_fGoBottom() :nRecno
+        Sintaxe:ftdb():ft_fGoBottom():nRecno
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fGoBottom() CLASS fTdb
@@ -355,7 +355,7 @@ Return(self:nRecno)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retorna o Numero de Registro do Arquivo
-        Sintaxe:ftdb():ft_fLastRec() :nRecCount
+        Sintaxe:ftdb():ft_fLastRec():nRecCount
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fLastRec() CLASS fTdb
@@ -367,7 +367,7 @@ Return((self:cDbAlias)->(LastRec()))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retorna o Numero de Registro do Arquivo
-        Sintaxe:ftdb():ft_fRecCount() :nRecCount
+        Sintaxe:ftdb():ft_fRecCount():nRecCount
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fRecCount() CLASS fTdb
@@ -379,7 +379,7 @@ Return((self:cDbAlias)->(RecCount()))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Verifica se Atingiu o Final do Arquivo
-        Sintaxe:ftdb():ft_fEof() :lEof
+        Sintaxe:ftdb():ft_fEof():lEof
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fEof() CLASS fTdb
@@ -391,7 +391,7 @@ Return((self:cDbAlias)->(Eof()))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Verifica se Atingiu o Inicio do Arquivo
-        Sintaxe:ftdb():ft_fBof() :lBof
+        Sintaxe:ftdb():ft_fBof():lBof
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fBof() CLASS fTdb
@@ -403,7 +403,7 @@ Return((self:cDbAlias)->(Bof()))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Le a Linha do Registro Atualmente Posicionado
-        Sintaxe:ftdb():ft_fReadLine() :cLine
+        Sintaxe:ftdb():ft_fReadLine():cLine
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fReadLine() CLASS fTdb
@@ -427,7 +427,7 @@ Return(self:cLine)
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Le a Linha do Registro Atualmente Posicionado
-        Sintaxe:ftdb():ft_fReadLn() :cLine
+        Sintaxe:ftdb():ft_fReadLn():cLine
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fReadLn() CLASS fTdb
@@ -439,7 +439,7 @@ Return(self:ft_fReadLine())
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Retorna o Ultimo erro ocorrido
-        Sintaxe:ftdb():ft_fError(@cError) :nDosError
+        Sintaxe:ftdb():ft_fError(@cError):nDosError
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fError(cError) CLASS fTdb
@@ -452,7 +452,7 @@ Return(fError())
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Redefine nBufferSize
-        Sintaxe:ftdb():ft_fSetBufferSize(nBufferSize) :nLastBufferSize
+        Sintaxe:ftdb():ft_fSetBufferSize(nBufferSize):nLastBufferSize
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fSetBufferSize(nBufferSize) CLASS fTdb
@@ -464,7 +464,7 @@ Return(_Super:ft_fSetBufferSize(@nBufferSize))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
         Descricao:Redefine cCRLF
-        Sintaxe:ftdb():ft_fSetCRLF(cCRLF) :nLastCRLF
+        Sintaxe:ftdb():ft_fSetCRLF(cCRLF):nLastCRLF
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fSetCRLF(cCRLF) CLASS fTdb
@@ -476,7 +476,7 @@ Return(_Super:ft_fSetCRLF(@cCRLF))
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]`
         Data:01/05/2011
         Descricao:Redefine cRddName
-        Sintaxe:ftdb():ft_fSetRddName(cRddName) :cLastRddName
+        Sintaxe:ftdb():ft_fSetRddName(cRddName):cLastRddName
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ft_fSetRddName(cRddName) CLASS fTdb

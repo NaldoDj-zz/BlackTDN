@@ -1,11 +1,34 @@
-#INCLUDE "NDJ.CH"
-/*/
-    Funcao:ReadStackParameters
-    Autor:Marinaldo de Jesus
-    Data:19/01/2011
-    Uso:Retornar informacoes de Variaveis da Pilha de Chamadas
-    Sintaxe:StaticCall(NDJLIB006,ReadStackParameters,cStack,cParameter,cScope,cModule,aStackParameters)
-/*/
+#include "ndj.ch"
+
+Static oNDJLIB006
+
+CLASS NDJLIB006
+
+    METHOD NEW() CONSTRUCTOR
+    
+    METHOD GetStackParameters()
+    METHOD ReadStackParameters(cStack,cParameter,cScope,cModule,aStackParameters)
+    
+ENDCLASS
+
+User Function DJLIB006()
+    DEFAULT oNDJLIB006:=NDJLIB006():New()
+RETURN(oNDJLIB006)
+
+METHOD NEW() CLASS NDJLIB006
+RETURN(self)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:ReadStackParameters
+        Autor:Marinaldo de Jesus
+        Data:19/01/2011
+        Uso:Retornar informacoes de Variaveis da Pilha de Chamadas
+        Sintaxe:StaticCall(NDJLIB006,ReadStackParameters,cStack,cParameter,cScope,cModule,aStackParameters)
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD ReadStackParameters(cStack,cParameter,cScope,cModule,aStackParameters) CLASS NDJLIB006
+RETURN(ReadStackParameters(@cStack,@cParameter,@cScope,@cModule,@aStackParameters))
 Static Function ReadStackParameters(cStack,cParameter,cScope,cModule,aStackParameters)
 
     Local bAscan
@@ -58,13 +81,17 @@ Static Function ReadStackParameters(cStack,cParameter,cScope,cModule,aStackParam
 
 Return(uValue)
 
-/*/
-    Funcao:GetStackParameters
-    Autor:Marinaldo de Jesus
-    Data:19/01/2011
-    Uso:Obtem Array com a Pilha de Chamadas que sera usado pela ReadStackParameters
-    Sintaxe:StaticCall(NDJLIB006,GetStackParameters)
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:GetStackParameters
+        Autor:Marinaldo de Jesus
+        Data:19/01/2011
+        Uso:Obtem Array com a Pilha de Chamadas que sera usado pela ReadStackParameters
+        Sintaxe:StaticCall(NDJLIB006,GetStackParameters)
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetStackParameters() CLASS NDJLIB006
+RETURN(GetStackParameters())
 Static Function GetStackParameters()
 
     Local aStackEnv
@@ -181,17 +208,17 @@ Static Function GetStackParameters()
                        While (;
                                 ((nIndexEnv)<=nStackEnv);
                                 .and.;
-                                   .NOT.("STACK"==cSub5StackEnv);
-                                   .and.;
-                                   .NOT.("FILES"==cSub5StackEnv);
-                                   .and.;
-                                   .NOT.("PARAM"==cSub5StackEnv);
-                                   .and.;  
+                                .NOT.("STACK"==cSub5StackEnv);
+                                .and.;
+                                .NOT.("FILES"==cSub5StackEnv);
+                                .and.;
+                                .NOT.("PARAM"==cSub5StackEnv);
+                                .and.;  
                                 .NOT.("FIELD"==cSub5StackEnv);
                                 .and.;
                                 .NOT.("LOCAL"==cSub5StackEnv);
-                                   .and.;
-                                   .NOT.("PRIVATE"==SubStr(cUpperStackEnv,1,7));
+                                .and.;
+                                .NOT.("PRIVATE"==SubStr(cUpperStackEnv,1,7));
                        )
                                                         
                         cStackEnv +=aStackEnv[nIndexEnv]
@@ -232,13 +259,15 @@ Static Function GetStackParameters()
 
 Return(aStackParameters)
 
-/*/
-    Funcao:AddStackParameters
-    Autor:Marinaldo de Jesus
-    Data:19/01/2011
-    Uso:Carregar os Valores da Pilha de Chamadas
-    Sintaxe:AddStackParameters(aStackParameters,nStack,cStackEnv)
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:AddStackParameters
+        Autor:Marinaldo de Jesus
+        Data:19/01/2011
+        Uso:Carregar os Valores da Pilha de Chamadas
+        Sintaxe:AddStackParameters(aStackParameters,nStack,cStackEnv)
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function AddStackParameters(aStackParameters,nStack,cStackEnv)
 
     Local aScope
@@ -366,17 +395,3 @@ Static Function AddStackParameters(aStackParameters,nStack,cStackEnv)
     Set(4,cDateFormat)
 
 Return(NIL)
-
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF .NOT.(lRecursa)
-            BREAK
-        EndIF
-        ReadStackParameters()
-        lRecursa:=__Dummy(.F.)
-        SYMBOL_UNUSED(__cCRLF)
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)

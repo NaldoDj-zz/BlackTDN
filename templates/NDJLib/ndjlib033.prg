@@ -155,7 +155,7 @@ Return(self:SecsToTime(nSeconds))
 Method Time2NextDay(cTime,dDate) Class tNDJTimeCalc
     While (Val(cTime)>=24)
         cTime:=self:DecTime(cTime,24)
-        ++dDate
+++dDate
     End While
 Return({cTime,dDate})
 
@@ -252,27 +252,27 @@ Class tNDJRemaining From tNDJTimeCalc
     DATA nTotal         AS NUMERIC   INIT 0              HIDDEN
 
     //-------------------------------------------------------------------
-        // EXPORTED: Instancia um novo objeto
+        // EXPORTED:Instancia um novo objeto
     //-------------------------------------------------------------------    
     Method New(nTotal) CONSTRUCTOR
     
     //-------------------------------------------------------------------
-        // EXPORTED: Retorna o Nome da Classe
+        // EXPORTED:Retorna o Nome da Classe
     //-------------------------------------------------------------------
     Method ClassName()
 
     //-------------------------------------------------------------------
-        // EXPORTED: Seta novo Total para Calcule()
+        // EXPORTED:Seta novo Total para Calcule()
     //-------------------------------------------------------------------
     Method SetRemaining(nTotal)
 
     //-------------------------------------------------------------------
-        // EXPORTED: Para Obter os Tempos utilize o Metodo Calcule
+        // EXPORTED:Para Obter os Tempos utilize o Metodo Calcule
     //-------------------------------------------------------------------
     Method Calcule(lProgress)
 
     //-------------------------------------------------------------------
-        // EXPORTED: Retorna os Valores das Propriedades
+        // EXPORTED:Retorna os Valores das Propriedades
     //-------------------------------------------------------------------
     Method GetcAverageTime()
     Method GetcEndTime()
@@ -338,7 +338,7 @@ Method Calcule(lProgress) Class tNDJRemaining
 
     DEFAULT lProgress:=.T.
     IF (lProgress)
-        ++self:nProgress
+++self:nProgress
     EndIF
 
     self:cAverageTime:=self:AverageTime(self:cTimeDiff,self:nProgress,.T.)

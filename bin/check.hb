@@ -33,7 +33,7 @@
 
 #include "directry.ch"
 
-#define _HBROOT_  hb_PathNormalize( hb_DirSepToOS( hb_DirBase() + "../" ) )  /* must end with dirsep */
+#define _HBROOT_  hb_PathNormalize( hb_DirSepToOS( "..\BlackTDN\" ) )  /* must end with dirsep */
 
 FUNCTION CheckFileList( xName )
 
@@ -173,7 +173,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes )
    IF ! FNameExc( cName, LoadGitignore() )
 
       IF ( Len( hb_FNameName( cName ) ) > 8 .OR. Len( hb_FNameExt( cName ) ) > 4 ) .AND. ! FNameExc( cName, aCanBeLong )
-         AAdd( aErr, "filename: non-8.3" )
+         *AAdd( aErr, "filename: non-8.3" )
       ENDIF
 
       IF Left( hb_FNameName( cName ), 1 ) == "." .AND. ! FNameExc( cName, aCanBeDot )
@@ -189,7 +189,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes )
       ENDIF
 
       IF !( cName == Lower( cName ) ) .AND. ! FNameExc( cName, aCanBeUpper )
-         AAdd( aErr, "filename: non-lowercase" )
+         * AAdd( aErr, "filename: non-lowercase" )
       ENDIF
 
       IF ! IsASCII7( cName )
@@ -249,7 +249,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes )
          ENDIF
 
          IF ! FNameExc( cName, aCanHaveSpaceAtEol ) .AND. EndingWhitespace( cFile )
-            AAdd( aErr, "content: has ending whitespace" )
+            *AAdd( aErr, "content: has ending whitespace" )
             IF lApplyFixes
                lRemoveEndingWhitespace := .T.
                lReBuild := .T.
@@ -306,7 +306,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes )
             ! "public domain" $ Lower( cFile ) .AND. ;
             ! "copyright" $ Lower( cFile ) .AND. ;
             ! "license" $ Lower( cFile )
-            AAdd( aErr, "content: source code missing copyright/license" )
+            *AAdd( aErr, "content: source code missing copyright/license" )
          ENDIF
 
          IF "|" + hb_FNameExt( cName ) + "|" $ "|.c|.h|.api|"

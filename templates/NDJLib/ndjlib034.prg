@@ -28,7 +28,7 @@ User Function tLogReport()
 Return(tLogReport():New())
 
 METHOD NEW() CLASS tLogReport
-	_Super:New()
+    _Super:New()
 Return(self)
 
 METHOD ClassName() CLASS tLogReport
@@ -161,7 +161,7 @@ Static Procedure ReportPrint(oTReport,oSections,oself)
         oSection:Finish() 
         aLogD:=oself:Get(cLogT)
         nTD:=Len(aLogD)
-        For nD:= 1 To nTD
+        For nD:=1 To nTD
             cLogD:=aLogD[nD]
             cSection:="DetailLog"
             oSection:=oSections:Get(cSection)

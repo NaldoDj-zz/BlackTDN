@@ -192,7 +192,7 @@ RETURN(self:cZipPwd)
         Autor:Marinaldo de Jesus
         Data:04/08/2004
         Descricao:Efetua a Comparacao de Arrays
-        Retorno:lCompare<=>False se Houver Diferca, True se Nao Houver
+        Retorno:lCompare<=>False se Houver Diferca,True se Nao Houver
     /*/
 //------------------------------------------------------------------------------------------------
 Static Function ArrayCompare(aArray1,aArray2,cATDiff)
@@ -250,7 +250,7 @@ Static Function ArrayCompare(aArray1,aArray2,cATDiff)
                     cATDiff+=(NToS(nHalfToEnd)+"|")
                     BREAK
                 EndIF
-                ++nHalfToEnd
+++nHalfToEnd
             EndIF
             IF (nArray1Size>=nHalfToEnd)
                 IF .NOT.(lCompare:=Compare(aArray1[nArray1Size],aArray2[nArray1Size]))
@@ -271,7 +271,7 @@ Return(lCompare)
         Autor:Marinaldo de Jesus
         Data:08/10/2002
         Descricao:Compara o Conteudo de 2 Variaveis
-        Retorno:lCompare<=>False se Houver Diferenca, True se Nao Houver
+        Retorno:lCompare<=>False se Houver Diferenca,True se Nao Houver
     /*/
 //------------------------------------------------------------------------------------------------
 Static Function Compare(uCompare1,uCompare2,cATDiff)
