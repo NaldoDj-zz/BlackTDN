@@ -98,3 +98,7 @@
 
 2015-05-02 23:07 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
   * templates/NDJLib/ndjlib028.prg
+
+2015-05-03 00:16 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib014.prg

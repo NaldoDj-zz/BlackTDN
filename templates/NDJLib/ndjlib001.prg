@@ -687,7 +687,7 @@ RETURN(cTime)
         Funcao:XALTHRS
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:10/11/2010
-        Descricao:Gravar a Data da Altera? da Informacao
+        Descricao:Gravar a Data da Alteracao da Informacao
         Sintaxe:StaticCall(NDJLIB001,XALTHRS)
     /*/
 //--------------------------------------------------------------------------------------------------------------
@@ -1035,46 +1035,46 @@ RETURN(uCntGet)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
-        Funcao:        DlgMemoEdit
-        Autor:        Marinaldo de Jesus
-        Data:        11/12/2010
-        Descricao:    Dialog com Campo Memo para uso diverso
-        Sintaxe:    StaticCall(NDJLIB001,DlgMemoEdit,...)
+        Funcao:DlgMemoEdit
+        Autor:Marinaldo de Jesus
+        Data:11/12/2010
+        Descricao:Dialog com Campo Memo para uso diverso
+        Sintaxe:StaticCall(NDJLIB001,DlgMemoEdit,...)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD DlgMemoEdit(;
-                                bAction     ,;//01 -> Acao a ser executada se tudo Ok
-                                cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
-                                aButtons    ,;//04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                oMemoEdit   ,;//05 -> Objeto MemoEdit
-                                cMemoEdit   ,;//06 -> Conteudo do Campo Memo
-                                oFont       ,;//07 -> Objeto Font
-                                aAdvSize    ,;//08 -> Coordenadas do Dialogo
-                                bAValid      ;//09 -> Pr鮖alida褯 para execu褯 de bAction
+                                bAction     ,;//01 ->Acao a ser executada se tudo Ok
+                                cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                oMemoEdit   ,;//05 ->Objeto MemoEdit
+                                cMemoEdit   ,;//06 ->Conteudo do Campo Memo
+                                oFont       ,;//07 ->Objeto Font
+                                aAdvSize    ,;//08 ->Coordenadas do Dialogo
+                                bAValid      ;//09 ->Pre-Validar para execucao de bAction
                   )  CLASS NDJLIB001
 RETURN(DlgMemoEdit(;
-                      @bAction     ,;//01 -> Acao a ser executada se tudo Ok
-                    @cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                    @lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
-                    @aButtons    ,;//04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                    @oMemoEdit   ,;//05 -> Objeto MemoEdit
-                    @cMemoEdit   ,;//06 -> Conteudo do Campo Memo
-                    @oFont       ,;//07 -> Objeto Font
-                    @aAdvSize    ,;//08 -> Coordenadas do Dialogo
-                    @bAValid      ;//09 -> Pr鮖alida褯 para execu褯 de bAction
+                    @bAction     ,;//01 ->Acao a ser executada se tudo Ok
+                    @cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
+                    @aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @oMemoEdit   ,;//05 ->Objeto MemoEdit
+                    @cMemoEdit   ,;//06 ->Conteudo do Campo Memo
+                    @oFont       ,;//07 ->Objeto Font
+                    @aAdvSize    ,;//08 ->Coordenadas do Dialogo
+                    @bAValid      ;//09 ->Pre-Validar para execucao de bAction
                   );
 )
 STATIC FUNCTION DlgMemoEdit(;
-                                bAction     ,;//01 -> Acao a ser executada se tudo Ok
-                                cTitle      ,;//02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                lModify     ,;//03 -> Se podera modificar o Conteudo do campo Memo
-                                aButtons    ,;//04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                oMemoEdit   ,;//05 -> Objeto MemoEdit
-                                cMemoEdit   ,;//06 -> Conteudo do Campo Memo
-                                oFont       ,;//07 -> Objeto Font
-                                aAdvSize    ,;//08 -> Coordenadas do Dialogo
-                                bAValid      ;//09 -> Pr鮖alida褯 para execu褯 de bAction
+                                bAction     ,;//01 ->Acao a ser executada se tudo Ok
+                                cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                oMemoEdit   ,;//05 ->Objeto MemoEdit
+                                cMemoEdit   ,;//06 ->Conteudo do Campo Memo
+                                oFont       ,;//07 ->Objeto Font
+                                aAdvSize    ,;//08 ->Coordenadas do Dialogo
+                                bAValid      ;//09 ->Pre-Validar para execucao de bAction
                            )
 Local aSvKeys
 Local aInfoAdvSize
@@ -1141,25 +1141,25 @@ Begin Sequence
     RestKeys(aSvKeys,.T.)
 
     IF (lModify)
-        IF (lConfOk)            //<CTRL-O>
+        IF (lConfOk) //<CTRL-O>
             DEFAULT bAValid:={||.T.}
              IF Eval(bAValid)
                 DEFAULT bAction:={||.T.}
                 Eval(bAction)
             EndIF
-        ElseIF .NOT.(lConfOk)   //<CTRL-X>
+        ElseIF .NOT.(lConfOk) //<CTRL-X>
             IF .NOT.(cSvMemoEdit==cMemoEdit)
-                IF .NOT.(MsgNoYes(OemToAnsi("Abandonar as Altera?s?"),cTitCompl))
+                IF .NOT.(MsgNoYes(OemToAnsi("Abandonar as Alteracoes?"),cTitCompl))
                     DlgMemoEdit(;
-                                    @bAction    ,;  //01 -> Acao a ser executada se tudo Ok
-                                    @cTitle     ,;  //02 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                    @lModify    ,;  //03 -> Se podera modificar o Conteudo do campo Memo
-                                    @aButtons   ,;  //04 -> Array com Botoes para Opcao de Edicao dos Campos Memo
-                                    @oMemoEdit  ,;  //05 -> Objeto MemoEdit
-                                    @cMemoEdit  ,;  //06 -> Conteudo do Campo Memo
-                                    @oFont      ,;  //07 -> Objeto Font
-                                    @aAdvSize   ,;  //08 -> Coordenadas do Dialogo
-                                    @bAValid     ;  //09 -> Pr鮖alida褯 para execu褯 de bAction
+                                    @bAction    ,;//01 ->Acao a ser executada se tudo Ok
+                                    @cTitle     ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                    @lModify    ,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                    @aButtons   ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                    @oMemoEdit  ,;//05 ->Objeto MemoEdit
+                                    @cMemoEdit  ,;//06 ->Conteudo do Campo Memo
+                                    @oFont      ,;//07 ->Objeto Font
+                                    @aAdvSize   ,;//08 ->Coordenadas do Dialogo
+                                    @bAValid     ;//09 ->Pre-Validar para execucao de bAction
                                )
                 EndIF
             EndIF
@@ -1172,11 +1172,11 @@ RETURN(cMemoEdit)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
-        Funcao: GetAlias4Fields
+        Funcao:GetAlias4Fields
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:14/12/2010
         Uso:Obtem o Alias a partir dos campos Fornecidos como Parametros
-        Sintaxe:  StaticCall(NDJLIB001,GetAlias4Fields,cAlias,aFields)
+        Sintaxe:StaticCall(NDJLIB001,GetAlias4Fields,cAlias,aFields)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD GetAlias4Fields(cAlias,aFields) CLASS NDJLIB001
@@ -1221,7 +1221,7 @@ STATIC FUNCTION GetAlias4Fields(cAlias,aFields)
             EndIF
             For nField:=1 To nFields
                 nFieldPos:=(cAlias)->(FieldPos(aFields[nField]))
-                IF (nFieldPos < 0)
+                IF (nFieldPos< 0)
                     nFieldPos+=1
                 EndIF
                 IF (nFieldPos>0)
@@ -1329,11 +1329,11 @@ RETURN(uRetValue)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
-        Funcao: GetMemVar
+        Funcao:GetMemVar
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:26/12/2010
         Uso:Obter Variavel de Memoria
-        Sintaxe:  StaticCall(NDJLIB001,GetMemVar,cVar,lInitPad,cLado)
+        Sintaxe:StaticCall(NDJLIB001,GetMemVar,cVar,lInitPad,cLado)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD GetMemVar(cVar,lInitPad,cLado) CLASS NDJLIB001
@@ -1376,11 +1376,11 @@ RETURN(uRetValue)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
-        Funcao: IsMemVar
+        Funcao:IsMemVar
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
         Data:26/12/2010
         Uso:Verificar Variavel de Memoria
-        Sintaxe:  StaticCall(NDJLIB001,IsMemVar,cVar)
+        Sintaxe:StaticCall(NDJLIB001,IsMemVar,cVar)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD IsMemVar(cVar) CLASS NDJLIB001
@@ -1405,7 +1405,7 @@ STATIC FUNCTION IsMemVar(cVar)
         IF ((cTypeVar=="M").and.(cType=="C"))
             cTypeVar:="C"
         EndIF
-        lIsMemVar:=IF(cTypeVar <> NIL,(cType==cTypeVar),(cType <> "U"))
+        lIsMemVar:=IF(cTypeVar<>NIL,(cType==cTypeVar),(cType<>"U"))
 
     CATCHEXCEPTION USING oException
 
@@ -1670,11 +1670,11 @@ RETURN(cLastFilter)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
-        Funcao:        RetPictVal
-        Autor:        Marinaldo de Jesus
-        Data:        17/03/2011
-        Descricao:    Retorna a Picture para Campo Numerico Conforme Valor
-        Sintaxe:    StaticCall(NDJLIB001,RetPictVal,nVal,lDecZero,nInt,nDec,lPictSepMil)
+        Funcao:RetPictVal
+        Autor:Marinaldo de Jesus
+        Data:17/03/2011
+        Descricao:Retorna a Picture para Campo Numerico Conforme Valor
+        Sintaxe:StaticCall(NDJLIB001,RetPictVal,nVal,lDecZero,nInt,nDec,lPictSepMil)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil) CLASS NDJLIB001
@@ -1695,10 +1695,10 @@ STATIC FUNCTION RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
                 (uDec==0);
               .and.;
                 .NOT.(lDecZero);
-           )
+        )
             uDec:=NIL
         EndIF
-        IF (uDec <> NIL)
+        IF (uDec<>NIL)
             uDec:=AllTrim(Str(uDec))
             uDec:=SubStr(uDec,At(".",uDec)+1)
             uDec:=Len(uDec)
@@ -1716,7 +1716,7 @@ STATIC FUNCTION RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
                 Next uInt
             EndIF
         EndIF
-        IF (uDec <> NIL)
+        IF (uDec<>NIL)
             cPict+="."
             cPict+=Replicate("9",uDec)
             nDec:=uDec
@@ -1895,7 +1895,7 @@ STATIC FUNCTION DirMake(cMakeDir,nTimes,nSleep)
                 .NOT.(lMakeOk:=lIsDir(cMakeDir));
               .and.;
                 (++nMakeOk<=nTimes);
-          )
+        )
             Sleep(nSleep)
             MakeDir(cMakeDir)
         End While
@@ -2009,10 +2009,10 @@ STATIC FUNCTION BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
 
     IF (lEvalGetCL)
         TRYEXCEPTION
-            Eval(bGetColors)       //Obtem __aColors_
+            Eval(bGetColors)    //Obtem __aColors_
         ENDEXCEPTION
         TRYEXCEPTION
-            Eval(bGetLegend)       //Obtem __aLegend_
+            Eval(bGetLegend)    //Obtem __aLegend_
         ENDEXCEPTION
         __aBrwGetC:=__aColors_
         __aBrwGetL:=__aLegend_
@@ -2169,7 +2169,7 @@ STATIC FUNCTION NDJEvalF3(cF3,lShowHelp,cException)
         lConpad1:=ConPad1(NIL,NIL,NIL,cF3)
 
         IF .NOT.(lConpad1)
-            cException:="Nenhuma informa? Selecionada"
+            cException:="Nenhuma informacao Selecionada"
             IF .NOT.(lShowHelp)
                 BREAK
             EndIF
@@ -2177,7 +2177,7 @@ STATIC FUNCTION NDJEvalF3(cF3,lShowHelp,cException)
         EndIF
 
         IF .NOT.(Type("aCpoRet")=="A")
-            cException:="Problemas no Retorno da Consulta Padr?+__cCRLF+__cCRLF+"Entre em contato com o Administrador do Sistema."
+            cException:="Problemas no Retorno da Consulta Padra"+__cCRLF+__cCRLF+"Entre em contato com o Administrador do Sistema."
             IF .NOT.(lShowHelp)
                 BREAK
             EndIF
@@ -2480,7 +2480,7 @@ User Function GetMvPar(cEmp,cFil,uMvPar,uDefault,lRpcSet,lReset,lHelp)
                 (IsInCallStack("_GetMvPar"));
                 .or.;
                 (IsInCallStack("U_GetMvPar").and.Empty(ProcName(1)));
-           )
+        )
             //Nao Permito a Chamada Direta
             BREAK
         EndIF
@@ -2547,7 +2547,7 @@ User Function PutMvPar(cEmp,cFil,uMvPar,uMvCntPut,lRpcSet)
                 (IsInCallStack("_PutMvPar"));
                 .or.;
                 (IsInCallStack("U_PutMvPar").and.Empty(ProcName(1)));
-           )
+        )
             //Nao Permito a Chamada Direta
             BREAK
         EndIF
@@ -2673,7 +2673,7 @@ STATIC FUNCTION DesvPad(aValores,lPolarizado)
             aValores[nLoop]:=Val(Dtos(aValores[nLoop]))
         ElseIF (cType=="C")
             aValores[nLoop]:=Val(aValores[nLoop])
-        ElseIF (cType <> "N")
+        ElseIF (cType<>"N")
             aValores[nLoop]:=0
         EndIF
         nSoma+=aValores[nLoop]
@@ -2721,10 +2721,10 @@ STATIC FUNCTION FileToArr(cFile)
 
         uUsed:=fT_fUse(cFile)
         IF (;
-                ((ValType(uUsed)=="N").and.(uUsed < 0));
+                ((ValType(uUsed)=="N").and.(uUsed< 0));
                 .or.;
                 ((ValType(uUsed)=="L").and..NOT.(uUsed));
-           )
+        )
             Break
         EndIF
 
@@ -2745,7 +2745,7 @@ RETURN(aFile)
         Funcao:PutSX1
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Adiciona e/ou Remove Perguntas utilizadas no Programa
+        Descricao:Adiciona e/ou Remove Perguntas utilizadas no Programa
         Uso:Generico
         Obs.:
     */
@@ -2816,7 +2816,7 @@ RETURN
         Funcao:AddPerg
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Adiciona Informacoes do compo
+        Descricao:Adiciona Informacoes do compo
         Uso:Generico
         Obs.:
     */
@@ -2885,43 +2885,41 @@ Static Procedure AddPerg(aPerg,cGrupo,cOrdem,cField,uCNT)
                                     {"X1_HELP"    ,NIL,.T.,0},;
                                     {"X1_PICTURE" ,NIL,.T.,0},;
                                     {"X1_IDFIL"   ,NIL,.T.,0};
-                        }
+        }
 
-            bEval:={|x,y|;
-                                    nATField:=FieldPos(aX1Fields[y][1]),;
-                                    aX1Fields[y][2]:=GetValType(ValType(FieldGet(nATField))),;
-                                    aX1Fields[y][4]:=nATField,;
-                 }
+        bEval:={|x,y|;
+                        nATField:=FieldPos(aX1Fields[y][1]),;
+                        aX1Fields[y][2]:=GetValType(ValType(FieldGet(nATField))),;
+                        aX1Fields[y][4]:=nATField,;
+        }
+        SX1->(aEval(aX1Fields,bEval))
+    EndIF
 
-            SX1->(aEval(aX1Fields,bEval))
+    nAT:=aScan(aPerg,{|x|((x[1]==cGrupo).and.(x[2]==cOrdem))})
 
-        EndIF
+    IF (nAT==0)
+        aAdd(aPerg,{cGrupo,cOrdem,aClone(aX1Fields)})
+        nAT:=Len(aPerg)
+    EndIF
 
-        nAT:=aScan(aPerg,{|x|((x[1]==cGrupo).and.(x[2]==cOrdem))})
+    cField:=Upper(AllTrim(cField))
+    nATField:=aScan(aPerg[nAT][3],{|e|(e[1]==cField)})
 
-        IF (nAT==0)
-            aAdd(aPerg,{cGrupo,cOrdem,aClone(aX1Fields)})
-            nAT:=Len(aPerg)
-        EndIF
+    IF (nATField>0)
 
-        cField:=Upper(AllTrim(cField))
-        nATField:=aScan(aPerg[nAT][3],{|e|(e[1]==cField)})
+        aPerg[nAT][__nField][nATField][2]:=uCNT
 
+        nATField:=aScan(aPerg[nAT][3],{|e|(e[1]=="X1_GRUPO")})
         IF (nATField>0)
-
-            aPerg[nAT][__nField][nATField][2]:=uCNT
-
-            nATField:=aScan(aPerg[nAT][3],{|e|(e[1]=="X1_GRUPO")})
-            IF (nATField>0)
-                aPerg[nAT][__nField][nATField][2]:=cGrupo
-            EndIF
-
-            nATField:=aScan(aPerg[nAT][3],{|e|(e[1]=="X1_ORDEM")})
-            IF (nATField>0)
-                aPerg[nAT][__nField][nATField][2]:=cOrdem
-            EndIF
-
+            aPerg[nAT][__nField][nATField][2]:=cGrupo
         EndIF
+
+        nATField:=aScan(aPerg[nAT][3],{|e|(e[1]=="X1_ORDEM")})
+        IF (nATField>0)
+            aPerg[nAT][__nField][nATField][2]:=cOrdem
+        EndIF
+
+    EndIF
 
 RETURN
 
@@ -2930,7 +2928,7 @@ RETURN
         Funcao:SXGSize
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Obtem Informa?s do Grupo em SXG (Size e Picture)
+        Descricao:Obtem informacaos do Grupo em SXG (Size e Picture)
         Uso:Generico
         Obs.:
     */
@@ -2979,7 +2977,7 @@ RETURN({nSXGSize,nSXGDec,cSXGPict})
         Funca:X3Tipo
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Obtem Informa?s do Campo X3_TIPO
+        Descricao:Obtem informacaos do Campo X3_TIPO
         Uso:Generico
         Obs.:
     */
@@ -2995,7 +2993,7 @@ RETURN(GetSx3Cache(cField,"X3_TIPO"))
         Funcao:X3Tamanho
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Obtem Informa?s do Campo X3_TAMANHO
+        Descricao:Obtem informacaos do Campo X3_TAMANHO
         Uso:Generico
         Obs.:
     */
@@ -3010,7 +3008,7 @@ RETURN(GetSx3Cache(cField,"X3_TAMANHO"))
         Funcao:X3Decimal
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?:Obtem Informa?s do Campo X3_DECIMAL
+        Descricao:Obtem informacaos do Campo X3_DECIMAL
         Uso:Generico
         Obs.:
     */
@@ -3025,7 +3023,7 @@ RETURN(GetSx3Cache(cField,"X3_DECIMAL"))
         Funcao:X3Picture
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br) [http://www.blacktdn.com.br]
         Data:02/07/2012
-        Descri?Obtem Informa?s do Campo X3_PICTURE
+        DescricaoObtem informacaos do Campo X3_PICTURE
         Uso:Generico
         Obs.:
     */
@@ -3042,12 +3040,12 @@ RETURN(GetSx3Cache(cField,"X3_PICTURE"))
         Data:24/04/2013
         Descricao:Valida a Mudança de Folder
         Sintaxe:FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder)
-                        nTarget     01 -> Folder Para o Qual se Vai
-                        nSource     02 -> Folder de Onde se Vem
-                        aObjFolder  03 -> Objetos do Folder
-                        aGdObjects  04 -> Verifica se o Objeto eh uma GetDados
-                        nActFolder  05 -> Folder Ativo
-                        lVldFolder  06 -> Verifica se Deve Efetuar a Validacao do Folder quando nTarget nLastFoder forem iguais
+                        nTarget     01 ->Folder Para o Qual se Vai
+                        nSource     02 ->Folder de Onde se Vem
+                        aObjFolder  03 ->Objetos do Folder
+                        aGdObjects  04 ->Verifica se o Objeto eh uma GetDados
+                        nActFolder  05 ->Folder Ativo
+                        lVldFolder  06 ->Verifica se Deve Efetuar a Validacao do Folder quando nTarget nLastFoder forem iguais
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder,lVldFolder) CLASS NDJLIB001
@@ -3071,7 +3069,7 @@ STATIC FUNCTION FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
     Local nPosClassName
 
     DEFAULT lVldFolder:=.T.
-    lVldFolder:=IF(.NOT.(lVldFolder),(nTarget <> nSource),lVldFolder)
+    lVldFolder:=IF(.NOT.(lVldFolder),(nTarget<>nSource),lVldFolder)
 
     nFolders:=Len(aObjFolder)
     IF (lVldFolder)
@@ -3562,14 +3560,14 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
     For nLoop:=1 To nLoops
 
         //----------------------------------------------------------------------------
-            //Apenas para Linhas n?Deletadas
+            //Apenas para Linhas nao Deletadas
         //----------------------------------------------------------------------------
         lChkRow:=IF(lInAddLine,nLoop<nLoops,.T.)
         lChkDeleted:=(lGDDeleted.and.(Len(aCols[nLoop])>=nGDDeleted).and.(ValType(aCols[nLoop][nGDDeleted])=="L"))
         IF (lChkRow.and.IF(lChkDeleted,.NOT.(GDDeleted(nLoop)),.T.))
 
             //----------------------------------------------------------------------------
-                //Considera a Valida? apenas quando a Linha n?for a Linha Atual
+                //Considera a Validacao apenas quando a Linha nao for a Linha Atual
             //----------------------------------------------------------------------------
             IF .NOT.((n==nLoop))
                 nDuplic:=0
@@ -3639,10 +3637,10 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
     Next nLoop
 
-    IF .NOT.(lRet).and.nModelo <> 1
+    IF .NOT.(lRet).and.nModelo<>1
 
         //----------------------------------------------------------------------------
-            //Monta a mensagem conforme o modelo                                     ?
+            //Monta a mensagem conforme o modelo
         //----------------------------------------------------------------------------
 
         IF (lDuplic:=.NOT.(Empty(aLinhas)))
@@ -3657,7 +3655,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
             IF (lDuplic)
 
-                cString+=cCRLF+"Campo(s):  "
+                cString+=cCRLF+"Campo(s):"
 
                 For nLoop:=1 To nAux
                     cString+=aHeader[aAux[nLoop][2],1]+","
@@ -3669,7 +3667,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
             IF (lEmpty)
 
-                cEmptyString+=cCRLF+"Campo(s):  "
+                cEmptyString+=cCRLF+"Campo(s):"
 
                 For nLoop:=1 To nChkNoEmpty
                     cEmptyString+=aHeader[aChkNoEmpty[nLoop][2],1]+","
@@ -3683,7 +3681,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
                 IF (lDuplic)
 
-                    cString+=cCRLF+"Linha(s):  "
+                    cString+=cCRLF+"Linha(s):"
 
                     For nLoop:=1 To Len(aLinhas)
                         cString+=AllTrim(Str(aLinhas[nLoop]))+","
@@ -3695,7 +3693,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
                 IF (lEmpty)
 
-                    cEmptyString+=cCRLF+"Linha(s):  "
+                    cEmptyString+=cCRLF+"Linha(s):"
 
                     For nLoop:=1 To Len(aEmptys)
                         cEmptyString+=AllTrim(Str(aEmptys[nLoop]))+","
@@ -3824,16 +3822,16 @@ RETURN(xGetOrder(@cAlias,@cIKValue))
 STATIC FUNCTION xGetOrder(cAlias,cIKValue)
     Local nOrder
     //-----------------------------------------------------------------------------------------------------
-    //Obtem a Chave Unica para a Tabela em Quest?           
+    //Obtem a Chave Unica para a Tabela em Questao           
     DEFAULT cIKValue:=GetSx2Unico(@cAlias)
     //-----------------------------------------------------------------------------------------------------
     //Verifica se Existe INDEX Correspondente...            
     nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
     //-----------------------------------------------------------------------------------------------------
-    //...Se n?encontrou....            
+    //...Se nao encontrou....            
     IF (nOrder==0)
         //-----------------------------------------------------------------------------------------------------
-        //...Transforma X2_UNICO em uma Express?v?da            
+        //...Transforma X2_UNICO em uma Expressao Valida            
         cIKValue:=X2Unique2Index(@cAlias)    
         //-----------------------------------------------------------------------------------------------------
         //Verifica se Existe INDEX Correspondente...            
@@ -3863,7 +3861,7 @@ RETURN(nOrder)
 METHOD GetToken(cTokenStr) CLASS NDJLIB001
 RETURN(GetToken(@cTokenStr))
 Static Function GetToken(cTokenStr)
-    Local aTokens:={"!","@","#","$","%","?,"&","*","(",")","-","_","+","{","}","[","]","|","|","<",">","|","\","/",",",":","?","~","^","'",'"',"?,"`",".",PONTO_E_VIRGULA}
+    Local aTokens:={"!","@","#","$","%","&","*","(",")","-","_","+","=","`","´","{","}","[","]","^","~","|","<",",",">",".",":",";","?","\","/",PONTO_E_VIRGULA}
     Local cToken
     Local nToken
     Local nTokens
