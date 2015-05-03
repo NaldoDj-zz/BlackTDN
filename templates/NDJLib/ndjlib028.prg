@@ -1,6 +1,6 @@
 /*
-*Harbour Project source code:
-*TDecode class
+    *Harbour Project source code:
+    *TDecode class
 */
 
 #include "ndj.ch"
@@ -33,12 +33,12 @@ User Function TDecode()
 Return(TDecode():New())
 
 METHOD New() CLASS TDecode
-::cCharPos:="0123456789abcdef"
-::cClassName:="TDECODE"
+    self:cCharPos:="0123456789abcdef"
+    self:cClassName:="TDECODE"
 return Self
 
 METHOD ClassName() CLASS TDecode
-Return(::cClassName)
+Return(self:cClassName)
 
 METHOD Decode(cString) CLASS TDecode
 
@@ -55,8 +55,8 @@ METHOD Decode(cString) CLASS TDecode
           cRet+=" "
        elseif cChar=="%"
           cChar:=lower(SubStr(cString,i+1,2))
-          nPos1:=AT(Left(cChar,1),::cCharPos)-1
-          nPos2:=AT(Right(cChar,1),::cCharPos)-1
+          nPos1:=AT(Left(cChar,1),self:cCharPos)-1
+          nPos2:=AT(Right(cChar,1),self:cCharPos)-1
           nDec:=(nPos1*16)+nPos2
           cRet+=CHR(nDec)
           i+=2
@@ -88,7 +88,7 @@ METHOD Encode(cString) CLASS TDecode
           cRet+=cChar
        Else
           nChar=Asc(cChar)
-          cRet+="%"+SubStr(::cCharPos,Int(nChar/16)+1,1)+SubStr(::cCharPos,nChar-Int(nChar/16)*16+1,1)
+          cRet+="%"+SubStr(self:cCharPos,Int(nChar/16)+1,1)+SubStr(self:cCharPos,nChar-Int(nChar/16)*16+1,1)
        EndIf
        i++
     End While
