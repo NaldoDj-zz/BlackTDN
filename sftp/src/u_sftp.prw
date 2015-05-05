@@ -12,7 +12,7 @@ static aMsgs
         Sintaxe:uSFTP():New()->Objeto do Tipo uSFTP
         
         //------------------------------------------------------------------------------------------------        
-        Documentação de uso de pscp.exe:
+        Documentacao de uso de pscp.exe:
         http://tartarus.org/~simon/putty-snapshots/htmldoc/Chapter5.html#pscp-starting
         
         //------------------------------------------------------------------------------------------------        
@@ -20,7 +20,7 @@ static aMsgs
         http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
         
         //------------------------------------------------------------------------------------------------        
-        Obs.: pscp.exe deverá ser adicionado como Resource no Projeto do IDE (TDS)
+        Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
 
         //------------------------------------------------------------------------------------------------        
         PuTTY Secure Copy client
@@ -168,7 +168,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         DEFAULT lForceClient:=.F.
         
         //-------------------------------------------------------------------------------
-        //Verifica se vai forçar a Execução do comando a partir do Client
+        //Verifica se vai forcar a Execucao do comando a partir do Client
         IF (lForceClient)
             IF (lSrv)
                 cDirTmp:=GetTempPath()
@@ -178,7 +178,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 cDirTmp+=CriaTrab(NIL,.F.)
                 cDirTmp+="\"
                 //-------------------------------------------------------------------------------
-                //Verifica a existência do diretório para Extração dos Arquivos Temporarios
+                //Verifica a existencia do diretorio para Extracao dos Arquivos Temporarios
                 IF .NOT.(lIsDir(cDirTmp))
                     IF .NOT.(MakeDir(cDirTmp)==0)
                         nError:=-1
@@ -204,7 +204,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                         cTmpFile+=aFiles[nFile]
                         lCopyFile:=__CopyFile(cFile,cTmpFile)
                         IF .NOT.(lCopyFile)
-                            ConOut("["+ProcName()+"][Impossível Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
+                            ConOut("["+ProcName()+"][Impossivel Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
                         EndIF
                     Next nFile
                     //-------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                     //Obtem o Diretorio no Servidor
                     cSrvPath:=cTarget
                     //-------------------------------------------------------------------------------
-                    //Verifica a existência do diretório no servidor
+                    //Verifica a existencia do diretorio no servidor
                     IF .NOT.(lIsDir(cSrvPath))
                         IF .NOT.(MakeDir(cSrvPath)==0)
                             nError:=-1
@@ -251,7 +251,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             EndIF
         Else
             //-------------------------------------------------------------------------------
-            //Neste caso, o caminho será no diretório Temporário do Client
+            //Neste caso, o caminho sera no diretorio Temporario do Client
             cDirSFTP:=GetTempPath()
             IF .NOT.("\"$Right(cDirSFTP,1))
                 cDirSFTP+="\"
@@ -260,7 +260,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         EndIF
         
         //-------------------------------------------------------------------------------
-        //Verifica a existência do diretório para Extração do aplicativo de Transferencia SFTP
+        //Verifica a existencia do diretorio para Extracao do aplicativo de Transferencia SFTP
         IF .NOT.(lIsDir(cDirSFTP))
             IF .NOT.(MakeDir(cDirSFTP)==0)
                 nError:=-1
@@ -270,11 +270,11 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         EndIF
         
         //-------------------------------------------------------------------------------
-        //Verifica a existência aplicativo de Transferencia SFTP
+        //Verifica a existencia aplicativo de Transferencia SFTP
         IF .NOT.(File(cDirSFTP+cAppSFTP))
             //-------------------------------------------------------------------------------
-            //Extrai, do Repositório de Objetos, o aplicativo de Transferência SFTP
-            //Obs: Pressupoe, para a extração, que ele foi adicionado como Resource no processo de compilação
+            //Extrai, do Repositorio de Objetos, o aplicativo de Transferencia SFTP
+            //Obs: Pressupoe, para a extracao, que ele foi adicionado como Resource no processo de compilacao
             IF .NOT.(Resource2File(cAppSFTP,cDirSFTP+cAppSFTP))
                 nError:=-2
                 ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cDirSFTP+cAppSFTP+"]")
@@ -283,7 +283,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         EndIF
        
         //-------------------------------------------------------------------------------
-        //Elabora o Comando para execução do Aplicativo de Transferência SFTP
+        //Elabora o Comando para execucao do Aplicativo de Transferencia SFTP
         //-------------------------------------------------------------------------------
         //Exemplo Client:
         //P:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort C:\tmp\files\*.txt cURL:cTarget
@@ -381,12 +381,12 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         //Verifica se o comando vai ser executado a partir do servidor
         IF (lSrv).and.(.NOT.(lForceClient))
             //-------------------------------------------------------------------------------
-            //Executa o Comando de Transferência no Server
+            //Executa o Comando de Transferencia no Server
             //Onde:
-            //cCommandLineLine:Instrução a ser executada
-            //lWaitRun:Se deve aguardar o término da Execução
-            //Path:Onde, no server, a função deverá ser executada
-            //Retorna:.T. Se conseguiu executar o Comando, caso contrário, .F.
+            //cCommandLineLine:Instrucao a ser executada
+            //lWaitRun:Se deve aguardar o termino da Execucao
+            //Path:Onde, no server, a funcao devera ser executada
+            //Retorna:.T. Se conseguiu executar o Comando, caso contrario, .F.
             //Read more:http://www.blacktdn.com.br/2011/04/protheus-executando-aplicacoes-externas.html#ixzz3YemwKcI7
             //WaitRunSrv(cCommandLineLine,lWaitRun,cPath):lSuccess
             cWaitRunPath:=cRootPath
@@ -398,10 +398,10 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             nError:=0
         Else
             //-------------------------------------------------------------------------------
-            //Executa o Comando de Transferência no Client
+            //Executa o Comando de Transferencia no Client
             //Onde:
-            //cCommandLineLine:Instrução a ser executada
-            //nMode:Indica o modo de interface a ser criado para a execução do programa
+            //cCommandLineLine:Instrucao a ser executada
+            //nMode:Indica o modo de interface a ser criado para a execucao do programa
             //Read more:http://tdn.totvs.com/display/tec/WaitRun
             //WaitRun(cCommandLineLine,nMode):nSuccess
             nError:=WaitRun(cCommandLine,SW_HIDE)
@@ -431,7 +431,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                     cTmpFile+=aFiles[nFile]
                     lCopyFile:=__CopyFile(cFile,cTmpFile)
                     IF .NOT.(lCopyFile)
-                        ConOut("["+ProcName()+"][Impossível Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
+                        ConOut("["+ProcName()+"][Impossivel Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
                     EndIF
                 Next nFile
             EndIF
@@ -454,7 +454,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 //-------------------------------------------------------------------------------
                 //Excluindo o Diretorio Temporario
                 IF DirRemove(cDirTmp)
-                    ConOut("["+ProcName()+"][Diretório de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
+                    ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
                 EndIF
             EndIF
         EndIF
@@ -469,9 +469,9 @@ Static Function LoadMsgs(nError)
     DEFAULT aMsgs:=Array(0)
     IF Empty(aMsgs)
         aAdd(aMsgs,{0,"OK"})
-        aAdd(aMsgs,{-1,"Impossível Criar Diretório"})
-        aAdd(aMsgs,{-2,"Recurso de Transferência SFTP não Encontrado"})
-        aAdd(aMsgs,{-3,"Problema na Execução do Comando"})
+        aAdd(aMsgs,{-1,"Impossivel Criar Diretorio"})
+        aAdd(aMsgs,{-2,"Recurso de Transferencia SFTP nao Encontrado"})
+        aAdd(aMsgs,{-3,"Problema na Execucao do Comando"})
         aAdd(aMsgs,{-4,""})
         aAdd(aMsgs,{-5,""})
         aAdd(aMsgs,{-6,""})
