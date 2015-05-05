@@ -436,7 +436,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 Next nFile
             EndIF
             //-------------------------------------------------------------------------------
-            //Verifica se dever Excluir os Arquivos Temporarios
+            //Verifica se deve Excluir os Arquivos Temporarios
             IF .NOT.(Empty(aFiles))
                 aSize(aFiles,0)
                 IF (cMode=="P")
