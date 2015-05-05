@@ -21,7 +21,8 @@ static aMsgs
         
         //------------------------------------------------------------------------------------------------        
         Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
-
+        TODO: Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
+        
         //------------------------------------------------------------------------------------------------        
         PuTTY Secure Copy client
         
@@ -32,7 +33,7 @@ static aMsgs
         pscp [options] [user@]host:source target
         pscp [options] source [source...] [user@]host:target
         pscp [options] -ls [user@]host:filespec
-
+ 
         Options:
         
           -V        print version information and exit
@@ -141,6 +142,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
     Local cSrvPath
     Local cTmpFile
     Local cRootPath
+    Local cFullAppSFTP
     Local cCommandLine
     Local cWaitRunPath
 
@@ -268,16 +270,20 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 BREAK
             EndIF
         EndIF
+
+        //-------------------------------------------------------------------------------
+        //Obtem o Caminho completo do aplicativo de Transferencia SFTP
+        cFullAppSFTP:=(cDirSFTP+cAppSFTP)
         
         //-------------------------------------------------------------------------------
         //Verifica a existencia aplicativo de Transferencia SFTP
-        IF .NOT.(File(cDirSFTP+cAppSFTP))
+        IF .NOT.(File(cFullAppSFTP))
             //-------------------------------------------------------------------------------
             //Extrai, do Repositorio de Objetos, o aplicativo de Transferencia SFTP
             //Obs: Pressupoe, para a extracao, que ele foi adicionado como Resource no processo de compilacao
-            IF .NOT.(Resource2File(cAppSFTP,cDirSFTP+cAppSFTP))
+            IF .NOT.(Resource2File(cAppSFTP,cFullAppSFTP))
                 nError:=-2
-                ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cDirSFTP+cAppSFTP+"]")
+                ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cFullAppSFTP+"]")
                 BREAK
             EndIF
         EndIF
