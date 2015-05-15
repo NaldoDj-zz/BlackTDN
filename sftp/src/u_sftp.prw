@@ -21,7 +21,8 @@ static aMsgs
         
         //------------------------------------------------------------------------------------------------        
         Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
-        TODO: Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
+        TODO: (1) Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
+        TODO: (2) Enquando nao (1) implementar captura ( >> ) do log do processo de transferencia ( cLogFile)
         
         //------------------------------------------------------------------------------------------------        
         PuTTY Secure Copy client
