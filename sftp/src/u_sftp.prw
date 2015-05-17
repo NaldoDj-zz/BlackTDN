@@ -22,7 +22,6 @@ static aMsgs
         //------------------------------------------------------------------------------------------------        
         Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
         TODO: (1) Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
-        TODO: (2) Enquando nao (1) implementar captura ( >> ) do log do processo de transferencia ( cLogFile)
         
         //------------------------------------------------------------------------------------------------        
         PuTTY Secure Copy client
@@ -64,6 +63,8 @@ static aMsgs
 //------------------------------------------------------------------------------------------------
 CLASS uSFTP
 
+    DATA aSFTPLog
+    
     DATA cClassName
 
     DATA nError
@@ -77,12 +78,17 @@ CLASS uSFTP
 
     METHOD Get(cParameter)
     METHOD Set(cParameter,uValue)
-    METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient)
+    METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWMode)
 
 END CLASS
 
+User Function SFTP()
+Return(uSFTP():New())
+
 METHOD New() CLASS uSFTP
+    self:ClassName()
     self:nError:=0
+    self:aSFTPLog:=Array(0)
     IF FindFunction("U_THash")
         self:oParameters:=tHash():New()
     EndIF
@@ -93,6 +99,7 @@ METHOD FreeObj() CLASS uSFTP
     IF (Valtype(self:oParameters)=="O")
         self:oParameters:=self:oParameters:FreeObj()
     EndIF
+    aSize(self:aSFTPLog,0)
     self:=FreeObj(self)
 Return(self)
 
@@ -113,29 +120,12 @@ METHOD Set(cParameter,uValue) CLASS uSFTP
     EndIF
 Return(self)
 
-METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient) CLASS uSFTP
-    IF (Valtype(self:oParameters)=="O")
-        DEFAULT cSource:=self:Get("cSource")
-        DEFAULT cTarget:=self:Get("cTarget")
-        DEFAULT cURL:=self:Get("cURL")
-        DEFAULT cUSR:=self:Get("cUSR")
-        DEFAULT cPWD:=self:Get("cPWD")
-        DEFAULT cMode:=self:Get("cMode")
-        DEFAULT lSrv:=self:Get("lSrv")
-        DEFAULT cPort:=self:Get("cPort")
-        DEFAULT lForceClient:=self:Get("lForceClient")
-    EndIF
-    self:nError:=SFTP(@cSource,@cTarget,@cURL,@cUSR,@cPWD,@cMode,@lSrv,@cPort,@lForceClient)
-Return(self:nError)
-
-User Function SFTP()
-Return(uSFTP():New())
-
-Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient)
+METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWMode) CLASS uSFTP
  
     Local aFiles
     
     Local cAppSFTP:="pscp.exe"
+    Local cBatSFTP:="pscp.bat"
 
     Local cFile
     Local cDirTmp
@@ -143,7 +133,11 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
     Local cSrvPath
     Local cTmpFile
     Local cRootPath
+    Local cLogAppSFTP
+    Local cfLogAppSFTP
+    Local ctLogAppSFTP
     Local cFullAppSFTP
+    Local cFullBatSFTP
     Local cCommandLine
     Local cWaitRunPath
 
@@ -155,6 +149,19 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
     Local nFiles
  
     BEGIN SEQUENCE
+
+        IF (Valtype(self:oParameters)=="O")
+            DEFAULT cSource:=self:Get("cSource")
+            DEFAULT cTarget:=self:Get("cTarget")
+            DEFAULT cURL:=self:Get("cURL")
+            DEFAULT cUSR:=self:Get("cUSR")
+            DEFAULT cPWD:=self:Get("cPWD")
+            DEFAULT cMode:=self:Get("cMode")
+            DEFAULT lSrv:=self:Get("lSrv")
+            DEFAULT cPort:=self:Get("cPort")
+            DEFAULT lForceClient:=self:Get("lForceClient")
+            DEFAULT nSWMode:=self:Get("nSWMode")
+        EndIF
     
         DEFAULT cSource:=""
         DEFAULT cTarget:=""
@@ -169,6 +176,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         
         DEFAULT lSrv:=.T.
         DEFAULT lForceClient:=.F.
+        DEFAULT nSWMode:=SW_MAXIMIZE
         
         //-------------------------------------------------------------------------------
         //Verifica se vai forcar a Execucao do comando a partir do Client
@@ -271,7 +279,6 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 BREAK
             EndIF
         EndIF
-
         //-------------------------------------------------------------------------------
         //Obtem o Caminho completo do aplicativo de Transferencia SFTP
         cFullAppSFTP:=(cDirSFTP+cAppSFTP)
@@ -302,16 +309,33 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         //-------------------------------------------------------------------------------
         cCommandLine:=""
         IF (lSrv).and.(.NOT.(lForceClient))
+            cfLogAppSFTP:=cRootPath
             cCommandLine+=cRootPath
             IF (Left(cDirSFTP,1)=="\")
+                cfLogAppSFTP+=SubStr(cDirSFTP,2)
                 cCommandLine+=SubStr(cDirSFTP,2)
             Else
+                cfLogAppSFTP+=cDirSFTP
                 cCommandLine+=cDirSFTP
             EndIF
         Else
+            cfLogAppSFTP:=cDirSFTP
             cCommandLine+=cDirSFTP
         EndIF
+        IF .NOT.(Right(cfLogAppSFTP,1)=="\")
+            cfLogAppSFTP+="\"
+        EndIF
+        //-------------------------------------------------------------------------------
+        //Define o arquivo que conterá o log de execucao do Aplicativo de Transferencia SFTP
+        ctLogAppSFTP:=CriaTrab(NIL,.F.)+".log"
+        cfLogAppSFTP+=ctLogAppSFTP
+        //-------------------------------------------------------------------------------
+        //Adiciona o Aplicativo de Transferencia SFTP
         cCommandLine+=cAppSFTP
+        cCommandLine+=" "
+        //-------------------------------------------------------------------------------
+        //show verbose messages
+        cCommandLine+="-v"
         cCommandLine+=" "
         //-------------------------------------------------------------------------------
         //force use of SFTP protocol
@@ -345,11 +369,8 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             //-------------------------------------------------------------------------------
             //Ajusta cTarget
             cTarget:=StrTran(cTarget,"\","/")
-            IF .NOT.(Left(cTarget,1)=="/")
-                cTarget:="/"+cTarget
-            EndIF
-            IF .NOT.(Right(cTarget,1)=="/")
-                cTarget:="/"
+            IF (Right(cTarget,1)=="/")
+                cTarget:=SubStr(cTarget,1,(Len(cTarget)-1))
             EndIF
             //-------------------------------------------------------------------------------
             //Verifica se a Transferencia vai ser feita a partir Servidor
@@ -383,6 +404,41 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
                 cCommandLine+=cTarget
             EndIF
         EndIF
+
+        //-------------------------------------------------------------------------------
+        //Adiciona a Saida do Log
+        cCommandLine+=" >> "
+        cCommandLine+=cfLogAppSFTP
+        cCommandLine+=" "
+        
+        //-------------------------------------------------------------------------------
+        //Define o Batch File
+        cFullBatSFTP:=StrTran(cfLogAppSFTP,ctLogAppSFTP,cBatSFTP)
+        
+        //-------------------------------------------------------------------------------
+        //Redefine cCommandLine incluindo mode con 
+        cCommandLine:="mode con:lines=45 cols=165"+CRLF+cCommandLine
+
+        //-------------------------------------------------------------------------------
+        //Grava o Comando no Batch File
+        MemoWrite(cFullBatSFTP,cCommandLine)
+        
+        //-------------------------------------------------------------------------------
+        //Redefine cCommandLine
+        cCommandLine:=cFullBatSFTP
+        
+        //-------------------------------------------------------------------------------
+        //Redefine cTarget quando lForceClient:.T. e cMode:"G"
+        IF (lForceClient)
+            IF (cMode=="G")
+                //-------------------------------------------------------------------------------
+                //Copia os arquivos do Client para Srv
+                IF .NOT.(Right(cTarget,1)=="\")
+                    cTarget+="\"
+                EndIF
+                cTarget+="*.*"
+            EndIF
+        EndIF    
         
         //-------------------------------------------------------------------------------
         //Verifica se o comando vai ser executado a partir do servidor
@@ -401,6 +457,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             IF .NOT.(WaitRunSrv(cCommandLine,.T.,cWaitRunPath))
                 nError:=-3
                 ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cCommandLine+"][Path]["+cRootPath+"]")
+                BREAK
             EndIF
             nError:=0
         Else
@@ -411,7 +468,7 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             //nMode:Indica o modo de interface a ser criado para a execucao do programa
             //Read more:http://tdn.totvs.com/display/tec/WaitRun
             //WaitRun(cCommandLineLine,nMode):nSuccess
-            nError:=WaitRun(cCommandLine,SW_HIDE)
+            nError:=WaitRun(cCommandLine,nSWMode)
             IF .NOT.(nError==0)
                 nError:=-3
                 ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cCommandLine+"]")
@@ -424,12 +481,6 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
         //Verificacao final quando lForceClient
         IF (lForceClient)
             IF (cMode=="G")
-                //-------------------------------------------------------------------------------
-                //Copia os arquivos do Client para Srv
-                IF .NOT.(Right(cTarget,1)=="\")
-                    cTarget+="\"
-                EndIF
-                cTarget+="*.*"
                 nFiles:=aDir(cTarget,@aFiles)
                 For nFile:=1 To nFiles
                     cFile:=cDirTmp
@@ -444,31 +495,70 @@ Static Function SFTP(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClien
             EndIF
             //-------------------------------------------------------------------------------
             //Verifica se deve Excluir os Arquivos Temporarios
-            IF .NOT.(Empty(aFiles))
-                aSize(aFiles,0)
-                IF (cMode=="P")
-                    nFiles:=aDir(cSource,@aFiles)
-                Else
-                    nFiles:=aDir(cTarget,@aFiles)
-                EndIF   
-                //-------------------------------------------------------------------------------
-                //Excluindo os Arquivos Temporarios
-                For nFile:=1 To nFiles
-                    cFile:=cDirTmp
-                    cFile+=aFiles[nFile]
-                    fErase(cFile)
-                Next nFile
-                //-------------------------------------------------------------------------------
-                //Excluindo o Diretorio Temporario
-                IF DirRemove(cDirTmp)
-                    ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
-                EndIF
+            cLogAppSFTP:=usftpCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSFTP)
+            IF .NOT.(Empty(cLogAppSFTP))
+                aAdd(self:aSFTPLog,cLogAppSFTP)
             EndIF
         EndIF
     
     END SEQUENCE
+    
+    IF (lForceClient)
+        //-------------------------------------------------------------------------------
+        //Verifica se deve Excluir os Arquivos Temporarios
+        cLogAppSFTP:=usftpCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSFTP)
+        IF .NOT.(Empty(cLogAppSFTP))
+            aAdd(self:aSFTPLog,cLogAppSFTP)
+        EndIF
+    EndIF
+    
+    self:nError:=nError
 
-Return(nError)
+Return(self:nError)
+
+Static Function usftpCG(aFiles,cDirTmp,cMode,cSource,cTarget,cfLogAppSFTP)
+
+    Local cFile
+    Local cLogAppSFTP
+
+    //-------------------------------------------------------------------------------
+    //Obtem o Log de Execucao
+    IF .NOT.(Empty(cfLogAppSFTP))
+        IF File(cfLogAppSFTP)
+            cLogAppSFTP:=MemoRead(cfLogAppSFTP)
+            ConOut("["+ProcName()+"][LOG]",cfLogAppSFTP)
+            fErase(cfLogAppSFTP)
+        EndIF
+    EndIF
+    
+    //-------------------------------------------------------------------------------
+    //Verifica se deve Excluir os Arquivos Temporarios
+    IF .NOT.(Empty(aFiles))
+        aSize(aFiles,0)
+        IF (cMode=="P")
+            nFiles:=aDir(cSource,@aFiles)
+        Else
+            nFiles:=aDir(cTarget,@aFiles)
+        EndIF   
+        //-------------------------------------------------------------------------------
+        //Excluindo os Arquivos Temporarios
+        For nFile:=1 To nFiles
+            cFile:=cDirTmp
+            cFile+=aFiles[nFile]
+            fErase(cFile)
+        Next nFile
+        //-------------------------------------------------------------------------------
+        //Excluindo o Diretorio Temporario
+        IF DirRemove(cDirTmp)
+            ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
+        EndIF
+    EndIF
+    
+    aSize(aFiles,0)
+
+    DEFAULT cLogAppSFTP:=""
+
+return(cLogAppSFTP)
 
 Static Function LoadMsgs(nError)
     Local cMsg

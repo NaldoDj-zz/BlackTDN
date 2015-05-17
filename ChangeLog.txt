@@ -118,3 +118,7 @@
 2015-05-15 16:40 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
   * sftp/src/u_sftp.prw - TODO para log de processamento
   * u_Telnet/U_GUESS.PRG - Padronizacao do codigo
+
+2015-05-17 17:13 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * sftp/sample/u_sftpsample.prw - log de processamento; bug fixes
+  * sftp/src/u_sftp.prw - log de processamento

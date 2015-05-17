@@ -96,6 +96,7 @@ ChangeLog.txt ident
 *.sq3     binary
 *.tif     binary
 *.wav     binary
+*.nppcrypt binary
 
 # TOTEST:
 #*.c       text diff=cpp
