@@ -10,7 +10,7 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
-2015-05-02 17:08 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-02 17:08 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
   * templates/NDJLib/ndjlib002.prg
   * templates/NDJLib/ndjlib003.prg
@@ -45,7 +45,7 @@
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
   
-2015-05-02 19:09 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-02 19:09 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   - check.hb
   - commit.hb
   - log
@@ -93,45 +93,45 @@
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
 
-2015-05-02 20:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-02 20:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * .gitattributes
 
-2015-05-02 23:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-02 23:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib028.prg
 
-2015-05-03 00:16 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-03 00:16 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
   * templates/NDJLib/ndjlib014.prg
 
-2015-05-04 23:49 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-04 23:49 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-04 23:57 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-04 23:57 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-05 10:56 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-05 10:56 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-05 17:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-05 17:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-15 16:40 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-15 16:40 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw - TODO para log de processamento
   * u_Telnet/U_GUESS.PRG - Padronizacao do codigo
 
-2015-05-17 17:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-17 17:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_sftpsample.prw - log de processamento; bug fixes
   * sftp/src/u_sftp.prw - log de processamento
 
-2015-05-17 22:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-17 22:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   + templates/NDJLib/ndjlib036.prg
   + sftp/sample/u_scpsample.nppcrypt
   + sftp/sample/u_scpsample.prw
 
-2015-05-17 23:33 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-17 23:33 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw - Remover Chave Duplicada
 
-2015-05-18 10:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-18 10:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw 
     - Tratar o Log com tLogReport
   * sftp/src/u_sftp.prw
@@ -144,7 +144,7 @@
     - Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
     - tLogReport
     
-2015-05-18 10:46 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+2015-05-18 10:46 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw    
   * templates/NDJLib/ndjlib036.prg
     - Considerar tLogReport como um elemento em tHash
