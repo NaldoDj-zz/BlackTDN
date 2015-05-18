@@ -122,3 +122,8 @@
 2015-05-17 17:13 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
   * sftp/sample/u_sftpsample.prw - log de processamento; bug fixes
   * sftp/src/u_sftp.prw - log de processamento
+
+2015-05-17 22:13 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  + templates/NDJLib/ndjlib036.prg
+  + sftp/sample/u_scpsample.nppcrypt
+  + sftp/sample/u_scpsample.prw
