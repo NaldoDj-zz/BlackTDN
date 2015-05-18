@@ -42,8 +42,8 @@ User Function SCPPut()
     aEval(ouSCP:Get("aMsgs",Array(0)),{|aM|ConOut(aM[1],aM[2])})
     //------------------------------------------------------------------------------------------------
     //Verifica o Log de Processamento
-    IF (ouSCP:ltLogReport)
-        ouSCP:otLogReport:PrintDialog()
+    IF (ouSCP:Get("ltLogReport",.F.))
+        ouSCP:Get("otLogReport"):PrintDialog()
     EndIF
     //------------------------------------------------------------------------------------------------
     //Libera o Objeto da Memoria

@@ -144,3 +144,8 @@
     - Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
     - tLogReport
     
+2015-05-18 10:46 UTC--300 NaldoDj (marinaldo/dot/jesus/at/gmail/dot/com)
+  * sftp/sample/u_scpsample.prw    
+  * templates/NDJLib/ndjlib036.prg
+    - Considerar tLogReport como um elemento em tHash
+    
