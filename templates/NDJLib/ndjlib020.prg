@@ -61,12 +61,11 @@ METHOD New(cINIFile,cIgnoreToken) CLASS TFINI
     Local aTFINI
 
     _Super:New()
-
+    
+    self:ClassName()
     self:cINIFile:=cINIFile
-    self:cClassName:="TFINI"
-
     aTFINI:=self:aTHASH
-
+    
     TINILoad(@aTFINI,@cINIFile,@cIgnoreToken)
 
 Return(self)
@@ -197,6 +196,7 @@ Return(lLoad)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS TFINI
+    self:cClassName:="TFINI"
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
@@ -472,9 +472,9 @@ Static Function SaveAs(aTFINI,cFileName)
             nProperties:=Len(aTFINI[nSession][PROPERTY_POSITION])
             For nProperty:=1 To nProperties
 
-                 cLine:=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]
-                 cLine+="="
-                 cLine+=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]
+                cLine:=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]
+                cLine+="="
+                cLine+=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]
                 cLine+=cCRLF
                 
                 fWrite(nfHandle,cLine)
@@ -592,23 +592,17 @@ Static Function ToXML(aTFINI)
     aAdd(aXML,"<"+cLClassName+">")
     nSessions:=Len(aTFINI)
     For nSession:=1 To nSessions
-
         aAdd(aXML,cSpace4)
         aAdd(aXML,"<"+aTFINI[nSession][SESSION_POSITION]+">")
-
         nProperties:=Len(aTFINI[nSession][PROPERTY_POSITION])
         For nProperty:=1 To nProperties
-
             aAdd(aXML,cSpace8)
             aAdd(aXML,"<"+aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]+">")
-             aAdd(aXML,aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE])
+            aAdd(aXML,aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE])
             aAdd(aXML,"</"+aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]+">")
-
         Next nProperty
-
         aAdd(aXML,cSpace4)
         aAdd(aXML,"</"+aTFINI[nSession][SESSION_POSITION]+">")
-
     Next nSession
 
     aAdd(aXML,"</"+cLClassName+">")
