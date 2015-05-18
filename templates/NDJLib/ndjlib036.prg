@@ -66,7 +66,7 @@ CLASS uSCP from tHash
     METHOD New() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
-    METHOD Parameters(cParameter,cValue)
+    METHOD SetParameter(cParameter,cValue)
     METHOD Run()
 END CLASS
 
@@ -101,7 +101,7 @@ METHOD ClassName() CLASS uSCP
     self:cClassName:="uSCP"
 Return(self:cClassName)
 
-METHOD Parameters(cParameter,cValue) CLASS uSCP       
+METHOD SetParameter(cParameter,cValue) CLASS uSCP       
 Return(self:AddNewProperty("aParameters",cParameter,cValue))
 
 METHOD Run() CLASS uSCP
@@ -513,7 +513,7 @@ METHOD Run() CLASS uSCP
                     self:Get("otLogReport"):AddDetail("SCP Transfer",cMsg)
                 EndIF 
                 ConOut(cMsg)
-                self:Get("otLogReport"):ft_fSkip()
+                oufT:ft_fSkip()
             End While
             oufT:ft_fUse()
             oufT:=oufT:FreeObj()
@@ -552,7 +552,8 @@ METHOD Run() CLASS uSCP
                 EndIF
             EndIF
             ConOut(cMsg)
-        EndIF    
+        EndIF
+    EndIF    
     
     //-------------------------------------------------------------------------------
     //Seta o Retorno do Erro

@@ -1,4 +1,5 @@
 #include "totvs.ch"
+#include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         Programa:u_scpsample.prw
@@ -16,20 +17,21 @@ User Function SCPPut()
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
     ouSCP:Set("cSource","\expordic\*.*")
-    ouSCP:Set("cTarget","/TARGET/")
-    ouSCP:Set("cURL","URL")
+    ouSCP:Set("cTarget","/Target/")
+    ouSCP:Set("cURL","Url")
     ouSCP:Set("cMode","P")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:Parameters("user","-l USER")
-    ouSCP:Parameters("passw","-pw P@SSWORD")
-    ouSCP:Parameters("port","-P 22")
-    ouSCP:Parameters("show verbose messages","-v")
-    ouSCP:Parameters("enable compression","-C")    
-    ouSCP:Parameters("force use of SFTP protocol","-sftp")
-    ouSCP:Parameters("enable use of Pageant","-agent")    
+    ouSCP:SetParameter("user","-l User")
+    ouSCP:SetParameter("passw","P@ssword")
+    ouSCP:SetParameter("port","-P 22")
+    ouSCP:SetParameter("show verbose messages","-v")
+    ouSCP:SetParameter("enable compression","-C")    
+    ouSCP:SetParameter("enable compression","-C")
+    ouSCP:SetParameter("force use of SFTP protocol","-sftp")
+    ouSCP:SetParameter("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
@@ -42,7 +44,10 @@ User Function SCPPut()
     //------------------------------------------------------------------------------------------------
     //Verifica o Log de Processamento
     IF (ouSCP:Get("ltLogReport",.F.))
-        ouSCP:Get("otLogReport"):PrintDialog()
+        TRY EXCEPTION
+            ouSCP:Get("otLogReport"):PrintDialog()
+        CATCH EXCEPTION
+        END EXCEPTION        
     EndIF
     //------------------------------------------------------------------------------------------------
     //Libera o Objeto da Memoria
@@ -65,22 +70,22 @@ User Function SCPGet()
     //Define os parametros do Metodo Run
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
-    ouSCP:Set("cSource","/SOURCE/*.*")
+    ouSCP:Set("cSource","/Source/*.*")
     ouSCP:Set("cTarget","\expordic\")
-    ouSCP:Set("cURL","URL")
+    ouSCP:Set("cURL","Url")
     ouSCP:Set("cMode","G")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:AddNewSession("aParameters")
-    ouSCP:Parameters("user","-l USER")
-    ouSCP:Parameters("passw","-pw P@SSWORD")
-    ouSCP:Parameters("port","-P 22")
-    ouSCP:Parameters("show verbose messages","-v")
-    ouSCP:Parameters("enable compression","-C")    
-    ouSCP:Parameters("force use of SFTP protocol","-sftp")
-    ouSCP:Parameters("enable use of Pageant","-agent")    
+    ouSCP:SetParameter("user","-l User")
+    ouSCP:SetParameter("passw","-pw P@ssword")
+    ouSCP:SetParameter("port","-P 22")
+    ouSCP:SetParameter("show verbose messages","-v")
+    ouSCP:SetParameter("enable compression","-C")    
+    ouSCP:SetParameter("enable compression","-C")
+    ouSCP:SetParameter("force use of SFTP protocol","-sftp")
+    ouSCP:SetParameter("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
@@ -92,7 +97,12 @@ User Function SCPGet()
     aEval(ouSCP:Get("aMsgs",Array(0)),{|aM|ConOut(aM[1],aM[2])})
     //------------------------------------------------------------------------------------------------
     //Verifica o Log de Processamento
-    aEval(ouSCP:Get("aLog",Array(0)),{|cLog|ConOut(cLog)})
+    IF (ouSCP:Get("ltLogReport",.F.))
+       TRY EXCEPTION
+            ouSCP:Get("otLogReport"):PrintDialog()
+        CATCH EXCEPTION
+        END EXCEPTION
+    EndIF
     //------------------------------------------------------------------------------------------------
     //Libera o Objeto da Memoria
     ouSCP:=ouSCP:FreeObj()

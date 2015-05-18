@@ -161,3 +161,9 @@
 2015-05-18 11:14 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib036.prg
     - Ajuste na Declaracao do Metodo Parameters
+
+2015-05-18 12:14 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/sample/u_scpsample.nppcrypt
+  * sftp/sample/u_scpsample.prw
+  * templates/NDJLib/ndjlib036.prg
+    -Bug Fixes
