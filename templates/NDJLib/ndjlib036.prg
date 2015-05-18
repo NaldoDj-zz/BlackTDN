@@ -63,7 +63,10 @@ static aMsgs
     
 //------------------------------------------------------------------------------------------------
 CLASS uSCP from tHash
+    DATA ltLogReport
+    DATA otLogReport
     METHOD New() CONSTRUCTOR
+    METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
     METHOD Run()
 END CLASS
@@ -75,11 +78,23 @@ METHOD New() CLASS uSCP
     _Super:New()
     self:ClassName()
     self:Set("nStatus",0)
-    IF self:Get("lLog",.T.)
-        self:Set("aLog",Array(0))
+    self:ltLogReport:=self:Get("lLog",.T.)
+    IF (self:ltLogReport)
+        self:otLogReport:=tLogReport():New()
+        self:otLogReport:AddGroup("SCP Error")
+        self:otLogReport:AddGroup("SCP Warning")
+        self:otLogReport:AddGroup("SCP Process")
+        self:otLogReport:AddGroup("SCP Transfer")
     EndIF
     LoadMsgs()
-    self:Set("aMsgs",aMsgs)
+    self:Set("aMsgs",aClone(aMsgs))
+Return(self)
+
+METHOD FreeObj() CLASS uSCP
+    IF (self:ltLogReport)
+        self:otLogReport:=self:otLogReport:FreeObj()
+    EndIF
+    self:=self:FreeObj()
 Return(self)
 
 METHOD ClassName() CLASS uSCP
@@ -99,6 +114,7 @@ METHOD Run() CLASS uSCP
     Local cSource:=self:Get("cSource","")
     Local cTarget:=self:Get("cTarget","")
    
+    Local cMsg
     Local cFile
     Local cDirSCP
     Local cDirTmp
@@ -106,7 +122,6 @@ METHOD Run() CLASS uSCP
     Local cSCPPath
     Local cTmpFile
     Local cRootPath
-    Local cLogAppSCP
     Local cfLogAppSCP
     Local ctLogAppSCP
     Local cFullAppSCP
@@ -132,6 +147,8 @@ METHOD Run() CLASS uSCP
 
     Local nSWMode:=self:Get("nSWMode",SW_MAXIMIZE)
     
+    Local oufT
+    
     BEGIN SEQUENCE
         
         //-------------------------------------------------------------------------------
@@ -149,7 +166,11 @@ METHOD Run() CLASS uSCP
                 IF .NOT.(lIsDir(cDirTmp))
                     IF .NOT.(MakeDir(cDirTmp)==0)
                         nStatus:=-1
-                        ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cDirTmp+"]")
+                        cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cDirTmp+"]"
+                        IF (self:ltLogReport)
+                            self:otLogReport:AddDetail("SCP Error",cMsg)
+                        EndIF
+                        ConOut(cMsg)
                         BREAK
                     EndIF
                 EndIF
@@ -171,8 +192,17 @@ METHOD Run() CLASS uSCP
                         cTmpFile+=aFiles[nFile]
                         lCopyFile:=__CopyFile(cFile,cTmpFile)
                         IF .NOT.(lCopyFile)
-                            ConOut("["+ProcName()+"][Impossivel Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
+                            cMsg:="["+self:cClassName+"][Impossivel copiar arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]"
+                            IF (self:ltLogReport)
+                                self:otLogReport:AddDetail("SCP Warning",cMsg)
+                            EndIF
+                        Else
+                            cMsg:="["+self:cClassName+"][Arquivo copiado com sucesso][Origem]["+cFile+"][Destino]["+cTmpFile+"]"
+                            IF (self:ltLogReport)
+                                self:otLogReport:AddDetail("SCP Process",cMsg)
+                            EndIF
                         EndIF
+                        ConOut(cMsg)
                     Next nFile
                     //-------------------------------------------------------------------------------
                     //Redefine a Origim dos Dados
@@ -195,7 +225,11 @@ METHOD Run() CLASS uSCP
                     IF .NOT.(lIsDir(cSrvPath))
                         IF .NOT.(MakeDir(cSrvPath)==0)
                             nStatus:=-1
-                            ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cSrvPath+"]")
+                            cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cSrvPath+"]"
+                            IF (self:ltLogReport)
+                                self:otLogReport:AddDetail("SCP Error",cMsg)
+                            EndIF
+                            ConOut(cMsg)
                             BREAK
                         EndIF
                     EndIF            
@@ -231,7 +265,11 @@ METHOD Run() CLASS uSCP
         IF .NOT.(lIsDir(cDirSCP))
             IF .NOT.(MakeDir(cDirSCP)==0)
                 nStatus:=-1
-                ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cDirSCP+"]")
+                cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cDirSCP+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Error",cMsg)
+                EndIF
+                ConOut(cMsg)
                 BREAK
             EndIF
         EndIF
@@ -247,7 +285,11 @@ METHOD Run() CLASS uSCP
             //Obs: Pressupoe, para a extracao, que ele foi adicionado como Resource no processo de compilacao
             IF .NOT.(Resource2File(cAppSCP,cFullAppSCP))
                 nStatus:=-2
-                ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cFullAppSCP+"]")
+                cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cFullAppSCP+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Error",cMsg)
+                EndIF
+                ConOut(cMsg)
                 BREAK
             EndIF
         EndIF
@@ -343,7 +385,7 @@ METHOD Run() CLASS uSCP
 
         //-------------------------------------------------------------------------------
         //Adiciona a Saida do Log
-        IF self:Get("lLog",.T.)
+        IF (self:ltLogReport)
             cCommandLine+=" >> "
             cCommandLine+=cfLogAppSCP
             cCommandLine+=" "
@@ -356,8 +398,8 @@ METHOD Run() CLASS uSCP
         //-------------------------------------------------------------------------------
         //Redefine cCommandLine incluindo mode con 
         IF self:Get("lModeCon",.T.)
-            cCommandLine:=self:Get("ModeCon","mode con:lines=45 cols=165")+CRLF+cCommandLine
-        EndIF    
+            cCommandLine:=self:Get("cModeCon","mode con:lines=45 cols=165")+CRLF+cCommandLine
+        EndIF   
 
         //-------------------------------------------------------------------------------
         //Grava o Comando no Batch File
@@ -396,7 +438,11 @@ METHOD Run() CLASS uSCP
             cWaitRunPath+=IF(Left(cDirSFTP,1)=="\",SubStr(cDirSFTP,2),cDirSFTP)
             IF .NOT.(WaitRunSrv(cCommandLine,.T.,cWaitRunPath))
                 nStatus:=-3
-                ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"][Path]["+cRootPath+"]")
+                cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"][Path]["+cRootPath+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Error",cMsg)
+                EndIF
+                ConOut(cMsg)
                 BREAK
             EndIF
             nStatus:=0
@@ -411,7 +457,11 @@ METHOD Run() CLASS uSCP
             nStatus:=WaitRun(cCommandLine,nSWMode)
             IF .NOT.(nStatus==0)
                 nStatus:=-3
-                ConOut("["+ProcName()+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"]")
+                cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Error",cMsg)
+                EndIF
+                ConOut(cMsg)
                 BREAK
             EndIF
             nStatus:=0
@@ -429,32 +479,76 @@ METHOD Run() CLASS uSCP
                     cTmpFile+=aFiles[nFile]
                     lCopyFile:=__CopyFile(cFile,cTmpFile)
                     IF .NOT.(lCopyFile)
-                        ConOut("["+ProcName()+"][Impossivel Copiar Arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]")
+                        cMsg:="["+self:cClassName+"][Impossivel copiar arquivo][Origem]["+cFile+"][Destino]["+cTmpFile+"]"
+                        IF (self:ltLogReport)
+                            self:otLogReport:AddDetail("SCP Warning",cMsg)
+                        EndIF
+                        ConOut(cMsg)
+                    Else
+                        cMsg:="["+self:cClassName+"][Arquivo copiado com sucesso][Origem]["+cFile+"][Destino]["+cTmpFile+"]"
+                        IF (self:ltLogReport)
+                            self:otLogReport:AddDetail("SCP Process",cMsg)
+                        EndIF
                     EndIF
                 Next nFile
             EndIF
-            //-------------------------------------------------------------------------------
-            //Verifica se deve Excluir os Arquivos Temporarios
-            cLogAppSCP:=uSCPCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSCP)
-            IF .NOT.(Empty(cLogAppSCP))
-                IF self:Get("lLog",.T.)
-                    aAdd(self:Get("aLog"),cLogAppSCP)
-                EndIF
-            EndIF
+
         EndIF
     
     END SEQUENCE
+
+    //-------------------------------------------------------------------------------
+    //Obtem o Log de Execucao
+    IF .NOT.(Empty(cfLogAppSCP))
+        IF File(cfLogAppSCP)
+            oufT:=ufT():New()
+            oufT:ft_fUse(cfLogAppSCP)
+            While .NOT.(oufT:ft_fEof())
+                cMsg:="["+self:cClassName+"][SCP Transfer]["+oufT:ft_fReadLn()+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Transfer",cMsg)
+                EndIF 
+                ConOut(cMsg)
+                self:otLogReport:ft_fSkip()
+            End While
+            oufT:ft_fUse()
+            oufT:=oufT:FreeObj()
+            fErase(cfLogAppSCP)
+        EndIF
+    EndIF
     
     IF (lForceClient)
         //-------------------------------------------------------------------------------
         //Verifica se deve Excluir os Arquivos Temporarios
-        cLogAppSCP:=uSCPCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSCP)
-        IF .NOT.(Empty(cLogAppSCP))
-            IF self:Get("lLog",.T.)
-                aAdd(self:Get("aLog"),cLogAppSCP)
+        IF .NOT.(Empty(aFiles))
+            aSize(aFiles,0)
+            IF (cMode=="P")
+                nFiles:=aDir(cSource,@aFiles)
+            Else
+                nFiles:=aDir(cTarget,@aFiles)
+            EndIF   
+            //-------------------------------------------------------------------------------
+            //Excluindo os Arquivos Temporarios
+            For nFile:=1 To nFiles
+                cFile:=cDirTmp
+                cFile+=aFiles[nFile]
+                fErase(cFile)
+            Next nFile
+            //-------------------------------------------------------------------------------
+            //Excluindo o Diretorio Temporario
+            IF DirRemove(cDirTmp)
+                cMsg:="["+self:cClassName+"][Diretorio de trabalho excluido com sucesso]["+cDirTmp+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Process",cMsg)
+                EndIF
+            Else
+                cMsg:="["+self:cClassName+"][Problema na exclusao do diretorio de trabalho]["+cDirTmp+"]"
+                IF (self:ltLogReport)
+                    self:otLogReport:AddDetail("SCP Warning",cMsg)
+                EndIF
             EndIF
-        EndIF
-    EndIF
+            ConOut(cMsg)
+        EndIF    
     
     //-------------------------------------------------------------------------------
     //Seta o Retorno do Erro
@@ -463,50 +557,6 @@ METHOD Run() CLASS uSCP
 //-------------------------------------------------------------------------------
 //Retorno o Erro
 Return(self:Get("nStatus"))
-
-Static Function uSCPCG(aFiles,cDirTmp,cMode,cSource,cTarget,cfLogAppSCP)
-
-    Local cFile
-    Local cLogAppSCP
-
-    //-------------------------------------------------------------------------------
-    //Obtem o Log de Execucao
-    IF .NOT.(Empty(cfLogAppSCP))
-        IF File(cfLogAppSCP)
-            cLogAppSCP:=MemoRead(cfLogAppSCP)
-            ConOut("["+ProcName()+"][LOG]",cfLogAppSCP)
-            fErase(cfLogAppSCP)
-        EndIF
-    EndIF
-    
-    //-------------------------------------------------------------------------------
-    //Verifica se deve Excluir os Arquivos Temporarios
-    IF .NOT.(Empty(aFiles))
-        aSize(aFiles,0)
-        IF (cMode=="P")
-            nFiles:=aDir(cSource,@aFiles)
-        Else
-            nFiles:=aDir(cTarget,@aFiles)
-        EndIF   
-        //-------------------------------------------------------------------------------
-        //Excluindo os Arquivos Temporarios
-        For nFile:=1 To nFiles
-            cFile:=cDirTmp
-            cFile+=aFiles[nFile]
-            fErase(cFile)
-        Next nFile
-        //-------------------------------------------------------------------------------
-        //Excluindo o Diretorio Temporario
-        IF DirRemove(cDirTmp)
-            ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
-        EndIF
-    EndIF
-    
-    aSize(aFiles,0)
-
-    DEFAULT cLogAppSCP:=""
-
-return(cLogAppSCP)
 
 Static Function LoadMsgs(nStatus)
     Local cMsg

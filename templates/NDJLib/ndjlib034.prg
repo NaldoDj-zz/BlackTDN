@@ -13,7 +13,7 @@ CLASS tLogReport FROM tHash
     DATA oTReport
 
     METHOD NEW() CONSTRUCTOR
-    METHOD FreeObj()
+    METHOD FreeObj() /*DESTRUCTOR*/
 
     METHOD ClassName()
     

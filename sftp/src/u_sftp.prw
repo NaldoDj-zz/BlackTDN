@@ -493,34 +493,11 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                     EndIF
                 Next nFile
             EndIF
-            //-------------------------------------------------------------------------------
-            //Verifica se deve Excluir os Arquivos Temporarios
-            cLogAppSFTP:=usftpCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSFTP)
-            IF .NOT.(Empty(cLogAppSFTP))
-                aAdd(self:aSFTPLog,cLogAppSFTP)
-            EndIF
+
         EndIF
     
     END SEQUENCE
     
-    IF (lForceClient)
-        //-------------------------------------------------------------------------------
-        //Verifica se deve Excluir os Arquivos Temporarios
-        cLogAppSFTP:=usftpCG(@aFiles,@cDirTmp,@cMode,@cSource,@cTarget,@cfLogAppSFTP)
-        IF .NOT.(Empty(cLogAppSFTP))
-            aAdd(self:aSFTPLog,cLogAppSFTP)
-        EndIF
-    EndIF
-    
-    self:nError:=nError
-
-Return(self:nError)
-
-Static Function usftpCG(aFiles,cDirTmp,cMode,cSource,cTarget,cfLogAppSFTP)
-
-    Local cFile
-    Local cLogAppSFTP
-
     //-------------------------------------------------------------------------------
     //Obtem o Log de Execucao
     IF .NOT.(Empty(cfLogAppSFTP))
@@ -531,34 +508,34 @@ Static Function usftpCG(aFiles,cDirTmp,cMode,cSource,cTarget,cfLogAppSFTP)
         EndIF
     EndIF
     
-    //-------------------------------------------------------------------------------
-    //Verifica se deve Excluir os Arquivos Temporarios
-    IF .NOT.(Empty(aFiles))
-        aSize(aFiles,0)
-        IF (cMode=="P")
-            nFiles:=aDir(cSource,@aFiles)
-        Else
-            nFiles:=aDir(cTarget,@aFiles)
-        EndIF   
+    IF (lForceClient)
         //-------------------------------------------------------------------------------
-        //Excluindo os Arquivos Temporarios
-        For nFile:=1 To nFiles
-            cFile:=cDirTmp
-            cFile+=aFiles[nFile]
-            fErase(cFile)
-        Next nFile
-        //-------------------------------------------------------------------------------
-        //Excluindo o Diretorio Temporario
-        IF DirRemove(cDirTmp)
-            ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
+        //Verifica se deve Excluir os Arquivos Temporarios
+        IF .NOT.(Empty(aFiles))
+            aSize(aFiles,0)
+            IF (cMode=="P")
+                nFiles:=aDir(cSource,@aFiles)
+            Else
+                nFiles:=aDir(cTarget,@aFiles)
+            EndIF   
+            //-------------------------------------------------------------------------------
+            //Excluindo os Arquivos Temporarios
+            For nFile:=1 To nFiles
+                cFile:=cDirTmp
+                cFile+=aFiles[nFile]
+                fErase(cFile)
+            Next nFile
+            //-------------------------------------------------------------------------------
+            //Excluindo o Diretorio Temporario
+            IF DirRemove(cDirTmp)
+                ConOut("["+ProcName()+"][Diretorio de Trabalho Excluido com Sucesso]["+cDirTmp+"]")
+            EndIF
         EndIF
     EndIF
     
-    aSize(aFiles,0)
+    self:nError:=nError
 
-    DEFAULT cLogAppSFTP:=""
-
-return(cLogAppSFTP)
+Return(self:nError)
 
 Static Function LoadMsgs(nError)
     Local cMsg

@@ -27,7 +27,9 @@ CLASS ufT FROM LongClassName
     DATA nLastRecno
     DATA nBufferSize
 
-    METHOD New()        CONSTRUCTOR
+    METHOD New() CONSTRUCTOR
+    METHOD FreeObj() /*DESTRUCTOR*/
+    
     METHOD ClassName()
 
     METHOD ft_fUse(cFile)
@@ -78,7 +80,7 @@ METHOD New() CLASS ufT
     self:cFile:=""
     self:cLine:=""
 
-    self:cClassName:="UFT"
+    self:ClassName()
 
     self:nRecno:=0
     self:nLastRecno:=0
@@ -92,6 +94,22 @@ Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
+        METHOD:FreeObj
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data:01/05/2011
+        Descricao:DESTRUCTOR
+        Sintaxe:uft():FreeObj():self
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD FreeObj() CLASS ufT
+    IF (ValType(self:aLines)=="A")
+        aSize(self:aLines,0)
+    EndIF
+    self:=FreeObj(self)
+Return(self)
+
+//------------------------------------------------------------------------------------------------
+    /*/
         METHOD:ClassName
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:01/05/2011
@@ -100,6 +118,7 @@ Return(self)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS ufT
+    self:cClassName:="UFT"
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
@@ -194,7 +213,7 @@ Static Function ReadFile(aLines,nfHandle,nBufferSize,nFileSize,cCRLF)
         cBuffer+=fReadStr(@nfHandle,@nBufferSize)
         nBytesRead+=nBufferSize
         while (cCRLF$cBuffer)
-++nLines
+            ++nLines
             cLine:=subStr(cBuffer,1,(at(cCRLF,cBuffer)+nAtPlus))
             cBuffer:=subStr(cBuffer,len(cLine)+1)
             cLine:=strTran(cLine,cCRLF,"")
@@ -203,7 +222,7 @@ Static Function ReadFile(aLines,nfHandle,nBufferSize,nFileSize,cCRLF)
     end while
 
     if .not.(empty(cBuffer))
-++nLines
+        ++nLines
         aAdd(aLines,cBuffer)
     endif
 
