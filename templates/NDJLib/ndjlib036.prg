@@ -66,7 +66,7 @@ CLASS uSCP from tHash
     METHOD New() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
-    METHOD Parameters(cParameter)
+    METHOD Parameters(cParameter,cValue)
     METHOD Run()
 END CLASS
 
