@@ -77,7 +77,7 @@ METHOD New() CLASS uSCP
     self:ClassName()
     self:Set("nStatus",0)
     self:Set("ltLogReport",self:Get("lLog",.T.))
-    IF (self:Get("ltLogReport",.F.)
+    IF (self:Get("ltLogReport",.F.))
         self:Set("otLogReport",tLogReport():New())
         self:Get("otLogReport"):AddGroup("SCP Error")
         self:Get("otLogReport"):AddGroup("SCP Warning")
@@ -89,7 +89,7 @@ METHOD New() CLASS uSCP
 Return(self)
 
 METHOD FreeObj() CLASS uSCP
-    IF (self:Get("ltLogReport",.F.)        
+    IF (self:Get("ltLogReport",.F.))       
         self:Set("otLogReport",self:Get("otLogReport"):FreeObj())
     EndIF
     self:=self:FreeObj()
@@ -133,8 +133,8 @@ METHOD Run() CLASS uSCP
     Local lCopyFile
 
     Local lSrv:=self:Get("lSrv",.T.)
-    Local lForceClient:=self:Get("lForceClient",.T.)
     Local ltLogReport:=self:Get("ltLogReport",.F.)
+    Local lForceClient:=self:Get("lForceClient",.T.)
 
     Local nD
     Local nJ

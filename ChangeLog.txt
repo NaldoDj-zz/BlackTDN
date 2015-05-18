@@ -149,3 +149,8 @@
   * templates/NDJLib/ndjlib036.prg
     - Considerar tLogReport como um elemento em tHash
     
+
+2015-05-18 10:52 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/ndjlib036.prg
+    - Bug Fixes
+    
