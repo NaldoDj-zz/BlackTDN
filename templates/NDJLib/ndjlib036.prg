@@ -66,6 +66,7 @@ CLASS uSCP from tHash
     METHOD New() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
+    METHOD Parameters(cParameter)
     METHOD Run()
 END CLASS
 
@@ -86,6 +87,7 @@ METHOD New() CLASS uSCP
     EndIF
     LoadMsgs()
     self:Set("aMsgs",aClone(aMsgs))
+    self:AddNewSession("aParameters")
 Return(self)
 
 METHOD FreeObj() CLASS uSCP
@@ -98,6 +100,9 @@ Return(self)
 METHOD ClassName() CLASS uSCP
     self:cClassName:="uSCP"
 Return(self:cClassName)
+
+METHOD Parameters(cParameter,cValue) CLASS uSCP       
+Return(self:AddNewProperty("aParameters",cParameter,cValue))
 
 METHOD Run() CLASS uSCP
  

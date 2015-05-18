@@ -23,14 +23,13 @@ User Function SCPPut()
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:AddNewSession("aParameters")
-    ouSCP:AddNewProperty("aParameters","user","-l USER")
-    ouSCP:AddNewProperty("aParameters","passw","-pw P@SSWORD")
-    ouSCP:AddNewProperty("aParameters","port","-P 22")
-    ouSCP:AddNewProperty("aParameters","show verbose messages","-v")
-    ouSCP:AddNewProperty("aParameters","enable compression","-C")    
-    ouSCP:AddNewProperty("aParameters","force use of SFTP protocol","-sftp")
-    ouSCP:AddNewProperty("aParameters","enable use of Pageant","-agent")    
+    ouSCP:Parameters("user","-l USER")
+    ouSCP:Parameters("passw","-pw P@SSWORD")
+    ouSCP:Parameters("port","-P 22")
+    ouSCP:Parameters("show verbose messages","-v")
+    ouSCP:Parameters("enable compression","-C")    
+    ouSCP:Parameters("force use of SFTP protocol","-sftp")
+    ouSCP:Parameters("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
@@ -75,13 +74,13 @@ User Function SCPGet()
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
     ouSCP:AddNewSession("aParameters")
-    ouSCP:AddNewProperty("aParameters","user","-l USER")
-    ouSCP:AddNewProperty("aParameters","passw","-pw P@SSWORD")
-    ouSCP:AddNewProperty("aParameters","port","-P 22")
-    ouSCP:AddNewProperty("aParameters","show verbose messages","-v")
-    ouSCP:AddNewProperty("aParameters","enable compression","-C")    
-    ouSCP:AddNewProperty("aParameters","force use of SFTP protocol","-sftp")
-    ouSCP:AddNewProperty("aParameters","enable use of Pageant","-agent")    
+    ouSCP:Parameters("user","-l USER")
+    ouSCP:Parameters("passw","-pw P@SSWORD")
+    ouSCP:Parameters("port","-P 22")
+    ouSCP:Parameters("show verbose messages","-v")
+    ouSCP:Parameters("enable compression","-C")    
+    ouSCP:Parameters("force use of SFTP protocol","-sftp")
+    ouSCP:Parameters("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
