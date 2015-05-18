@@ -127,3 +127,6 @@
   + templates/NDJLib/ndjlib036.prg
   + sftp/sample/u_scpsample.nppcrypt
   + sftp/sample/u_scpsample.prw
+
+2015-05-17 23:33 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * sftp/sample/u_scpsample.prw - Remover Chave Duplicada
