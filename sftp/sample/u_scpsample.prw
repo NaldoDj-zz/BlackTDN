@@ -1,4 +1,5 @@
 #include "totvs.ch"
+#include "shell.ch"
 #include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
     /*/
@@ -18,14 +19,14 @@ User Function SCPPut()
     ouSCP:Set("cBatSCP","pscp.bat")
     ouSCP:Set("cSource","\expordic\*.*")
     ouSCP:Set("cTarget","/Target/")
-    ouSCP:Set("cURL","Url")
+    ouSCP:Set("cURL","url")
     ouSCP:Set("cMode","P")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:SetParameter("user","-l User")
-    ouSCP:SetParameter("passw","P@ssword")
+    ouSCP:SetParameter("user","-l USER")
+    ouSCP:SetParameter("passw","-pw P@ssWord")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
     ouSCP:SetParameter("enable compression","-C")    
@@ -44,10 +45,10 @@ User Function SCPPut()
     //------------------------------------------------------------------------------------------------
     //Verifica o Log de Processamento
     IF (ouSCP:Get("ltLogReport",.F.))
-        TRY EXCEPTION
+       TRY EXCEPTION
             ouSCP:Get("otLogReport"):PrintDialog()
-        CATCH EXCEPTION
-        END EXCEPTION        
+       CATCH EXCEPTION
+       END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
     //Libera o Objeto da Memoria
@@ -72,14 +73,14 @@ User Function SCPGet()
     ouSCP:Set("cBatSCP","pscp.bat")
     ouSCP:Set("cSource","/Source/*.*")
     ouSCP:Set("cTarget","\expordic\")
-    ouSCP:Set("cURL","Url")
+    ouSCP:Set("cURL","url")
     ouSCP:Set("cMode","G")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:SetParameter("user","-l User")
-    ouSCP:SetParameter("passw","-pw P@ssword")
+    ouSCP:SetParameter("user","-l USER")
+    ouSCP:SetParameter("passw","-pw P@ssWord")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
     ouSCP:SetParameter("enable compression","-C")    
@@ -100,7 +101,7 @@ User Function SCPGet()
     IF (ouSCP:Get("ltLogReport",.F.))
        TRY EXCEPTION
             ouSCP:Get("otLogReport"):PrintDialog()
-        CATCH EXCEPTION
+       CATCH EXCEPTION
         END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------

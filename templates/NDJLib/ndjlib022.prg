@@ -77,10 +77,10 @@ Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
-        METHOD:New
+        METHOD:FreeObj
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:29/04/2015
-        Descricao:CONSTRUCTOR
+        Descricao:Destructor
         Sintaxe:THash():New()->self
     /*/
 //------------------------------------------------------------------------------------------------
@@ -684,15 +684,3 @@ METHOD ChangeSession(uSession,uNewSession) CLASS THASH
     EndIF
 
 Return(lSuccess)
-
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF .NOT.(lRecursa)
-            BREAK
-        EndIF
-        lRecursa:=__Dummy(.F.)
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)

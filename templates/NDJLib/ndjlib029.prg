@@ -250,7 +250,7 @@ Static Function ArrayCompare(aArray1,aArray2,cATDiff)
                     cATDiff+=(NToS(nHalfToEnd)+"|")
                     BREAK
                 EndIF
-++nHalfToEnd
+                ++nHalfToEnd
             EndIF
             IF (nArray1Size>=nHalfToEnd)
                 IF .NOT.(lCompare:=Compare(aArray1[nArray1Size],aArray2[nArray1Size]))

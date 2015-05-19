@@ -75,7 +75,7 @@ Return(uSCP():New())
 
 METHOD New() CLASS uSCP
     _Super:New()
-    self:ClassName()
+    self:cClassName:="uSCP"
     self:Set("nStatus",0)
     self:Set("ltLogReport",self:Get("lLog",.T.))
     IF (self:Get("ltLogReport",.F.))
@@ -91,14 +91,18 @@ METHOD New() CLASS uSCP
 Return(self)
 
 METHOD FreeObj() CLASS uSCP
+    Local aSessions:=self:GetAllSessions()
+    aEval(aSessions,{|c|self:Del(c)})
+    aSize(aSessions,0)
     IF (self:Get("ltLogReport",.F.))       
-        self:Set("otLogReport",self:Get("otLogReport"):FreeObj())
+        IF (ValType(self:Get("otLogReport"))=="O")
+            self:Set("otLogReport",self:Get("otLogReport"):FreeObj())
+        EndIF
     EndIF
-    self:=self:FreeObj()
+    self:=FreeObj(self)
 Return(self)
 
 METHOD ClassName() CLASS uSCP
-    self:cClassName:="uSCP"
 Return(self:cClassName)
 
 METHOD SetParameter(cParameter,cValue) CLASS uSCP       

@@ -10,6 +10,8 @@
 //------------------------------------------------------------------------------------------------
 CLASS tLogReport FROM tHash
 
+    DATA cClassName
+    
     DATA oTReport
 
     METHOD NEW() CONSTRUCTOR
@@ -29,10 +31,11 @@ Return(tLogReport():New())
 
 METHOD NEW() CLASS tLogReport
     _Super:New()
+    self:cClassName:="TLOGREPORT"
 Return(self)
 
 METHOD ClassName() CLASS tLogReport
-Return("TLOGREPORT")
+Return(self:cClassName)
 
 METHOD AddGroup(cLGroupName) CLASS tLogReport
     DEFAULT cLGroupName:="__noname__"

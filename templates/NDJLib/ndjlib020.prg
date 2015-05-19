@@ -45,6 +45,7 @@ CLASS TFINI FROM THASH
 ENDCLASS
 
 User Function TFINI(cINIFile,cIgnoreToken)
+    SYMBOL_UNUSED(__cCRLF)
 Return(TFINI():New(cINIFile,cIgnoreToken))
 
 //------------------------------------------------------------------------------------------------
@@ -608,16 +609,3 @@ Static Function ToXML(aTFINI)
     aAdd(aXML,"</"+cLClassName+">")
 
 Return(aXML)
-
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF .NOT.(lRecursa)
-            BREAK
-        EndIF
-        lRecursa:=__Dummy(.F.)
-        SYMBOL_UNUSED(__cCRLF)
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)

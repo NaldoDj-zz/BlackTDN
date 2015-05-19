@@ -168,8 +168,17 @@
   * templates/NDJLib/ndjlib036.prg
     - Bug Fixes
 
-2015-05-18 14:53 UTC--300 NaldoDj (arinaldo/dot/jesus/at/blacktdn/dot/com)
+2015-05-18 14:53 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.nppcrypt
     - ...
   * templates/NDJLib/ndjlib020.prg
     - Padronizacao do Codigo
+
+2015-05-19 02:05 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/sample/u_scpsample.nppcrypt
+  * sftp/sample/u_scpsample.prw
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib022.prg
+  * templates/NDJLib/ndjlib029.prg
+  * templates/NDJLib/ndjlib034.prg
+  * templates/NDJLib/ndjlib036.prg
