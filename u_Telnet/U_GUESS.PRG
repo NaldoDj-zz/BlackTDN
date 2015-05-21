@@ -1,5 +1,5 @@
-#INCLUDE "INKEY.CH"
-#INCLUDE "PROTHEUS.CH"
+#include "inkey.ch"
+#include "protheus.ch"
 
 #DEFINE OPC_GUESS        1
 

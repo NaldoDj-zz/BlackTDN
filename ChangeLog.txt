@@ -252,3 +252,7 @@
 2015-05-20 23:53 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * u_Ft/u_fTfSample.prg
     - utilizr uft
+
+2015-05-20 23:56 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * u_Telnet/U_GUESS.PRG
+    - Padronizacao do codigo
