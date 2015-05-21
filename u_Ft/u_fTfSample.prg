@@ -36,7 +36,7 @@ Static Function FileToArr(cFile)
     Local cLine:=""
     Local cToken:=Chr(255)
 
-    Local ofT:=fT():New()
+    Local ofT:=ufT():New()
 
     BEGIN SEQUENCE
 
