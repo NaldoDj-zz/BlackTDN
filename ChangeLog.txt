@@ -228,3 +228,11 @@
   * templates/uTCREPORT/src/btdnChkSum.prg
   * TSQLite/class/TSQLite.prg
     - Padronizacao do codigo
+
+2015-05-20 23:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/u_TVarInfo/U_GetApoInfo/u_getapoinfo.prg
+  * templates/NDJLib/u_TVarInfo/U_GetApoInfo/u_getaposamples.prg
+  * u_TVarInfo/U_GetApoInfo/U_GetApoInfo.prg
+  * u_TVarInfo/U_GetApoInfo/U_GetApoSamples.prg
+  * u_TVarInfo/U_TVarInfo.prg
+    - Padronizacao do codigo
