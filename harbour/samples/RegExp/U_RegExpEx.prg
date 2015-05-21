@@ -363,8 +363,8 @@ Static Function HttpPostRegExp(cInput,cPattern)
     
         oTDecode:=TDecode():New()
 
-        cRequest +='www.ezzylearning.com/services/RegularExpressionValidationService.asmx/Validate?'
-        cPostParams +='input='+oTDecode:Encode(cInput)+'&pattern='+oTDecode:Encode(cPattern)
+        cRequest+='www.ezzylearning.com/services/RegularExpressionValidationService.asmx/Validate?'
+        cPostParams+='input='+oTDecode:Encode(cInput)+'&pattern='+oTDecode:Encode(cPattern)
 
         cXMLResult:=HTTPPost(cRequest,NIL,cPostParams)
 
