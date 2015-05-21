@@ -221,3 +221,10 @@
     - Melhorias
     - Bug Fixes
     - ...
+
+2015-05-20 22:41 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/P11/RH/GPE/dirf/srd2rhr.prw
+  * templates/P11/RH/GPE/dirf/srd2rhs.prw
+  * templates/uTCREPORT/src/btdnChkSum.prg
+  * TSQLite/class/TSQLite.prg
+    - Padronizacao do codigo

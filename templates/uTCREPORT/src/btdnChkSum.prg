@@ -272,7 +272,7 @@ Static Function Compare(uCompare1,uCompare2,nPosDif)
         IF (cType1=="A")
             lCompare:=ArrayCompare(uCompare1,uCompare2,@nPosDif)
         ElseIF (cType1=="O")
-            lCompare:=ArrayCompare(ClassDataArr(uCompare1),ClassDataArr(uCompare2),@nPosDif)
+            lCompare:=ArrayCompare(ClassDataArr(uCompare1,.T.),ClassDataArr(uCompare2,.T.),@nPosDif)
         ElseIF (cType1=="B")
             lCompare:=(GetCBSource(uCompare1)==GetCBSource(uCompare2))
         Else
@@ -297,7 +297,7 @@ Begin Sequence
     EndIF
 
     IF (cValTypeuArray=="O")
-        aArray:=ClassDataArr(uArray)
+        aArray:=ClassDataArr(uArray,.T.)
     Else
         aArray:=uArray
     EndIF
@@ -332,7 +332,7 @@ Static Function SaveArr(nfHandle,aArray)
             IF (cElemType=="A")
                 SaveArr(nfHandle,aArray[nLoop])
             Else
-                SaveArr(nfHandle,ClassDataArr(aArray[nLoop]))
+                SaveArr(nfHandle,ClassDataArr(aArray[nLoop],.T.))
             EndIF
         Else
             IF (cElemType=="B")
@@ -447,24 +447,24 @@ Static Procedure BTDNAuth(cTypeChk,aCGC)
         EndIF
 
         IF .NOT.(lIsDir("\btdn\"))
-            MsgInfo("DiretÛrio \btdn\ n„o Encontrado","A T E N « √ O ! ! !")
+            MsgInfo("Diret√≥rio \btdn\ n√£o Encontrado","A T E N √á √É O ! ! !")
             BREAK
         ENDIF
 
         IF .NOT.(File("\btdn\sigamat.emp"))
-            MsgInfo("Arquivo sigamat.emp n„o Localizado em \btdn\","A T E N « √ O ! ! !")
+            MsgInfo("Arquivo sigamat.emp n√£o Localizado em \btdn\","A T E N √á √É O ! ! !")
             BREAK
         ENDIF
         
         IF ((Empty(cTypeChk)) .or. (.NOT.(ValType(cTypeChk)=="C")))
-            MsgInfo("Tipo de AutorizaÁ„o em Branco ou Inv·lido","A T E N « √ O ! ! !")
+            MsgInfo("Tipo de Autoriza√ß√£o em Branco ou Inv√°lido","A T E N √á √É O ! ! !")
             BREAK
         EndIF
         
         cTypeChk:=Lower(AllTrim(cTypeChk))
         nType:=aScan(aTypeChk,{|cType|(cType==Upper(cTypeChk))})
         IF (nType==0)
-            MsgInfo("Tipo de AutorizaÁ„o Inv·lido","A T E N « √ O ! ! !")
+            MsgInfo("Tipo de Autoriza√ß√£o Inv√°lido","A T E N √á √É O ! ! !")
             BREAK
         EndIF
         
@@ -500,7 +500,7 @@ Static Procedure BTDNAuth(cTypeChk,aCGC)
         ErrorBlock(bErrorBlock)
         
         IF .NOT.(lOpenned)
-            MsgInfo("ImpossÌvel abrir \btdn\sigamat.emp ","A T E N « √ O ! ! !")            
+            MsgInfo("Imposs√≠vel abrir \btdn\sigamat.emp ","A T E N √á √É O ! ! !")            
             BREAK
         EndIF
 
