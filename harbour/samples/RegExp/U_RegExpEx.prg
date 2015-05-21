@@ -5,18 +5,20 @@
 
 Static __cCRLF:=CRLF
 
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
 
-    Funcao:RegExpEx
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp 
-    
-    Ezzy Learning
-    Regular Expression Validation Web Service
-    http://www.ezzylearning.com/services/RegularExpressionValidationService.aspx
+        Funcao:RegExpEx
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp 
+        
+        Ezzy Learning
+        Regular Expression Validation Web Service
+        http://www.ezzylearning.com/services/RegularExpressionValidationService.aspx
 
-/*/
+    /*/
+//------------------------------------------------------------------------------------------------
 User Function RegExpEx()
 
     Local nVarNameL:=SetVarNameLen(20)
@@ -72,12 +74,14 @@ User Function RegExpEx()
 
 Return()
 
-/*/
-    Funcao:MailRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:MailRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function MailRegExp(cMail)
 
     Local cConta:="^[a-zA-Z0-9\._-]+@"
@@ -100,12 +104,14 @@ Static Function MailRegExp(cMail)
 
 Return(lValid )
 
-/*/
-    Funcao:CPFRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:CPFRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function CPFRegExp(cCPF)
 
     Local cPattern:="(^\d{3}\.?\d{3}\.?\d{3}-\d{2})|(^\d{3}\d{3}\d{3}\d{2})$"
@@ -125,12 +131,14 @@ Static Function CPFRegExp(cCPF)
 
 Return(lValid )
 
-/*/
-    Funcao:CNPJRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:CNPJRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function CNPJRegExp(cCNPJ)
 
     Local cPattern:="^(\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2})$"
@@ -150,12 +158,14 @@ Static Function CNPJRegExp(cCNPJ)
 
 Return(lValid )
 
-/*/
-    Funcao:PWDRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:PWDRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function PWDRegExp(cPWD)
 
     Local cPattern:="^(.*(([^a-z1-9]+.*\d+)|(\d+.*[^a-z1-9]+)).*)$"
@@ -175,12 +185,14 @@ Static Function PWDRegExp(cPWD)
 
 Return(lValid )
 
-/*/
-    Funcao:SoapRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:SoapRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function SoapRegExp(cInput,cPattern,cVersion)
 
     Local cXML:=""
@@ -276,12 +288,14 @@ Static Function SoapRegExp(cInput,cPattern,cVersion)
 
 Return(lMatch)
 
-/*/
-    Funcao:HttpGetRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:HttpGetRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function HttpGetRegExp(cInput,cPattern)
 
     Local cError:=""
@@ -324,12 +338,14 @@ Static Function HttpGetRegExp(cInput,cPattern)
     
 Return(lMatch)
 
-/*/
-    Funcao:HttpPostRegExp
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:HttpPostRegExp
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function HttpPostRegExp(cInput,cPattern)
 
     Local cError:=""
@@ -372,12 +388,14 @@ Static Function HttpPostRegExp(cInput,cPattern)
     
 Return(lMatch)
 
-/*/
-    Funcao:SocketRequest
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:SocketRequest
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function SocketRequest(nPort,cHost,ctSocketSend)
 
     Local ctSocketReceive:=""
@@ -432,12 +450,14 @@ Static Function SocketRequest(nPort,cHost,ctSocketSend)
 
 Return(ctSocketReceive)
 
-/*/
-    Funcao:PSRegEx
-    Autor:Marinaldo de Jesus (www.blacktdn.com.br)
-    Data:03/04/2012
-    Uso:Exemplo de Uso de RegExp via PowerShell
-/*/
+//------------------------------------------------------------------------------------------------
+    /*/
+        Funcao:PSRegEx
+        Autor:Marinaldo de Jesus (www.blacktdn.com.br)
+        Data:03/04/2012
+        Uso:Exemplo de Uso de RegExp via PowerShell
+    /*/
+//------------------------------------------------------------------------------------------------
 Static Function PSRegEx(cString,cPattern)
 
     Local cMatch:=""
