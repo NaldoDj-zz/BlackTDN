@@ -1,7 +1,6 @@
 #include "totvs.ch"
 #include "topconn.ch"
 #include "tbiconn.ch"
-#include "tryexception.ch"
 
 Static __aReadVar:={}
 Static __cMbrRstFilter
@@ -17,7 +16,10 @@ Static oNDJLIB001
 
 CLASS NDJLIB001
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD IsCpoVar(cField)
     METHOD ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
@@ -89,7 +91,12 @@ User Function DJLIB001()
 RETURN(oNDJLIB001)
 
 METHOD NEW() CLASS NDJLIB001
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB001
+    self:cClassName:="NDJLIB001"
+RETURN(self:cClassName)
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
@@ -3098,7 +3105,7 @@ STATIC FUNCTION FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
         For nObj:=1 To nObjs
             lObjisGd:=.F.
             IF (lIsObject:=(ValType(aObjFolder[nFolder][nObj][01])=="O"))
-                aClassData:=ClassDataArr(aObjFolder[nFolder][nObj][01])
+                aClassData:=ClassDataArr(aObjFolder[nFolder][nObj][01],.T.)
                 IF ((nPosClassName:=aScan(aClassData,{|eData|(Upper(AllTrim(eData[1]))=="CCLASSNAME")}))>0)
                     lObjisGd:=(aClassData[nPosClassName][2]$"MSNEWGETDADOS/MSGETDADOS")
                 EndIF
@@ -3425,7 +3432,7 @@ STATIC FUNCTION ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
     Local lProcRedefine:=.F.
     IF (ValType(oProcess)=="O")
         DEFAULT oFont:=TFont():New("Lucida Console",NIL,12,NIL,.T.)
-        aClassData:=ClassDataArr(oProcess)
+        aClassData:=ClassDataArr(oProcess,.T.)
         laMeter:=(aScan(aClassData,{|e|e[1]=="AMETER"})>0)
         IF (laMeter)
             DEFAULT oFont:=TFont():New("Lucida Console",NIL,12,NIL,.T.)
@@ -3875,3 +3882,5 @@ Static Function GetToken(cTokenStr)
     Next nToken
     DEFAULT cToken:=""
 RETURN(cToken)
+
+#include "tryexception.ch"

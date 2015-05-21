@@ -5,7 +5,10 @@ Static oNDJLIB030
 
 CLASS NDJLIB030
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD HMSToTime(nHours,nMinuts,nSeconds)
     METHOD SecsToHMS(nSecsToHMS,nHours,nMinuts,nSeconds,cRet)
@@ -29,7 +32,12 @@ User Function DJLIB030()
 Return(oNDJLIB030)
 
 METHOD NEW() CLASS NDJLIB030
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB030
+    self:cClassName:="NDJLIB030"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*

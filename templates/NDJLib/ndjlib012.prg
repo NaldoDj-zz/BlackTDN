@@ -4,7 +4,10 @@ Static oNDJLIB012
 
 CLASS NDJLIB012
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD ProcWaiting(bWaiting,cTitle,cMsgWait,nWaiting,lStop,lShowProc)
     METHOD WhileYesNoWait(bExecWhile,nWaiting,lStop,uMsgInfo,cTitInfo,cMsgYesNo,cTitYesNo,cMsgWait,cTitWait)    
@@ -17,7 +20,12 @@ User Function DJLIB012()
 Return(oNDJLIB012)
 
 METHOD NEW() CLASS NDJLIB012
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB012
+    self:cClassName:="NDJLIB012"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

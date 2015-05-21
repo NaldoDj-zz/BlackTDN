@@ -9,6 +9,7 @@
     /*/
 //------------------------------------------------------------------------------------------------
 Class tNDJTimeCalc From LongClassName
+    DATA cClassName
     Method New() CONSTRUCTOR
     Method ClassName()    
     Method HMSToTime(nHours,nMinuts,nSeconds)
@@ -27,10 +28,12 @@ Class tNDJTimeCalc From LongClassName
 EndClass
 
 Method New() Class tNDJTimeCalc
+    self:ClassName()
 Return(self)
 
 Method ClassName() Class tNDJTimeCalc
-Return("TNDJTIMECALC")
+    self:cClassName:="TNDJTIMECALC"
+Return(self:cClassName)
 
 Method HMSToTime(nHours,nMinuts,nSeconds) Class tNDJTimeCalc
 

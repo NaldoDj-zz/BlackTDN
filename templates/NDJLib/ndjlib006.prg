@@ -4,7 +4,11 @@ Static oNDJLIB006
 
 CLASS NDJLIB006
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    
+    METHOD ClassName()
     
     METHOD GetStackParameters()
     METHOD ReadStackParameters(cStack,cParameter,cScope,cModule,aStackParameters)
@@ -16,7 +20,12 @@ User Function DJLIB006()
 RETURN(oNDJLIB006)
 
 METHOD NEW() CLASS NDJLIB006
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB006
+    self:cClassName:="NDJLIB006"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

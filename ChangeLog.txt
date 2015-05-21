@@ -182,3 +182,42 @@
   * templates/NDJLib/ndjlib029.prg
   * templates/NDJLib/ndjlib034.prg
   * templates/NDJLib/ndjlib036.prg
+
+2015-05-20 21:34 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_SapuReca/U_SapuReca10.prg
+  * sftp/sample/u_scpsample.nppcrypt
+  * sftp/sample/u_scpsample.prw
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib003.prg
+  * templates/NDJLib/ndjlib006.prg
+  * templates/NDJLib/ndjlib007.prg
+  * templates/NDJLib/ndjlib010.prg
+  * templates/NDJLib/ndjlib012.prg
+  * templates/NDJLib/ndjlib013.prg
+  * templates/NDJLib/ndjlib014.prg
+  * templates/NDJLib/ndjlib015.prg
+  * templates/NDJLib/ndjlib016.prg
+  * templates/NDJLib/ndjlib017.prg
+  * templates/NDJLib/ndjlib018.prg
+  * templates/NDJLib/ndjlib019.prg
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib021.prg
+  * templates/NDJLib/ndjlib022.prg
+  * templates/NDJLib/ndjlib023.prg
+  * templates/NDJLib/ndjlib024.prg
+  * templates/NDJLib/ndjlib025.prg
+  * templates/NDJLib/ndjlib026.prg
+  * templates/NDJLib/ndjlib027.prg
+  * templates/NDJLib/ndjlib028.prg
+  * templates/NDJLib/ndjlib029.prg
+  * templates/NDJLib/ndjlib030.prg
+  * templates/NDJLib/ndjlib032.prg
+  * templates/NDJLib/ndjlib033.prg
+  * templates/NDJLib/ndjlib034.prg
+  * templates/NDJLib/ndjlib035.prg
+  * templates/NDJLib/ndjlib036.prg
+  * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
+  * templates/NDJLib/WS/WServices/wsubtdnTView.prg
+    - Melhorias
+    - Bug Fixes
+    - ...

@@ -12,6 +12,7 @@
 CLASS TFINI FROM THASH
 
     DATA cINIFile
+    
     DATA cClassName
 
     METHOD NEW(cINIFile,cIgnoreToken) CONSTRUCTOR
@@ -62,8 +63,8 @@ METHOD New(cINIFile,cIgnoreToken) CLASS TFINI
     Local aTFINI
 
     _Super:New()
-    
     self:ClassName()
+    
     self:cINIFile:=cINIFile
     aTFINI:=self:aTHASH
     
@@ -197,7 +198,7 @@ Return(lLoad)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS TFINI
-    self:cClassName:="TFINI"
+    self:cClassName:=(_Super:ClassName()+"_TFINI")
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------

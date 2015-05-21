@@ -11,6 +11,10 @@ Static __cWAVLastTime
 Static __aTTimer
 Static __lStopTimers
 
+#ifndef SYMBOL_UNUSED
+    #define SYMBOL_UNUSED(symbol) (symbol:=(symbol))
+#endif 
+
 /*
 
     Funcao:SapuReca()
@@ -290,8 +294,8 @@ Static Function Finalize(aShapes,oTHash)
         SetFinalize(@oTHash,.T.)
 
         IF ((aScan(__aTTimer,{|lPlay|lPlay}))>0)
-            ConOut("Sapurece diz:[Impossível Finalizar. Tente Novamente!]")
-            MsgAlert("Impossível Finalizar. Tente Novamente!","Sapurece diz")
+            ConOut("Sapurece diz:[ImpossÃ­vel Finalizar. Tente Novamente!]")
+            MsgAlert("ImpossÃ­vel Finalizar. Tente Novamente!","Sapurece diz")
             lRet:=.F.
             BREAK
         End While
@@ -361,6 +365,11 @@ Return
     Uso:Acao do Botao Direito do Mouse
 */
 Static Function rClick(x,y,oTPPanel,oTHash)
+    SYMBOL_UNUSED(x)
+    SYMBOL_UNUSED(y)
+    SYMBOL_UNUSED(oTPPanel)
+    SYMBOL_UNUSED(oTHash)
+    SYMBOL_UNUSED(cSession)
 Return(.T.)
 
 /*
@@ -473,7 +482,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
             BREAK
         EndIF
 
-        oTPPanel:SetVisible(@oTHash:GetProperty("SHAPES",OemToAnsi("Instruções")),.F.)
+        oTPPanel:SetVisible(@oTHash:GetProperty("SHAPES",OemToAnsi("InstruÃ§Ãµes")),.F.)
         oTPPanel:SetVisible(@oTHash:GetProperty("SHAPES",OemToAnsi("Reiniciar")),.T.)
 
         cToolTip:=aShapes[nShape][oTHash:GetPropertyValue("SapuReca_Index","TOOLTIP")]
@@ -520,7 +529,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
             EndIF
 
             IF .NOT.(lJump)
-                MsgInfo("SapuReca "+cToolTip+" Coach...!",OemToAnsi("Atenção"))
+                MsgInfo("SapuReca "+cToolTip+" Coach...!",OemToAnsi("AtenÃ§Ã£o"))
                 BREAK
             EndIF
 
@@ -595,7 +604,7 @@ Static Procedure JumpFrog(x,y,oTPPanel,aShapes,oTHash)
             Play_Wave(1,@cPlayWave,@oTHash)
             SetFinalize(@oTHash,.T.)
             ConOut("Sapurece diz:[Parabens! Voce Venceu o Jogo!]")
-            oTPPanel:SetVisible(oTHash:GetProperty("SHAPES",OemToAnsi("Parabéns")),.T.)
+            oTPPanel:SetVisible(oTHash:GetProperty("SHAPES",OemToAnsi("ParabÃ©ns")),.T.)
         Else
             Play_Wave(1,@cPlayWave,@oTHash)
         EndIF
@@ -619,15 +628,15 @@ Static Procedure Restart(x,y,oTPPanel,aShapes,oTHash)
     BEGIN SEQUENCE
 
         IF (__lStopTimers)
-            ConOut("Sapurece diz:[Impossível Reiniciar. Jogo em Processo de Finalizacao]")
-            MsgAlert("Impossível Reiniciar. Jogo em Processo de Finalização","Sapurece diz")
+            ConOut("Sapurece diz:[ImpossÃ­vel Reiniciar. Jogo em Processo de Finalizacao]")
+            MsgAlert("ImpossÃ­vel Reiniciar. Jogo em Processo de FinalizaÃ§Ã£o","Sapurece diz")
             BREAK
         EndIF
 
         IF ((aScan(__aTTimer,{|lPlay|lPlay}))>0)
             SetFinalize(@oTHash,.T.)
-            ConOut("Sapurece diz:[Impossível Reiniciar. Tente Novamente!]")
-            MsgAlert("Impossível Reiniciar. Tente Novamente!","Sapurece diz")
+            ConOut("Sapurece diz:[ImpossÃ­vel Reiniciar. Tente Novamente!]")
+            MsgAlert("ImpossÃ­vel Reiniciar. Tente Novamente!","Sapurece diz")
             BREAK
         EndIF
 
@@ -1205,11 +1214,11 @@ Static Function AddShapes(oTPPanel,oTHash)
 
     aShapes[nShapes][nString]:=cProperties
 
-    //Instrucoes ::OemToAnsi("Instruções")
+    //Instrucoes ::OemToAnsi("InstruÃ§Ãµes")
     ++nShapes
     cProperties:=""
     aAdd(aShapes,Array(nSElements))
-    cKey:=OemToAnsi("Instruções")
+    cKey:=OemToAnsi("InstruÃ§Ãµes")
     oTHash:AddNewProperty("SHAPES",cKey,nShapes)
 
     aShapes[nShapes][nID]:=nShapes
@@ -1257,11 +1266,11 @@ Static Function AddShapes(oTPPanel,oTHash)
 
     aShapes[nShapes][nString]:=cProperties
 
-    //Parabens ::OemToAnsi("Parabéns")
+    //Parabens ::OemToAnsi("ParabÃ©ns")
     ++nShapes
     cProperties:=""
     aAdd(aShapes,Array(nSElements))
-    cKey:=OemToAnsi("Parabéns")
+    cKey:=OemToAnsi("ParabÃ©ns")
     oTHash:AddNewProperty("SHAPES",cKey,nShapes)
 
     aShapes[nShapes][nID]:=nShapes

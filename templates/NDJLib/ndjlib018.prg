@@ -1,7 +1,6 @@
 #include "fileio.ch"
 #include "tbiconn.ch"
 #include "protheus.ch"
-#include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         CLASS:fTdb
@@ -16,6 +15,8 @@ CLASS fTdb FROM ufT
     DATA cDbFile
     DATA cDbAlias
     DATA cRDDName
+    
+    DATA cClassName
 
     METHOD New() CONSTRUCTOR
     METHOD ClassName()
@@ -65,11 +66,10 @@ Return(ftdb():New())
 METHOD New() CLASS fTdb
 
     _Super:New()
+    self:ClassName()
 
     self:cDbFile:=""
     self:cDbAlias:=""
-
-    self:cClassName:=_Super:ClassName()+"DB"
 
     self:ft_fSetRddName()
 
@@ -85,6 +85,7 @@ Return(self)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS fTdb
+    self:cClassName:=(_Super:ClassName()+"DB")
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
@@ -484,3 +485,5 @@ METHOD ft_fSetRddName(cRddName) CLASS fTdb
     DEFAULT cRddName:="DBFCDXADS"
     self:cRddName:=Upper(cRddName)
 Return(cLastRddName)
+
+#include "tryexception.ch"

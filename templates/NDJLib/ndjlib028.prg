@@ -33,11 +33,12 @@ User Function TDecode()
 Return(TDecode():New())
 
 METHOD New() CLASS TDecode
+    self:ClassName()
     self:cCharPos:="0123456789abcdef"
-    self:cClassName:="TDECODE"
 return Self
 
 METHOD ClassName() CLASS TDecode
+    self:cClassName:="TDECODE"
 Return(self:cClassName)
 
 METHOD Decode(cString) CLASS TDecode

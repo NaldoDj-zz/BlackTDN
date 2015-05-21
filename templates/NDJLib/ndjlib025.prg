@@ -30,23 +30,23 @@ Return(uTRect():New(@nTop,@nLeft,@nWidth,@nHeight))
     Autor:Marinaldo de Jesus
     Data:26/03/2012
     Descricao:CONSTRUCTOR
-    Sintaxe:uTRect():New() -> Self
+    Sintaxe:uTRect():New() -> self
 /*/
 METHOD New(nTop,nLeft,nWidth,nHeight) CLASS UTRECT
+
+    self:ClassName()
 
     DEFAULT nTop:=0
     DEFAULT nLeft:=0
     DEFAULT nWidth:=0
     DEFAULT nHeight:=0
 
-    Self:cClassName:="UTRECT"
+    self:nTop:=nTop
+    self:nLeft:=nLeft
+    self:nWidth:=nWidth
+    self:nHeight:=nHeight
 
-    Self:nTop:=nTop
-    Self:nLeft:=nLeft
-    Self:nWidth:=nWidth
-    Self:nHeight:=nHeight
-
-Return(Self)
+Return(self)
 
 /*/
     METHOD:ClassName
@@ -56,7 +56,8 @@ Return(Self)
     Sintaxe:uTRect():ClassName() -> cClassName
 /*/
 METHOD ClassName() CLASS UTRECT
-Return(Self:cClassName)
+    self:cClassName:="UTRECT"
+Return(self:cClassName)
 
 Static Function __Dummy(lRecursa)
     Local oException

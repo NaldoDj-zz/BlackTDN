@@ -11,6 +11,8 @@ CLASS uTVector3D FROM uTVector2D
 
     DATA z
 
+    DATA cClassName
+    
     METHOD NEW(x,y,z) CONSTRUCTOR
 
     METHOD ClassName()
@@ -25,21 +27,21 @@ Return(uVector2D():New(@x,@y,@z))
     Autor:Marinaldo de Jesus
     Data:29/03/2012
     Descricao:CONSTRUCTOR
-    Sintaxe:uTVector3D():New() -> Self
+    Sintaxe:uTVector3D():New() -> self
 /*/
 METHOD New(x,y,z) CLASS uTVector3D
+
+    self:ClassName()
 
     DEFAULT x:=0
     DEFAULT y:=0
     DEFAULT z:=0
 
-    Self:x:=x
-    Self:y:=y
-    Self:z:=z
+    self:x:=x
+    self:y:=y
+    self:z:=z
 
-    Self:cClassName:="UTVECTOR3D"
-
-Return(Self)
+Return(self)
 
 /*/
     METHOD:ClassName
@@ -49,7 +51,8 @@ Return(Self)
     Sintaxe:uTVector3D():ClassName() -> cClassName
 /*/
 METHOD ClassName() CLASS uTVector3D
-Return(Self:cClassName)
+    self:cClassName:="UTVECTOR3D"
+Return(self:cClassName)
 
 Static Function __Dummy(lRecursa)
     Local oException

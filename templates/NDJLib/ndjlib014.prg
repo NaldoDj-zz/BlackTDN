@@ -4,7 +4,10 @@ Static oNDJLIB014
 
 CLASS NDJLIB014
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD UsrRetName(cUserID)
     METHOD UsrFullName(cUserID)
@@ -25,7 +28,12 @@ User Function DJLIB014()
 Return(oNDJLIB014)
 
 METHOD NEW() CLASS NDJLIB014
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB014
+    self:cClassName:="NDJLIB014"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

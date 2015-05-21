@@ -1,12 +1,14 @@
 #include "totvs.ch"
 #include "dbstruct.ch"
-#include "tryexception.ch"
 
 Static oNDJLIB007
 
 CLASS NDJLIB007
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD MakeTmpFile(cAlias,cAliasTmp,cTempFile,bdbSeek,bWhileCond,bSkipCond,aBagName,aStructTmp,aRecnos,cRddName)
     METHOD CloseTmpFile(cAlias,cTableName,aBagName,cRddName)
@@ -30,7 +32,12 @@ User Function DJLIB007()
 Return(oNDJLIB007)
 
 METHOD NEW() CLASS NDJLIB007
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB007
+    self:cClassName:="NDJLIB007"
+RETURN(self:cClassName)
 
 /*/
     Funcao:MakeTmpFile
@@ -842,3 +849,5 @@ Static Function GetX2PathFile(cAlias,cRddName)
     EndIF
 
 RETURN(cPathFile)
+
+#include "tryexception.ch"

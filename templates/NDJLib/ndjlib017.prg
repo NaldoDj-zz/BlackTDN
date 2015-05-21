@@ -1,7 +1,6 @@
 #include "fileio.ch"
 #include "tbiconn.ch"
 #include "protheus.ch"
-#include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         CLASS:ufT
@@ -75,12 +74,12 @@ Return(uft():New())
 //------------------------------------------------------------------------------------------------
 METHOD New() CLASS ufT
 
+    self:ClassName()
+
     self:aLines:=Array(0)    
 
     self:cFile:=""
     self:cLine:=""
-
-    self:ClassName()
 
     self:nRecno:=0
     self:nLastRecno:=0
@@ -499,3 +498,5 @@ METHOD ft_fSetCRLF(cCRLF) CLASS ufT
     self:cCRLF:=cCRLF
 
 Return(cLastCRLF)
+
+#include "tryexception.ch"

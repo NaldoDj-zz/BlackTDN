@@ -10,6 +10,8 @@
 //------------------------------------------------------------------------------------------------
 Class tNDJProgress From LongClassName
     
+    DATA cClassName
+    
     DATA aMethods   AS ARRAY INIT Array(0) HIDDEN
     DATA aProgress  AS ARRAY INIT Array(0) HIDDEN
 
@@ -51,11 +53,13 @@ User Function tNDJProgress(cProgress,cToken)
 Return(tNDJProgress():New(@cProgress,@cToken))
 
 Method New(cProgress,cToken) Class tNDJProgress
+    self:ClassName()
     self:SetProgress(@cProgress,@cToken)
 Return(self)
 
 Method ClassName() Class tNDJProgress
-Return("TNDJPROGRESS")
+    self:cClassName:="TNDJPROGRESS"
+Return(self:cClassName)
 
 Method SetProgress(cProgress,cToken) Class tNDJProgress
     Local lMacro

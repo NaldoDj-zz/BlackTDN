@@ -1,6 +1,5 @@
 #include "totvs.ch"
 #include "shell.ch"
-#include "tryexception.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         Programa:u_scpsample.prw
@@ -12,20 +11,24 @@
     /*/
 //------------------------------------------------------------------------------------------------
 User Function SCPPut()
+    Local lPrint
+    //------------------------------------------------------------------------------------------------
     Local ouSCP:=uSCP():New()
+    //------------------------------------------------------------------------------------------------
+    Local oVarInfo
     //------------------------------------------------------------------------------------------------
     //Define os parametros do Metodo Run
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
     ouSCP:Set("cSource","\expordic\*.*")
-    ouSCP:Set("cTarget","/Target/")
-    ouSCP:Set("cURL","url")
+    ouSCP:Set("cTarget","Target/")
+    ouSCP:Set("cURL","Url")
     ouSCP:Set("cMode","P")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:SetParameter("user","-l USER")
+    ouSCP:SetParameter("user","-l User")
     ouSCP:SetParameter("passw","-pw P@ssWord")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
@@ -46,8 +49,17 @@ User Function SCPPut()
     //Verifica o Log de Processamento
     IF (ouSCP:Get("ltLogReport",.F.))
        TRY EXCEPTION
-            ouSCP:Get("otLogReport"):PrintDialog()
+            lPrint:=ouSCP:Get("otLogReport"):PrintDialog()
+            DEFAULT lPrint:=.F.
+            IF .NOT.(lPrint)
+                oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
+                oVarInfo:Save(.T.,.T.)
+                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+            EndIF
        CATCH EXCEPTION
+            oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
+            oVarInfo:Save(.T.,.T.)
+            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
        END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
@@ -66,20 +78,24 @@ Return(NIL)
     /*/
 //------------------------------------------------------------------------------------------------
 User Function SCPGet()
+    Local lPrint
+    //------------------------------------------------------------------------------------------------
     Local ouSCP:=uSCP():New()
+    //------------------------------------------------------------------------------------------------
+    Local oVarInfo
     //------------------------------------------------------------------------------------------------
     //Define os parametros do Metodo Run
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
     ouSCP:Set("cSource","/Source/*.*")
     ouSCP:Set("cTarget","\expordic\")
-    ouSCP:Set("cURL","url")
+    ouSCP:Set("cURL","Url")
     ouSCP:Set("cMode","G")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
-    ouSCP:SetParameter("user","-l USER")
+    ouSCP:SetParameter("user","-l User")
     ouSCP:SetParameter("passw","-pw P@ssWord")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
@@ -100,11 +116,22 @@ User Function SCPGet()
     //Verifica o Log de Processamento
     IF (ouSCP:Get("ltLogReport",.F.))
        TRY EXCEPTION
-            ouSCP:Get("otLogReport"):PrintDialog()
+            lPrint:=ouSCP:Get("otLogReport"):PrintDialog()
+            DEFAULT lPrint:=.F.
+            IF .NOT.(lPrint)
+                oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
+                oVarInfo:Save(.T.,.T.)
+                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+            EndIF
        CATCH EXCEPTION
-        END EXCEPTION
+            oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
+            oVarInfo:Save(.T.,.T.)
+            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+       END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
     //Libera o Objeto da Memoria
     ouSCP:=ouSCP:FreeObj()
 Return(NIL)
+
+#include "tryexception.ch"

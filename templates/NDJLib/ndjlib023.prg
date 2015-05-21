@@ -6,7 +6,10 @@ Static oNDJLIB023
 
 CLASS NDJLIB023
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD GETALLDATA()
     METHOD GETDATA()
@@ -21,7 +24,12 @@ User Function DJLIB023()
 Return(oNDJLIB023)
 
 METHOD NEW() CLASS NDJLIB023
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB023
+    self:cClassName:="NDJLIB023"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

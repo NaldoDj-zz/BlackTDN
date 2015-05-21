@@ -7,7 +7,10 @@ Static oNDJLIB013
 
 CLASS NDJLIB013
 
+    DATA cClassName
+
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD IsSemaphore(cSemaphore)
     METHOD GetSemaphore(cSemaphore)
@@ -27,7 +30,12 @@ User Function DJLIB013()
 Return(oNDJLIB013)
 
 METHOD NEW() CLASS NDJLIB013
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB013
+    self:cClassName:="NDJLIB013"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

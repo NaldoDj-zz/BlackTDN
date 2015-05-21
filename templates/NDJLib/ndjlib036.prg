@@ -20,8 +20,8 @@ static aMsgs
         http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
         
         //------------------------------------------------------------------------------------------------        
-        Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
-        TODO: (1) Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
+        Obs.:pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
+        TODO:(1) Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
         
         //------------------------------------------------------------------------------------------------        
         PuTTY Secure Copy client
@@ -63,6 +63,7 @@ static aMsgs
     
 //------------------------------------------------------------------------------------------------
 CLASS uSCP from tHash
+    DATA cClassName
     METHOD New() CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
     METHOD ClassName()
@@ -75,7 +76,7 @@ Return(uSCP():New())
 
 METHOD New() CLASS uSCP
     _Super:New()
-    self:cClassName:="uSCP"
+    self:ClassName()
     self:Set("nStatus",0)
     self:Set("ltLogReport",self:Get("lLog",.T.))
     IF (self:Get("ltLogReport",.F.))
@@ -103,6 +104,7 @@ METHOD FreeObj() CLASS uSCP
 Return(self)
 
 METHOD ClassName() CLASS uSCP
+    self:cClassName:=(_Super:ClassName()+"_uSCP")
 Return(self:cClassName)
 
 METHOD SetParameter(cParameter,cValue) CLASS uSCP       
@@ -290,7 +292,7 @@ METHOD Run() CLASS uSCP
         IF .NOT.(File(cFullAppSCP))
             //-------------------------------------------------------------------------------
             //Extrai, do Repositorio de Objetos, o aplicativo de Transferencia SCP
-            //Obs: Pressupoe, para a extracao, que ele foi adicionado como Resource no processo de compilacao
+            //Obs:Pressupoe, para a extracao, que ele foi adicionado como Resource no processo de compilacao
             IF .NOT.(Resource2File(cAppSCP,cFullAppSCP))
                 nStatus:=-2
                 cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cFullAppSCP+"]"

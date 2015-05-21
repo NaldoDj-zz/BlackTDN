@@ -5,7 +5,10 @@ Static oNDJLIB010
 
 CLASS NDJLIB010
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD Execute(cTitle,bExec,cModName,lGetSenha,cMenuLoad,lMenu,lSchedule,cInternal)
     METHOD PutInternal(cInternal)
@@ -17,7 +20,12 @@ User Function DJLIB010()
 Return(oNDJLIB010)
 
 METHOD NEW() CLASS NDJLIB010
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB010
+    self:cClassName:="NDJLIB010"
+RETURN(self:cClassName)
 
 /*/
     Funcao:Execute

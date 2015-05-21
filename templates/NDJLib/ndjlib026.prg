@@ -28,19 +28,19 @@ Return(uVector2D():New(@x,@y))
     Autor:Marinaldo de Jesus
     Data:29/03/2012
     Descricao:CONSTRUCTOR
-    Sintaxe:uTVector2D():New() -> Self
+    Sintaxe:uTVector2D():New() -> self
 /*/
 METHOD New(x,y) CLASS uTVector2D
+
+    self:ClassName()
 
     DEFAULT x:=0
     DEFAULT y:=0
 
-    Self:cClassName:="UTVECTOR2D"
+    self:x:=x
+    self:y:=y
 
-    Self:x:=x
-    Self:y:=y
-
-Return(Self)
+Return(self)
 
 /*/
     METHOD:ClassName
@@ -50,7 +50,8 @@ Return(Self)
     Sintaxe:uTVector2D():ClassName() -> cClassName
 /*/
 METHOD ClassName() CLASS uTVector2D
-Return(Self:cClassName)
+    self:cClassName:="UTVECTOR2D"
+Return(self:cClassName)
 
 Static Function __Dummy(lRecursa)
     Local oException

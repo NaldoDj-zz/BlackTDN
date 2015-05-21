@@ -16,6 +16,8 @@ CLASS tGetAdvFVal FROM tHash
     DATA uKeySeek
     DATA uDefault
     
+    DATA cClassName
+    
     METHOD NEW(cAlias,uFields,uKeySeek,nOrder,uDefault) CONSTRUCTOR
     METHOD FreeObj() /*DESTRUCTOR*/
 
@@ -40,6 +42,7 @@ Return(tGetAdvFVal():New(@cAlias,@uFields,@uKeySeek,@nOrder,@uDefault))
 
 METHOD NEW(cAlias,uFields,uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
     _Super:New()
+    self:ClassName()
     self:SetAlias(cAlias)
     self:SetOrder(nOrder)
     self:SetFields(uFields)
@@ -48,10 +51,8 @@ METHOD NEW(cAlias,uFields,uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
 Return(self)
 
 METHOD ClassName() CLASS tGetAdvFVal
-    IF (ValType(self:cClassName)=="C")
-        self:cClassName:="TGETADVFVAL"
-    EndIF
-Return("TGETADVFVAL")
+    self:cClassName:=(_Super:ClassName()+"_TGETADVFVAL")
+Return(self:cClassName)
 
 METHOD SetAlias(cAlias) CLASS tGetAdvFVal
     Local cLAlias:=self:cAlias

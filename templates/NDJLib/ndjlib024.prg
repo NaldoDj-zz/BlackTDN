@@ -10,7 +10,10 @@ Static oNDJLIB024
 
 CLASS NDJLIB024
 
+    DATA cClassName
+
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD NextCPF(cStart,nStart,nFinish,nPlus,nStep)
     METHOD ClearCPF()
@@ -50,7 +53,12 @@ User Function DJLIB024()
 Return(oNDJLIB024)
 
 METHOD NEW() CLASS NDJLIB024
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB024
+    self:cClassName:="NDJLIB024"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

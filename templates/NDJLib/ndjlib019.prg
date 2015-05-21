@@ -4,7 +4,10 @@ Static oNDJLIB019
 
 CLASS NDJLIB019
 
+    DATA cClassName
+
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD IniGetPValue(cFile,cSession,cPropertyName,cDefaultValue,cIgnoreToken)  
     
@@ -15,7 +18,12 @@ User Function DJLIB019()
 Return(oNDJLIB019)
 
 METHOD NEW() CLASS NDJLIB019
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB019
+    self:cClassName:="NDJLIB019"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

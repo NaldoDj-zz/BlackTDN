@@ -1,5 +1,4 @@
 #include "totvs.ch"
-#include "tryexception.ch"
 
 Static __aUseCode:=Array(0)
 Static __nUseCode:=0
@@ -17,7 +16,10 @@ Static oNDJLIB003
 
 CLASS NDJLIB003
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD UseCode(cCodeIUse)
     METHOD ReleaseCode(cCodeRelease)
@@ -39,7 +41,12 @@ User Function DJLIB003()
 Return(oNDJLIB003)
 
 METHOD NEW() CLASS NDJLIB003
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB003
+    self:cClassName:="NDJLIB003"
+RETURN(self:cClassName)
 
 /*/
     Funcao:UseCode()
@@ -442,3 +449,5 @@ Static Function AliasUnLock(aAliasLock)
     Next nBL
 
 Return(NIL)
+
+#include "tryexception.ch"

@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------------------------
 CLASS ArrayUtils
     DATA cATDiff
+    DATA cClassName
     DATA nError
     DATA nZipMod
     DATA cZipPwd
@@ -27,6 +28,7 @@ User Function ArrayUtils()
 Return(ArrayUtils():New())
 
 METHOD NEW() CLASS ArrayUtils
+    self:ClassName()
     self:nError:=0
     self:cATDiff:=""
     self:nZipMod:=-1
@@ -38,7 +40,8 @@ METHOD FreeObj() CLASS ArrayUtils
 RETURN(self)
 
 METHOD ClassName() CLASS ArrayUtils
-Return("ARRAYUTILS")
+    self:cClassName:="ARRAYUTILS"
+RETURN(self:cClassName)
 
 METHOD Compare(uCompare1,uCompare2) CLASS ArrayUtils
     Local lCompare
@@ -285,7 +288,7 @@ Static Function Compare(uCompare1,uCompare2,cATDiff)
         IF (cType1=="A")
             lCompare:=ArrayCompare(uCompare1,uCompare2,@cATDiff)
         ElseIF (cType1=="O")
-            lCompare:=ArrayCompare(ClassDataArr(uCompare1),ClassDataArr(uCompare2),@cATDiff)
+            lCompare:=ArrayCompare(ClassDataArr(uCompare1,.T.),ClassDataArr(uCompare2,.T.),@cATDiff)
         ElseIF (cType1=="B")
             lCompare:=(GetCBSource(uCompare1)==GetCBSource(uCompare2))
         Else
@@ -318,7 +321,7 @@ Static Function SaveArray(uArray,cFileName,nErr)
         EndIF
     
         IF (cValTypeuArray=="O")
-            aArray:=ClassDataArr(uArray)
+            aArray:=ClassDataArr(uArray,.T.)
         Else
             aArray:=uArray
         EndIF
@@ -362,7 +365,7 @@ Static Function SaveArr(nfHandle,aArray)
             IF (cElemType=="A")
                 SaveArr(nfHandle,aArray[nLoop])
             Else
-                SaveArr(nfHandle,ClassDataArr(aArray[nLoop]))
+                SaveArr(nfHandle,ClassDataArr(aArray[nLoop],.T.))
             EndIF
         Else
             IF (cElemType=="B")

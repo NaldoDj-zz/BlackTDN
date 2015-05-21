@@ -9,7 +9,7 @@
     /*/
 //------------------------------------------------------------------------------------------------
 CLASS tLogReport FROM tHash
-
+    
     DATA cClassName
     
     DATA oTReport
@@ -31,10 +31,11 @@ Return(tLogReport():New())
 
 METHOD NEW() CLASS tLogReport
     _Super:New()
-    self:cClassName:="TLOGREPORT"
+    self:ClassName()
 Return(self)
 
 METHOD ClassName() CLASS tLogReport
+    self:cClassName:=(_Super:ClassName()+"_TLOGREPORT")
 Return(self:cClassName)
 
 METHOD AddGroup(cLGroupName) CLASS tLogReport
@@ -54,13 +55,17 @@ METHOD PrintDialog(cLotTitle) CLASS tLogReport
         IF .NOT.(lPrint)
             BREAK
         ENDIF
-        self:oTReport:=ReportDef(self,cLotTitle)
-        lPrint:=(ValType(self:oTReport)=="O")
-        IF .NOT.(lPrint)
-            BREAK
-        ENDIF
-        DEFAULT cLotTitle:="__notitle__"
-        lPrint:=self:oTReport:PrintDialog()
+        TRY EXCEPTION
+            self:oTReport:=ReportDef(self,cLotTitle)
+            lPrint:=(ValType(self:oTReport)=="O")
+            IF .NOT.(lPrint)
+                BREAK
+            ENDIF
+            DEFAULT cLotTitle:="__notitle__"
+            lPrint:=self:oTReport:PrintDialog()
+        CATCH EXCEPTION
+            lPrint:=.F.
+       END EXCEPTION
     END SEQUENCE
 Return(lPrint)
 
@@ -175,3 +180,5 @@ Static Procedure ReportPrint(oTReport,oSections,oself)
     Next nH
 
 Return
+
+#include "tryexception.ch"

@@ -115,7 +115,10 @@ Static oNDJLIB021
 
 CLASS NDJLIB021
 
+    DATA cClassName
+
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD RPSAVE(cIniFile,cRPKey,cMsgError)
     METHOD RPRESTORE(cPathCustomExpr,cMsgError)
@@ -129,7 +132,12 @@ User Function DJLIB021()
 Return(oNDJLIB021)
 
 METHOD NEW() CLASS NDJLIB021
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB021
+    self:cClassName:="NDJLIB021"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

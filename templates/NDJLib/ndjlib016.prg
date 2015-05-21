@@ -4,7 +4,10 @@ Static oNDJLIB016
 
 CLASS NDJLIB016
 
+    DATA cClassName
+
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
 
     METHOD FindMsObject(cMsClassName,oWnd)
     METHOD GetOctlFocus(oWnd)    
@@ -16,7 +19,12 @@ User Function DJLIB016()
 Return(oNDJLIB016)
 
 METHOD NEW() CLASS NDJLIB016
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB016
+    self:cClassName:="NDJLIB016"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/

@@ -1,6 +1,5 @@
 #include "totvs.ch"
 #include "thash.ch"
-#include "tryexception.ch"
 
 Static __uSession
 Static __nSession:=0
@@ -69,8 +68,9 @@ Return(THash():New())
 //------------------------------------------------------------------------------------------------
 METHOD New() CLASS THASH
 
+    self:ClassName()
+    
     self:aTHash:=Array(0)
-    self:cClassName:="THASH"
     self:nTHashID:=++__nTHashID
 
 Return(self)
@@ -101,6 +101,7 @@ Return(self)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS THASH
+    self:cClassName:="THASH"
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
@@ -684,3 +685,5 @@ METHOD ChangeSession(uSession,uNewSession) CLASS THASH
     EndIF
 
 Return(lSuccess)
+
+#include "tryexception.ch"

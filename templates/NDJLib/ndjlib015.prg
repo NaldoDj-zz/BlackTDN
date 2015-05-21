@@ -4,7 +4,10 @@ Static oNDJLIB015
 
 CLASS NDJLIB015
 
+    DATA cClassName
+    
     METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
     
     METHOD PackSX(cAlias,cFileSX,nAttempts,nSleep,cRddName)
     METHOD LockSX(cAlias,cFileSX,nAttempts,nSleep,cRddName)
@@ -18,7 +21,12 @@ User Function DJLIB015()
 Return(oNDJLIB015)
 
 METHOD NEW() CLASS NDJLIB015
+    self:ClassName()
 RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB015
+    self:cClassName:="NDJLIB015"
+RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
     /*/
