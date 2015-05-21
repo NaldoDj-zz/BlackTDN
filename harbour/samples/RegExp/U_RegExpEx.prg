@@ -16,6 +16,8 @@ Static __cCRLF:=CRLF
         Ezzy Learning
         Regular Expression Validation Web Service
         http://www.ezzylearning.com/services/RegularExpressionValidationService.aspx
+        
+        TODO: Implementar um exemplo usando Python (Python Regular Expression example)
 
     /*/
 //------------------------------------------------------------------------------------------------
@@ -416,7 +418,7 @@ Static Function SocketRequest(nPort,cHost,ctSocketSend)
         While !(otSocketC:IsConnected()) //ntSocketConnected==0 OK
             Sleep(MSECONDS_WAIT/(MSECONDS_WAIT/2)) 
             ntSocketConnected:=otSocketC:Connect(nPort,cHost,MSECONDS_WAIT)
-            IF (++nAttempts > N_ATTEMPTS)
+            IF (++nAttempts>N_ATTEMPTS)
                 BREAK
             EndIF
         End While
@@ -426,7 +428,7 @@ Static Function SocketRequest(nPort,cHost,ctSocketSend)
         While !(ntSocketSend==Len(ctSocketSend))
             Sleep(MSECONDS_WAIT/(MSECONDS_WAIT/2)) 
             ntSocketSend:=otSocketC:Send(ctSocketSend)
-            IF (++nAttempts > N_ATTEMPTS)
+            IF (++nAttempts>N_ATTEMPTS)
                 BREAK
             EndIF
         End While
@@ -438,7 +440,7 @@ Static Function SocketRequest(nPort,cHost,ctSocketSend)
         While ((ntSocketReceive==0) .or. !("<?xml"$ctSocketReceive))
             Sleep(MSECONDS_WAIT/(MSECONDS_WAIT/2)) 
             ntSocketReceive:=otSocketC:Receive(@ctSocketReceive,MSECONDS_WAIT)
-            IF (++nAttempts > N_ATTEMPTS)
+            IF (++nAttempts>N_ATTEMPTS)
                 BREAK
             EndIF
         End While

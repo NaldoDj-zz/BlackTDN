@@ -268,3 +268,7 @@
 2015-05-21 00:12 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/RegExp/U_RegExpEx.prg
     - Padronizacao do codigo
+
+2015-05-21 09:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * harbour/samples/RegExp/U_RegExpEx.prg
+    - TODO: Implementar um exemplo usando Python (Python Regular Expression example) 
