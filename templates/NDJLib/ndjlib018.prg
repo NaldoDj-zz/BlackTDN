@@ -1,6 +1,7 @@
+#include "totvs.ch"
 #include "fileio.ch"
 #include "tbiconn.ch"
-#include "protheus.ch"
+#include "dbstruct.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         CLASS:fTdb

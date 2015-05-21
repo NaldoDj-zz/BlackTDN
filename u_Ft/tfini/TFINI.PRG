@@ -1,770 +1,612 @@
-#INCLUDE "PROTHEUS.CH"
+#include "ndj.ch"
 
-#DEFINE SESSION_POSITION	1
-#DEFINE PROPERTY_POSITION	2
+//------------------------------------------------------------------------------------------------
+    /*/
+        CLASS:TFINI
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Manipulacao de Arquivos .INI
+        Sintaxe:TFINI():New(cINIFile,cIgnoreToken)->Objeto do Tipo TFINI
+    /*/
+//------------------------------------------------------------------------------------------------
+CLASS TFINI FROM THASH
 
-#DEFINE PROPERTY_NAME		1
-#DEFINE PROPERTY_VALUE		2
+    DATA cINIFile
+    
+    DATA cClassName
 
-#DEFINE PROPERTY_ELEMENTS	2
+    METHOD NEW(cINIFile,cIgnoreToken) CONSTRUCTOR
 
-/*/
-	CLASS:		TFINI
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Manipulacao de Arquivos .INI
-	Sintaxe:	TFINI():New( cINIFile , cIgnoreToken) -> Objeto do Tipo TFINI
-/*/
-CLASS TFINI FROM LongClassName
+    METHOD ClassName()
 
-	DATA aTFINI
-	
-	DATA cINIFile
-	DATA cClassName
+    METHOD GetAtProperty(cSession,cPropertyKey)
+    METHOD GetKeyProperty(cSession,cPropertyKey)
+    METHOD SetKeyProperty(cSession,cPropertyKey,cNewPropertyKey)
+    METHOD GetNameProperty(cSession,cPropertyKey)
+    METHOD GetPropertyValue(cSession,cPropertyKey,cDefaultValue)
+    METHOD SetPropertyValue(cSession,cPropertyKey,cValue)
+    METHOD AddNewProperty(cSession,cPropertyKey,cValue)
+    METHOD RemoveProperty(cSession,cPropertyKey)
+    METHOD GetAllProperties(cSession)
 
-	METHOD NEW( cINIFile , cIgnoreToken ) CONSTRUCTOR
+    METHOD AddNewSession(cSession)
+    METHOD RemoveSession(cSession)
+    METHOD GetSession(cSession)
+    METHOD CloneSession(cSession)
+    METHOD GetAllSessions()
+    METHOD CopySession(cSession,cNewSession)
+    METHOD ExistSession(cSession,nSession)
+    METHOD ChangeSession(cSession,cNewSession)
 
-	METHOD ClassName()
+    METHOD SaveAs(cFileName)
+    METHOD SaveAsXML(cXMLFile)
 
-	METHOD GetPropertyValue( cSession , cPropertyName , cDefaultValue )
-	METHOD SetPropertyValue( cSession , cPropertyName , cValue )
-	METHOD AddNewProperty( cSession , cPropertyName , cValue )
-	METHOD RemoveProperty( cSession , cPropertyName )
-	METHOD GetAllProperties( cSession )
-
-	METHOD AddNewSession( cSession )
-	METHOD RemoveSession( cSession )
-	METHOD GetAllSessions()
-	METHOD CopySession( cSession , cNewSession )
-	METHOD ExistSession( cSession )
-
-	METHOD SaveAs( cINIFile )
-	METHOD SaveAsXML( cXMLFile )
-
-	METHOD ToXML()
+    METHOD ToXML()
 
 ENDCLASS
 
-User Function TFINI( cINIFile , cIgnoreToken )
-Return( TFINI():New( cINIFile , cIgnoreToken ) )
-
-/*/
-	METHOD:		New
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	CONSTRUCTOR
-	Sintaxe:	TFINI():New( cINIFile , cIgnoreToken) -> Self
-/*/
-METHOD New( cINIFile , cIgnoreToken ) CLASS TFINI
-
-	Local aTFINI
-
-	Self:aTFINI			:= {}
-	Self:cINIFile		:= cINIFile
-	Self:cClassName		:= "TFINI"
-
-	aTFINI				:= Self:aTFINI
-
-	TINILoad( @aTFINI , @cINIFile , @cIgnoreToken )
-
-Return( Self )
-
-/*/
-	Function:	TINILoad
-	Autor:		Marinaldo de Jesus
-	Data:		03/11/2011
-	Descricao:	Carregar os Dados do arquivo INI
-	Sintaxe:	TINILoad( oTIni , cIgnoreToken )
-/*/
-Static Function TINILoad( aTFINI , cINIFile , cIgnoreToken )
-
-	Local cLine
-
-	Local lExit
-
-	Local nAT
-	Local nATLine
-	Local nSession
-	Local nProperty
-	Local nATIgnoreTkn
-
-	Local ofT
-
-	Local lLoad	:= .F.
-
-	BEGIN SEQUENCE
-	
-		IF Empty( cINIFile )
-			BREAK
-		EndIF
-
-		IF !File( cINIFile )
-        	BREAK
-		ENDIF
-
-		ofT	:= fT():New()
-
-		IF ( ofT:ft_fUse( cINIFile ) <= 0 )
-			ofT:ft_fUse()
-			BREAK
-		EndIF
-
-		DEFAULT cIgnoreToken	:= ";"
-
-		While !( ofT:ft_fEof() )
-			cLine		:= ofT:ft_fReadLn()
-			BEGIN SEQUENCE
-				IF Empty( cLine )
-					BREAK
-				EndIF
-				IF ( cIgnoreToken $ cLine )
-					cLine			:= AllTrim( cLine )
-					nATIgnoreTkn	:= AT( cIgnoreToken , cLine )
-					IF ( nATIgnoreTkn == 1 )
-						BREAK
-					EndIF
-					cLine	:= SubStr( cLine , 1  , nATIgnoreTkn - 1 )
-				EndIF	
-				IF !( "[" $ cLine )
-					BREAK
-				ENDIF
-				lExit		:= .F.
-				nATLine		:= 0
-				aAdd( aTFINI , { Lower( AllTrim( StrTran( StrTran( cLine , "[" , "" ) , "]" , "" ) ) ) , Array( 0 ) } )
-				nSession	:= Len( aTFINI )
-				ofT:ft_fSkip()
-				While !( ofT:ft_fEof() )
-					cLine	:= ofT:ft_fReadLn()
- 					BEGIN SEQUENCE
-	 					IF Empty( cLine )
-	 						BREAK
-	 					EndIF
-						IF ( cIgnoreToken $ cLine )
-							cLine			:= AllTrim( cLine )
-							nATIgnoreTkn	:= AT( cIgnoreToken , cLine )
-							IF ( nATIgnoreTkn == 1 )
-								IF ( "[" $ cLine )
-									nATLine		:= 0
-									lExit		:= .T.
-								EndIF
-								BREAK
-							EndIF
-							cLine	:= SubStr( cLine , 1  , nATIgnoreTkn - 1 )
-						EndIF
-						IF ( "[" $ cLine )
-							lExit := .T.
-							BREAK
-						EndIF
-		 				aAdd( aTFINI[ nSession ][ PROPERTY_POSITION ] , Array( PROPERTY_ELEMENTS ) )
-		 				nProperty	:= Len( aTFINI[ nSession ][ PROPERTY_POSITION ] )
-		 				nAT			:= AT( "=" , cLine )
-		 				aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_NAME  ] := Lower( AllTrim( SubStr( cLine , 1 , nAT - 1 ) ) )
-		 				aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ] := SubStr( cLine , nAT + 1 )
-		 				cLine		:= ""
-					END SEQUENCE
-					IF ( lExit )
-						EXIT
-					EndIF
-					nATLine		:= ofT:ft_fRecno()
-					ofT:ft_fSkip()
-				End While
-				IF ( nATLine > 0 )
-					ofT:ft_fGoto( nATLine )
-				EndIF
-			END SEQUENCE
-			ofT:ft_fSkip()
-		End While
-
-		ofT:ft_fUse()
-
-		lLoad	:= .T.
-
-	END SEQUENCE
-
-Return( lLoad )
-
-/*/
-	METHOD:		ClassName
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Retornar o Nome da Classe
-	Sintaxe:	TFINI():ClassName() -> cClassName
-/*/
-METHOD ClassName()  CLASS TFINI
-Return( Self:cClassName )
-
-/*/
-	METHOD:		GetPropertyValue
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Obter o valor da Propriedade Passada por parametro e de acordo com a Secao
-	Sintaxe:	TFINI():GetPropertyValue( cSession , cPropertyName , cDefaultValue ) -> cPropertyValue
-/*/
-METHOD GetPropertyValue( cSession , cPropertyName , cDefaultValue ) CLASS TFINI
-
-	Local cPropertyValue	:= "@__PROPERTY_NOT_FOUND__@"
-
-	Local nSession
-	Local nProperty
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-		
-		IF Empty( cPropertyName )
-			BREAK
-		EndIF
-
-		cSession		:= Lower( AllTrim( cSession ) )
-		cPropertyName	:= Lower( AllTrim( cPropertyName ) )
-
-		nSession		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		nProperty		:= aScan( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , { |aValues| ( aValues[ PROPERTY_NAME ] == cPropertyName ) } )
-		IF ( nProperty == 0 )
-			BREAK
-		EndIF
-
-		cPropertyValue	:= Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ]
-
-	END SEQUENCE
-
-	IF ( cPropertyValue == "@__PROPERTY_NOT_FOUND__@" )
-		IF !Empty( cDefaultValue )
-			cPropertyValue	:= cDefaultValue
-		Else
-			cPropertyValue	:= ""
-		EndIF	
-	EndIF
-
-Return( cPropertyValue )
-
-/*/
-	METHOD:		SetPropertyValue
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Setar o Valor em uma determinada Propriedade
-	Sintaxe:	TFINI():SetPropertyValue( cSession , cPropertyName , cValue ) -> cPropertyLastValue
-/*/
-METHOD SetPropertyValue( cSession , cPropertyName , cValue ) CLASS TFINI
-
-	Local cPropertyLastValue
-
-	Local nSession
-	Local nProperty
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-		
-		IF Empty( cPropertyName )
-			BREAK
-		EndIF
-		
-		cSession			:= Lower( AllTrim( cSession ) )
-		cPropertyName		:= Lower( AllTrim( cPropertyName ) )
-
-		nSession			:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		nProperty			:= aScan( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , { |aValues| ( aValues[ PROPERTY_NAME ] == cPropertyName ) } )
-		IF ( nProperty == 0 )
-			BREAK
-		EndIF
-
-		cPropertyLastValue	:= Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ]			
-		Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ] := cValue
-
-	END SEQUENCE
-
-Return( cPropertyLastValue )
-
-/*/
-	METHOD:		AddNewProperty
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Adicionar uma nova propriedade
-	Sintaxe:	TFINI():AddNewProperty( cSession , cPropertyName , cValue ) -> lSuccess
-/*/
-METHOD AddNewProperty( cSession , cPropertyName , cValue ) CLASS TFINI
-
-	Local lSuccess			:= .F.
-	
-	Local nSession
-	Local nProperty
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-		
-		IF Empty( cPropertyName )
-			BREAK
-		EndIF
-
-		cSession			:= Lower( AllTrim( cSession ) )
-		cPropertyName		:= Lower( AllTrim( cPropertyName ) )
-
-		nSession			:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		aAdd( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , Array( PROPERTY_ELEMENTS ) )
-		nProperty			:= Len( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] )
-
-		Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_NAME  ] := cPropertyName
-		Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ] := cValue
-
-		lSuccess			:= .T.
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		RemoveProperty
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Remover Determinada Propriedade
-	Sintaxe:	TFINI():RemoveProperty( cSession , cPropertyName ) -> lSuccess
-/*/
-METHOD RemoveProperty( cSession , cPropertyName ) CLASS TFINI
-
-	Local lSuccess		:= .F.
-	
-	Local nSession
-	Local nProperty
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-		
-		IF Empty( cPropertyName )
-			BREAK
-		EndIF
-
-		cSession		:= Lower( AllTrim( cSession ) )
-		cPropertyName	:= Lower( AllTrim( cPropertyName ) )
-
-		nSession		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		nProperty		:= aScan( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , { |aValues| ( aValues[ PROPERTY_NAME ] == cPropertyName ) } )
-		IF ( nProperty == 0 )
-			BREAK
-		EndIF
-
-		lSuccess		:= .T.
-
-		aDel( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , nProperty )
-		aSize( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] , Len( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] ) - 1 )
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		GetAllProperties
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Retornar todas as propriedades
-	Sintaxe:	TFINI():GetAllProperties( cSession ) -> aAllProperties
-/*/
-METHOD GetAllProperties( cSession) CLASS TFINI
-
-	Local aAllProperties	:= {}
-
-	Local nSession
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-
-		cSession			:= Lower( AllTrim( cSession ) )
-		nSession			:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		aAllProperties		:= Self:aTFINI[ nSession ][ PROPERTY_POSITION ]
-
-	END SEQUENCE
-
-Return( aAllProperties )
-
-/*/
-	METHOD:		AddNewSession
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Adicionar nova Secao
-	Sintaxe:	TFINI():AddNewSession( cSession ) -> lSuccess
-/*/
-METHOD AddNewSession( cSession ) CLASS TFINI
-
-	Local lSuccess		:= .F.
-
-	Local nSession
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-
-		cSession		:= Lower( AllTrim( cSession ) )
-
-		nSession		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession > 0 )
-			BREAK
-		EndIF
-
-		aAdd( Self:aTFINI , { cSession , Array( 0 ) } )
-
-		lSuccess		:= .T.
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		RemoveSession
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Remover Determinada Secao
-	Sintaxe:	TFINI():RemoveSession( cSession ) -> lSuccess
-/*/
-METHOD RemoveSession( cSession ) CLASS TFINI
-
-	Local lSuccess		:= .F.
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-
-		cSession		:= Lower( AllTrim( cSession ) )
-
-		nSession		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSession == 0 )
-			BREAK
-		EndIF
-
-		aDel( Self:aTFINI , nSession )
-		aSize( Self:aTFINI , Len( Self:aTFINI ) - 1 )
-
-		lSuccess		:= .T.
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		GetAllSessions
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Obter Todas as Secoes do INI
-	Sintaxe:	TFINI():GetAllSessions() -> aSessionsName
-/*/
+User Function TFINI(cINIFile,cIgnoreToken)
+    SYMBOL_UNUSED(__cCRLF)
+Return(TFINI():New(cINIFile,cIgnoreToken))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:New
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:CONSTRUCTOR
+        Sintaxe:TFINI():New(cINIFile,cIgnoreToken)->self
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD New(cINIFile,cIgnoreToken) CLASS TFINI
+
+    Local aTFINI
+
+    _Super:New()
+    self:ClassName()
+    
+    self:cINIFile:=cINIFile
+    aTFINI:=self:aTHASH
+    
+    TINILoad(@aTFINI,@cINIFile,@cIgnoreToken)
+
+Return(self)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        Function:TINILoad
+        Autor:Marinaldo de Jesus
+        Data:03/11/2011
+        Descricao:Carregar os Dados do arquivo INI
+        Sintaxe:TINILoad(oTIni,cIgnoreToken)
+    /*/
+//------------------------------------------------------------------------------------------------
+Static Function TINILoad(aTFINI,cINIFile,cIgnoreToken)
+
+    Local cLine
+
+    Local lExit
+
+    Local nAT
+    Local nATLine
+    Local nSession
+    Local nProperty
+    Local nATIgnoreTkn
+
+    Local ofT
+
+    Local lLoad:=.F.
+
+    BEGIN SEQUENCE
+    
+        IF Empty(cINIFile)
+            BREAK
+        EndIF
+
+        IF .NOT.(File(cINIFile))
+            BREAK
+        ENDIF
+
+        ofT:=fTDB():New()
+
+        IF (ofT:ft_fUse(cINIFile)<=0)
+            ofT:ft_fUse()
+            BREAK
+        EndIF
+
+        DEFAULT cIgnoreToken:=";"
+
+        While .NOT.(ofT:ft_fEof())
+            cLine:=ofT:ft_fReadLn()
+            BEGIN SEQUENCE
+                IF Empty(cLine)
+                    BREAK
+                EndIF
+                IF (cIgnoreToken$cLine)
+                    cLine:=AllTrim(cLine)
+                    nATIgnoreTkn:=AT(cIgnoreToken,cLine)
+                    IF (nATIgnoreTkn==1)
+                        BREAK
+                    EndIF
+                    cLine:=SubStr(cLine,1,nATIgnoreTkn-1)
+                EndIF    
+                IF .NOT.("["$cLine)
+                    BREAK
+                ENDIF
+                lExit:=.F.
+                nATLine:=0
+                aAdd(aTFINI,{Lower(AllTrim(StrTran(StrTran(cLine,"[",""),"]",""))),Array(0)})
+                nSession:=Len(aTFINI)
+                ofT:ft_fSkip()
+                While .NOT.(ofT:ft_fEof())
+                    cLine:=ofT:ft_fReadLn()
+                     BEGIN SEQUENCE
+                         IF Empty(cLine)
+                             BREAK
+                         EndIF
+                        IF (cIgnoreToken$cLine)
+                            cLine:=AllTrim(cLine)
+                            nATIgnoreTkn:=AT(cIgnoreToken,cLine)
+                            IF (nATIgnoreTkn==1)
+                                IF ("["$cLine)
+                                    nATLine:=0
+                                    lExit:=.T.
+                                EndIF
+                                BREAK
+                            EndIF
+                            cLine:=SubStr(cLine,1,nATIgnoreTkn-1)
+                        EndIF
+                        IF ("["$cLine)
+                            lExit:=.T.
+                            BREAK
+                        EndIF
+                         aAdd(aTFINI[nSession][PROPERTY_POSITION],Array(PROPERTY_ELEMENTS))
+                         nProperty:=Len(aTFINI[nSession][PROPERTY_POSITION])
+                         nAT:=AT("=",cLine)
+                         aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]:=Lower(AllTrim(SubStr(cLine,1,nAT-1)))
+                         aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]:=SubStr(cLine,nAT+1)
+                         cLine:=""
+                    END SEQUENCE
+                    IF (lExit)
+                        EXIT
+                    EndIF
+                    nATLine:=ofT:ft_fRecno()
+                    ofT:ft_fSkip()
+                End While
+                IF (nATLine>0)
+                    ofT:ft_fGoto(nATLine)
+                EndIF
+            END SEQUENCE
+            ofT:ft_fSkip()
+        End While
+
+        ofT:ft_fUse()
+
+        lLoad:=.T.
+
+    END SEQUENCE
+
+Return(lLoad)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:ClassName
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Retornar o Nome da Classe
+        Sintaxe:TFINI():ClassName()->cClassName
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD ClassName() CLASS TFINI
+    self:cClassName:=(_Super:ClassName()+"_TFINI")
+Return(self:cClassName)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetAtProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter a Posicao da Propriedade Passada por parametro e de acordo com a Secao
+        Sintaxe:TFINI():GetAtProperty(cSession,cPropertyKey)->nATProperty
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetAtProperty(cSession,cPropertyKey) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+Return(_Super:GetAtProperty(@cSession,@cPropertyKey))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetKeyProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter a Chave da Propriedade Passada por parametro e de acordo com a Secao
+        Sintaxe:TFINI():GetKeyProperty(cSession,cPropertyKey)->cNameProperty
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetKeyProperty(cSession,cPropertyKey) CLASS TFINI
+    Local cKeyproperty
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+    cKeyproperty:=_Super:GetKeyProperty(@cSession,@cPropertyKey)
+    DEFAULT cKeyproperty:=""
+Return(cKeyproperty)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:SetKeyProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Setar a Chave da Propriedade Passada por parametro e de acordo com a Secao
+        Sintaxe:TFINI():SetKeyProperty(cSession,cPropertyKey)->cNameProperty
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD SetKeyProperty(cSession,cPropertyKey,cNewPropertyKey) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+    cNewPropertyKey:=Lower(AllTrim(cNewPropertyKey))
+Return(_Super:SetKeyProperty(cSession,cPropertyKey,cNewPropertyKey))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetNameProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter o Nome da Propriedade Passada por parametro e de acordo com a Secao
+        Sintaxe:TFINI():GetNameProperty(cSession,cPropertyKey)->cNameProperty
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetNameProperty(cSession,cPropertyKey) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+Return(self:GetKeyProperty(@cSession,@cPropertyKey))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetPropertyValue
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter o valor da Propriedade Passada por parametro e de acordo com a Secao
+        Sintaxe:TFINI():GetPropertyValue(cSession,cPropertyKey,cDefaultValue)->uPropertyValue
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetPropertyValue(cSession,cPropertyKey,cDefaultValue) CLASS TFINI
+    Local cValue
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+    cValue:=_Super:GetPropertyValue(@cSession,@cPropertyKey,@cDefaultValue)
+    DEFAULT cValue:=""
+Return(cValue)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:SetPropertyValue
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Setar o Valor em uma determinada Propriedade
+        Sintaxe:TFINI():SetPropertyValue(cSession,cPropertyKey,cValue)->cPropertyLastValue
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD SetPropertyValue(cSession,cPropertyKey,cValue) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+Return(_Super:SetPropertyValue(@cSession,@cPropertyKey,@cValue))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:AddNewProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Adicionar uma nova propriedade
+        Sintaxe:TFINI():AddNewProperty(cSession,cPropertyKey,cValue)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD AddNewProperty(cSession,cPropertyKey,cValue) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+Return(_Super:AddNewProperty(@cSession,@cPropertyKey,@cValue))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:RemoveProperty
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Remover Determinada Propriedade
+        Sintaxe:TFINI():RemoveProperty(cSession,cPropertyKey)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD RemoveProperty(cSession,cPropertyKey) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cPropertyKey:=Lower(AllTrim(cPropertyKey))
+Return(Super:RemoveProperty(cSession,cPropertyKey))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetAllProperties
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Retornar todas as propriedades
+        Sintaxe:TFINI():GetAllProperties(cSession)->aAllProperties
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetAllProperties(cSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(_Super:GetAllProperties(@cSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:AddNewSession
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Adicionar nova Secao
+        Sintaxe:TFINI():AddNewSession(cSession)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD AddNewSession(cSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(_Super:AddNewSession(@cSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:RemoveSession
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Remover Determinada Secao
+        Sintaxe:TFINI():RemoveSession(cSession)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD RemoveSession(cSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(_Super:RemoveSession(@cSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetSession
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter uma Secao 
+        Sintaxe:TFINI():GetSession(uSession)->aSession
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD GetSession(cSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(_Super:GetSession(cSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:CloneSession
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Clonar uma Secao 
+        Sintaxe:TFINI():CloneSession(uSession)->aClone
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD CloneSession(cSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(self:GetSession(cSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:GetAllSessions
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Obter Todas as Secoes do INI
+        Sintaxe:TFINI():GetAllSessions()->aAllSessions
+    /*/
+//------------------------------------------------------------------------------------------------
 METHOD GetAllSessions() CLASS TFINI
-
-	Local aSessionsName	:= {}
-
-	Local nSession
-	Local nSessions
-
-	BEGIN SEQUENCE
-
-		IF Empty( Self:aTFINI )
-			BREAK
-		EndIF
-
-		nSessions := Len( Self:aTFINI )
-		For nSession := 1 To nSessions
-			aAdd( aSessionsName	, Self:aTFINI[ nSession ][ SESSION_POSITION ] )
-		Next nSession
-
-	END SEQUENCE
-
-Return( aSessionsName )
-
-/*/
-	METHOD:		CopySession
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Copiar uma Secao 
-	Sintaxe:	TFINI():CopySession( cSession , cNewSession ) -> lSuccess
-/*/
-METHOD CopySession( cSession , cNewSession ) CLASS TFINI
-
-	Local aProperties
-	
-	Local nSource
-	Local nTarget
-	
-	Local lSuccess	:= .F.
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-
-		cSession	:= Lower( AllTrim( cSession ) )
-		cNewSession	:= Lower( AllTrim( cNewSession ) )
-
-		nSource		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		IF ( nSource == 0 )
-			BREAK
-		EndIF
-
-		IF !( Self:AddNewSession( cNewSession ) )
-			BREAK
-		EndIF
-
-		aProperties	:= Self:GetAllProperties( cSession )
-		nTarget		:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cNewSession ) } )
-		IF ( nTarget == 0 )
-			BREAK
-		EndIF
-		
-		Self:aTFINI[ nTarget ][ PROPERTY_POSITION ]	:= aClone( aProperties )
-		
-		lSuccess	:= ArrayCompare( Self:aTFINI[ nSource ][ PROPERTY_POSITION ] , Self:aTFINI[ nTarget ][ PROPERTY_POSITION ] )
-	
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		ExistSession
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Copiar uma Secao 
-	Sintaxe:	TFINI():ExistSession( cSession ) -> lExist
-/*/
-METHOD ExistSession( cSession ) CLASS TFINI
-
-	Local lExist	:= .F.
-
-	Local nSession
-
-	BEGIN SEQUENCE
-
-		IF Empty( cSession )
-			BREAK
-		EndIF
-
-		cSession	:= Lower( AllTrim( cSession ) )
-
-		nSession	:= aScan( Self:aTFINI , { |aFindSession| ( aFindSession[ SESSION_POSITION ] == cSession ) } )
-		lExist		:= ( nSession > 0 )
-
-	END SEQUENCE
-
-Return( lExist )
-
-/*/
-	METHOD:		SaveAs
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Salvar Como
-	Sintaxe:	TFINI():SaveAs( cINIFile ) -> lSuccess
-/*/
-METHOD SaveAs( cINIFile ) CLASS TFINI
-
-	Local cLine
-	Local cCRLF
-
-	Local nSession
-	Local nSessions
-	Local nProperty
-	Local nProperties
-	
-	Local nfHandle
-	
-	Local lSuccess	:= .F.
-
-	BEGIN SEQUENCE
-
-		IF Empty( cINIFile )
-			cINIFile := Self:cINIFile
-			IF Empty( cINIFile )
-				BREAK
-			EndIF
-		EndIF
-
-		nfHandle	:= fCreate( cINIFile )
-		IF ( nfHandle <= 0 )
-			BREAK
-		EndIF
-
-		cCRLF		:= CRLF
-
-		nSessions	:= Len( Self:aTFINI )
-		For nSession := 1 To nSessions
-
-			cLine := "["
-			cLine += Self:aTFINI[ nSession ][ SESSION_POSITION ]
-			cLine += "]"
-			cLine += cCRLF
-
-			fWrite( nfHandle , cLine )
-
-			nProperties := Len( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] )
-			For nProperty := 1 To nProperties
-
-		 		cLine := Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_NAME  ]
-		 		cLine += "="
-		 		cLine += Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ]
-				cLine += cCRLF
-				
-				fWrite( nfHandle , cLine )
-
-			Next nProperty
-
-			cLine := cCRLF
-
-			fWrite( nfHandle , cLine )
-
-		Next nSession
-
-		fClose( nfHandle )
-
-		lSuccess	:= File( cINIFile )
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		SaveAsXML
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Salvar como XML
-	Sintaxe:	TFINI():SaveAsXML( cXMLFile ) -> lSuccess
-/*/
-METHOD SaveAsXML( cXMLFile ) CLASS TFINI
-
-	Local aXML
-
-	Local cLine
-	Local cCRLF
-	
-	Local cSPPath
-	Local cSPDriver
-	Local cSPFileName
-
-	Local lSuccess	:= .F.
-
-	Local nAT
-	Local nATEnd
-	Local nfHandle
-
-	BEGIN SEQUENCE
-
-		IF Empty( cXMLFile )
-			cXMLFile	:= Self:cINIFile
-			IF Empty( cXMLFile )
-				BREAK
-			EndIF
-			SplitPath( cXMLFile , @cSPDriver , @cSPPath , @cSPFileName )
-			cXMLFile	:= cSPDriver
-			cXMLFile	+= cSPPath
-			cXMLFile	+= cSPFileName
-			cXMLFile	+= ".xml"
-		EndIF
-
-		aXML			:= Self:ToXML()
-		nATEnd			:= Len( aXML )
-		IF ( nATEnd == 0 )
-			BREAK
-		EndIF
-
-		nfHandle	:= fCreate( cXMLFile )
-		IF ( nfHandle <= 0 )
-			BREAK
-		EndIF
-
-		cCRLF		:= CRLF
-
-		For nAT := 1 To nATEnd
-
-			cLine := aXML[ nAT ]
-			cLine += cCRLF
-
-			fWrite( nfHandle , cLine )
-
-		Next nSession
-
-		fClose( nfHandle )
-
-		lSuccess	:= File( cXMLFile )
-
-	END SEQUENCE
-
-Return( lSuccess )
-
-/*/
-	METHOD:		ToXML
-	Autor:		Marinaldo de Jesus
-	Data:		27/05/2011
-	Descricao:	Converter para XML
-	Sintaxe:	TFINI():ToXML() -> aXML
-/*/
+Return(_Super:GetAllSessions())
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:CopySession
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Copiar uma Secao 
+        Sintaxe:TFINI():CopySession(cSession,cNewSession)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD CopySession(cSession,cNewSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cNewSession:=Lower(AllTrim(cNewSession))
+Return(_Super:CopySession(@cSession,@cNewSession))
+
+METHOD ExistSession(cSession,nSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+Return(_Super:ExistSession(cSession,@nSession))
+
+METHOD ChangeSession(cSession,cNewSession) CLASS TFINI
+    cSession:=Lower(AllTrim(cSession))
+    cNewSession:=Lower(AllTrim(cNewSession))
+Return(_Super:ChangeSession(cSession,cNewSession))
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:SaveAs
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Salvar Como
+        Sintaxe:TFINI():SaveAs(cFileName)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD SaveAs(cFileName) CLASS TFINI
+Return(SaveAs(self:aTHASH,cFileName))
+Static Function SaveAs(aTFINI,cFileName)
+
+    Local cLine
+    Local cCRLF
+
+    Local nSession
+    Local nSessions
+    Local nProperty
+    Local nProperties
+    
+    Local nfHandle
+    
+    Local lSuccess:=.F.
+
+    BEGIN SEQUENCE
+
+        IF Empty(cFileName)
+            cFileName:=self:cINIFile
+            IF Empty(cFileName)
+                BREAK
+            EndIF
+        EndIF
+
+        nfHandle:=fCreate(cFileName)
+        IF (nfHandle<=0)
+            BREAK
+        EndIF
+
+        cCRLF:=CRLF
+
+        nSessions:=Len(aTFINI)
+        For nSession:=1 To nSessions
+
+            cLine:="["
+            cLine+=aTFINI[nSession][SESSION_POSITION]
+            cLine+="]"
+            cLine+=cCRLF
+
+            fWrite(nfHandle,cLine)
+
+            nProperties:=Len(aTFINI[nSession][PROPERTY_POSITION])
+            For nProperty:=1 To nProperties
+
+                cLine:=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]
+                cLine+="="
+                cLine+=aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE]
+                cLine+=cCRLF
+                
+                fWrite(nfHandle,cLine)
+
+            Next nProperty
+
+            cLine:=cCRLF
+
+            fWrite(nfHandle,cLine)
+
+        Next nSession
+
+        fClose(nfHandle)
+
+        lSuccess:=File(cFileName)
+
+    END SEQUENCE
+
+Return(lSuccess)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:SaveAsXML
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Salvar como XML
+        Sintaxe:TFINI():SaveAsXML(cXMLFile)->lSuccess
+    /*/
+//------------------------------------------------------------------------------------------------
+METHOD SaveAsXML(cXMLFile) CLASS TFINI
+    Local aXML:=self:ToXML()
+    Local cSPPath
+    Local cSPDriver
+    Local cSPFileName
+    IF Empty(cXMLFile)
+        cXMLFile:=self:cINIFile
+        SplitPath(cXMLFile,@cSPDriver,@cSPPath,@cSPFileName)
+        cXMLFile:=cSPDriver
+        cXMLFile+=cSPPath
+        cXMLFile+=cSPFileName
+        cXMLFile+=".xml"
+    EndIF
+Return(SaveAsXml(@aXML,@cXMLFile))
+Static Function SaveAsXml(aXML,cXMLFile) 
+
+    Local cLine
+    Local cCRLF
+
+    Local lSuccess:=.F.
+
+    Local nAT
+    Local nATEnd
+    Local nfHandle
+
+    BEGIN SEQUENCE
+
+        IF Empty(cXMLFile)
+            BREAK
+        EndIF
+
+        nATEnd:=Len(aXML)
+        IF (nATEnd==0)
+            BREAK
+        EndIF
+
+        nfHandle:=fCreate(cXMLFile)
+        IF (nfHandle<=0)
+            BREAK
+        EndIF
+
+        cCRLF:=CRLF
+
+        For nAT:=1 To nATEnd
+
+            cLine:=aXML[nAT]
+            cLine+=cCRLF
+
+            fWrite(nfHandle,cLine)
+
+        Next nSession
+
+        fClose(nfHandle)
+
+        lSuccess:=File(cXMLFile)
+
+    END SEQUENCE
+
+Return(lSuccess)
+
+//------------------------------------------------------------------------------------------------
+    /*/
+        METHOD:ToXML
+        Autor:Marinaldo de Jesus
+        Data:27/05/2011
+        Descricao:Converter para XML
+        Sintaxe:TFINI():ToXML()->aXML
+    /*/
+//------------------------------------------------------------------------------------------------
 METHOD ToXML() CLASS TFINI
+Return(ToXML(self:aTHASH))
+Static Function ToXML(aTFINI)
 
-	Local aXML			:= {}
+    Local aXML:={}
 
-	Local cSpace4		:= Space(4)
-	Local cSpace8		:= Space(8)
-	Local cLClassName   := Lower( Self:cClassName )
+    Local cSpace4:=Space(4)
+    Local cSpace8:=Space(8)
+    Local cLClassName:=Lower(self:cClassName)
 
-	Local nSession
-	Local nSessions
-	Local nProperty
-	Local nProperties
+    Local nSession
+    Local nSessions
+    Local nProperty
+    Local nProperties
 
-	aAdd( aXML , "<?xml version='1.0' encoding='ISO-8859-1'?>" )
-	aAdd( aXML , "<" + cLClassName  + ">" )
-	nSessions	:= Len( Self:aTFINI )
-	For nSession := 1 To nSessions
+    aAdd(aXML,"<?xml version='1.0' encoding='ISO-8859-1'?>")
+    aAdd(aXML,"<"+cLClassName+">")
+    nSessions:=Len(aTFINI)
+    For nSession:=1 To nSessions
+        aAdd(aXML,cSpace4)
+        aAdd(aXML,"<"+aTFINI[nSession][SESSION_POSITION]+">")
+        nProperties:=Len(aTFINI[nSession][PROPERTY_POSITION])
+        For nProperty:=1 To nProperties
+            aAdd(aXML,cSpace8)
+            aAdd(aXML,"<"+aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]+">")
+            aAdd(aXML,aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_VALUE])
+            aAdd(aXML,"</"+aTFINI[nSession][PROPERTY_POSITION][nProperty][PROPERTY_KEY]+">")
+        Next nProperty
+        aAdd(aXML,cSpace4)
+        aAdd(aXML,"</"+aTFINI[nSession][SESSION_POSITION]+">")
+    Next nSession
 
-		aAdd( aXML , cSpace4 )
-		aAdd( aXML , "<" + Self:aTFINI[ nSession ][ SESSION_POSITION ] + ">" )
+    aAdd(aXML,"</"+cLClassName+">")
 
-		nProperties := Len( Self:aTFINI[ nSession ][ PROPERTY_POSITION ] )
-		For nProperty := 1 To nProperties
-
-			aAdd( aXML , cSpace8 )
-			aAdd( aXML , "<" + Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_NAME  ] + ">" )
-	 		aAdd( aXML , Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_VALUE ] )
-			aAdd( aXML , "</" + Self:aTFINI[ nSession ][ PROPERTY_POSITION ][ nProperty ][ PROPERTY_NAME  ] + ">" )
-
-		Next nProperty
-
-		aAdd( aXML , cSpace4 )
-		aAdd( aXML , "</" + Self:aTFINI[ nSession ][ SESSION_POSITION ] + ">" )
-
-	Next nSession
-
-	aAdd( aXML , "</" + cLClassName + ">" )
-
-Return( aXML )
+Return(aXML)

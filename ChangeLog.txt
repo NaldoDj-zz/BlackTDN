@@ -236,3 +236,15 @@
   * u_TVarInfo/U_GetApoInfo/U_GetApoSamples.prg
   * u_TVarInfo/U_TVarInfo.prg
     - Padronizacao do codigo
+
+2015-05-20 23:48 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/ndjlib014.prg
+  * templates/NDJLib/ndjlib018.prg
+  * u_Ft/tfini/INIGetPValue.prg
+  * u_Ft/tfini/TFINI.PRG
+  * u_Ft/tfini/u_TSTTFINI.PRG
+  * u_Ft/u_ft.prg
+  * u_Ft/u_ftdb.prg
+  * u_Ft/u_fTfdbSample.prg
+  * u_Ft/u_fTfSample.prg
+    - Padronizacao do codigo

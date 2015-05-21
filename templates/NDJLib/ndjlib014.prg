@@ -57,7 +57,7 @@ Static Function UsrRetName(cUserID)
             !Empty(cUserID);
             .and.;
             PswSeek(cUserID);
-    )    
+   )    
         cUserName:=PswRet(1)[1][2]
     Else
         cUserName:=SPACE(15)
@@ -91,7 +91,7 @@ Static Function UsrFullName(cUserID)
             !Empty(cUserID);
             .and.;
             PswSeek(cUserID);
-    )    
+   )    
         cFullName:=PswRet(1)[1][4]
     Else
         cFullName:=SPACE(15)
@@ -179,7 +179,7 @@ Static Function UsrRetMail(cUserID)
             !Empty(cUserID);
             .and.;
             PswSeek(cUserID);
-    )
+   )
         cUsrMail:=PswRet(1)[1][14]
         aUsrMail:=StrTokArr(cUsrMail,";")
         cUsrMail:=""
@@ -323,7 +323,7 @@ Static Function InGrpAdmin(lFinal,cFinalMsg)
             !(lIsGrpAdmin);
             .and.;
             (lFinal);
-    )    
+   )    
         Final(cFinalMsg)
     EndIF
 
