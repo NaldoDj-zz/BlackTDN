@@ -10,12 +10,14 @@
 
 #DEFINE TC_MAXCONNECTION 10000
 
-/*
-    Programa:TCError35()
-    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
-    Data:15/06/2011
-    Uso:Testar Limite de Conexoes ao DBMS
-*/
+//------------------------------------------------------------------------------------------------
+    /*
+        Programa:TCError35()
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
+        Data:15/06/2011
+        Uso:Testar Limite de Conexoes ao DBMS
+    */
+//------------------------------------------------------------------------------------------------
 User Function TCError35()  
 
     Local aTCConnection:=Array(0)
