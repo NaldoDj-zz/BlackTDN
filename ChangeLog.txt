@@ -302,3 +302,8 @@
 2015-05-22 13:01 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * tests/U_TCError35.prg
     * Padronizacao do codigo
+
+2015-05-22 13:28 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * .gitattributes
+  + scripts/win/ps/to.lower.ps1
+  + scripts/win/py/to-lower.py

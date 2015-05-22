@@ -1,0 +1,1 @@
+gci -r | ?{!$_.PSIsContainer} | rni -New {$_.FullName.ToLower()}

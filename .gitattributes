@@ -48,6 +48,8 @@ ChangeLog.txt ident
 *.PRX     text
 *.prj     text
 *.PRJ     text
+*.ps1     text
+*.py      text
 *.rb      text
 *.rc      text
 *.sav     text
