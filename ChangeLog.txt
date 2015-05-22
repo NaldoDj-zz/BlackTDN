@@ -307,3 +307,6 @@
   * .gitattributes
   + scripts/win/ps/to.lower.ps1
   + scripts/win/py/to-lower.py
+
+2015-05-22 17:50 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * harbour/samples/MiniGUI/H_GIF89/H_GIF89.prg

@@ -12,6 +12,35 @@
 #define TRUE  .T.
 #define FALSE .F.
 
+static ohb_GIF89
+
+CLASS hb_GIF89
+
+    DATA cClassName
+    
+    METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
+    
+    METHOD LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
+    METHOD ReadFromStream(cFile,cStream)
+    METHOD GetFrameDelay(cImageInfo,nDelay)
+
+ENDCLASS
+
+User Function hbGIF89()
+    DEFAULT ohb_GIF89:=hb_GIF89():New()
+RETURN(ohb_GIF89)
+
+METHOD NEW() CLASS hb_GIF89
+    self:ClassName()
+RETURN(self)
+
+METHOD ClassName() CLASS hb_GIF89
+    self:cClassName:="hb_GIF89"
+RETURN(self:cClassName)
+
+METHOD LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath) CLASS hb_GIF89
+RETURN(LoadGIF(@cGIF,@aGifInfo,@aFrames,@aImgInfo,@cPath))
 STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
 
     LOCAL cDir
@@ -90,7 +119,7 @@ STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
     
             IF (j>nGifEnd)
 
-               ++nImgCount
+                ++nImgCount
     
                 cFileName:=cPath+cFile+"_frame_"+StrZero(nImgCount,4)+".gif"
                 nFileHandle:=fCreate(cFileName,FC_NORMAL)
@@ -116,10 +145,10 @@ STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
                     BREAK
                 ENDIF
     
-                   aSize(aFrames,nImgCount)
+                aSize(aFrames,nImgCount)
                 aFrames[nImgCount]:=cFileName
     
-                   aSize(aImgInfo,nImgCount)
+                aSize(aImgInfo,nImgCount)
                 aImgInfo[nImgCount]:=cImgHeader
 
             ENDIF
@@ -134,7 +163,7 @@ STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
     
         IF (i<Len(cStream))
 
-           ++nImgCount
+            ++nImgCount
     
             cFileName:=cPath+cFile+"_frame_"+StrZero(nImgCount,4)+".gif"
             nFileHandle:=fCreate(cFileName,FC_NORMAL)
@@ -159,7 +188,7 @@ STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
                 BREAK
             ENDIF
     
-               aSize(aFrames,nImgCount)
+            aSize(aFrames,nImgCount)
             aFrames[nImgCount]:=cFileName
     
             aSize(aImgInfo,nImgCount)
@@ -171,6 +200,8 @@ STATIC FUNCTION LoadGIF(cGIF,aGifInfo,aFrames,aImgInfo,cPath)
 
 RETURN(bLoadGif)
 
+METHOD ReadFromStream(cFile,cStream) CLASS hb_GIF89
+RETURN(ReadFromStream(@cFile,@cStream))
 STATIC FUNCTION ReadFromStream(cFile,cStream)
 
     LOCAL nFileSize
@@ -194,16 +225,8 @@ STATIC FUNCTION ReadFromStream(cFile,cStream)
 
 RETURN(fError()==0 .AND. .NOT. Empty(cStream))
 
+METHOD GetFrameDelay(cImageInfo,nDelay) CLASS hb_GIF89
+RETURN(GetFrameDelay(@cImageInfo,@nDelay))
 STATIC FUNCTION GetFrameDelay(cImageInfo,nDelay)
     DEFAULT nDelay:=10
 RETURN(Bin2W(Substr(cImageInfo,4,2))*nDelay)
-
-STATIC FUNCTION __Dummy(lRecursa)
-    DEFAULT lRecursa:=.F.
-    IF !(lRecursa)
-        Return(lRecursa)
-    EndIF
-       __Dummy(.F.)
-       LoadGIF()
-       GetFrameDelay()
-Return(lRecursa)
