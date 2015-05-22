@@ -17,7 +17,7 @@ Static __cCRLF:=CRLF
         Regular Expression Validation Web Service
         http://www.ezzylearning.com/services/RegularExpressionValidationService.aspx
         
-        TODO: Implementar um exemplo usando Python (Python Regular Expression example)
+        TODO:Implementar um exemplo usando Python (Python Regular Expression example)
 
     /*/
 //------------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ User Function RegExpEx()
 
     Local nVarNameL:=SetVarNameLen(20)
 
-    /*         
+    /*
 
         http://www.rafaelalmeida.net/post/regex_alguns_regex
     
@@ -104,7 +104,7 @@ Static Function MailRegExp(cMail)
     lValid:=PSRegEx(cMail,cPattern)
     ConOut("","RegExp:[PSRegEx]["+cMail+"]["+cPattern+"]["+AllToChar(lValid)+"]","")
 
-Return(lValid )
+Return(lValid)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -131,7 +131,7 @@ Static Function CPFRegExp(cCPF)
     lValid:=PSRegEx(cCPF,cPattern)
     ConOut("","RegExp:[PSRegEx]["+cCPF+"]["+cPattern+"]["+AllToChar(lValid)+"]","")
 
-Return(lValid )
+Return(lValid)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -158,7 +158,7 @@ Static Function CNPJRegExp(cCNPJ)
     lValid:=PSRegEx(cCNPJ,cPattern)
     ConOut("","RegExp:[PSRegEx]["+cCNPJ+"]["+cPattern+"]["+AllToChar(lValid)+"]","")
 
-Return(lValid )
+Return(lValid)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -185,7 +185,7 @@ Static Function PWDRegExp(cPWD)
     lValid:=PSRegEx(cPWD,cPattern)
     ConOut("","RegExp:[PSRegEx]["+cPWD+"]["+cPattern+"]["+AllToChar(lValid)+"]","")
 
-Return(lValid )
+Return(lValid)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -266,7 +266,7 @@ Static Function SoapRegExp(cInput,cPattern,cVersion)
             BREAK
         EndIF
 
-        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult )),"_",@cError,@cWarning)
+        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult)),"_",@cError,@cWarning)
         IF !(ValType(oXML)=="O")
             BREAK
         EndIF
@@ -328,7 +328,7 @@ Static Function HttpGetRegExp(cInput,cPattern)
             BREAK
         EndIF
 
-        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult )),"_",@cError,@cWarning)
+        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult)),"_",@cError,@cWarning)
 
         IF !(ValType(oXML)=="O")
             BREAK
@@ -378,7 +378,7 @@ Static Function HttpPostRegExp(cInput,cPattern)
             BREAK
         EndIF
 
-        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult )),"_",@cError,@cWarning)
+        oXML:=XmlParser(SubStr(cXMLResult,AT("<?xml",cXMLResult)),"_",@cError,@cWarning)
 
         IF !(ValType(oXML)=="O")
             BREAK
@@ -490,7 +490,7 @@ Static Function PSRegEx(cString,cPattern)
         cPSScript+='"'
         cPSScript+='+'
         cPSScript+='([regex]::ismatch("'+cString+'","'+cPattern+'")).ToString()'
-        cPSScript+=' | '
+        cPSScript+=' |'
         cPSScript+='Out-File -Encoding "ASCII" "'+cPSOutPathFile+'"'
 
         MemoWrite(cPSScriptPathFile,cPSScript)
@@ -499,7 +499,7 @@ Static Function PSRegEx(cString,cPattern)
             BREAK
         EndIF
 
-        WaitRun("POWERSHELL "+cPSScriptPathFile )
+        WaitRun("POWERSHELL "+cPSScriptPathFile)
         
         IF !File(cPSOutPathFile)
             BREAK
