@@ -3,14 +3,14 @@
  */
 
 /* Read doc/howtorep.txt and use this format for entry headers:
-   YYYY-MM-DD HH:MM UTC[-|+]hhmm Your Full Name (your_email address)
-   2013-12-31 13:59 UTC+0100 Foo Bar (foo.bar foobar.org)
+   YYYY*MM*DD HH:MM UTC[*|+]hhmm Your Full Name (your_email address)
+   2013*12*31 13:59 UTC+0100 Foo Bar (foo.bar foobar.org)
    See copyright/license at the end of the file.
-   Encoding: UTF-8 (No BOM)  Notation (in 5th position):
-     * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
+   Encoding: UTF*8 (No BOM)  Notation (in 5th position):
+     * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
-2015-05-02 17:08 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*02 17:08 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
   * templates/NDJLib/ndjlib002.prg
   * templates/NDJLib/ndjlib003.prg
@@ -45,10 +45,10 @@
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
   
-2015-05-02 19:09 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
-  - check.hb
-  - commit.hb
-  - log
+2015*05*02 19:09 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * check.hb
+  * commit.hb
+  * log
   * ChangeLog.txt
   * games/u_game15/source/u_Game15.prg
   * games/u_game15/source/u_Game1510.prg
@@ -93,88 +93,88 @@
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
 
-2015-05-02 20:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*02 20:30 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * .gitattributes
 
-2015-05-02 23:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*02 23:07 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib028.prg
 
-2015-05-03 00:16 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*03 00:16 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
   * templates/NDJLib/ndjlib014.prg
 
-2015-05-04 23:49 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*04 23:49 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-04 23:57 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*04 23:57 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-05 10:56 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*05 10:56 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-05 17:07 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*05 17:07 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/src/u_sftp.prw
 
-2015-05-15 16:40 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
-  * sftp/src/u_sftp.prw - TODO para log de processamento
-  * u_Telnet/U_GUESS.PRG - Padronizacao do codigo
+2015*05*15 16:40 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/src/u_sftp.prw * TODO para log de processamento
+  * u_Telnet/U_GUESS.PRG * Padronizacao do codigo
 
-2015-05-17 17:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
-  * sftp/sample/u_sftpsample.prw - log de processamento; bug fixes
-  * sftp/src/u_sftp.prw - log de processamento
+2015*05*17 17:13 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/sample/u_sftpsample.prw * log de processamento; bug fixes
+  * sftp/src/u_sftp.prw * log de processamento
 
-2015-05-17 22:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*17 22:13 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   + templates/NDJLib/ndjlib036.prg
   + sftp/sample/u_scpsample.nppcrypt
   + sftp/sample/u_scpsample.prw
 
-2015-05-17 23:33 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
-  * sftp/sample/u_scpsample.prw - Remover Chave Duplicada
+2015*05*17 23:33 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/sample/u_scpsample.prw * Remover Chave Duplicada
 
-2015-05-18 10:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 10:27 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw 
-    - Tratar o Log com tLogReport
+    * Tratar o Log com tLogReport
   * sftp/src/u_sftp.prw
-    - Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
+    * Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
   * templates/NDJLib/ndjlib017.prg 
-    - FreeObj
+    * FreeObj
   * templates/NDJLib/ndjlib034.prg 
-    - Documentacao
+    * Documentacao
   * templates/NDJLib/ndjlib036.prg 
-    - Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
-    - tLogReport
+    * Redefinicao da forma de Obtencao do Log e de Exclusao de Arquivos Temporarios
+    * tLogReport
     
-2015-05-18 10:46 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 10:46 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw    
   * templates/NDJLib/ndjlib036.prg
-    - Considerar tLogReport como um elemento em tHash    
+    * Considerar tLogReport como um elemento em tHash    
 
-2015-05-18 10:52 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 10:52 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib036.prg
-    - Bug Fixes    
+    * Bug Fixes    
 
-2015-05-18 11:03 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 11:03 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.prw
   * templates/NDJLib/ndjlib036.prg
-   - Novo metodo Parameters para simplificar o uso
+   * Novo metodo Parameters para simplificar o uso
    
-2015-05-18 11:14 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 11:14 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib036.prg
-    - Ajuste na Declaracao do Metodo Parameters
+    * Ajuste na Declaracao do Metodo Parameters
 
-2015-05-18 12:14 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 12:14 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.nppcrypt
   * sftp/sample/u_scpsample.prw
   * templates/NDJLib/ndjlib036.prg
-    - Bug Fixes
+    * Bug Fixes
 
-2015-05-18 14:53 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*18 14:53 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.nppcrypt
-    - ...
+    * ...
   * templates/NDJLib/ndjlib020.prg
-    - Padronizacao do Codigo
+    * Padronizacao do Codigo
 
-2015-05-19 02:05 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*19 02:05 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.nppcrypt
   * sftp/sample/u_scpsample.prw
   * templates/NDJLib/ndjlib020.prg
@@ -183,7 +183,7 @@
   * templates/NDJLib/ndjlib034.prg
   * templates/NDJLib/ndjlib036.prg
 
-2015-05-20 21:34 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 21:34 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * games/u_SapuReca/U_SapuReca10.prg
   * sftp/sample/u_scpsample.nppcrypt
   * sftp/sample/u_scpsample.prw
@@ -218,26 +218,26 @@
   * templates/NDJLib/ndjlib036.prg
   * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
   * templates/NDJLib/WS/WServices/wsubtdnTView.prg
-    - Melhorias
-    - Bug Fixes
-    - ...
+    * Melhorias
+    * Bug Fixes
+    * ...
 
-2015-05-20 22:41 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 22:41 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/P11/RH/GPE/dirf/srd2rhr.prw
   * templates/P11/RH/GPE/dirf/srd2rhs.prw
   * templates/uTCREPORT/src/btdnChkSum.prg
   * TSQLite/class/TSQLite.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-20 23:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 23:27 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/u_TVarInfo/U_GetApoInfo/u_getapoinfo.prg
   * templates/NDJLib/u_TVarInfo/U_GetApoInfo/u_getaposamples.prg
   * u_TVarInfo/U_GetApoInfo/U_GetApoInfo.prg
   * u_TVarInfo/U_GetApoInfo/U_GetApoSamples.prg
   * u_TVarInfo/U_TVarInfo.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-20 23:48 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 23:48 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib014.prg
   * templates/NDJLib/ndjlib018.prg
   * u_Ft/tfini/INIGetPValue.prg
@@ -247,28 +247,42 @@
   * u_Ft/u_ftdb.prg
   * u_Ft/u_fTfdbSample.prg
   * u_Ft/u_fTfSample.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-20 23:53 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 23:53 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * u_Ft/u_fTfSample.prg
-    - utilizr uft
+    * utilizr uft
 
-2015-05-20 23:56 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*20 23:56 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * u_Telnet/U_GUESS.PRG
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-21 00:03 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*21 00:03 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/RegExp/U_RegExpEx.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-21 00:08 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*21 00:08 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/RegExp/U_RegExpEx.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-21 00:12 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*21 00:12 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/RegExp/U_RegExpEx.prg
-    - Padronizacao do codigo
+    * Padronizacao do codigo
 
-2015-05-21 09:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+2015*05*21 09:13 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/RegExp/U_RegExpEx.prg
-    - TODO: Implementar um exemplo usando Python (Python Regular Expression example) 
+    * TODO: Implementar um exemplo usando Python (Python Regular Expression example) 
+
+2015*05*22 10:48 UTC**300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_SapuReca/U_SapuReca.prg
+  * games/u_SapuReca/U_SapuReca.PRJ
+  - xml*rpc/src/UXmlRpcClient.prw
+  - xml*rpc/test/TestXmlRpc.prw
+
+2015-05-22 10:51 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  + xml-rpc/Leia-me.txt
+  - xml-rpc/src/UXmlRpcClient.prw
+  - xml-rpc/test/TestXmlRpc.prw
+  * ChangeLog.txt
+  * games/u_SapuReca/U_SapuReca.prg
+  * games/u_SapuReca/U_SapuReca.PRJ
