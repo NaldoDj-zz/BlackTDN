@@ -34,7 +34,7 @@ User Function GIF89Ex()
             cGIFPath +=cPathChr
         EndIF
         aDir(cGIFPath+"*.GIF",@aGIFFiles)
-    ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (aEval(aGIFFiles,{ |cGIFFile|GIF89Ex(cGIFPath+cGIFFile)}),oMainWnd:End())
+    ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (aEval(aGIFFiles,{|cGIFFile|GIF89Ex(cGIFPath+cGIFFile)}),oMainWnd:End())
 
 Return(Final("Final "+ProcName()+" Demo"))
 
