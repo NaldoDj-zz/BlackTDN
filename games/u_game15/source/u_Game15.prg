@@ -47,7 +47,7 @@ User Function Game15()
         ElseIF (cRpoVersion =="110")
             StaticCall(U_Game1511,Game15,@oTHash,@cTitle)   //Protheus 11
         Else
-            StaticCall(U_Game1510,Game15,@oTHash,@cTitle)   //Undefined Version (sera q funfa?)
+            StaticCall(U_Game1511,Game15,@oTHash,@cTitle)   //Undefined Version (sera q funfa?)
         EndIF
 
         RemoveFiles(@oTHash,"Game15_Files_buttons")
@@ -96,16 +96,16 @@ Static Function InitGame15()
         oTHash:AddNewProperty("Game15_Files_bmps_play","b"+cFile,"game15_b"+cFile+".bmp")
     Next nFile
 
-    oTHash:AddNewProperty("Game15_Files_bmps_aux","minbtn"  ,"game15_minbtn.bmp")
+    oTHash:AddNewProperty("Game15_Files_bmps_aux","minbtn","game15_minbtn.bmp")
     oTHash:AddNewProperty("Game15_Files_bmps_aux","mainform","game15_mainform.bmp")
     oTHash:AddNewProperty("Game15_Files_bmps_aux","closebtn","game15_closebtn.bmp")
 
     oTHash:AddNewProperty("Game15_Files_buttons","about","game15_about.bmp")
     oTHash:AddNewProperty("Game15_Files_buttons","clear","game15_clear.bmp")
-    oTHash:AddNewProperty("Game15_Files_buttons","exit" ,"game15_exit.bmp")
-    oTHash:AddNewProperty("Game15_Files_buttons","load" ,"game15_load.bmp")
-    oTHash:AddNewProperty("Game15_Files_buttons","ok"   ,"game15_ok.bmp")
-    oTHash:AddNewProperty("Game15_Files_buttons","save" ,"game15_save.bmp")
+    oTHash:AddNewProperty("Game15_Files_buttons","exit","game15_exit.bmp")
+    oTHash:AddNewProperty("Game15_Files_buttons","load","game15_load.bmp")
+    oTHash:AddNewProperty("Game15_Files_buttons","ok","game15_ok.bmp")
+    oTHash:AddNewProperty("Game15_Files_buttons","save","game15_save.bmp")
     oTHash:AddNewProperty("Game15_Files_buttons","start","game15_start.bmp")
     oTHash:AddNewProperty("Game15_Files_buttons","top10","game15_top10.bmp")
 
@@ -157,6 +157,6 @@ Static Procedure RemoveFiles(oTHash,cSession)
 
     Local aAllProperties:=oTHash:GetAllProperties(cSession)
 
-    aEval(aAllProperties,{ |f| IF(File(f[2]),fErase(f[2]),NIL) })
+    aEval(aAllProperties,{|f|IF(File(f[2]),fErase(f[2]),NIL)})
 
 Return

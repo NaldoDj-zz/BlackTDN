@@ -1,3 +1,4 @@
+#include "totvs.ch"
 /*
     Funcao:SapuReca()
     Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
@@ -12,7 +13,7 @@ Static Procedure SapuReca(oTHash,cTitle)
 
         lExecute:=(Upper(ProcName(1))=="U_SAPURECA")
         IF .NOT.(lExecute)
-            MsgAlert("Invalid Function Call:" + ProcName(),"By By")
+            MsgAlert("Invalid Function Call:"+ProcName(),"By By")
             BREAK
         EndIF
 

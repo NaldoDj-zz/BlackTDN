@@ -315,3 +315,10 @@
   * games/u_game15/source/u_Game1510.prg
   * games/u_SapuReca/U_SapuReca10.prg
   * templates/NDJLib/ndjlib029.prg
+
+2015-05-23 10:51 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_game15/source/u_Game15.prg
+  * games/u_game15/source/u_Game1510.prg
+  * games/u_game15/source/u_Game1511.prg
+  * games/u_SapuReca/U_SapuReca.prg
+  * games/u_SapuReca/U_SapuReca11.prg

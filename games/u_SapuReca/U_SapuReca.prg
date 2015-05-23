@@ -32,6 +32,8 @@ User Function SapuReca()
             StaticCall(U_SapuReca10,Sapureca,@oTHash,@cTitle)   //Protheus 10
         ElseIF (cRpoVersion=="110")
             StaticCall(U_SapuReca11,Sapureca,@oTHash,@cTitle)   //Protheus 11
+        Else
+            StaticCall(U_SapuReca11,Sapureca,@oTHash,@cTitle)   //Undefined Version (sera q funfa?)
         EndIF
     
         RemoveFiles(@oTHash,"SapuReca_Files")

@@ -1,4 +1,4 @@
-#include "protheus.ch"
+#include "totvs.ch"
 /*
     Funcao:Game15()
     Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]

@@ -246,15 +246,15 @@ Static Function SwapButtons(x,y,oTPPanel,oTHash)
         Tone(3000,1)
 
         aMatch:={;
-                            "HL1AlgMatch",;
-                            "HR1AlgMatch",;
-                            "HL2AlgMatch",;
-                            "HR2AlgMatch",;
-                            "VL1AlgMatch",;
-                            "VR1AlgMatch",;
-                            "VL2AlgMatch",;
-                            "VR2AlgMatch";
-                 }
+                    "HL1AlgMatch",;
+                    "HR1AlgMatch",;
+                    "HL2AlgMatch",;
+                    "HR2AlgMatch",;
+                    "VL1AlgMatch",;
+                    "VR1AlgMatch",;
+                    "VL2AlgMatch",;
+                    "VR2AlgMatch";
+            }
         
         nMatches:=Len(aMatch)
         For nMatch:=1 To nMatches
@@ -1856,8 +1856,8 @@ Static Procedure ShowTopTable(oTHash)
                                         aListBox[oListBox:nAT][AT_G15_TIME],;
                                         aListBox[oListBox:nAT][AT_G15_RESULT],;
                                         aListBox[oListBox:nAT][AT_G15_NAME];
-                                };
-                             }            
+                           };
+                        }            
 
             LoadTopTable(NIL,NIL,@oTPPanel,@oTHash,@cSession,@cG15Alias,@aListBox,@oListBox)
 
