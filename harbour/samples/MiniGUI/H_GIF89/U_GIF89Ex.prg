@@ -1,4 +1,4 @@
-#include "protheus.ch"
+#include "totvs.ch"
 
 #DEFINE ANIMATE_COUNT    2
 
@@ -14,14 +14,22 @@ User Function GIF89Ex()
 
     Local cGIFPath
     Local cPathChr:=IF((GetRemoteType()==2),"/","\") //-1=sem remote/ 0=delphi/ 1=QT windows/ 2=QT Linux
+    Local cTempPath
     Local nOpcGet:=nOR(GETF_LOCALFLOPPY,GETF_LOCALHARD,GETF_NETWORKDRIVE,GETF_SHAREAWARE,GETF_RETDIRECTORY)
 
     Local aGIFFiles:=Array(0)
 
     Private oMainWnd
+    Private ohb_GIF89:=u_hbGIF89()
+    
+    IF lIsDir("C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\")
+        cTempPath:="C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\"
+    Else
+        cTempPath:=GetTempPath()
+    EndIF
 
     DEFINE WINDOW oMainWnd FROM 001,001 TO 400,500 TITLE (ProcName()+" Demo")
-        cGIFPath:=cGetFile(".GIF |*.GIF ",OemToAnsi("Selecione o Diretório"),NIL,GetTempPath(),.F.,nOpcGet,.T.,.T.)
+        cGIFPath:=cGetFile(".GIF |*.GIF ",OemToAnsi("Selecione o Diretório"),NIL,cTempPath,.F.,nOpcGet,.T.,.T.)
         IF !(SubStr(cGIFPath,-1)==cPathChr)
             cGIFPath +=cPathChr
         EndIF
@@ -67,11 +75,11 @@ Static Function GIF89Ex(cGIFFile)
         EndIF
     EndIF
 
-    IF !(StaticCall(H_GIF89,LoadGIF,@cGIFFile,@aPictInfo,@aPictures,@aImageInfo))
+    IF !(ohb_GIF89:LoadGIF(@cGIFFile,@aPictInfo,@aPictures,@aImageInfo))
         Final("Unable to Load "+cGIFFile)
     EndIF
 
-    nInterval:=StaticCall(H_GIF89,GetFrameDelay,aImageInfo[nCurrentFrame])
+    nInterval:=ohb_GIF89:GetFrameDelay(aImageInfo[nCurrentFrame])
     nTotalFrames:=Len(aPictures)
 
     DEFINE MSDIALOG oDlg TITLE "GIF89 Demo" FROM 0,0 TO aPictInfo[3],aPictInfo[2] OF GetWndDefault() PIXEL STYLE WS_POPUP
@@ -119,7 +127,7 @@ Static Function PlayGif(oDlg,oGIF,aPictures,nCurrentFrame,nTotalFrames,aImageInf
         ENDIF
 
         oGIF:cBMPFile:=aPictures[nCurrentFrame] 
-        nInterval:=StaticCall(H_GIF89,GetFrameDelay,aImageInfo[nCurrentFrame])
+        nInterval:=ohb_GIF89:GetFrameDelay(aImageInfo[nCurrentFrame])
         oTimer:nInterval:=nInterval
 
     END SEQUENCE    

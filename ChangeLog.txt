@@ -322,3 +322,7 @@
   * games/u_game15/source/u_Game1511.prg
   * games/u_SapuReca/U_SapuReca.prg
   * games/u_SapuReca/U_SapuReca11.prg
+
+2015-05-23 11:26 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89Ex.prg
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89FA.prg
