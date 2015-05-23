@@ -1,4 +1,4 @@
-#INCLUDE "totvs.ch"
+#include "totvs.ch"
 
 #DEFINE ANIMATE_DELAY    5
 #DEFINE ANIMATE_SLEEP    100
@@ -10,6 +10,8 @@ Static __cWAVLastTime
 
 Static __aTTimer
 Static __lStopTimers
+
+Static ohb_GIF89
 
 #ifndef SYMBOL_UNUSED
     #define SYMBOL_UNUSED(symbol) (symbol:=(symbol))
@@ -791,7 +793,8 @@ Static Function GIFFrames(cGIFFile,oTHash)
         MakeDir(cTempPath)
     EndIF
 
-    IF .NOT.(StaticCall(H_GIF89,LoadGIF,@cGIFFile,@aPictInfo,@aPictures,@aImageInfo,@cTempPath))
+    DEFAULT ohb_GIF89:=u_hbGIF89()
+    IF .NOT.(ohb_GIF89:LoadGIF(@cGIFFile,@aPictInfo,@aPictures,@aImageInfo,@cTempPath))
         cMsg:=("Unable to Load "+cGIFFile)
         ConOut("["+cMsg+"]")
         MsgAlert(cMsg,"By By")
@@ -975,7 +978,8 @@ Static Function PlayGIF(nTimer,cShape,oObjGIF,aShapes,oTHash,lHide,cFrame,cFSess
         aImageInfo:=oTGIFHash:GetProperty(cSession,"aImageInfo")
         nCurrentFrame:=aShapes[oTHash:GetProperty("SHAPES",cShape)][oTHash:GetPropertyValue("SapuReca_Index","CURRENT_FRAME")]
         nFrameExit:=aShapes[oTHash:GetProperty("SHAPES",cShape)][oTHash:GetPropertyValue("SapuReca_Index","FRAME_EXIT")]
-        nInterval:=StaticCall(H_GIF89,GetFrameDelay,aImageInfo[nCurrentFrame],ANIMATE_DELAY)
+        DEFAULT ohb_GIF89:=u_hbGIF89()
+        nInterval:=ohb_GIF89:GetFrameDelay(aImageInfo[nCurrentFrame],ANIMATE_DELAY)
         nTotalFrames:=Len(aPictures)
         nFrameExit:=(nTotalFrames/nFrameExit)
     

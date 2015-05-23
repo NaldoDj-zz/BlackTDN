@@ -1,5 +1,36 @@
 #include "totvs.ch"
 #xtranslate NToS([<n,...>])=>LTrim(Str([<n>]))
+
+// --------------------------------------------------------------------------------------------------------
+// Obtem o Caractere de PONTO E VIRGULA
+#IFNDEF PONTO_E_VIRGULA
+    #DEFINE PONTO_E_VIRGULA CHR(59)
+#ENDIF
+
+Static oNDJLIB029 
+
+CLASS NDJLIB029 FROM ArrayUtils
+
+    DATA cClassName
+    
+    METHOD NEW() CONSTRUCTOR
+    METHOD ClassName()
+
+ENDCLASS
+
+User Function DJLIB029()
+    DEFAULT oNDJLIB029:=NDJLIB029():New()
+RETURN(oNDJLIB029)
+
+METHOD NEW() CLASS NDJLIB029
+    _Super:NEW()
+    self:ClassName()
+RETURN(self)
+
+METHOD ClassName() CLASS NDJLIB029
+    self:cClassName:=(_Super:ClassName()+"_NDJLIB029")
+RETURN(self:cClassName)
+
 //------------------------------------------------------------------------------------------------
     /*/
         Class:ArrayUtils

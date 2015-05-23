@@ -1,4 +1,4 @@
-#include "protheus.ch"
+#include "totvs.ch"
 
 #define SHAPE_ID            1
 #define SHAPE_TOOLTIP       2
@@ -31,6 +31,10 @@
 #ifndef SYMBOL_UNUSED
     #define SYMBOL_UNUSED(symbol) (symbol:=(symbol))
 #endif 
+
+Static oDJLIB001
+Static oDJLIB029
+Static oDJLIB030
 
 /*
 
@@ -1474,12 +1478,12 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
 
         SplitPath(cG5File,@cDriver,@cDir,@cFile,@cExt)
         cG5File:=cDriver
-        cG5File            +=cDir
-        cG5File            +=IF(SubStr(cFile,1,4)=="g15_",cFile,"g15_"+cFile)
+        cG5File+=cDir
+        cG5File+=IF(SubStr(cFile,1,4)=="g15_",cFile,"g15_"+cFile)
         IF .NOT.(cExt==".sav")
             cExt:=".sav"
         EndIF
-        cG5File            +=cExt
+        cG5File+=cExt
 
         nD:=aScan(aShapes,{|aShape|(aShape[SHAPE_BTNNUMBER]>0)})
         nJ:=(aScan(aShapes,{|aShape|(aShape[SHAPE_BTNNUMBER]==0)},nD+1)-nD)
@@ -2179,9 +2183,9 @@ Return
     Uso:Adicionar as propriedades os Shapes
 */
 Static Function AddProperty(cProperties,cProperty,uValue)
-    cProperties +=cProperty
-    cProperties +=cValToChar(uValue)
-    cProperties +=";"
+    cProperties+=cProperty
+    cProperties+=cValToChar(uValue)
+    cProperties+=";"
 Return(cProperties)
 
 /*
@@ -2191,7 +2195,8 @@ Return(cProperties)
     Uso:Compara o Conteudo de 2 Variaveis .T. se iguais,.F. se diferente
 */
 Static Function Compare(x,y)
-Return(StaticCall(NDJLIB029,Compare,@x,@y))
+    DEFAULT oDJLIB029:=U_DJLIB029()
+Return(oDJLIB029:Compare(@x,@y))
 
 /*
     Funcao:SaveArray
@@ -2200,7 +2205,8 @@ Return(StaticCall(NDJLIB029,Compare,@x,@y))
     Uso:Salva Array em Disco
 */
 Static Function SaveArray(uArray,cFileName,nErr)
-Return(StaticCall(NDJLIB029,SaveArray,@uArray,@cFileName,@nErr))
+    DEFAULT oDJLIB029:=U_DJLIB029()
+Return(oDJLIB029:SaveArray(@uArray,@cFileName,@nErr))
 
 /*
     Funcao:RestArray
@@ -2209,7 +2215,8 @@ Return(StaticCall(NDJLIB029,SaveArray,@uArray,@cFileName,@nErr))
     Uso:Restaura Array do Disco
 */
 Static Function RestArray(cFileName,nErr)
-Return(StaticCall(NDJLIB029,RestArray,@cFileName,@nErr))
+    DEFAULT oDJLIB029:=U_DJLIB029()
+Return(oDJLIB029:RestArray(@cFileName,@nErr))
 
 /*
     Funcao:DesvPad
@@ -2218,7 +2225,8 @@ Return(StaticCall(NDJLIB029,RestArray,@cFileName,@nErr))
     Uso:Calcula o Desvio Padrao em um Intervalo de Valores
 */
 Static Function DesvPad(aValores,lPolarizado)
-Return(StaticCall(NDJLIB001,DesvPad,@aValores,@lPolarizado))
+    DEFAULT oDJLIB001:=U_DJLIB001()
+Return(oDJLIB001:DesvPad(@aValores,@lPolarizado))
 
 /*
     Funcao:TimeToSecs
@@ -2227,7 +2235,8 @@ Return(StaticCall(NDJLIB001,DesvPad,@aValores,@lPolarizado))
     Uso:Transforma a string "HH:MM:SS" em nSegundos
 */
 Static Function TimeToSecs(cTime)
-Return(StaticCall(NDJLIB030,TimeToSecs,cTime))
+    DEFAULT oDJLIB030:=U_DJLIB030()
+Return(oDJLIB030:TimeToSecs(cTime))
 
 /*
     Funcao:SecsToTime
@@ -2236,7 +2245,8 @@ Return(StaticCall(NDJLIB030,TimeToSecs,cTime))
     Uso:Transforma nSegundos na string "HH:MM:SS"
 */
 Static Function SecsToTime(nSecs)
-Return(StaticCall(NDJLIB030,SecsToTime,@nSecs))
+    DEFAULT oDJLIB030:=U_DJLIB030()
+Return(oDJLIB030:SecsToTime(@nSecs))
 
 /*
     Funcao:Time2NextDay
@@ -2245,7 +2255,8 @@ Return(StaticCall(NDJLIB030,SecsToTime,@nSecs))
     Uso:Tratar Time e Date no padrao "00:00:00" para Time >="24:00:00"
 */
 Static Function Time2NextDay(cTime,dDate)
-Return(StaticCall(NDJLIB030,Time2NextDay,@cTime,@dDate))
+    DEFAULT oDJLIB030:=U_DJLIB030()
+Return(oDJLIB030:Time2NextDay(@cTime,@dDate))
 
 /*
     Funcao:__Dummy

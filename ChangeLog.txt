@@ -310,3 +310,8 @@
 
 2015-05-22 17:50 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/MiniGUI/H_GIF89/H_GIF89.prg
+
+2015-05-23 00:05 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_game15/source/u_Game1510.prg
+  * games/u_SapuReca/U_SapuReca10.prg
+  * templates/NDJLib/ndjlib029.prg
