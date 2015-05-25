@@ -1,5 +1,7 @@
 #include "totvs.ch"
 
+#xtranslate NToS([<n,...>])=>LTrim(Str([<n>]))
+
 #DEFINE SUDOKU_ELEM 02
 
 #DEFINE SUDOKU_OBJ  01
@@ -37,7 +39,7 @@ User Function Sudoku()
 
     CursorWait()
 
-        Begin Sequence
+        BEGIN SEQUENCE
         
             #IFNDEF SODUKO_NO_CHANGE
         
@@ -95,7 +97,7 @@ User Function Sudoku()
             ACTIVATE MSDIALOG oDlg CENTERED ON INIT Eval(bDialogInit)
             RestKeys(aSvKeys)
 
-        End Sequence
+        END SEQUENCE
 
         While !(GlbLock())
             Sleep(5)
@@ -109,7 +111,7 @@ Return(NewSudoku(lNewSudoku))
 
 Static Function NewSudoku(lNewSudoku)
 
-    Begin Sequence
+    BEGIN SEQUENCE
 
         DEFAULT lNewSudoku:=.F.
         
@@ -130,7 +132,7 @@ Static Function NewSudoku(lNewSudoku)
 
         U_Sudoku()
 
-    End Sequence
+    END SEQUENCE
 
     Return(NIL)
 
@@ -143,7 +145,7 @@ Static Function NewSudoku(lNewSudoku)
     )
 
     Local bButtonNewG:={||IF(MsgYesNo("Deseja Iniciar Novo Jogo?","New Game"),(oDlg:End(),RestKeys(aSvKeys),lNewSudoku:=.T.),lNewSudoku:=.F.)}
-    Local bButtonAllN:={||IF((!(lChkAllNum) .and. (lChkAllNum:=MsgNoYes("Deseja Desistir do Jogo?","Aviso!"))),( AllSudoku(@oDlg,@aSudokuElem,aSudokuGetNum),Eval(bButtonChkG)),.F.)}
+    Local bButtonAllN:={||IF((!(lChkAllNum).and.(lChkAllNum:=MsgNoYes("Deseja Desistir do Jogo?","Aviso!"))),( AllSudoku(@oDlg,@aSudokuElem,aSudokuGetNum),Eval(bButtonChkG)),.F.)}
     Local bButtonParM:={||IF(SudokuNivel(.T.),Eval(bButtonNewG),NIL)}
     Local bButtonChkG:={||ChkSudoku(@oDlg,@aSudokuElem,aSudokuGetNum,lChkAllNum)}
     Local bButtonEndG:={||IF(MsgNoYes("Deseja Sair do Jogo?","Sair"),(;
@@ -227,8 +229,8 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
 
     Local aSudokuGetNum:=SudokuNumArray()
 
-    Local bGetSet:={||&("{|u|IF(PCount()==0,aSudokuElem["+AllTrim(Str(nLoop))+","+AllTrim(Str(nItem))+","+AllTrim(Str(SUDOKU_VAR))+"],aSudokuElem["+AllTrim(Str(nLoop))+","+AllTrim(Str(nItem))+","+AllTrim(Str(SUDOKU_VAR))+"]:=u)}")}
-    Local bGetVar:={||"aSudokuElem["+AllTrim(Str(nLoop))+","+AllTrim(Str(nItem))+","+AllTrim(Str(SUDOKU_VAR))+"]"}
+    Local bGetSet:={||&("{|u|IF(PCount()==0,aSudokuElem["+NToS(nLoop)+","+NToS(nItem)+","+NToS(SUDOKU_VAR)+"],aSudokuElem["+NToS(nLoop)+","+NToS(nItem)+","+NToS(SUDOKU_VAR)+"]:=u)}")}
+    Local bGetVar:={||"aSudokuElem["+NToS(nLoop)+","+NToS(nItem)+","+NToS(SUDOKU_VAR)+"]"}
 
     Local nRow:=20
     Local cSudokuGetNum
@@ -393,34 +395,34 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
             
             aSudokuElem[nLoop][nItem,SUDOKU_VAR]:=cSudokuGetNum
             aSudokuElem[nLoop][nItem,SUDOKU_OBJ]:=TGet():New(;
-                                                                nRow,; //01-><nRow>
-                                                                nCol,; //02-><nCol>
-                                                                Eval(bGetSet),;//03-> bSETGET(<uVar>)
-                                                                oDlg,;//04-> [<oWnd>]
-                                                                22,;//05-><nWidth>
-                                                                22,;//06-><nHeight>
-                                                                "9",; //07-><cPict>
-                                                                NIL,; //08-><{ValidFunc}>
-                                                                IF(lChange,NIL,CLR_WHITE),;//09-><nClrFore>
-                                                                IF(lChange,NIL,CLR_BLUE),;//10-><nClrBack>
-                                                                oFont,; //11-><oFont>
-                                                                .T.,; //12-><.design.>
-                                                                NIL,; //13-><oCursor>
-                                                                .T.,; //14-><.pixel.>
-                                                                NIL,; //15-><cMsg>
-                                                                .F.,; //16-><.update.>
-                                                                &("{||"+AllToChar(lChange)+"}"),;//17-><{uWhen}>
-                                                                .T.,;//18-><.lCenter.>
-                                                                .F.,;//19-><.lRight.>
-                                                                NIL,;//20-> [\{|nKey, nFlags, Self|<uChange>\}]
-                                                                !(lChange),;//21-><.readonly.>
-                                                                .F.,;//22-><.pass.>
-                                                                NIL,;//23-><cF3>
-                                                                Eval(bGetVar),;//24-><(uVar)>
-                                                                NIL,;//25-> ?
-                                                                NIL,;//26-> [<.lNoBorder.>]
-                                                                NIL,;//27-> [<nHelpId>]
-                                                                NIL;//28-> [<.lHasButton.>]
+                                                                nRow,;//01:<nRow>
+                                                                nCol,;//02:<nCol>
+                                                                Eval(bGetSet),;//03:bSETGET(<uVar>)
+                                                                oDlg,;//04:[<oWnd>]
+                                                                22,;//05:<nWidth>
+                                                                22,;//06:<nHeight>
+                                                                "9",;//07:<cPict>
+                                                                NIL,;//08:<{ValidFunc}>
+                                                                IF(lChange,NIL,CLR_WHITE),;//09:<nClrFore>
+                                                                IF(lChange,NIL,CLR_BLUE),;//10:<nClrBack>
+                                                                oFont,;//11:<oFont>
+                                                                .T.,;//12:<.design.>
+                                                                NIL,;//13:<oCursor>
+                                                                .T.,;//14:<.pixel.>
+                                                                NIL,;//15:<cMsg>
+                                                                .F.,;//16:<.update.>
+                                                                &("{||"+AllToChar(lChange)+"}"),;//17:<{uWhen}>
+                                                                .T.,;//18:<.lCenter.>
+                                                                .F.,;//19:<.lRight.>
+                                                                NIL,;//20:[\{|nKey, nFlags, Self|<uChange>\}]
+                                                                !(lChange),;//21:<.readonly.>
+                                                                .F.,;//22:<.pass.>
+                                                                NIL,;//23:<cF3>
+                                                                Eval(bGetVar),;//24:<(uVar)>
+                                                                NIL,;//25:?
+                                                                NIL,;//26:[<.lNoBorder.>]
+                                                                NIL,;//27:[<nHelpId>]
+                                                                NIL;//28:[<.lHasButton.>]
             )
             ++nCntCol
             IF (;
@@ -473,7 +475,7 @@ Static Function SudokuNivel(lButtonParam)
 
     Static nOpcSudoku:=1
 
-    Begin Sequence
+    BEGIN SEQUENCE
 
         DEFAULT lButtonParam:=.F.
 
@@ -490,10 +492,10 @@ Static Function SudokuNivel(lButtonParam)
         DEFINE FONT oFont NAME "Arial" SIZE 0,-11 BOLD
         DEFINE MSDIALOG oDlg FROM  094,001 TO 250,350 TITLE OemToAnsi("Sudoku:: by Naldo Dj") OF GetWndDefault() STYLE DS_MODALFRAME STATUS PIXEL
         
-            @ 015,005    GROUP oGroup TO 075,172 LABEL OemToAnsi("Escolha o Nivel do Jogo") OF oDlg PIXEL
+            @ 015,005   GROUP oGroup TO 075,172 LABEL OemToAnsi("Escolha o Nivel do Jogo") OF oDlg PIXEL
             oGroup:oFont:=oFont
             
-            @ 025,010    RADIO oRadio VAR nOpcSudoku ITEMS    OemToAnsi("Iniciante"),;
+            @ 025,010   RADIO oRadio VAR nOpcSudoku ITEMS   OemToAnsi("Iniciante"),;
                                                             OemToAnsi("Intermediario"),;
                                                             OemToAnsi("Avancado");
                         SIZE 115,010 OF oDlg PIXEL
@@ -520,14 +522,14 @@ Static Function SudokuNivel(lButtonParam)
                 lAvancado:=.T.
         End Case    
 
-    End Sequence
+    END SEQUENCE
     
 Return(lContinue)
 
 Static Function SdkPrmBar(oDlg,aSvKeys,lButtonParam,lContinue)
 
     Local bButtonChkG:={||oDlg:End(),RestKeys(aSvKeys)}
-    Local bButtonEndG:={||IF(((lButtonParam) .or. MsgNoYes("Deseja Sair do Jogo?","Sair")),(oDlg:End(),RestKeys(aSvKeys),lContinue:=.F.),NIL)}
+    Local bButtonEndG:={||IF(((lButtonParam).or.MsgNoYes("Deseja Sair do Jogo?","Sair")),(oDlg:End(),RestKeys(aSvKeys),lContinue:=.F.),NIL)}
     Local bButtonHelp:={||SudokuHelp()}
 
     Local oButtonBar
@@ -540,17 +542,17 @@ Static Function SdkPrmBar(oDlg,aSvKeys,lButtonParam,lContinue)
 
     DEFINE BUTTONBAR oButtonBar    SIZE 025,025 3D TOP OF oDlg
 
-    DEFINE BUTTON oButtonChkG    RESOURCE "OK"       OF oButtonBar GROUP    ACTION Eval(bButtonChkG)    TOOLTIP OemToAnsi('Ok...<Ctrl-O>')
+    DEFINE BUTTON oButtonChkG    RESOURCE "OK"          OF oButtonBar GROUP ACTION Eval(bButtonChkG)    TOOLTIP OemToAnsi('Ok...<Ctrl-O>')
     oButtonChkG:cTitle:=OemToAnsi("OK")
     oDlg:bSet15:=oButtonChkG:bAction
     SetKey(15,oDlg:bSet15)
 
-    DEFINE BUTTON oButtonEndG    RESOURCE "FINAL"    OF oButtonBar GROUP    ACTION Eval(bButtonEndG)    TOOLTIP OemToAnsi('Sair...<Ctrl-X>')
+    DEFINE BUTTON oButtonEndG    RESOURCE "FINAL"       OF oButtonBar GROUP ACTION Eval(bButtonEndG)    TOOLTIP OemToAnsi('Sair...<Ctrl-X>')
     oButtonEndG:cTitle:=OemToAnsi("Sair")
     oDlg:bSet24:=oButtonEndG:bAction
     SetKey(24,oDlg:bSet24)
 
-    DEFINE BUTTON oButtonHelp    RESOURCE "S4WB016N"    OF oButtonBar GROUP ACTION Eval(bButtonHelp)    TOOLTIP OemToAnsi('Ajuda...<F1>')
+    DEFINE BUTTON oButtonHelp   RESOURCE "S4WB016N"    OF oButtonBar GROUP ACTION Eval(bButtonHelp)    TOOLTIP OemToAnsi('Ajuda...<F1>')
     oButtonHelp:cTitle:=OemToAnsi("Ajuda")
     SetKey(VK_F1,oButtonHelp:bAction)
 
@@ -911,7 +913,7 @@ Static Function ChkSudoku(oDlg,aSudokuElem,aSudokuGetNum,lChkAllNum)
         Next nChkNum
     Next nLoop
 
-    Begin Sequence
+    BEGIN SEQUENCE
 
         IF !(lChkAllNum)
         
@@ -945,7 +947,7 @@ Static Function ChkSudoku(oDlg,aSudokuElem,aSudokuGetNum,lChkAllNum)
         PutGlbValue("bStartSudoku","0")
         GlbUnlock()
 
-    End Sequence
+    END SEQUENCE
 
     MsgInfo(OemToAnsi(cMsgInfo),OemToAnsi(cTitle))
 

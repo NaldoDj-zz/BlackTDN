@@ -332,3 +332,6 @@
 
 2015-05-24 21:44 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   + games/u_Sudoku/u_Sudoku.prg
+
+2015-05-25 11:57 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_Sudoku/u_Sudoku.prg
