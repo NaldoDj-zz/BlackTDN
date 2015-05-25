@@ -335,3 +335,12 @@
 
 2015-05-25 11:57 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * games/u_Sudoku/u_Sudoku.prg
+
+2015-05-25 13:51 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * games/u_Sudoku/u_Sudoku.prg
+    ; TODO: Rever código de forma a só utilizar funções da LIB.
+
+2015-05-25 13:53 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * ChangeLog.txt
+  * games/u_Sudoku/u_Sudoku.prg
+    ; TODO: Rever código de forma a só utilizar funções da LIB.

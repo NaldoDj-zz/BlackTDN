@@ -21,6 +21,8 @@
     Uso:Jogo Sudoku
 
     * Copyright 2005-2015 marinaldo.jesus [http://www.blacktdn.com.br]
+    
+    TODO: Rever código de forma a só utilizar funções da LIB.
 */
 User Function Sudoku()
 
