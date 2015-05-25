@@ -329,3 +329,6 @@
 
 2015-05-23 11:51 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/MiniGUI/H_GIF89/U_GIF89Ex.prg
+
+2015-05-24 21:44 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  + games/u_Sudoku/u_Sudoku.prg
