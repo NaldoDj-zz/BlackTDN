@@ -51,7 +51,7 @@ METHOD NEW(cAlias,uFields,uKeySeek,nOrder,uDefault) CLASS tGetAdvFVal
 Return(self)
 
 METHOD ClassName() CLASS tGetAdvFVal
-    self:cClassName:=(_Super:ClassName()+"_TGETADVFVAL")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 Return(self:cClassName)
 
 METHOD SetAlias(cAlias) CLASS tGetAdvFVal

@@ -142,7 +142,7 @@ Method Increment(cAlign) Class tNDJProgress
     EndIF
     nsProgress:=self:nProgress
     IF (cAlign=="C")
-++nsProgress
+        ++nsProgress
         IF (nsProgress>self:nMax)
             nsProgress:=1
         EndIF
@@ -284,7 +284,7 @@ Method Occult(cAlign) Class tNDJProgress
     EndIF
     nsProgress:=self:nProgress
     IF (cAlign=="C")
-++nsProgress
+        ++nsProgress
         IF (nsProgress>self:nMax)
             nsProgress:=1
         EndIF
@@ -339,7 +339,7 @@ Static Function __Random(nB,nE)
     EndIF
 
     IF nB==nE
-++nE        
+        ++nE        
     EndIF
 
     nR:=Randomize(nB,nE)        

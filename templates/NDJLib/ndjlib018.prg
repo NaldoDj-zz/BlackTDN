@@ -86,7 +86,7 @@ Return(self)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS fTdb
-    self:cClassName:=(_Super:ClassName()+"DB")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ Static Function ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF)
         cBuffer+=fReadStr(@nfHandle,@nBufferSize)
         nBytesRead+=nBufferSize
         while (cCRLF$cBuffer)
-++nLines
+            ++nLines
             cLine:=subStr(cBuffer,1,(at(cCRLF,cBuffer)+nAtPlus))
             cBuffer:=subStr(cBuffer,len(cLine)+1)
             cLine:=strTran(cLine,cCRLF,"")
@@ -217,7 +217,7 @@ Static Function ReadFile(cAlias,nfHandle,nBufferSize,nFileSize,cCRLF)
     end while
 
     if .not.(empty(cBuffer))
-++nLines
+        ++nLines
         (cAlias)->(dbAppend(.T.))
         (cAlias)->(FieldPut(1,cBuffer))
         cBuffer:=""

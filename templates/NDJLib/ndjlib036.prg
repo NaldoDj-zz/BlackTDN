@@ -104,7 +104,7 @@ METHOD FreeObj() CLASS uSCP
 Return(self)
 
 METHOD ClassName() CLASS uSCP
-    self:cClassName:=(_Super:ClassName()+"_uSCP")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 Return(self:cClassName)
 
 METHOD SetParameter(cParameter,cValue) CLASS uSCP       

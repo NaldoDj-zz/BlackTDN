@@ -158,7 +158,7 @@ Return(self:SecsToTime(nSeconds))
 Method Time2NextDay(cTime,dDate) Class tNDJTimeCalc
     While (Val(cTime)>=24)
         cTime:=self:DecTime(cTime,24)
-++dDate
+        ++dDate
     End While
 Return({cTime,dDate})
 
@@ -341,7 +341,7 @@ Method Calcule(lProgress) Class tNDJRemaining
 
     DEFAULT lProgress:=.T.
     IF (lProgress)
-++self:nProgress
+        ++self:nProgress
     EndIF
 
     self:cAverageTime:=self:AverageTime(self:cTimeDiff,self:nProgress,.T.)

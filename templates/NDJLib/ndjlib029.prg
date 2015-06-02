@@ -28,7 +28,7 @@ METHOD NEW() CLASS NDJLIB029
 RETURN(self)
 
 METHOD ClassName() CLASS NDJLIB029
-    self:cClassName:=(_Super:ClassName()+"_NDJLIB029")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 RETURN(self:cClassName)
 
 //------------------------------------------------------------------------------------------------

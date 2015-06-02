@@ -151,9 +151,9 @@ STATIC Function MakeTmpFile(;
                                             .NOT.(Eof());
                                             .and.;
                                             Eval(bWhileCond);
-                             );
-         );
- )                            
+                            );
+                    );
+        )                            
     
             IF .NOT.(lRecnos)
                 IF (cAlias)->(Eval(bSkipCond))
@@ -217,14 +217,14 @@ Static Function CloseTmpFile(cAlias,cTableName,aBagName,cRddName)
                 MsFile(cTableName,NIL,cRddName);
                 .or.;
                 File(cTableName);
-)    
+        )    
             IF (;
                     (ValType(aBagName)=="A");
                     .and.;
                     .NOT.(Empty(aBagName));
                     .and.;
                     (Len(aBagName)>=1);
- )    
+            )    
                 IF (cRddName=="TOPCONN")
                     TCDropIndex(cTableName,aBagName)
                 Else
@@ -232,7 +232,7 @@ Static Function CloseTmpFile(cAlias,cTableName,aBagName,cRddName)
                             MsFile(cTableName,aBagName[1],cRddName);
                             .or.;
                             File(aBagName[1]);
-         )
+                    )
                         IF (Select(cAlias)>0)
                             (cAlias)->(dbClearIndex())
                         EndIF
@@ -315,7 +315,7 @@ Static Function FileErase(cFile,nErr)
                     ((nErr:=fError())<> 0);
                     .and.;
                     (++nEraseOk<=3);
- )
+        )
             Sleep(100)
             IF (fErase(cFile)<> -1)
                 Exit
@@ -347,7 +347,7 @@ Static Function FileCreate(cFile,nHandle,nErr)
                     .NOT.(lCreateOk:=((nErr:=fError())==0));
                     .and.;
                     (++nCreateOk<=3);
- )
+        )
             Sleep(100)
             IF (lCreateOk:=((nHandle:=fCreate(cFile))<> -1))
                 Exit
@@ -446,7 +446,7 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                 MsFile(cFileTemp,NIL,cRddName);
                 .or.;
                 File(cFileTemp);
-)    
+        )    
             MsErase(cFileTemp,NIL,cRddName)
             FileErase(cFileTemp)
         EndIF
@@ -498,7 +498,7 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                 MsFile(cTable,NIL,cRddName);
                 .or.;
                 File(cTable);
-)    
+        )    
             MsErase(cTable,NIL,cRddName)
             FileErase(cTable)
             lRet:=.NOT.(MsFile(cTable,NIL,cRddName).and.File(cTable))
@@ -514,8 +514,8 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                     MsFile(cTableFpt,NIL,cRddName);
                     .or.;
                     File(cTableFpt);
- );    
-)    
+                );    
+        )    
             MsErase(cTableFpt,NIL,cRddName)
             FileErase(cTableFpt)
             lRet:=.NOT.(MsFile(cTableFpt,NIL,cRddName).and.File(cTableFpt))
@@ -564,7 +564,7 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                 MsFile(cFileTemp,NIL,cRddName);
                 .or.;
                 File(cFileTemp);
-)    
+        )    
             MsErase(cFileTemp,NIL,cRddName)
             FileErase(cFileTemp)
         EndIF
@@ -578,8 +578,8 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                 MsFile(cFileTemp,NIL,cRddName);
                 .or.;
                 File(cFileTemp);
-);    
-)    
+            );    
+    )    
         MsErase(cFileTemp,NIL,cRddName)
         FileErase(cFileTemp)
     EndIF
@@ -591,8 +591,8 @@ Static Function dbNewStruct(cAlias,cTable,cRddName,aOrdBag,aFilesTemp)
                 MsFile(cFptTemp,NIL,cRddName);
                 .or.;
                 File(cFptTemp);
-);    
-)    
+            );    
+    )    
         MsErase(cFptTemp,NIL,cRddName)
         FileErase(cFptTemp)
     EndIF
@@ -666,7 +666,7 @@ Static Function dbFinalize(cAlias,cRddName,aOrdBag,cTable,lDropIndex,lRename)
                                 MsFile(cTable,cBagName,cRddName);
                                 .or.;
                                 File(cBagName);
-             )    
+                    )    
                             MsErase(cTable,cBagName,cRddName)
                             FileErase(cBagName)
                             lFinal:=.NOT.(MsFile(cTable,cBagName,cRddName).and.File(cBagName))

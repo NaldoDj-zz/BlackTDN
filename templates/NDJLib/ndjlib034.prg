@@ -35,7 +35,7 @@ METHOD NEW() CLASS tLogReport
 Return(self)
 
 METHOD ClassName() CLASS tLogReport
-    self:cClassName:=(_Super:ClassName()+"_TLOGREPORT")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 Return(self:cClassName)
 
 METHOD AddGroup(cLGroupName) CLASS tLogReport

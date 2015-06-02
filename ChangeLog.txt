@@ -344,3 +344,16 @@
   * ChangeLog.txt
   * games/u_Sudoku/u_Sudoku.prg
     ; TODO: Rever código de forma a só utilizar funções da LIB.
+
+2015-06-02 01:00 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/ndjlib007.prg
+  * templates/NDJLib/ndjlib013.prg
+  * templates/NDJLib/ndjlib018.prg
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib029.prg
+  * templates/NDJLib/ndjlib031.prg
+  * templates/NDJLib/ndjlib032.prg
+  * templates/NDJLib/ndjlib033.prg
+  * templates/NDJLib/ndjlib034.prg
+  * templates/NDJLib/ndjlib035.prg
+  * templates/NDJLib/ndjlib036.prg

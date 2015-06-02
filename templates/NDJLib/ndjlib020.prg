@@ -198,7 +198,7 @@ Return(lLoad)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD ClassName() CLASS TFINI
-    self:cClassName:=(_Super:ClassName()+"_TFINI")
+    self:cClassName:=(_Super:ClassName()+"_"+GetClassName(self))
 Return(self:cClassName)
 
 //------------------------------------------------------------------------------------------------

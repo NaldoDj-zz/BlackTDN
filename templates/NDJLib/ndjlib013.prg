@@ -112,7 +112,7 @@ Static Function PutSemaphore(cSemaphore,cKey)
                         !(lfOpenOK:=((nErr:=fError())==0));
                         .and.;
                         (++nfOpenOk<=50);
-      )
+            )
                 Sleep(1000)
                 IF (lfOpenOK:=Eval(bfOpen))
                     Exit
@@ -249,7 +249,7 @@ Static Function SemaphoreWait(bExec,bWaitExec,bMsgInfo,cTitleProc,cProcName)
                                     @cProcWaiting,; //Mensagem de corpo para a ProcWaiting
                                     @cTitleProc;    //Titulo para a ProcWaiting
               );
-)            
+        )            
             lOk:=.F.
             Break
         EndIF
