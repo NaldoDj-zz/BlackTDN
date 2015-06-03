@@ -357,3 +357,6 @@
   * templates/NDJLib/ndjlib034.prg
   * templates/NDJLib/ndjlib035.prg
   * templates/NDJLib/ndjlib036.prg
+
+2015-06-02 21:04 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * bin/commit.hb

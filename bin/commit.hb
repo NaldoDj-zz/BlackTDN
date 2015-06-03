@@ -45,8 +45,8 @@ PROCEDURE Main( cParam1 )
    LOCAL cLogName
    LOCAL lWasChangeLog
 
-   InstallHook( "pre-commit"        , hb_StrFormat( "exec ../core/bin/win/mingw64/hbrun bin/%1$s.hb --check-only", hb_FNameName( hb_ProgName() ) ) )
-// InstallHook( "prepare-commit-msg", hb_StrFormat( "exec ../core/bin/win/mingw64/hbrun bin/%1$s.hb $1 --prepare-commit", hb_FNameName( hb_ProgName() ) )
+   InstallHook( "pre-commit"        , hb_StrFormat( "exec ../../MiniGUI/Harbour/bin/hbrun bin/%1$s.hb --check-only", hb_FNameName( hb_ProgName() ) ) )
+// InstallHook( "prepare-commit-msg", hb_StrFormat( "exec ../../MiniGUI/Harbour/bin/hbrun bin/%1$s.hb $1 --prepare-commit", hb_FNameName( hb_ProgName() ) )
 
    cVCS := VCSDetect()
    aFiles := {}
