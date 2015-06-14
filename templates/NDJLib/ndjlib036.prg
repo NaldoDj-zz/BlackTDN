@@ -85,6 +85,7 @@ METHOD New() CLASS uSCP
         self:Get("otLogReport"):AddGroup("SCP Warning")
         self:Get("otLogReport"):AddGroup("SCP Process")
         self:Get("otLogReport"):AddGroup("SCP Transfer")
+        self:Get("otLogReport"):AddGroup("SCP Command")
     EndIF
     LoadMsgs()
     self:Set("aMsgs",aClone(aMsgs))
@@ -414,10 +415,22 @@ METHOD Run() CLASS uSCP
         //-------------------------------------------------------------------------------
         //Grava o Comando no Batch File
         MemoWrite(cFullBatSCP,cCommandLine)
+
+        //------------------------------------------------------------------------------
+        //Adiciona o Command ao Log
+        IF (ltLogReport)
+            self:Get("otLogReport"):AddDetail("SCP Command",cCommandLine)
+        EndIF   
         
         //-------------------------------------------------------------------------------
         //Redefine cCommandLine
         cCommandLine:=cFullBatSCP
+
+        //------------------------------------------------------------------------------
+        //Adiciona o Command ao Log
+        IF (ltLogReport)
+            self:Get("otLogReport"):AddDetail("SCP Command",cCommandLine)
+        EndIF   
         
         //-------------------------------------------------------------------------------
         //Redefine cTarget quando lForceClient:.T. e cMode:"G"
@@ -430,7 +443,7 @@ METHOD Run() CLASS uSCP
                 EndIF
                 cTarget+="*.*"
             EndIF
-        EndIF    
+        EndIF
         
         //-------------------------------------------------------------------------------
         //Verifica se o comando vai ser executado a partir do servidor
@@ -446,6 +459,14 @@ METHOD Run() CLASS uSCP
             //WaitRunSrv(cCommandLineLine,lWaitRun,cPath):lSuccess
             cWaitRunPath:=cRootPath
             cWaitRunPath+=IF(Left(cDirSFTP,1)=="\",SubStr(cDirSFTP,2),cDirSFTP)
+            //------------------------------------------------------------------------------
+            //Adiciona o cWaitRunPath ao Log
+            IF (ltLogReport)
+                self:Get("otLogReport"):AddGroup("WaitRunPath")
+                self:Get("otLogReport"):AddDetail("WaitRunPath",cWaitRunPath)
+            EndIF        
+            //------------------------------------------------------------------------------
+            //Executa o Comando
             IF .NOT.(WaitRunSrv(cCommandLine,.T.,cWaitRunPath))
                 nStatus:=-3
                 cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"][Path]["+cRootPath+"]"

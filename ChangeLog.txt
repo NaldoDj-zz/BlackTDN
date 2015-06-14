@@ -10,6 +10,11 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-06-14 20:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * sftp/sample/u_scpsample.nppcrypt
+  * sftp/sample/u_scpsample.prw
+  * templates/NDJLib/ndjlib036.prg
+ 
 2015-06-14 15:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * ChangeLog.txt
   * sftp/sample/u_scpsample.prw

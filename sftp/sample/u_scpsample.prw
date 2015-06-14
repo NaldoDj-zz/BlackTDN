@@ -20,22 +20,21 @@ User Function SCPPut()
     //Define os parametros do Metodo Run
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
-    ouSCP:Set("cSource","\expordic\*.*")
-    ouSCP:Set("cTarget","Target/")
-    ouSCP:Set("cURL","Url")
+    ouSCP:Set("cSource","\sftp\get\*.*")
+    ouSCP:Set("cTarget","/cTarget/")
+    ouSCP:Set("cURL","URL")
     ouSCP:Set("cMode","P")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
     ouSCP:SetParameter("user","-l User")
-    ouSCP:SetParameter("passw","-pw P@ssWord")
+    ouSCP:SetParameter("passw","-pw PWD")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
     ouSCP:SetParameter("enable compression","-C")    
     ouSCP:SetParameter("enable compression","-C")
     ouSCP:SetParameter("force use of SFTP protocol","-sftp")
-    ouSCP:SetParameter("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
@@ -54,10 +53,12 @@ User Function SCPPut()
             IF .NOT.(lPrint)
                 oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
                 oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
+                oVarInfo:=oVarInfo:FreeObj(.T.,.F.)
             EndIF
        CATCH EXCEPTION
             oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
             oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
+            oVarInfo:=oVarInfo:FreeObj(.T.,.F.)
        END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
@@ -85,22 +86,21 @@ User Function SCPGet()
     //Define os parametros do Metodo Run
     ouSCP:Set("cAppSCP","pscp.exe")
     ouSCP:Set("cBatSCP","pscp.bat")
-    ouSCP:Set("cSource","/Source/*.*")
-    ouSCP:Set("cTarget","\expordic\")
-    ouSCP:Set("cURL","Url")
+    ouSCP:Set("cSource","/cSource/*.*")
+    ouSCP:Set("cTarget","\sftp\put\")
+    ouSCP:Set("cURL","URL")
     ouSCP:Set("cMode","G")
     ouSCP:Set("lSrv",.T.)    
     ouSCP:Set("lForceClient",.T.)
     //------------------------------------------------------------------------------------------------
     //Define os parametros para o App de Transferencia
     ouSCP:SetParameter("user","-l User")
-    ouSCP:SetParameter("passw","-pw P@ssWord")
+    ouSCP:SetParameter("passw","-pw PDW")
     ouSCP:SetParameter("port","-P 22")
     ouSCP:SetParameter("show verbose messages","-v")
     ouSCP:SetParameter("enable compression","-C")    
     ouSCP:SetParameter("enable compression","-C")
     ouSCP:SetParameter("force use of SFTP protocol","-sftp")
-    ouSCP:SetParameter("enable use of Pageant","-agent")    
     //------------------------------------------------------------------------------------------------
     //Executa o App de Transferencia
     ouSCP:Run()
@@ -119,12 +119,12 @@ User Function SCPGet()
             IF .NOT.(lPrint)
                 oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
                 oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
-                oVarInfo:=oVarInfo:FreeObj()
+                oVarInfo:=oVarInfo:FreeObj(.T.,.F.)
             EndIF
        CATCH EXCEPTION
             oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
             oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
-            oVarInfo:=oVarInfo:FreeObj()
+            oVarInfo:=oVarInfo:FreeObj(.T.,.F.)
        END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
