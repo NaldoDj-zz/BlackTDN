@@ -17,13 +17,13 @@ Static __nClsNIntSleep:=0
 Static __nClsVAddSleep:=0
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Class:TVarInfo [Baseada na Ideia Original de Julio [AUTOMAN] Wittwer]
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Reproduz as Caracteristicas da Funcao VarInfo resolvendo a Limitacao do Tamanho da String
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,@nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Class TVarInfo From LongClassName
 
@@ -50,7 +50,7 @@ Class TVarInfo From LongClassName
     DATA nfHandle
 
     Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) CONSTRUCTOR
-    Method FreeObj() /*DESTRUCTOR*/
+    Method FreeObj()/*DESTRUCTOR*/
     Method ClassName()
     
     Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
@@ -72,25 +72,25 @@ End Class
 
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Funcao:U_TVarInfoNew
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Reproduz as Caracteristicas da Funcao VarInfo resolvendo a Limitacao do Tamanho da String
         Sintaxe:U_TVarInfoNew(uVarInfo,cVarName)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 User Function TVarInfoNew(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
 Return(TVarInfo():New(@uVarInfo,@cVarName,@nClsIntSleep,@nClsAddSleep))
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:New
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Constructor
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
     self:ClassName()
@@ -98,13 +98,13 @@ Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:ClassName
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Retorna o nome da Classe
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method ClassName() Class TVarInfo
     self:cClassName:="TVARINFO"
@@ -169,7 +169,7 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 
     __nClsIntSleep:=nClsIntSleep
     __nClsAddSleep:=nClsAddSleep
-    __nClsNIntSleep:=Int(__nClsIntSleep / 2)
+    __nClsNIntSleep:=Int(__nClsIntSleep/2)
     __nClsVAddSleep:=0
 
     TVarInfo(@self:aTVarInfo,@aStackA,@nStackA,@aStackO,@nStackO,@cVarName,@uVarInfo)
@@ -196,12 +196,12 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:ReSet
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:ReSet
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method ReSet(uVarInfo,cVarName,lEraseSrv,lEraseLocal) Class TVarInfo
     self:Close(@lEraseSrv,@lEraseLocal)
@@ -209,46 +209,46 @@ Method ReSet(uVarInfo,cVarName,lEraseSrv,lEraseLocal) Class TVarInfo
 Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoTo
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Posiciona no Registro n
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoTo(n) Class TVarInfo
     DEFAULT n:=0
 Return(self:nAT:=n)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoTop
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:GoTop
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoTop() Class TVarInfo
 Return(self:nAT:=Min(1,self:nSize))
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoBottom
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:GoBottom
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoBottom() Class TVarInfo
 Return(self:nAT:=self:nSize)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoNext
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Tenta Obter o Proximo Registro
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoNext() Class TVarInfo
 
@@ -280,12 +280,12 @@ Method GoNext() Class TVarInfo
 Return(lGoNext)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Echo
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Retorna a Linha Atual
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Echo(lHtml,lTableFormat) Class TVarInfo
 
@@ -350,12 +350,12 @@ Method Echo(lHtml,lTableFormat) Class TVarInfo
 Return(cEcho)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Show
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Apresenta o Conteudo obtido pela VarInfo
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Show(nSWShow,lHtml,lTableFormat) Class TVarInfo
 
@@ -392,12 +392,12 @@ Method Show(nSWShow,lHtml,lTableFormat) Class TVarInfo
 Return(lShow)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Save
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Salva o Conteudo Obtivo pela VarInfo
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Save(lHtml,lTableFormat) Class TVarInfo
 
@@ -438,12 +438,12 @@ Method Save(lHtml,lTableFormat) Class TVarInfo
 Return(lSave)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Close
         Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
         Data:28/09/2011
         Descricao:Fecha e exclui os arquivos utilizados
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
 
@@ -455,14 +455,14 @@ Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
         self:nfHandle:=-1
     EndIF
 
-    IF !Empty(self:cSRVFile)
+    IF .NOT.(Empty(self:cSRVFile))
         IF (lEraseSrv)
             fErase(self:cSRVFile)
         EndIF    
         self:cSRVFile:=""
     EndIF
 
-    IF !Empty(self:cLocalFile)
+    IF .NOT.(Empty(self:cLocalFile))
         IF (lEraseLocal)
             fErase(self:cLocalFile)        
         EndIF    
@@ -481,7 +481,7 @@ Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
 
     Set(4,self:cDateFormat)
 
-    IF !(self:lSetCentury)
+    IF .NOT.(self:lSetCentury)
         __SetCentury("OFF")
     EndIF
 
@@ -540,7 +540,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> OBJECT ("
+                cLine+=" ->OBJECT ("
                 cLine+=cClassName
                 cLine+=") "
                 cLine+="[CLONE OF "
@@ -557,7 +557,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 Exception code:C0000005 ACCESS_VIOLATION
                 Access Violation tInterFunctionCall on TVARINFO(U_TVARINFO.PRG)
                 BEGIN Isto "minimiza" a ocorrencia da Exception
-            */    
+            */   
                 __nClsVAddSleep+=__nClsAddSleep
                 IF (__cClassName==cClassName)
                     Sleep(__nClsIntSleep+__nClsVAddSleep) 
@@ -569,7 +569,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 END Isto "minimiza" a ocorrencia da Exception
                 Exception code:C0000005 ACCESS_VIOLATION
                 Access Violation tInterFunctionCall on TVARINFO(U_TVARINFO.PRG)
-            */    
+            */   
 
             aAdd(aStackO,Array(STACK_ELEMENTS))
 
@@ -581,7 +581,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
             cLine+=cTab
             cLine+=cVarName
-            cLine+=" -> OBJECT ("
+            cLine+=" ->OBJECT ("
             cLine+=cClassName
             cLine+=") "
 
@@ -602,7 +602,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
     
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> ARRAY ("
+                cLine+=" ->ARRAY ("
                 cLine+=cNStr
                 cLine+=") "
                 cLine+="[CLONE OF "
@@ -619,7 +619,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> ARRAY ("
+                cLine+=" ->ARRAY ("
                 cLine+=cNStr
                 cLine+=") [...]"
             
@@ -646,7 +646,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
             
             cLine+=cTab
             cLine+=cVarName
-            cLine+=" -> "
+            cLine+=" ->"
             cLine+=cVarType
             cLine+=" ("
             cLine+=Transform(nVar,RetPictVal(nVar))
@@ -681,7 +681,7 @@ Static Function AllToChar(uVarInfo,cVarType,cPicture)
         cVar:=Transform(uVarInfo,AllTrim(cPicture))
     CASE (cVarType=="C")
         DEFAULT cPicture:=""
-        IF !Empty(cPicture)
+        IF .NOT.(Empty(cPicture))
             cVar:=Transform(uVarInfo,AllTrim(cPicture))
         Else
             cVar:=uVarInfo
@@ -717,16 +717,16 @@ Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
     
     IF (ValType(nVal)=="N")
         uInt:=Int(nVal)
-        uDec:=(nVal - uInt)
+        uDec:=(nVal -uInt)
         DEFAULT lDecZero:=.F.
         IF (;
                 (uDec==0);
                 .and.;
-                !(lDecZero);
+                .NOT.(lDecZero);
            )
             uDec:=NIL
         EndIF
-        IF (uDec<> NIL)
+        IF (uDec<>NIL)
             uDec:=AllTrim(Str(uDec))
             uDec:=SubStr(uDec,At(".",uDec)+1)
             uDec:=Len(uDec)
@@ -739,12 +739,12 @@ Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
             IF (nInt>3)
                 cPictSepMil:=cPict
                 cPict:=""
-                For uInt:=nInt To 1 Step - 3
+                For uInt:=nInt To 1 Step -3
                     cPict:=(","+SubStr(cPictSepMil,-3,uInt)+cPict)
                 Next uInt
             EndIF
         EndIF
-        IF (uDec<> NIL)
+        IF (uDec<>NIL)
             cPict+="."
             cPict+=Replicate("9",uDec)
             nDec:=uDec

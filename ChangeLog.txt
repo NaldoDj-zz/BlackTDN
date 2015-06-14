@@ -10,6 +10,9 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-06-14 20:49 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
+ 
 2015-06-14 20:30 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * sftp/sample/u_scpsample.nppcrypt
   * sftp/sample/u_scpsample.prw
