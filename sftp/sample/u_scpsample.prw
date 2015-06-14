@@ -53,13 +53,11 @@ User Function SCPPut()
             DEFAULT lPrint:=.F.
             IF .NOT.(lPrint)
                 oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
-                oVarInfo:Save(.T.,.T.)
-                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
             EndIF
        CATCH EXCEPTION
             oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
-            oVarInfo:Save(.T.,.T.)
-            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
        END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------
@@ -120,13 +118,13 @@ User Function SCPGet()
             DEFAULT lPrint:=.F.
             IF .NOT.(lPrint)
                 oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
-                oVarInfo:Save(.T.,.T.)
-                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+                oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
+                oVarInfo:=oVarInfo:FreeObj()
             EndIF
        CATCH EXCEPTION
             oVarInfo:=TVarInfo():New(ouSCP:Get("otLogReport"))
-            oVarInfo:Save(.T.,.T.)
-            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE))
+            oVarInfo:Show(ouSCP:Get("nSWMode",SW_MAXIMIZE),.T.,.F.)
+            oVarInfo:=oVarInfo:FreeObj()
        END EXCEPTION
     EndIF
     //------------------------------------------------------------------------------------------------

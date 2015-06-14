@@ -42,19 +42,22 @@ Class TVarInfo From LongClassName
     DATA lBof
     DATA lEof
     
+    DATA lEcho
+    
     DATA cDateFormat
     DATA lSetCentury
 
     DATA nfHandle
 
-    Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Constructor
+    Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) CONSTRUCTOR
+    Method FreeObj() /*DESTRUCTOR*/
     Method ClassName()
     
     Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
     Method Reset(uVarInfo,cVarName,lEraseSrv,lEraseLocal)
 
     Method Echo(lHtml,lTableFormat)
-    Method Show(nSWShow)
+    Method Show(nSWShow,lHtml,lTableFormat)
 
     Method Save(lHtml,lTableFormat)
 
@@ -186,9 +189,11 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
         self:nAT:=0
         self:lBof:=.T.
         self:lEof:=.T.
-    EndIF    
+    EndIF
 
-Return(NIL)
+    DEFAULT self:lEcho:=.F.
+
+Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -201,7 +206,7 @@ Return(NIL)
 Method ReSet(uVarInfo,cVarName,lEraseSrv,lEraseLocal) Class TVarInfo
     self:Close(@lEraseSrv,@lEraseLocal)
     self:Init(@uVarInfo,@cVarName)    
-Return(NIL)
+Return(self)
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -337,6 +342,10 @@ Method Echo(lHtml,lTableFormat) Class TVarInfo
             cEcho+=self:cCRLF
         EndIF
     EndIF
+    
+    IF (self:lEcho)
+        ConOut(cEcho)
+    EndIF
 
 Return(cEcho)
 
@@ -348,12 +357,16 @@ Return(cEcho)
         Descricao:Apresenta o Conteudo obtido pela VarInfo
     /*/
 //------------------------------------------------------------------------------------------------
-Method Show(nSWShow) Class TVarInfo
+Method Show(nSWShow,lHtml,lTableFormat) Class TVarInfo
 
     Local lShow:=.F.
+    
+    IF (self:nfHandle<0)
+        self:Save(@lHtml,@lTableFormat)
+    EndIF
 
     IF (;
-            (self:nfHandle>0);
+            (self:nfHandle>=0);
             .and.;
             File(self:cSRVFile);
        )    
@@ -367,11 +380,13 @@ Method Show(nSWShow) Class TVarInfo
         self:cLocalFile:=(self:cLocalPath+self:cSRVFile)
 
         lShow:=__CopyFile(self:cSRVFile,self:cLocalFile)
-        IF (lShow)              
-            DEFAULT nSWShow:=SW_SHOWMAXIMIZED
-            ShellExecute("Open", self:cLocalFile,"",self:cLocalPath,nSWShow)
-        EndIF
-
+        IF .NOT.(self:lEcho)
+            IF (lShow)              
+                DEFAULT nSWShow:=SW_SHOWMAXIMIZED
+                ShellExecute("Open",self:cLocalFile,"",self:cLocalPath,nSWShow)
+            EndIF
+        EndIF    
+    
     EndIF
     
 Return(lShow)
@@ -435,7 +450,7 @@ Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
     DEFAULT lEraseSrv:=.T.
     DEFAULT lEraseLocal:=.T.
 
-    IF (self:nfHandle>0)
+    IF (self:nfHandle>=0)
         fClose(self:nfHandle)
         self:nfHandle:=-1
     EndIF
@@ -470,7 +485,12 @@ Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
         __SetCentury("OFF")
     EndIF
 
-Return(NIL)
+Return(self)
+
+Method FreeObj(lEraseSrv,lEraseLocal) Class TVarInfo
+    self:Close(@lEraseSrv,@lEraseLocal)
+    self:=FreeObj(self)
+Return(self)
 
 /*/
     Funcao:TVarInfo
