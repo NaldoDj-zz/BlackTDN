@@ -22,7 +22,7 @@
 
     * Copyright 2005-2015 marinaldo.jesus [http://www.blacktdn.com.br]
     
-    TODO: Rever código de forma a só utilizar funções da LIB.
+    TODO: Rever codigo de forma a so utilizar funcoes da LIB.
 */
 User Function Sudoku()
 
