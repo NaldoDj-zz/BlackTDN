@@ -55,6 +55,7 @@ ChangeLog.txt ident
 *.sav     text
 *.sfc     text
 *.spec    text
+*.sql     text
 *.sx      text
 *.tpl     text
 *.txt     text
@@ -109,6 +110,7 @@ ChangeLog.txt ident
 #*.rb      text diff=ruby
 #*.php     text diff=php
 #*.ps1     text diff=powershell
+#*.sql     text diff=sql
 
 # Custom for Visual Studio
 *.cs     diff=csharp

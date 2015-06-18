@@ -10,6 +10,14 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-06-18 01:49 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * .gitattributes
+  + scripts/win/sql/mssql/2014/Tree/tree.sql
+    + Exemplo de Consulta Hierarquica (Tree) usando MSSQL
+        + Obs.: 
+        (1) Exemplo a ser publicado em http://www.blacktdn.com.br;
+        (2) Adaptar o exemplo para com AdvPL e tabelas do Protheus.
+  
 2015-06-15 00:15 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * games/u_Sudoku/u_Sudoku.prg
  
