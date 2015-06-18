@@ -18,12 +18,12 @@ GO
 -- Create an Employee table.
 CREATE TABLE [dbo].[MyEmployees]
 (
-    EmployeeID int NOT NULL,
-    FirstName nvarchar(30)  NOT NULL,
-    LastName  nvarchar(40) NOT NULL,
-    Title nvarchar(50) NOT NULL,
-    DeptID smallint NOT NULL,
-    ManagerID int NULL,
+     EmployeeID int NOT NULL
+    ,FirstName nvarchar(30)  NOT NULL
+    ,LastName  nvarchar(40) NOT NULL
+    ,Title nvarchar(50) NOT NULL
+    ,DeptID smallint NOT NULL
+    ,ManagerID int NULL
  CONSTRAINT PK_EmployeeID PRIMARY KEY CLUSTERED (EmployeeID ASC) 
 );
 -- Populate the table with values.
@@ -53,6 +53,7 @@ INSERT INTO [dbo].[MyEmployees] VALUES
 ,(37, N'Mary 37',N'Gibson 37',N'Marketing Specialist JR',4,36)
 ,(38, N'Mary 38',N'Gibson 38',N'Marketing Specialist Trainee SR',4,37)
 ,(39, N'Mary 39',N'Gibson 39',N'Marketing Specialist Trainee PL',4,38);
+GO
 --------------------------------------------------------------------
 IF OBJECT_ID (N'[dbo].[ufn_FindReports]',N'TF') IS NOT NULL
     DROP FUNCTION [dbo].[ufn_FindReports];
@@ -60,13 +61,13 @@ GO
 CREATE FUNCTION [dbo].[ufn_FindReports]()
 RETURNS @retFindReports TABLE 
 (
-    ID int IDENTITY(1,1) PRIMARY KEY,
-    MasterID int NOT NULL,
-    SuperID int NOT NULL,
-    ManagerID int  NOT NULL,
-    Level int NOT NULL,
-    EmployeeID int  NOT NULL,
-    NodeID nvarchar(3000) NOT NULL
+     ID int IDENTITY(1,1) PRIMARY KEY
+    ,MasterID int NOT NULL
+    ,SuperID int NOT NULL
+    ,ManagerID int  NOT NULL
+    ,Level int NOT NULL
+    ,EmployeeID int  NOT NULL
+    ,NodeID nvarchar(3000) NOT NULL
 )
 AS
     BEGIN
