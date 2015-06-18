@@ -6,27 +6,11 @@
     --Ref.:https://technet.microsoft.com/pt-br/library/ms186243(v=sql.105).aspx
     --Ref.:https://msdn.microsoft.com/pt-br/library/ms186755.aspx?f=3000&MSPPError=-2147217396
     --Ref.:http://www.codeproject.com/Articles/328858/Implementing-multi-level-trees-in-MS-SQL-Server
-    --Ref.:https://msdn.microsoft.com/pt-br/library/ms186755.aspx
-    --Ref.:https://msdn.microsoft.com/en-us/library/ms190290.aspx?f=3000&MSPPError=-2147217396
+    --Ref.:https://msdn.microsoft.com/pt-br/library/bb677173.aspx?f=255&MSPPError=-2147217396
     --Ref.:https://msdn.microsoft.com/en-us/library/ms190328.aspx
     --Ref.:https://msdn.microsoft.com/en-us/library/ms190324.aspx
-
-    
+   
 */
---------------------------------------------------------------------
-IF OBJECT_ID (N'[dbo].[ufn_ToChar]',N'FN') IS NOT NULL
-    DROP FUNCTION [dbo].[ufn_ToChar];
-GO
-CREATE FUNCTION [dbo].[ufn_ToChar]
-(
-    @seq_id int
-)
-RETURNS nvarchar(3)
-AS
-BEGIN
-    return cast(@seq_id AS varchar)
-END
-GO
 --------------------------------------------------------------------
 IF OBJECT_ID('[dbo].[MyEmployees]','U') IS NOT NULL
 DROP TABLE [dbo].[MyEmployees];
@@ -98,14 +82,14 @@ AS
     (
     
         (
-            SELECT b.EmployeeID AS MasterID
+            SELECT m.EmployeeID AS MasterID
                  ,0 AS SuperID 
-                 ,IsNull(b.ManagerID,0)
+                 ,IsNull(m.ManagerID,0)
                  ,0 AS Level
-                 ,b.EmployeeID
-                 ,convert(varChar(3000),+dbo.ufn_ToChar(b.EmployeeID)) AS NodeID
-            FROM dbo.MyEmployees AS b
-                WHERE b.ManagerID IS NULL
+                 ,m.EmployeeID
+                 ,convert(varChar(3000),+cast(m.EmployeeID AS varchar)) AS NodeID
+            FROM dbo.MyEmployees AS m
+                WHERE m.ManagerID IS NULL
         ) 
         UNION ALL
         (
@@ -113,14 +97,14 @@ AS
                   ,(
                         CASE d.ManagerID 
                         WHEN 0 
-                        THEN CONVERT(INT,d.EmployeeID) 
+                        THEN d.EmployeeID 
                         ELSE d.ManagerID 
                         END
                     ) AS SuperID
                   ,e.ManagerID
                   ,d.Level+1
                   ,e.EmployeeID
-                  ,convert(varChar(3000),d.NodeID+'.'+dbo.ufn_ToChar(e.EmployeeID)) AS NodeID
+                  ,convert(varChar(3000),d.NodeID+'.'+cast(e.EmployeeID AS varchar)) AS NodeID
             FROM dbo.MyEmployees AS e
                 INNER JOIN DirectReports AS d
                 ON d.EmployeeID=e.ManagerID 
@@ -132,20 +116,20 @@ AS
    RETURN
 END;
 GO
-SELECT REPLICATE(' ',4*(x.Level))+'+-->'+LTrim(Str(x.ManagerID,3)) AS ManagerID
+SELECT REPLICATE(' ',4*(t.Level))+'+-->'+LTrim(Str(t.ManagerID,3)) AS ManagerID
       ,e.EmployeeID
       ,e.LastName
-      ,REPLICATE(' ',4*(x.Level))+'+--> '+e.Title AS Title
+      ,REPLICATE(' ',4*(t.Level))+'+--> '+e.Title AS Title
       ,e.DeptID
-      ,x.ID
-      ,x.MasterID
-      ,x.SuperID      
-      ,x.Level
-      ,x.NodeID
-FROM dbo.ufn_FindReports() x
+      ,t.ID
+      ,t.MasterID
+      ,t.SuperID      
+      ,t.Level
+      ,t.NodeID
+FROM dbo.ufn_FindReports() t
 LEFT JOIN dbo.MyEmployees e
-       ON e.EmployeeID=x.EmployeeID  
-ORDER BY x.MasterID
-        ,x.NodeID
+       ON e.EmployeeID=t.EmployeeID  
+ORDER BY t.MasterID
+        ,t.NodeID
 GO
 --------------------------------------------------------------------

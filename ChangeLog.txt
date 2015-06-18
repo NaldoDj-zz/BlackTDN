@@ -10,6 +10,9 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-06-18 10:54 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * scripts/win/sql/mssql/2014/Tree/tree.sql
+ 
 2015-06-18 01:55 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * .gitattributes
   + scripts/win/sql/mssql/2014/Tree/tree.sql
