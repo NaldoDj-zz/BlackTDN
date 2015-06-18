@@ -118,6 +118,7 @@ END;
 GO
 SELECT REPLICATE(' ',4*(t.Level))+'+-->'+LTrim(Str(t.ManagerID,3)) AS ManagerID
       ,e.EmployeeID
+      ,e.FirstName
       ,e.LastName
       ,REPLICATE(' ',4*(t.Level))+'+--> '+e.Title AS Title
       ,e.DeptID
