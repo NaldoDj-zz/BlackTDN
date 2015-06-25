@@ -10,7 +10,7 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
-2015-06-25 20:09 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+2015-06-25 20:09 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
   * templates/NDJLib/ndjlib021.prg
   * templates/NDJLib/ndjlib022.prg
