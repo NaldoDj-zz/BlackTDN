@@ -112,6 +112,7 @@
 #DEFINE PATH_INI_FILE_SAVE_RESTORE "\ini\"
 
 Static oNDJLIB021
+Static oNDJLIB029:=u_DJLIB029()
 
 CLASS NDJLIB021
 
@@ -1162,7 +1163,7 @@ Static Function RPRestoreTable(oRPIni,cPath,aTables,lUniqueDBMS,cEnvRestore,cRes
 
         IF (lTopConn)
             IF !(lUniqueDBMS)
-                IF !(ArrayCompare(aAliasStruct,aTAliasStruct))
+                IF !(oNDJLIB029:ArrayCompare(aAliasStruct,aTAliasStruct))
                     (cTAlias)->(dbCloseArea())
                     aAdd(aTopTables,cTable)
                     //"Aguarde"####"Atualizando o Ambiente de Restauração"

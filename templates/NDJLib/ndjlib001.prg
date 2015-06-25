@@ -7,6 +7,7 @@ Static __cMbrRstFilter
 Static __cCRLF:=CRLF
 
 Static oNDJLIB001
+Static oNDJLIB029:=u_DJLIB029()
 
 // --------------------------------------------------------------------------------------------------------
 // Obtem o Caractere de PONTO E VIRGULA
@@ -767,7 +768,7 @@ STATIC FUNCTION XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
         IF (;
                 .NOT.(lChkChange);
                 .or.;
-                .NOT.Compare(@uCntVar,@uReadVar);
+                .NOT.oNDJLIB029:Compare(@uCntVar,@uReadVar);
            )
             lMemVar:=IsMemVar(cXAltHrs)
             lGetDados:=IsInGetDados(cXAltHrs)
@@ -3315,7 +3316,7 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
     DEFAULT adbQuery:=Array(0)
     DEFAULT cAlias:=GetNextAlias()
     
-       nAliasAT:=aScan(adbQuery,{|e|(e[1]==cAlias)})
+    nAliasAT:=aScan(adbQuery,{|e|(e[1]==cAlias)})
     IF nAliasAT==0
         aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
         nAliasAT:=Len(adbQuery)
@@ -3329,8 +3330,8 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
     IF lFWDBACCESS
         lNewFWDB:=.T.
         IF adbQuery[nAliasAT][2]
-            IF ValType(adbQuery[nAliasAT][3])=="O"
-                IF .NOT.(Compare(adbQuery[nAliasAT][4],aDBMSConn))
+            IF (ValType(adbQuery[nAliasAT][3])=="O")
+                IF .NOT.(oNDJLIB029:Compare(adbQuery[nAliasAT][4],aDBMSConn))
                     cAlias:=GetNextAlias()
                     aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
                     nAliasAT:=Len(adbQuery)
@@ -3844,7 +3845,7 @@ STATIC FUNCTION xGetOrder(cAlias,cIKValue)
         //Verifica se Existe INDEX Correspondente...            
         nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
         //-----------------------------------------------------------------------------------------------------
-        //...Se n䯠ncontrou....            
+        //...Se nao encontrou....            
         IF (nOrder==0)
             //-----------------------------------------------------------------------------------------------------
             //...Assume a Ordem 1             

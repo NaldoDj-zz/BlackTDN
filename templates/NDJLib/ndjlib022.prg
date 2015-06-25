@@ -6,6 +6,8 @@ Static __nSession:=0
 Static __nTHashID:=0
 Static __nLTHashID:=0
 
+Static oNDJLIB029:=u_DJLIB029()
+
 //------------------------------------------------------------------------------------------------
     /*/
         CLASS:THash
@@ -199,7 +201,7 @@ METHOD GetAtProperty(uSession,uPropertyKey,nSession) CLASS THASH
             EndIF
         EndIF
 
-        nATProperty:=aScan(self:aTHash[nSession][PROPERTY_POSITION],{|aValues|(Compare(aValues[PROPERTY_KEY],uPropertyKey))})
+        nATProperty:=aScan(self:aTHash[nSession][PROPERTY_POSITION],{|aValues|(oNDJLIB029:Compare(aValues[PROPERTY_KEY],uPropertyKey))})
 
     END SEQUENCE
 
@@ -315,7 +317,7 @@ METHOD GetPropertyValue(uSession,uPropertyKey,uDefaultValue) CLASS THASH
 
     END SEQUENCE
 
-    IF (Compare(uPropertyValue,"@__PROPERTY_NOT_FOUND__@"))
+    IF (oNDJLIB029:Compare(uPropertyValue,"@__PROPERTY_NOT_FOUND__@"))
         IF .NOT.(Empty(uDefaultValue))
             uPropertyValue:=uDefaultValue
         Else
@@ -634,7 +636,7 @@ METHOD CopySession(uSession,uNewSession) CLASS THASH
 
         self:aTHash[nTarget][PROPERTY_POSITION]:=aClone(aProperties)
 
-        lSuccess:=ArrayCompare(self:aTHash[nSource][PROPERTY_POSITION],self:aTHash[nTarget][PROPERTY_POSITION])
+        lSuccess:=oNDJLIB029:ArrayCompare(self:aTHash[nSource][PROPERTY_POSITION],self:aTHash[nTarget][PROPERTY_POSITION])
 
     END SEQUENCE
 
@@ -651,12 +653,12 @@ Return(lSuccess)
 //------------------------------------------------------------------------------------------------
 METHOD ExistSession(uSession,nSession) CLASS THASH
 
-    Local lExistSession:=((__nLTHashID==self:nTHashID).and.(__nSession>0).and.Compare(__uSession,uSession))
+    Local lExistSession:=((__nLTHashID==self:nTHashID).and.(__nSession>0).and.oNDJLIB029:Compare(__uSession,uSession))
 
     IF (lExistSession)
         nSession:=__nSession
     Else
-        nSession:=aScan(self:aTHash,{|aFindSession|(Compare(aFindSession[SESSION_POSITION],uSession))})
+        nSession:=aScan(self:aTHash,{|aFindSession|(oNDJLIB029:Compare(aFindSession[SESSION_POSITION],uSession))})
         __nSession:=nSession
         __uSession:=uSession
         __nLTHashID:=self:nTHashID

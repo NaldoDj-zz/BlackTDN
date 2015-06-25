@@ -10,6 +10,11 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-06-25 20:09 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib021.prg
+  * templates/NDJLib/ndjlib022.prg
+ 
 2015-06-18 12:37 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * scripts/win/sql/mssql/2014/Tree/tree.sql
  
