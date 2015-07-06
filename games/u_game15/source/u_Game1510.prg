@@ -1452,10 +1452,10 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
     Local cDriver
 
     Local cG5File
+    Local cMGFile
 
     Local nD
     Local nJ
-    Local nErr
     Local ncGFile
 
     SYMBOL_UNUSED(x)
@@ -1465,7 +1465,8 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
     BEGIN SEQUENCE
 
         ncGFile:=nOr(GETF_LOCALFLOPPY,GETF_LOCALHARD,GETF_NETWORKDRIVE,GETF_SHAREAWARE)
-        cG5File:=cGetFile("G15FileSave (g15_*.sav) |g15_*.sav ","Save Game",NIL,GetTempPath(),.T.,ncGFile,.T.,.T.)
+        cMGFile:="G15FileSave (g15_*.sav)|g15_*.sav"
+        cG5File:=cGetFile(cMGFile,"Save Game",NIL,GetTempPath(),.T.,ncGFile,.T.,.T.)
 
         IF Empty(cG5File)
             BREAK
@@ -1490,7 +1491,7 @@ Static Procedure SaveGame(x,y,oTPPanel,oTHash,cSession)
 
         aEval(aShapes,{|aShape|aAdd(aSaveG,aClone(aShape))},nD,nJ)
 
-        SaveArray(@aSaveG,@cG5File,@nErr)
+        SaveArray(@aSaveG,@cG5File)
 
     END SEQUENCE
 
@@ -1508,11 +1509,11 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
     Local aShapes
 
     Local cG5File
+    Local cMGFile
 
     Local nD
     Local nJ
     Local nAT
-    Local nErr
     Local nBTn
     Local nBTns
     Local ncGFile
@@ -1523,13 +1524,14 @@ Static Procedure RestoreGame(x,y,oTPPanel,oTHash,cSession)
     BEGIN SEQUENCE
 
         ncGFile:=nOr(GETF_LOCALFLOPPY,GETF_LOCALHARD,GETF_NETWORKDRIVE,GETF_SHAREAWARE)
-        cG5File:=cGetFile("G15FileSave (g15_*.sav) |g15_*.sav ","Restore Game",NIL,GetTempPath(),.F.,ncGFile,.T.,.T.)
+        cMGFile:="G15FileSave (g15_*.sav)|g15_*.sav"
+        cG5File:=cGetFile(cMGFile,"Restore Game",NIL,GetTempPath(),.F.,ncGFile,.T.,.T.)
 
         IF Empty(cG5File)
             BREAK
         EndIF
 
-        aRestG:=RestArray(@cG5File,@nErr)
+        aRestG:=RestArray(@cG5File)
 
         aShapes:=oTHash:GetPropertyValue(cSession,"aShapes")
 
@@ -2204,9 +2206,9 @@ Return(oDJLIB029:Compare(@x,@y))
     Data:18/04/2012
     Uso:Salva Array em Disco
 */
-Static Function SaveArray(uArray,cFileName,nErr)
+Static Function SaveArray(uArray,cFileName)
     DEFAULT oDJLIB029:=U_DJLIB029()
-Return(oDJLIB029:SaveArray(@uArray,@cFileName,@nErr))
+Return(oDJLIB029:SaveArray(@uArray,@cFileName))
 
 /*
     Funcao:RestArray
@@ -2214,9 +2216,9 @@ Return(oDJLIB029:SaveArray(@uArray,@cFileName,@nErr))
     Data:18/04/2012
     Uso:Restaura Array do Disco
 */
-Static Function RestArray(cFileName,nErr)
+Static Function RestArray(cFileName)
     DEFAULT oDJLIB029:=U_DJLIB029()
-Return(oDJLIB029:RestArray(@cFileName,@nErr))
+Return(oDJLIB029:RestArray(@cFileName))
 
 /*
     Funcao:DesvPad
