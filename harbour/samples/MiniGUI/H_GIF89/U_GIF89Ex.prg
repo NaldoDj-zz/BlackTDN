@@ -31,7 +31,7 @@ User Function GIF89Ex()
     DEFINE WINDOW oMainWnd FROM 001,001 TO 400,500 TITLE (ProcName()+" Demo")
         cGIFPath:=cGetFile(".GIF |*.GIF ",OemToAnsi("Selecione o Diretório"),NIL,cTempPath,.F.,nOpcGet,.T.,.T.)
         IF !(SubStr(cGIFPath,-1)==cPathChr)
-            cGIFPath +=cPathChr
+            cGIFPath+=cPathChr
         EndIF
         aDir(cGIFPath+"*.GIF",@aGIFFiles)
     ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (aEval(aGIFFiles,{|cGIFFile|GIF89Ex(cGIFPath+cGIFFile)}),oMainWnd:End())

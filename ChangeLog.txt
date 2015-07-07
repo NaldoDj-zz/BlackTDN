@@ -10,6 +10,15 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-07-07 11:43 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * ChangeLog.txt
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89Ex.prg
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89FA.prg
+  + harbour/samples/MiniGUI/H_GIF89/resources/busy.gif
+  + harbour/samples/MiniGUI/H_GIF89/resources/h6viz.gif
+  + harbour/samples/MiniGUI/H_GIF89/resources/reverse-loading.gif
+  + harbour/samples/MiniGUI/H_GIF89/resources/spinner.gif
+ 
 2015-07-06 18:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * games/u_game15/source/u_Game1510.prg
  
