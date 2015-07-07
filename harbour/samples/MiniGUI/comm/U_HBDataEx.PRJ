@@ -13,17 +13,13 @@ Group HBDataEx
    End
    ProjectsCount=1
    Project HBDataEx
-      FoldersCount=2
+      FoldersCount=1
       Folder Fontes
          VSSPath=Fontes
          FilesCount=1
-         File \svn\totvs-advpl-naldodj\harbour\samples\MiniGUI\comm\U_HBDataEx.prg
+         File \GitHub\BlackTDN\harbour\samples\MiniGUI\comm\U_HBDataEx.prg
              Type=T
          End
-      End
-      Folder Definições
-         VSSPath=Definições
-         FilesCount=0
       End
    End
 End

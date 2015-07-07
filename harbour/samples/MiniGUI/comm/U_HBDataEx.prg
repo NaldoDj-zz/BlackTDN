@@ -1,7 +1,7 @@
 #INCLUDE "NDJ.CH"
 
-#DEFINE HBDataExCommPath    "D:\totvs\p10\ndj\pdata\comm"
-#DEFINE MULTDATA_TEST        50
+#DEFINE HBDataExCommPath    "D:\workspace\totvs\p11\data\comm\"
+#DEFINE MULTDATA_TEST       1500
 
 //------------------------------------------------------------------------------------------------
     /*/
@@ -13,6 +13,7 @@
     /*/
 //------------------------------------------------------------------------------------------------
 USER PROCEDURE HBDataEx()
+    Private oNDJLIB023:=U_DJLIB023()
     MsgRun("Aguarde....","Enviando Dados",{||HBSDataEx()})
     MsgRun("Aguarde....","Obtendo Dados" ,{||HBGDataEx()})
     IF MsgNoYes("Reenviar os Dados")
@@ -34,10 +35,10 @@ Static Procedure HBGDataEx()
     Local aData
     Local oData
 
-    Set StationName To "John_Station"
+    Set StationName To "BlackTDN_Target_Station"
     Set CommPath    To HBDataExCommPath
 
-    aData:=StaticCall(NDJLIB023,GetAllData)
+    aData:=oNDJLIB023:GetAllData()
     oData:=U_TVarInfoNew(aData,"HbGetData")
     oData:Save(.T.,.F.)
     oData:Show()
@@ -63,22 +64,22 @@ Static Procedure HBSDataEx()
 
     Local aData
     Local aMultData
-    Local cDest:="John_Station"
+    Local cDest:="BlackTDN_Target_Station"
 
     Local nI
     Local nF:=MULTDATA_TEST
     Local nB
     Local nT
 
-    Set StationName To "Robert_Station"
+    Set StationName To "BlackTDN_Source_Station"
     Set CommPath    To HBDataExCommPath
 
-    StaticCall(NDJLIB023,SendData,cDest,"Olá")
-    StaticCall(NDJLIB023,SendData,cDest,123456.789)
-    StaticCall(NDJLIB023,SendData,cDest,.T.)
-    StaticCall(NDJLIB023,SendData,cDest,.F.)
-    StaticCall(NDJLIB023,SendData,cDest,Date())
-    StaticCall(NDJLIB023,SendData,cDest,Dtos(Date()))
+    oNDJLIB023:SendData(cDest,"Comunicacao de Dados baseada na Original GetData de Roberto Lopez (Harbour/MiniGui)")
+    oNDJLIB023:SendData(cDest,123456.789)
+    oNDJLIB023:SendData(cDest,.T.)
+    oNDJLIB023:SendData(cDest,.F.)
+    oNDJLIB023:SendData(cDest,Date())
+    oNDJLIB023:SendData(cDest,Dtos(Date()))
 
     aData:={;
                      {"Naldo"    ,Date()    ,.T.                ,1500.51   },;
@@ -89,7 +90,7 @@ Static Procedure HBSDataEx()
                      {"C Regazzo",Date()-100,.T. .and. .NOT. .F.,1500.56/4 };
               }
 
-    StaticCall(NDJLIB023,SendData,cDest,aClone(aData))
+    oNDJLIB023:SendData(cDest,aClone(aData))
     
     aMultData:=Array(0)
     nT:=Len(aData)
@@ -104,21 +105,8 @@ Static Procedure HBSDataEx()
         Next nB    
     Next nI
 
-    StaticCall(NDJLIB023,SendData,cDest,aMultData)
+    oNDJLIB023:SendData(cDest,aMultData)
     aSize(aMultData,0)
     aMultData:=NIL
 
 Return
-
-Static Function __Dummy(lRecursa)
-    Local oException
-    TRYEXCEPTION
-        lRecursa:=.F.
-        IF !(lRecursa)
-            BREAK
-        EndIF
-        lRecursa:=__Dummy(.F.)
-        SYMBOL_UNUSED(__cCRLF)
-    CATCHEXCEPTION USING oException
-    ENDEXCEPTION
-Return(lRecursa)
