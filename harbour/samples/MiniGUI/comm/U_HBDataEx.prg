@@ -1,6 +1,6 @@
 #INCLUDE "NDJ.CH"
 
-#DEFINE HBDataExCommPath    "D:\workspace\totvs\p11\data\comm\"
+#DEFINE HBDataExCommPath    "\comm\"
 #DEFINE MULTDATA_TEST       1500
 
 //------------------------------------------------------------------------------------------------
@@ -14,6 +14,9 @@
 //------------------------------------------------------------------------------------------------
 USER PROCEDURE HBDataEx()
     Private oNDJLIB023:=U_DJLIB023()
+    IF .NOT.(lIsDir(HBDataExCommPath))
+        MakeDir(HBDataExCommPath)
+    EndIF
     MsgRun("Aguarde....","Enviando Dados",{||HBSDataEx()})
     MsgRun("Aguarde....","Obtendo Dados" ,{||HBGDataEx()})
     IF MsgNoYes("Reenviar os Dados")
@@ -64,6 +67,8 @@ Static Procedure HBSDataEx()
 
     Local aData
     Local aMultData
+    
+    Local cMsg:="Comunicacao de Dados baseada na Original GetData de Roberto Lopez (Harbour/MiniGui)"
     Local cDest:="BlackTDN_Target_Station"
 
     Local nI
@@ -74,7 +79,7 @@ Static Procedure HBSDataEx()
     Set StationName To "BlackTDN_Source_Station"
     Set CommPath    To HBDataExCommPath
 
-    oNDJLIB023:SendData(cDest,"Comunicacao de Dados baseada na Original GetData de Roberto Lopez (Harbour/MiniGui)")
+    oNDJLIB023:SendData(cDest,cMsg)
     oNDJLIB023:SendData(cDest,123456.789)
     oNDJLIB023:SendData(cDest,.T.)
     oNDJLIB023:SendData(cDest,.F.)
@@ -108,5 +113,7 @@ Static Procedure HBSDataEx()
     oNDJLIB023:SendData(cDest,aMultData)
     aSize(aMultData,0)
     aMultData:=NIL
+
+    oNDJLIB023:SendData(cDest,cMsg)
 
 Return

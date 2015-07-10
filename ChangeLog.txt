@@ -10,6 +10,10 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-07-10 13:19 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * harbour/samples/MiniGUI/comm/U_HBDataEx.prg
+  * templates/NDJLib/ndjlib023.prg
+ 
 2015-07-07 12:46 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * harbour/samples/MiniGUI/comm/U_HBDataEx.prg
   * harbour/samples/MiniGUI/comm/U_HBDataEx.PRJ
