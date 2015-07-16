@@ -2348,11 +2348,10 @@ STATIC FUNCTION StrToArray(cString,cConcat,bAddParser)
         while ((nATToken:=at(cToken,cString))>0)
             if (nATToken>1)
                 cStr:=allTrim(subStr(cString,1,(nATToken-1)))
-                cString:=subStr(cString,(nATToken+nRealSize))
             Else
                 cStr:=""
-                cString:=subStr(cString,(nATToken+nRealSize))
             endif
+            cString:=subStr(cString,(nATToken+nRealSize))
             if eval(bEvalToken,@cStr)
                 aAdd(aStrTokArr,cStr)
             endif
