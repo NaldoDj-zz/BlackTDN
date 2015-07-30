@@ -10,6 +10,10 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-07-29 21:13 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/NDJLib/ndjlib031.prg
+    ;multithreading baseada em tBigNThread.
+ 
 2015-07-16 08:41 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/NDJLib/ndjlib001.prg
  
