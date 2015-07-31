@@ -14,116 +14,122 @@ Group git_NDJLib.prj
    ProjectsCount=3
    Project NDJLib
       FoldersCount=2
-      Folder Lib
-         VSSPath=Fontes
-         FilesCount=34
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib001.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib002.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib003.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib004.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib005.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib006.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib007.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib008.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib009.prg
-             Type=T
-         End
+      Folder include
+         VSSPath=Definicoes
+         FilesCount=1
          File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.ch
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib011.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib012.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib013.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib014.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib015.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib016.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib017.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib018.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib019.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib020.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib021.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB022.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB023.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB024.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB025.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB026.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB027.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB028.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLIB029.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib030.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib031.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib032.prg
-             Type=T
-         End
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib033.prg
              Type=T
          End
       End
-      Folder include
-         VSSPath=Definições
-         FilesCount=1
-         File \GitHub\BlackTDN\templates\NDJLib\NDJLib010.ch
+      Folder Lib
+         VSSPath=Nova Pasta2
+         FilesCount=36
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib001.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib002.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib003.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib004.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib005.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib006.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib007.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib008.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib009.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib010.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib011.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib012.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib013.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib014.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib015.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib016.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib017.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib018.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib019.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib020.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib021.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib022.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib023.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib024.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib025.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib026.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib027.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib028.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib029.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib030.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib031.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib032.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib033.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib034.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib035.prg
+             Type=T
+         End
+         File \GitHub\BlackTDN\templates\NDJLib\ndjlib036.prg
              Type=T
          End
       End

@@ -1,11 +1,11 @@
 #include "totvs.ch"
 CLASS utThread from tBigNThread
-    METHOD New() CONSTRUCTOR
+    METHOD New(oProcess) CONSTRUCTOR
 END CLASS
 
-user function tThread()
-return(utThread():New())
+user function tThread(oProcess)
+return(utThread():New(oProcess))
 
-Method New() Class utThread
-    _Super:New()
+Method New(oProcess) Class utThread
+    _Super:New(oProcess)
 Return(self)
