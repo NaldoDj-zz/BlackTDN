@@ -99,6 +99,7 @@ ChangeLog.txt ident
 *.sq3     binary
 *.tif     binary
 *.wav     binary
+*.xlsx    binary
 *.nppcrypt binary
 
 # TOTEST:
