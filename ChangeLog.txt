@@ -10,6 +10,19 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-08-12 11:43 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * ChangeLog.txt
+  * templates/NDJLib/ndjlib031.prg
+  * templates/office/excel/rh/pensao/CalculoPensao.xlsx
+ 
+2015-08-03 14:27 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-001.jpg
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-002.jpg
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-003.jpg
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-004.jpg
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-005.jpg
+  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-006.jpg
+ 
 2015-08-03 11:09 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * .gitattributes
   + templates/office/excel/rh/pensao/CalculoPensao.xlsx
@@ -436,11 +449,3 @@
   * templates/NDJLib/ndjlib032.prg
   * templates/NDJLib/ndjlib033.prg
   * templates/NDJLib/ndjlib034.prg
-
-2015-08-03 14:27 UTC--300 NaldoDj (marinaldo.jesus gmail.com)
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-001.jpg
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-002.jpg
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-003.jpg
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-004.jpg
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-005.jpg
-  + templates/office/excel/rh/pensao/SC_Cosit_n_354-2014/SC_Cosit_n_354-2014-page-006.jpg

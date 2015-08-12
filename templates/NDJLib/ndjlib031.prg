@@ -12,12 +12,12 @@
           Read more: http://www.blacktdn.com.br/#ixzz3hSL9YIDx
 */
 class utThread from tBigNThread
-    METHOD New(oProcess) CONSTRUCTOR /*(/!\)*/
+    METHOD New(cMTXKey,oProcess) CONSTRUCTOR /*(/!\)*/
 end class
 
-user function tThread(oProcess)
-return(utThread():New(oProcess))
+user function tThread(cMTXKey,oProcess)
+return(utThread():New(cMTXKey,oProcess))
 
-method New(oProcess) Class utThread
-    _Super:New(oProcess)
+method New(cMTXKey,oProcess) Class utThread
+    _Super:New(cMTXKey,oProcess)
 return(self)
