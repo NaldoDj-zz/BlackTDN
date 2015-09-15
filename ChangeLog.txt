@@ -10,6 +10,9 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-09-15 18:00 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * templates/office/excel/rh/pensao/CalculoPensao.xlsx
+ 
 2015-09-15 16:50 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/office/excel/rh/pensao/CalculoPensao.xlsx
  
