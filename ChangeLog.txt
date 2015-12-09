@@ -10,6 +10,9 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-12-09 16:50 UTC--200 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  + templates/pt2Humanus/layout/LAYOUT-Sistema-Humanus.xlsx
+ 
 2015-12-09 16:47 UTC--200 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   + templates/ctb/ContabilizacaoTXT/lp/ct5txt.csv
   + templates/ctb/ContabilizacaoTXT/layout/LayoutCTB-TXT.txt
