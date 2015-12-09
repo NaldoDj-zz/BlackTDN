@@ -1,0 +1,8 @@
+100D42210600000101      O89      997      998                  38.88TESTE IMPORTACO TXT DEBITO            
+100C13110100000403      O89      997      998                  38.88TESTE IMPORTACO TXT CREDITO           
+100D42210600000101      O89      997      998                  48.88TESTE IMPORTACO TXT DEBITO            
+100C13110100000403      O89      997      998                  48.88TESTE IMPORTACO TXT CREDITO           
+100D42210600000101      O89      997      998                  58.88TESTE IMPORTACO TXT DEBITO            
+100C13110100000403      O89      997      998                  58.88TESTE IMPORTACO TXT CREDITO           
+100D42210600000101      O89      997      998                  68.88TESTE IMPORTACO TXT DEBITO            
+100C13110100000403      O89      997      998                  68.88TESTE IMPORTACO TXT CREDITO           

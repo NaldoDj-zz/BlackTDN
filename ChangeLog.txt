@@ -10,6 +10,12 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2015-12-09 16:47 UTC--200 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  + templates/ctb/ContabilizacaoTXT/lp/ct5txt.csv
+  + templates/ctb/ContabilizacaoTXT/layout/LayoutCTB-TXT.txt
+  + templates/ctb/ContabilizacaoTXT/sample/ctb-txt-ex-01.txt
+  + templates/pt2Humanus/src/pt2Humanus.prw
+ 
 2015-09-15 18:00 UTC--300 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * templates/office/excel/rh/pensao/CalculoPensao.xlsx
  
