@@ -10,6 +10,13 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-03-31 17:38 UTC--300 Naldo DJ (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * .gitattributes
+  + templates/ctb/ContabilizacaoCSV/lp/ct5_csv2ctb.dbf
+  + templates/ctb/ContabilizacaoCSV/lp/ct5_csv2ctb.fpt
+  + templates/ctb/ContabilizacaoCSV/src/uCSV2CTB.prw
+  + templates/ctb/ContabilizacaoCSV/sx1/sx1_csv2ctb.dbf
+ 
 2015-12-09 16:50 UTC--200 NaldoDj (marinaldo/dot/jesus/at/blacktdn/dot/com)
   + templates/pt2Humanus/layout/LAYOUT-Sistema-Humanus.xlsx
  

@@ -83,6 +83,7 @@ ChangeLog.txt ident
 *.doc     binary
 *.docx    binary
 *.exe     binary
+*.fpt     binary
 *.frm     binary
 *.gif     binary
 *.icns    binary
