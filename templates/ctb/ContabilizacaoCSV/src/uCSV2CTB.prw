@@ -180,6 +180,7 @@ static function CSVToCTB(oProcess,lError)
     Local nValor
     Local nHdlPrv
 
+    Local nRecNo:=0
     Local nRecNos
     
     Local oException
@@ -242,7 +243,8 @@ static function CSVToCTB(oProcess,lError)
             endif
 
             //"Processando: "
-            cRecNo:=StrZero(ft_fRecNo(),10)
+            nRecNo++
+            cRecNo:=StrZero(nRecNo,10)
             oProcess:IncRegua2(STR0021+"["+cRecNo+"/"+cRecNos+"]")
             if (oProcess:lEnd)
                 UserException(cCancel)
