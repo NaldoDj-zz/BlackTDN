@@ -3,111 +3,127 @@
 
 #ifdef SPANISH
         #define STR0000 "AVISO!!!"
-        #define STR0001 "Este Programa Irá efetuar a Contabilização CSV conforme parâmetros Selecionados"
-        #define STR0002 "Contabilização CSV"
-        #define STR0003 "Inicio da Contabilização"
-        #define STR0004 "Final da Contabilização"
+        #define STR0001 "Este Programa Ira efetuar a Contabilizacao CSV conforme parametros Selecionados"
+        #define STR0002 "Contabilizacao CSV"
+        #define STR0003 "Inicio da Contabilizacao"
+        #define STR0004 "Final da Contabilizacao"
         #define STR0005 "Arquivo: "
-        #define STR0006 "Não Encontrado"
-        #define STR0007 "Lote Contábil ("
+        #define STR0006 "Nao Encontrado"
+        #define STR0007 "Lote Contabil ("
         #define STR0008 ")"
-        #define STR0009 "Lançamento Padrão ("
-        #define STR0010 ") Inválido"
+        #define STR0009 "Lancamento Padrao ("
+        #define STR0010 ") Invalido"
         #define STR0011 "O arquivo Informado ("
-        #define STR0012 ") Nãoo possui conteúdo para Contabilização"
+        #define STR0012 ") Nao possui conteudo para Contabilizacao"
         #define STR0013 "Contabilizando. Aguarde..."
-        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizaçao. Retorne a Rotina para Visualizar o LOG de Processo"
+        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizacao. Retorne a Rotina para Visualizar o LOG de Processo"
         #define STR0015 "Contabilizando Arquivo: "
         #define STR0016 "Contabilizando no Lote: "
         #define STR0017 "Arquivo Contabilizado: "
         #define STR0018 "Para essa conta ("
-        #define STR0019 ")o Código de Centro de Custo é de Preenchimento Obrigatório"
-        #define STR0020 "Cancelado Pelo Usuário"
+        #define STR0019 ")o Codigo de Centro de Custo e de Preenchimento Obrigatorio"
+        #define STR0020 "Cancelado Pelo Usuario"
         #define STR0021 "Processando: "
 #else
     #ifdef ENGLISH
         #define STR0000 "AVISO!!!"
-        #define STR0001 "Este Programa Irá efetuar a Contabilização CSV conforme parâmetros Selecionados"
-        #define STR0002 "Contabilização CSV"
-        #define STR0003 "Inicio da Contabilização"
-        #define STR0004 "Final da Contabilização"
+        #define STR0001 "Este Programa Ira efetuar a Contabilizacao CSV conforme parametros Selecionados"
+        #define STR0002 "Contabilizacao CSV"
+        #define STR0003 "Inicio da Contabilizacao"
+        #define STR0004 "Final da Contabilizacao"
         #define STR0005 "Arquivo: "
-        #define STR0006 "Não Encontrado"
-        #define STR0007 "Lote Contábil ("
+        #define STR0006 "Nao Encontrado"
+        #define STR0007 "Lote Contabil ("
         #define STR0008 ")"
-        #define STR0009 "Lançamento Padrão ("
-        #define STR0010 ") Inválido"
+        #define STR0009 "Lancamento Padrao ("
+        #define STR0010 ") Invalido"
         #define STR0011 "O arquivo Informado ("
-        #define STR0012 ") Nãoo possui conteúdo para Contabilização"
+        #define STR0012 ") Nao possui conteudo para Contabilizacao"
         #define STR0013 "Contabilizando. Aguarde..."
-        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizaçao. Retorne a Rotina para Visualizar o LOG de Processo"
+        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizacao. Retorne a Rotina para Visualizar o LOG de Processo"
         #define STR0015 "Contabilizando Arquivo: "
         #define STR0016 "Contabilizando no Lote: "
         #define STR0017 "Arquivo Contabilizado: "
         #define STR0018 "Para essa conta ("
-        #define STR0019 ")o Código de Centro de Custo é de Preenchimento Obrigatório"
-        #define STR0020 "Cancelado Pelo Usuário"
+        #define STR0019 ")o Codigo de Centro de Custo e de Preenchimento Obrigatorio"
+        #define STR0020 "Cancelado Pelo Usuario"
         #define STR0021 "Processando: "
     #else
         #define STR0000 "AVISO!!!"
-        #define STR0001 "Este Programa Irá efetuar a Contabilização CSV conforme parâmetros Selecionados"
-        #define STR0002 "Contabilização CSV"
-        #define STR0003 "Inicio da Contabilização"
-        #define STR0004 "Final da Contabilização"
+        #define STR0001 "Este Programa Ira efetuar a Contabilizacao CSV conforme parametros Selecionados"
+        #define STR0002 "Contabilizacao CSV"
+        #define STR0003 "Inicio da Contabilizacao"
+        #define STR0004 "Final da Contabilizacao"
         #define STR0005 "Arquivo: "
-        #define STR0006 "Não Encontrado"
-        #define STR0007 "Lote Contábil ("
+        #define STR0006 "Nao Encontrado"
+        #define STR0007 "Lote Contabil ("
         #define STR0008 ")"
-        #define STR0009 "Lançamento Padrão ("
-        #define STR0010 ") Inválido"
+        #define STR0009 "Lancamento Padrao ("
+        #define STR0010 ") Invalido"
         #define STR0011 "O arquivo Informado ("
-        #define STR0012 ") Nãoo possui conteúdo para Contabilização"
+        #define STR0012 ") Nao possui conteudo para Contabilizacao"
         #define STR0013 "Contabilizando. Aguarde..."
-        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizaçao. Retorne a Rotina para Visualizar o LOG de Processo"
+        #define STR0014 "Ocorreram Erros Durante o Processo de Contabilizacao. Retorne a Rotina para Visualizar o LOG de Processo"
         #define STR0015 "Contabilizando Arquivo: "
         #define STR0016 "Contabilizando no Lote: "
         #define STR0017 "Arquivo Contabilizado: "
         #define STR0018 "Para essa conta ("
-        #define STR0019 ")o Código de Centro de Custo é de Preenchimento Obrigatório"
-        #define STR0020 "Cancelado Pelo Usuário"
+        #define STR0019 ")o Codigo de Centro de Custo e de Preenchimento Obrigatorio"
+        #define STR0020 "Cancelado Pelo Usuario"
         #define STR0021 "Processando: "
     #endif
 #endif
 
 user function CSV2CTB()
 
-    Local aArea:=GetArea()
+    Local aArea as Array
 
-    Local bProcess:={|oProcess|CSV2CTB(@oProcess,@cPerg,@lError)}
+    Local bProcess as Block
 
-    Local cPerg:="U_CSV2CTB"
-    Local cDescri:=OemToAnsi(STR0001)
+    Local cPerg as Character
+    Local cDescri as Character
 
-    Local dSvDataBase:=dDataBase
+    Local dSvDataBase as Date
 
-    Local lError:=.F.
+    Local lError as Logical
 
-    Local oProcess
+    Local oProcess as Object
 
-    Private aRotina:={;
-                                {"","",0,1},;
-                                {"","",0,2},;
-                                {"","",0,3},;
-                                {"","",0,4};
-                             }
+    Private aRotina as Array
 
-    Private Inclui:=.T.
+    Private Inclui as Logical
 
-    Private cProcess:=ProcName()
-    Private cCadastro:=OemtoAnsi(STR0002)
-    
-    Private aCSVLine:=Array(0)
+    Private cProcess as Character
+    Private cCadastro as Character
+
+    Private aCSVLine as Array
 
     if .not.(Type("cCancel")=="C")
-        Private cCancel:=STR0020
-    endif   
-    
-    oProcess:=tNewProcess():New(cProcess,cCadastro,bProcess,cDescri,cPerg,NIL,NIL,NIL,NIL,.T.,.F.)
+        Private cCancel as Character
+        cCancel:=STR0020
+    endif
+
+    aArea:=GetArea()
+    bProcess:={|oProcess|CSV2CTB(@oProcess,@cPerg,@lError)}
+    cPerg:="U_CSV2CTB"
+    cDescri:=OemToAnsi(STR0001)
+    dSvDataBase:=dDataBase
+
+    aRotina:={;
+                {"","",0,1},;
+                {"","",0,2},;
+                {"","",0,3},;
+                {"","",0,4};
+   }
+
+   Inclui:=.T.
+
+   cProcess:=ProcName()
+   cCadastro:=OemtoAnsi(STR0002)
+
+   aCSVLine:=Array(0)
+
+   oProcess:=tNewProcess():New(cProcess,cCadastro,bProcess,cDescri,cPerg,NIL,NIL,NIL,NIL,.T.,.F.)
 
     if (lError)
         MsgAlert(STR0014,STR0000)
@@ -121,8 +137,8 @@ return(NIL)
 
 static function CSV2CTB(oProcess,cPerg,lError)
 
-    Local oException
-    
+    Local oException as Object
+
     Pergunte(cPerg,.F.)
 
     oProcess:SaveLog(OemToAnsi(STR0003))
@@ -159,49 +175,62 @@ return(NIL)
 
 static function CSVToCTB(oProcess,lError)
 
-    Local cFile:=AllTrim(MV_PAR03)
-    Local cLote:=MV_PAR04
-    Local cPadrao:=MV_PAR06
-    Local cToken:=IF(MV_PAR07==1,",",IF(MV_PAR07==2,";","|"))
-    
-    Local cRecNo
-    Local cRecNos
-    Local cCSVLine
+    Local cFile as Character
+    Local cLote as Character
+    Local cPadrao as Character
+    Local cToken as Character
 
-    Local dSvDtBase:=dDataBase
+    Local cRecNo as Character
+    Local cRecNos as Character
+    Local cCSVLine as Character
 
-    Local lHead:=.F.
-    Local lPadrao:=.F.
-    Local lAglut:=(MV_PAR02==1)
-    Local lDigita:=(MV_PAR01==1)
-    Local lQuebra:=(MV_PAR05==1)
+    Local dSvDtBase as Date
 
-    Local nTotal
-    Local nValor
-    Local nHdlPrv
+    Local lHead as Logical
+    Local lPadrao as Logical
+    Local lAglut as Logical
+    Local lDigita as Logical
+    Local lQuebra as Logical
 
-    Local nRecNo:=0
-    Local nRecNos
-    
-    Local oException
+    Local nTotal as Numeric
+    Local nValor as Numeric
+    Local nHdlPrv as Numeric
+
+    Local nRecNo as Numeric
+    Local nRecNos  as Numeric
+
+    Local oException as Object
+
+    dSvDtBase:=dDataBase
 
     TRYEXCEPTION
+
+        cFile:=AllTrim(MV_PAR03)
+        cLote:=MV_PAR04
+        cPadrao:=MV_PAR06
+        cToken:=IF(MV_PAR07==1,",",IF(MV_PAR07==2,";","|"))
+
+        lHead:=.F.
+        lPadrao:=.F.
+        lAglut:=(MV_PAR02==1)
+        lDigita:=(MV_PAR01==1)
+        lQuebra:=(MV_PAR05==1)
 
         if Empty(cFile)
             UserException(GetHelp("NOFLEIMPOR")+" "+OemToAnsi(STR0005+cFile+" "+STR0006))
         endif
-        
+
         oProcess:SaveLog(STR0015+cLote)
 
         if Empty(cLote)
             UserException(GetHelp("NOCT210LOT")+" "+OemToAnsi(STR0007+cLote+STR0008))
         endif
-        
-        oProcess:SaveLog(STR0016+cLote) 
+
+        oProcess:SaveLog(STR0016+cLote)
 
         lPadrao:=VerPadrao(cPadrao)
         if .not.(lPadrao)
-            UserException(GetHelp("NOLANCPADRAO")+" "+OemToAnsi(STR0009+cPadrao+STR0010))  
+            UserException(GetHelp("NOLANCPADRAO")+" "+OemToAnsi(STR0009+cPadrao+STR0010))
         endif
 
         ft_fUse(cFile)
@@ -227,14 +256,14 @@ static function CSVToCTB(oProcess,lError)
             //Atualiza aCSVLine com a Linha Corrente
             cCSVLine:=ft_fReadLn()
             aCSVLine:=StrTokArr(cCSVLine,cToken)
-            
+
             if .not.(lHead)
                 lHead:=.T.
                 nHdlPrv:=HeadProva(cLote,cProcess,SubStr(cUsuario,7,6),@cFile)
             endif
-            
+
             nTotal+=DetProva(nHdlPrv,cPadrao,cProcess,cLote)
-            
+
             if (lQuebra)
                 //Cada linha contabilizada sera um documento
                 RodaProva(@nHdlPrv,@nTotal)
@@ -262,7 +291,7 @@ static function CSVToCTB(oProcess,lError)
         endif
 
         oProcess:SaveLog(STR0017+cFile)
-        
+
     CATCHEXCEPTION USING oException
 
         ft_fUse()
