@@ -5,6 +5,8 @@ BEGIN
                       AND SUBSTR(object_name,1,2)<>'T_'  
                       AND SUBSTR(object_name,1,3)<>'SX5'
                       AND SUBSTR(object_name,1,3)<>'SX2'
+                      AND SUBSTR(object_name,1,3)<>'CTO'
+                      AND SUBSTR(object_name,1,3)<>'SM2'
                       AND object_type IN
                             (
                                'TABLE'

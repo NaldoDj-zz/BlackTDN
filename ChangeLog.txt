@@ -10,6 +10,9 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-07-07 13:43 UTC--300 Naldo DJ (marinaldo/dot/jesus/at/blacktdn/dot/com)
+  * scripts/win/sql/oracle/11g/ora-drop-tables.sql
+ 
 2016-07-07 10:40 UTC--300 Naldo DJ (marinaldo/dot/jesus/at/blacktdn/dot/com)
   * scripts/win/sql/oracle/11g/ora-drop-tables.sql
  
