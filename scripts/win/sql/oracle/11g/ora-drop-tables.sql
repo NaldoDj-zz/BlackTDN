@@ -4,6 +4,7 @@ BEGIN
                     WHERE SUBSTR(object_name,4,3)='C40' 
                       AND SUBSTR(object_name,1,2)<>'T_'  
                       AND SUBSTR(object_name,1,3)<>'SX5'
+                      AND SUBSTR(object_name,1,3)<>'SX2'
                       AND object_type IN
                             (
                                'TABLE'
