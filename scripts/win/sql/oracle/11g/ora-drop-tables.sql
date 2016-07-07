@@ -7,6 +7,11 @@ BEGIN
                       AND SUBSTR(object_name,1,3)<>'SX2'
                       AND SUBSTR(object_name,1,3)<>'CTO'
                       AND SUBSTR(object_name,1,3)<>'SM2'
+                      AND (
+                                SUBSTR(object_name,1,2) IN ('SR','SP','SQ')
+                                OR
+                                SUBSTR(object_name,1,1)='R'
+                      )                                
                       AND object_type IN
                             (
                                'TABLE'
