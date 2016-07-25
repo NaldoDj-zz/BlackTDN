@@ -339,7 +339,9 @@ return
 
 static function queryView(cAlias,cYear)
 
+    local cAliasTmp
     local cLastQuery
+    local cLastQCount
 
     local nTRecNo:=0
 
@@ -738,12 +740,19 @@ static function queryView(cAlias,cYear)
     ENDSQL
 
     cLastQuery:=GetLastQuery()[2]
+    cLastQCount:=("%"+cLastQuery+"%")
+    
+    cAliasTmp:=GetNextAlias()
+    BEGINSQL ALIAS cAliasTmp
+        SELECT COUNT(*) AS NTRECNO
+          FROM (%exp:cLastQCount%)
+    ENDSQL
+
+    nTRecNo:=(cAliasTmp)->NTRECNO
+    (cAliasTmp)->(dbCloseArea())
 
     dbSelectArea(cAlias)
 
-    COUNT TO nTRecNo
-
-    (cAlias)->(dbGoTop())
 
 return(nTRecNo)
 
