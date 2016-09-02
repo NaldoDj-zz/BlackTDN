@@ -1594,7 +1594,7 @@ Static __nPublicV:=0
         Local bError:={||aRetMod:=&(cError)}
         Local nESP:=0
         
-        Local cError:="aRetModName"
+        Local cError:="IF(Type('aRetModName')=='A',aRetModName,NIL)"
     
         TRYEXCEPTION USING bError
             ValGroup("")
@@ -1646,7 +1646,7 @@ Static __nPublicV:=0
         Local bError:={||aRetMod:=&(cError)}
         Local nESP:=0
         
-        Local cError:="aRetModName"
+        Local cError:="IF(Type('aRetModName')=='A',aRetModName,NIL)"
         
         TRYEXCEPTION USING bError
             ValGroup("")
@@ -1698,7 +1698,7 @@ Static __nPublicV:=0
         Local bError:={||aRetMod:=&(cError)}
         Local nESP:=0
         
-        Local cError:="aRetModName"
+        Local cError:="IF(Type('aRetModName')=='A',aRetModName,NIL)"
         
         TRYEXCEPTION USING bError
             ValGroup("")
