@@ -10,6 +10,12 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-09-22 22:22 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
++ templates/ws/uWSCEP/uCEPWS.prg
++ templates/ws/uWSCEP/uWScCEP.prg
++ templates/ws/uWSCEP/uWSCEP.prg
+* templates/NDJLib/WS/WClients/wscubtdnTView.prg
+ 
 2016-09-01 21:50 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
   * templates/NDJLib/ndjlib004.prg
  
