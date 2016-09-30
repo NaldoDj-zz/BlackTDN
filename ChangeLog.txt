@@ -10,6 +10,11 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-09-30 00:21 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
+  + templates/NDJLib/ndjlib037.prg
+  * bin/commit.hb
+  * ChangeLog.txt
+ 
 2016-09-22 22:22 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
 + templates/ws/uWSCEP/uCEPWS.prg
 + templates/ws/uWSCEP/uWScCEP.prg
