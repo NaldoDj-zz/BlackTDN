@@ -18,10 +18,10 @@ Static oNDJLIB029:=u_DJLIB029()
 CLASS NDJLIB001
 
     DATA cClassName
-    
+
     METHOD NEW() CONSTRUCTOR
     METHOD ClassName()
-    
+
     METHOD IsCpoVar(cField)
     METHOD ForceReadVar(cField,uCnt,lTrigger,lCheckSX3)
     METHOD NDJMV2Mail(cGetMv,cToken)
@@ -84,6 +84,7 @@ CLASS NDJLIB001
     METHOD xGetIKValue(cAlias,cIKValue,cToken)
     METHOD xGetOrder(cAlias,cIKValue)
     METHOD GetToken(cTokenStr)
+    METHOD X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
 
 ENDCLASS
 
@@ -3297,35 +3298,35 @@ RETURN(cFile)
 METHOD dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField) CLASS NDJLIB001
 RETURN(dbQuery(@adbQuery,@cQuery,@cAlias,@lChgQuery,@aDBMSConn,@aSetField))
 STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
-  
+
     Local cNewAlias
-    
+
     Local cFWDBKey
     Local lFWDBKey
- 
+
     Local ldbQuery:=.F.
-  
+
     Local nAliasAT
-  
+
     Local lNewFWDB
     Local lFWDBACCESS:=.NOT.(Empty(aDBMSConn))
-    
+
     Local oFWDBAccess
-  
+
     DEFAULT adbQuery:=Array(0)
     DEFAULT cAlias:=GetNextAlias()
-    
+
     nAliasAT:=aScan(adbQuery,{|e|(e[1]==cAlias)})
     IF nAliasAT==0
         aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
         nAliasAT:=Len(adbQuery)
     EndIF
-    
+
     DEFAULT lChgQuery:=.F.
     IF lChgQuery
         cQuery:=ChangeQuery(cQuery)
     EndIF
-    
+
     IF lFWDBACCESS
         lNewFWDB:=.T.
         IF adbQuery[nAliasAT][2]
@@ -3350,7 +3351,7 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
             lFWDBKey:=.NOT.(SubStr(cFWDBKey,1,1)$aDBMSConn[1])
             oFWDBAccess:=FWDBAccess():New(IF(lFWDBKey,cFWDBKey,"")+aDBMSConn[1],aDBMSConn[2],aDBMSConn[3])
             oFWDBAccess:SetConsoleError(.T.)
-        EndIF    
+        EndIF
         IF oFWDBAccess:HasConnection().or.oFWDBAccess:OpenConnection()
             cNewAlias:=oFWDBAccess:NewAlias(cQuery,cAlias,aSetField)
             IF .NOT.(oFWDBAccess:HasError())
@@ -3409,7 +3410,7 @@ STATIC FUNCTION dbQueryClear(adbQuery)
             EndIF
         Next nAlias
         aSize(adbQuery,0)
-    EndIF    
+    EndIF
 RETURN(.T.)
 
 //--------------------------------------------------------------------------------------------------------------
@@ -3733,7 +3734,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
     EndIF
 
-RETURN(lRet)        
+RETURN(lRet)
 
 //-----------------------------------------------------------------------------------------------------
     /*
@@ -3766,7 +3767,7 @@ STATIC FUNCTION pt_Normalize(cVal,cField,cSide,cPDValue)
     DEFAULT cSide:="R"
     DEFAULT cPDValue:=" "
     cPadF+=cSide
-    TRY EXCEPTION        
+    TRY EXCEPTION
         cNRet:=&cPadF.(@cVal,@nTamP,@cPDValue)
     CATCH EXCEPTION
         cNRet:=cVal
@@ -3812,8 +3813,8 @@ STATIC FUNCTION xGetIKValue(cAlias,cIKValue,cToken)
             xValue:=cValue
         CATCH EXCEPTION
             xValue:=NIL
-        END EXCEPTION    
-    END EXCEPTION    
+        END EXCEPTION
+    END EXCEPTION
 RETURN(xValue)
 
 //-----------------------------------------------------------------------------------------------------
@@ -3829,25 +3830,25 @@ RETURN(xGetOrder(@cAlias,@cIKValue))
 STATIC FUNCTION xGetOrder(cAlias,cIKValue)
     Local nOrder
     //-----------------------------------------------------------------------------------------------------
-    //Obtem a Chave Unica para a Tabela em Questao           
+    //Obtem a Chave Unica para a Tabela em Questao
     DEFAULT cIKValue:=GetSx2Unico(@cAlias)
     //-----------------------------------------------------------------------------------------------------
-    //Verifica se Existe INDEX Correspondente...            
+    //Verifica se Existe INDEX Correspondente...
     nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
     //-----------------------------------------------------------------------------------------------------
-    //...Se nao encontrou....            
+    //...Se nao encontrou....
     IF (nOrder==0)
         //-----------------------------------------------------------------------------------------------------
-        //...Transforma X2_UNICO em uma Expressao Valida            
-        cIKValue:=X2Unique2Index(@cAlias)    
+        //...Transforma X2_UNICO em uma Expressao Valida
+        cIKValue:=X2Unique2Index(@cAlias)
         //-----------------------------------------------------------------------------------------------------
-        //Verifica se Existe INDEX Correspondente...            
+        //Verifica se Existe INDEX Correspondente...
         nOrder:=RetOrder(@cAlias,@cIKValue,.T.)
         //-----------------------------------------------------------------------------------------------------
-        //...Se nao encontrou....            
+        //...Se nao encontrou....
         IF (nOrder==0)
             //-----------------------------------------------------------------------------------------------------
-            //...Assume a Ordem 1             
+            //...Assume a Ordem 1
             nOrder:=1
             (cAlias)->(dbSetOrder(nOrder))
             //-----------------------------------------------------------------------------------------------------
@@ -3882,5 +3883,131 @@ Static Function GetToken(cTokenStr)
     Next nToken
     DEFAULT cToken:=""
 RETURN(cToken)
+
+//-----------------------------------------------------------------------------------------------------
+    /*
+        Programa:NDJLIB001.prg
+        Function:xGetOrder
+        Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
+        Data:16/03/2015
+    */
+//-----------------------------------------------------------------------------------------------------
+METHOD X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad) CLASS NDJLIB001
+RETURN(X3VldFields(@aFields,@aData,@bX3ErrorVld,@lVldEmpty,@lInitPad))
+Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
+
+    local aValid
+
+    local bError
+    local bErrorBlock
+
+    local cField
+    local cMemVar
+    local cX3Valid
+    local cX3VldUser
+    local cX3Relacao
+    local cValidField
+
+    local lX3Valid
+    local lX3Obrigat
+    local lX3Relacao
+    local lHelpInDark
+    local lX3ErrorVld
+
+    local lSetOwnerPrvt
+    local lForceSetOwner
+
+    local nField
+    local nFields
+
+    local xValue
+
+    DEFAULT lVldEmpty:=.T.
+    DEFAULT lX3Relacao:=.F.
+    DEFAULT lX3ErrorVld:=(ValType(bX3ErrorVld)=="B")
+
+    nFields:=Len(aFields)
+
+    for nField:=1 to nFields
+        cField:=aFields[nField]
+        cMemVar:=("M->"+cField)
+        lSetOwnerPrvt:=.not.(IsMemVar(@cMemVar))
+        lForceSetOwner:=(lInitPad:=(lSetOwnerPrvt))
+        xValue:=aData[nField]
+        SetMemVar(@cMemVar,@xValue,@lSetOwnerPrvt,@lForceSetOwner,NIL,@lInitPad)
+   next nField
+
+   aValid:=Array(nFields)
+   aFill(aValid,.T.)
+
+   bError:={|e|BREAK(e)}
+   bErrorBlock:=ErrorBlock(bError)
+    lHelpInDark:=HelpInDark(.T.)
+
+    lInitPad:=.F.
+    lSetOwnerPrvt:=.F.
+    lForceSetOwner:=.F.
+
+    for nField:=1 to nFields
+        cField:=aFields[nField]
+        cMemVar:=("M->"+cField)
+        __ReadVar:=cMemVar
+        if (lInitPad)
+            cX3Relacao:=Alltrim(GetSx3Cache(cField,"X3_RELACAO"))
+            lX3Relacao:=(.not.(Empty(cX3Relacao)).and.Empty(GetMemVar(@cMemVar)))
+        endif
+        if ((lInitPad).and.(lX3Relacao))
+            lX3Relacao:=.F.
+            begin sequence
+                xValue:=&(cX3Relacao)
+                lX3Relacao:=.T.
+            end sequence
+            if (lX3Relacao)
+                aData[nField]:=xValue
+                SetMemVar(@cMemVar,@xValue,@lSetOwnerPrvt,@lForceSetOwner,NIL,@lInitPad)
+            endif
+        endif
+        lX3Obrigat:=X3Obrigat(cField)
+        if .not.(lX3Obrigat)
+            if .not.(lVldEmpty)
+                if Empty(GetMemVar(@cMemVar))
+                    loop
+                endif
+            endif
+        endif
+        cX3Valid:=AllTrim(GetSx3Cache(cField,"X3_VALID"))
+        cX3VldUser:=Alltrim(GetSx3Cache(cField,"X3_VLDUSER"))
+        cValidField:="AllWaysTrue()"
+        if Empty(cX3Valid)
+            if .not.(Empty(cX3VldUser))
+                cValidField:=cX3VldUser
+            endif
+        else
+            if Empty(cX3VldUser)
+                cValidField:=cX3Valid
+            else
+                cValidField:=(cX3VldUser+".and."+cX3Valid)
+            endif
+        endif
+        lX3Valid:=.T.
+        begin sequence
+            lX3Valid:=&(cValidField)
+        end sequence
+        DEFAULT lX3Valid:=.F.
+        if .not.(ValType(lX3Valid)=="L")
+            lX3Valid:=.F.
+        endif
+        aValid[nField]:=lX3Valid
+        if ((lX3ErrorVld).and.(.not.(lX3Valid)))
+            Eval(@bX3ErrorVld,@aFields,@aData,@lX3Valid,@cField,@aData[nField],@cValidField,@lX3Obrigat)
+        endif
+    next nField
+
+    lX3Valid:=(aScan(aValid,.F.)==0)
+
+    ErrorBlock(bErrorBlock)
+    HelpInDark(@lHelpInDark)
+
+Return(lX3Valid)
 
 #include "tryexception.ch"

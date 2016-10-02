@@ -10,6 +10,11 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-10-02 17:12 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
+  + templates/NDJLib/ndjlib038.prg
+  * templates/NDJLib/ndjlib004.prg
+  * templates/NDJLib/ndjlib001.prg
+ 
 2016-09-30 00:21 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
   + templates/NDJLib/ndjlib037.prg
   * bin/commit.hb
