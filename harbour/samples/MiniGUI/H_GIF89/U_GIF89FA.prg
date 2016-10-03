@@ -1,7 +1,7 @@
 #include "totvs.ch"
 
 #DEFINE ANIMATE_DELAY    5
-#DEFINE ANIMATE_COUNT    3
+#DEFINE ANIMATE_COUNT    1
 #DEFINE ANIMATE_SLEEP    100
 
 //------------------------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ User Function GIF89ExFA()
 
     Private oMainWnd
     Private ohb_GIF89:=u_hbGIF89()
-    
+
     IF lIsDir("C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\")
         cTempPath:="C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\"
     Else
@@ -52,8 +52,8 @@ Static Function GIF89ExFA(cGIFFile)
 
     Local aPictInfo:={}
     Local aPictures:={}
-    Local aImageInfo:={}    
-    
+    Local aImageInfo:={}
+
     Local cExt
     Local cDir
     Local cFile
@@ -69,7 +69,7 @@ Static Function GIF89ExFA(cGIFFile)
     Local oTimer
 
     SplitPath(cGIFFile,@cDriver,@cDir,@cFile,@cExt)
-    
+
     IF Empty(cDriver)
         cFile:=(GetTempPath()+cFile+cExt)
         IF !(__CopyFile(cGIFFile,cFile))
@@ -90,7 +90,7 @@ Static Function GIF89ExFA(cGIFFile)
         oPanel:Align:=CONTROL_ALIGN_ALLCLIENT
 
         @ 0,0 BITMAP oGIF FILE cGIFFile OF oPanel SIZE aPictInfo[3],aPictInfo[2] NOBORDER WHEN .F. PIXEL
-        
+
         oGIF:lAutoSize:=.T.
         oGIF:lStretch:=.T.
         oGIF:Align:=CONTROL_ALIGN_NONE

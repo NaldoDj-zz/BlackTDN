@@ -10,6 +10,12 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-10-02 21:03 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89Ex.prg
+  * harbour/samples/MiniGUI/H_GIF89/U_GIF89FA.prg
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib038.prg
+ 
 2016-10-02 17:12 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
   + templates/NDJLib/ndjlib038.prg
   * templates/NDJLib/ndjlib004.prg

@@ -115,7 +115,7 @@ STATIC FUNCTION IsCpoVar(cField)
 
     Local cVar
 
-    IF .NOT.(Type("__READVAR")=="C")
+    IF (.NOT.(Type("__READVAR")=="C"))
         Private __READVAR:=""
     EndIF
 
@@ -265,12 +265,12 @@ STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
             Private aHeader:=aLocalHeader
         Else
             lIsInGetDados:=(Type("aHeader")=="A")
-            IF .NOT.(lIsInGetDados)
+            IF (.NOT.(lIsInGetDados))
                 BREAK
             EndIF
         EndIF
         lIsInGetDados:=(Len(aHeader)>0)
-        IF .NOT.(lIsInGetDados)
+        IF (.NOT.(lIsInGetDados))
             BREAK
         EndIF
 
@@ -279,18 +279,18 @@ STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
             lIsInGetDados:=.T.
         Else
             lIsInGetDados:=(Type("aCols")=="A")
-            IF .NOT.(lIsInGetDados)
+            IF (.NOT.(lIsInGetDados))
                 BREAK
             EndIF
         EndIF
         lIsInGetDados:=(Len(aCols)>0)
-        IF .NOT.(lIsInGetDados)
+        IF (.NOT.(lIsInGetDados))
             BREAK
         EndIF
 
-        IF .NOT.(lLocalCols)
+        IF (.NOT.(lLocalCols))
             lIsInGetDados:=(Type("N")=="N")
-            IF .NOT.(lIsInGetDados)
+            IF (.NOT.(lIsInGetDados))
                 BREAK
             EndIF
         ElseIF (ValType(nLocalN)=="N")
@@ -298,12 +298,12 @@ STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
         EndIF
 
         lIsInGetDados:=((Type("N")=="N").and.(n>=1).and.(n<=Len(aCols)))
-        IF .NOT.(lIsInGetDados)
+        IF (.NOT.(lIsInGetDados))
             BREAK
         EndIF
 
         lIsInGetDados:=(Len(aCols[1])>=Len(aHeader))
-        IF .NOT.(lIsInGetDados)
+        IF (.NOT.(lIsInGetDados))
             BREAK
         EndIF
 
@@ -314,7 +314,7 @@ STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
         EndIF
 
         lIsInGetDados:=(ValType(aFields)=="A")
-        IF .NOT.(lIsInGetDados)
+        IF (.NOT.(lIsInGetDados))
             BREAK
         EndIF
 
@@ -323,7 +323,7 @@ STATIC FUNCTION IsInGetDados(uField,aLocalHeader,aLocalCols,nLocalN)
             cField:=aFields[nField]
             nFieldPos:=GdFieldPos(cField)
             lIsInGetDados:=((nFieldPos>0).and.(Len(aCols[n])>=nFieldPos))
-            IF .NOT.(lIsInGetDados)
+            IF (.NOT.(lIsInGetDados))
                 BREAK
             EndIF
         Next nField
@@ -367,7 +367,7 @@ STATIC FUNCTION NDJFromTo(cFromAlias,cToAlias,aFromTo)
     BEGIN SEQUENCE
 
         lChangeKey:=.NOT.(__cLastKey==cEmpAnt)
-        IF .NOT.(lChangeKey)
+        IF (.NOT.(lChangeKey))
             nPosAlias:=aScan(__aFromTo,{|aFromTo|(aFromTo[1]==cKeyAlias)})
         EndIF
 
@@ -376,7 +376,7 @@ STATIC FUNCTION NDJFromTo(cFromAlias,cToAlias,aFromTo)
                 .or.;
                 (lChangeKey);
                 .or.;
-                .NOT.(nPosAlias>0);
+                (.NOT.(nPosAlias>0));
            )
 
             IF (lChangeKey)
@@ -396,7 +396,7 @@ STATIC FUNCTION NDJFromTo(cFromAlias,cToAlias,aFromTo)
 
         EndIF
 
-        IF .NOT.(lIsLocked)
+        IF (.NOT.(lIsLocked))
             lLock:=(cToAlias)->(RecLock(cToAlias,.F.))
         Else
             lLock:=lIsLocked
@@ -415,7 +415,7 @@ STATIC FUNCTION NDJFromTo(cFromAlias,cToAlias,aFromTo)
                     EndIF
                 EndIF
             Next nField
-            IF .NOT.(lIsLocked)
+            IF (.NOT.(lIsLocked))
                 (cToAlias)->(MsUnLock())
             EndIF
         EndIF
@@ -502,7 +502,7 @@ STATIC FUNCTION dbZap(cAlias,lShowHelp,lQuitProgram,lChkFile,lMa280Flock,lPack,c
         EndIF
         IF (;
                 (lSX2);
-              .and.;
+                .and.;
                 (lChkFile);
            )
             ChkFile(cAlias,.F.)
@@ -543,7 +543,7 @@ STATIC FUNCTION __dbDelete(cAlias,lPack,cRddName,cRetSqlName)
         DEFAULT lPack:=.F.
         DEFAULT cRddName:=(cAlias)->(RddName())
 
-        IF .NOT.(cRddName=="TOPCONN")
+        IF (.NOT.(cRddName=="TOPCONN"))
 
             IF (lPack)
                 (cAlias)->(__dbPack())
@@ -737,12 +737,12 @@ STATIC FUNCTION XALTHRS(cAlias,cField,cXAltHrs,lChkChange)
 
         DEFAULT cAlias:=AliasCpo(cField)
 
-        IF .NOT.(cAlias==PosAlias("SX2",cAlias,NIL,"X2_CHAVE",1,.F.))
+        IF (.NOT.(cAlias==PosAlias("SX2",cAlias,NIL,"X2_CHAVE",1,.F.)))
             BREAK
         EndIF
 
         nFieldPos:=(cAlias)->(FieldPos(cField))
-        IF .NOT.(nFieldPos>0)
+        IF (.NOT.(nFieldPos>0))
             BREAK
         EndIF
 
@@ -816,7 +816,7 @@ STATIC FUNCTION SetStackVar()
     Local nReadVar:=0
 
     nReadVar:=aScan(__aReadVar,{|aElem|aElem[1]==cReadVar})
-    IF .NOT.(nReadVar>0)
+    IF (.NOT.(nReadVar>0))
         aAdd(__aReadVar,Array(2))
         nReadVar:=Len(__aReadVar)
         __aReadVar[nReadVar][1]:=cReadVar
@@ -918,13 +918,13 @@ STATIC FUNCTION __FieldPut(cAlias,uField,uCntPut,lForceTable)
 
         DEFAULT lForceTable:=.F.
 
-        lForceTable:=(lForceTable .or.lFieldN)
+        lForceTable:=(lForceTable.or.lFieldN)
 
-        IF .NOT.(lFieldN)
+        IF (.NOT.(lFieldN))
             cField:=uField
         EndIF
 
-        IF .NOT.(lForceTable)
+        IF (.NOT.(lForceTable))
 
             IF IsInGetDados(cField)
                 GdFieldPut(cField,uCntPut)
@@ -944,7 +944,7 @@ STATIC FUNCTION __FieldPut(cAlias,uField,uCntPut,lForceTable)
             nFieldPos:=(cAlias)->(FieldPos(cField))
         EndIF
 
-        IF .NOT.(nFieldPos>0)
+        IF (.NOT.(nFieldPos>0))
             BREAK
         EndIF
 
@@ -954,15 +954,15 @@ STATIC FUNCTION __FieldPut(cAlias,uField,uCntPut,lForceTable)
             BREAK
         EndIF
 
-        IF .NOT.(lLock)
+        IF (.NOT.(lLock))
             lLock:=(cAlias)->(RecLock(cAlias,.F.))
-            IF .NOT.(lLock)
+            IF (.NOT.(lLock))
                 BREAK
             EndIF
         EndIF
 
         (cAlias)->(FieldPut(nFieldPos,uCntPut))
-        IF .NOT.(lIsLocked)
+        IF (.NOT.(lIsLocked))
             (cAlias)->(MsUnLock())
         EndIF
 
@@ -1003,12 +1003,12 @@ STATIC FUNCTION __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
 
         DEFAULT lForceTable:=.F.
 
-        IF .NOT.(lForceTable)
+        IF (.NOT.(lForceTable))
 
             IF IsInGetDados(cField)
                 DEFAULT lGdChkCpoVar:=.T.
                 IF (lGdChkCpoVar)
-                    IF .NOT.(IsCpoVar(cField))
+                    IF (.NOT.(IsCpoVar(cField)))
                         uCntGet:=GdFieldGet(cField)
                         BREAK
                     EndIF
@@ -1026,7 +1026,7 @@ STATIC FUNCTION __FieldGet(cAlias,cField,lForceTable,lGdChkCpoVar)
         EndIF
 
         nFieldPos:=(cAlias)->(FieldPos(cField))
-        IF .NOT.(nFieldPos>0)
+        IF (.NOT.(nFieldPos>0))
             BREAK
         EndIF
 
@@ -1052,38 +1052,38 @@ RETURN(uCntGet)
     /*/
 //--------------------------------------------------------------------------------------------------------------
 METHOD DlgMemoEdit(;
-                                bAction     ,;//01 ->Acao a ser executada se tudo Ok
-                                cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
-                                aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                oMemoEdit   ,;//05 ->Objeto MemoEdit
-                                cMemoEdit   ,;//06 ->Conteudo do Campo Memo
-                                oFont       ,;//07 ->Objeto Font
-                                aAdvSize    ,;//08 ->Coordenadas do Dialogo
-                                bAValid      ;//09 ->Pre-Validar para execucao de bAction
+                                bAction,;//01 ->Acao a ser executada se tudo Ok
+                                cTitle,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                lModify,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                aButtons,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                oMemoEdit,;//05 ->Objeto MemoEdit
+                                cMemoEdit,;//06 ->Conteudo do Campo Memo
+                                oFont,;//07 ->Objeto Font
+                                aAdvSize,;//08 ->Coordenadas do Dialogo
+                                bAValid;//09 ->Pre-Validar para execucao de bAction
                   )  CLASS NDJLIB001
 RETURN(DlgMemoEdit(;
-                    @bAction     ,;//01 ->Acao a ser executada se tudo Ok
-                    @cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                    @lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
-                    @aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                    @oMemoEdit   ,;//05 ->Objeto MemoEdit
-                    @cMemoEdit   ,;//06 ->Conteudo do Campo Memo
-                    @oFont       ,;//07 ->Objeto Font
-                    @aAdvSize    ,;//08 ->Coordenadas do Dialogo
-                    @bAValid      ;//09 ->Pre-Validar para execucao de bAction
+                    @bAction,;//01 ->Acao a ser executada se tudo Ok
+                    @cTitle,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @lModify,;//03 ->Se podera modificar o Conteudo do campo Memo
+                    @aButtons,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                    @oMemoEdit,;//05 ->Objeto MemoEdit
+                    @cMemoEdit,;//06 ->Conteudo do Campo Memo
+                    @oFont,;//07 ->Objeto Font
+                    @aAdvSize,;//08 ->Coordenadas do Dialogo
+                    @bAValid;//09 ->Pre-Validar para execucao de bAction
                   );
 )
 STATIC FUNCTION DlgMemoEdit(;
-                                bAction     ,;//01 ->Acao a ser executada se tudo Ok
-                                cTitle      ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                lModify     ,;//03 ->Se podera modificar o Conteudo do campo Memo
-                                aButtons    ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                oMemoEdit   ,;//05 ->Objeto MemoEdit
-                                cMemoEdit   ,;//06 ->Conteudo do Campo Memo
-                                oFont       ,;//07 ->Objeto Font
-                                aAdvSize    ,;//08 ->Coordenadas do Dialogo
-                                bAValid      ;//09 ->Pre-Validar para execucao de bAction
+                                bAction,;//01 ->Acao a ser executada se tudo Ok
+                                cTitle,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                lModify,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                aButtons,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                oMemoEdit,;//05 ->Objeto MemoEdit
+                                cMemoEdit,;//06 ->Conteudo do Campo Memo
+                                oFont,;//07 ->Objeto Font
+                                aAdvSize,;//08 ->Coordenadas do Dialogo
+                                bAValid;//09 ->Pre-Validar para execucao de bAction
                            )
 Local aSvKeys
 Local aInfoAdvSize
@@ -1118,17 +1118,17 @@ Begin Sequence
     bSet15:={||GetKeys(),lConfOk:=.T.,oDlg:End()}
     bSet24:={||GetKeys(),lConfOk:=.F.,oDlg:End()}
 
-    IF .NOT.(ValType(oFont)=="O")
+    IF (.NOT.(ValType(oFont)=="O"))
         DEFINE FONT oFont NAME "Arial" SIZE 0,-11
     EndIF
-    IF .NOT.(Type("cCadastro")=="C")
+    IF (.NOT.(Type("cCadastro")=="C"))
         Private cCadastro:=""
     EndIF
 
     DEFAULT cTitle:=""
-    IF .NOT.Empty(cCadastro)
+    IF (.NOT.Empty(cCadastro))
         cTitCompl:=cCadastro
-        IF .NOT.Empty(cTitle)
+        IF (.NOT.Empty(cTitle))
             cTitCompl+="-"
             cTitCompl+=cTitle
         EndIF
@@ -1156,19 +1156,19 @@ Begin Sequence
                 DEFAULT bAction:={||.T.}
                 Eval(bAction)
             EndIF
-        ElseIF .NOT.(lConfOk) //<CTRL-X>
-            IF .NOT.(cSvMemoEdit==cMemoEdit)
-                IF .NOT.(MsgNoYes(OemToAnsi("Abandonar as Alteracoes?"),cTitCompl))
+        ElseIF (.NOT.(lConfOk)) //<CTRL-X>
+            IF (.NOT.(cSvMemoEdit==cMemoEdit))
+                IF (.NOT.(MsgNoYes(OemToAnsi("Abandonar as Alteracoes?"),cTitCompl)))
                     DlgMemoEdit(;
-                                    @bAction    ,;//01 ->Acao a ser executada se tudo Ok
-                                    @cTitle     ,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                    @lModify    ,;//03 ->Se podera modificar o Conteudo do campo Memo
-                                    @aButtons   ,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
-                                    @oMemoEdit  ,;//05 ->Objeto MemoEdit
-                                    @cMemoEdit  ,;//06 ->Conteudo do Campo Memo
-                                    @oFont      ,;//07 ->Objeto Font
-                                    @aAdvSize   ,;//08 ->Coordenadas do Dialogo
-                                    @bAValid     ;//09 ->Pre-Validar para execucao de bAction
+                                    @bAction,;//01 ->Acao a ser executada se tudo Ok
+                                    @cTitle,;//02 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                    @lModify,;//03 ->Se podera modificar o Conteudo do campo Memo
+                                    @aButtons,;//04 ->Array com Botoes para Opcao de Edicao dos Campos Memo
+                                    @oMemoEdit,;//05 ->Objeto MemoEdit
+                                    @cMemoEdit,;//06 ->Conteudo do Campo Memo
+                                    @oFont,;//07 ->Objeto Font
+                                    @aAdvSize,;//08 ->Coordenadas do Dialogo
+                                    @bAValid;//09 ->Pre-Validar para execucao de bAction
                                )
                 EndIF
             EndIF
@@ -1212,7 +1212,7 @@ STATIC FUNCTION GetAlias4Fields(cAlias,aFields)
 
     TRYEXCEPTION
 
-        IF .NOT.(Empty(cAlias))
+        IF (.NOT.(Empty(cAlias)))
             nArea:=Select(cAlias)
             IF (nArea>0)
                 nAreas:=nArea
@@ -1293,15 +1293,15 @@ STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
     TRYEXCEPTION
 
         cVar:=Upper(AllTrim(cVar))
-        IF .NOT.("M->"==SubStr(cVar,1,3))
+        IF (.NOT.("M->"==SubStr(cVar,1,3)))
             cVarAux:=cVar
             cVar:=("M->"+cVar)
         Else
             cVarAux:=SubStr(cVar,4)
         EndIF
 
-        IF .NOT.(cVar==Upper("__Undefined__"))
-            IF .NOT.(GetSx3Cache(cVarAux,"X3_CAMPO")==NIL)
+        IF (.NOT.(cVar==Upper("__Undefined__")))
+            IF (.NOT.(GetSx3Cache(cVarAux,"X3_CAMPO")==NIL))
                 DEFAULT uSetValue:=GetValType(GetSx3Cache(@cVarAux,"X3_TIPO"),GetSx3Cache(@cVarAux,"X3_TAMANHO"))
             EndIF
         EndIF
@@ -1317,7 +1317,7 @@ STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
                 IF (lPublic)
                     StaticCall(NDJLIB004,SetPublic,@cVarAux,@uSetValue,NIL,NIL,@lForceSetOwner,NIL,@cStack)
                 Else
-                    IF .NOT.(Empty(cStack))
+                    IF (.NOT.(Empty(cStack)))
                         _SetNamedPrvt(cVarAux,@uSetValue,@cStack)
                     Else
                         _SetOwnerPrvt(@cVarAux,@uSetValue)
@@ -1360,16 +1360,16 @@ STATIC FUNCTION GetMemVar(cVar,lInitPad,cLado)
         DEFAULT lInitPad:=.F.
 
         cVar:=Upper(AllTrim(cVar))
-        IF .NOT.("M->"==SubStr(cVar,1,3))
+        IF (.NOT.("M->"==SubStr(cVar,1,3)))
             cVar:=("M->"+cVar)
         EndIF
 
         IF (IsMemVar(@cVar))
             uRetValue:=&(cVar)
         Else
-            IF .NOT.(cVar==Upper("__Undefined__"))
+            IF (.NOT.(cVar==Upper("__Undefined__")))
                 cVarAux:=SubStr(cVar,4)
-                IF .NOT.(GetSx3Cache(@cVarAux,"X3_CAMPO")==NIL)
+                IF (.NOT.(GetSx3Cache(@cVarAux,"X3_CAMPO")==NIL))
                     uRetValue:=CriaVar(@cVarAux,@lInitPad,@cLado,.F.)
                 EndIF
             EndIF
@@ -1405,7 +1405,7 @@ STATIC FUNCTION IsMemVar(cVar)
         DEFAULT cVar:="__Undefined__"
 
         cVar:=Upper(AllTrim(cVar))
-        IF .NOT.("M->"==SubStr(cVar,1,3))
+        IF (.NOT.("M->"==SubStr(cVar,1,3)))
             cVar:=("M->"+cVar)
         EndIF
 
@@ -1481,7 +1481,7 @@ STATIC FUNCTION QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
     cQuery+="MAX("+cField+")MAXCOD "
     cQuery+="FROM "
     cQuery+=RetSqlName(cAlias)+" "+cAlias+" "
-     IF .NOT.(lForceWhere)
+     IF (.NOT.(lForceWhere))
         DEFAULT lChkFilial:=.T.
         IF (lChkFilial)
             cPrefixoCpo:=PrefixoCpo(cAlias)
@@ -1496,12 +1496,12 @@ STATIC FUNCTION QryMaxCod(cAlias,cField,cWhere,lDeleted,lForceWhere,lChkFilial)
             EndIF
             cQuery+=cAlias+".D_E_L_E_T_<>'*'"
         EndIF
-        IF .NOT.(Empty(cWhere))
+        IF (.NOT.(Empty(cWhere)))
             cQuery+=" AND "
             cQuery+=cWhere
         EndIF
     Else
-        IF .NOT.(Empty(cWhere))
+        IF (.NOT.(Empty(cWhere)))
             cQuery+=cWhere
         EndIF
     EndIF
@@ -1599,11 +1599,11 @@ STATIC FUNCTION ChgFilial()
 
             TRYEXCEPTION
 
-                IF .NOT.(lCompart)
+                IF (.NOT.(lCompart))
                     BREAK
                 EndIF
 
-                IF .NOT.(ChkFile(cAlias))
+                IF (.NOT.(ChkFile(cAlias)))
                     BREAK
                 EndIF
 
@@ -1613,7 +1613,7 @@ STATIC FUNCTION ChgFilial()
 
                 lTopConn:=((cAlias)->(RddName())=="TOPCONN")
 
-                IF .NOT.(lTopConn)
+                IF (.NOT.(lTopConn))
                     BREAK
                 EndIF
 
@@ -1631,7 +1631,7 @@ STATIC FUNCTION ChgFilial()
                 cQuery+="        "+cTable+__cCRLF
                 cQuery+="SET"+__cCRLF
                 cQuery+="        "+cFieldFil+"='  '"+__cCRLF
-                cQuery+="WHERE"                            +__cCRLF
+                cQuery+="WHERE"+__cCRLF
                 cQuery+="        "+cFieldFil+"<>'  '"+__cCRLF
 
                 cQuery:=ClearQuery(cQuery)
@@ -1702,7 +1702,7 @@ STATIC FUNCTION RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
         DEFAULT lDecZero:=.F.
         IF (;
                 (uDec==0);
-              .and.;
+                .and.;
                 .NOT.(lDecZero);
         )
             uDec:=NIL
@@ -1801,11 +1801,11 @@ STATIC FUNCTION GetTopSource(cTopServer,nTopPort,cTopAlias,cTitle)
         oGroup:oFont:=oFont
 
         @ (aObjSize[1,1])+20,(aObjSize[1,2]+05) SAY "TopServer:" PIXEL
-        @ (aObjSize[1,1])+15,(aObjSize[1,2]+35) MSGET oTopServer VAR cTopServer SIZE 150,10 OF oDlg PIXEL FONT oFont VALID .NOT.(Empty(cTopServer))
+        @ (aObjSize[1,1])+15,(aObjSize[1,2]+35) MSGET oTopServer VAR cTopServer SIZE 150,10 OF oDlg PIXEL FONT oFont VALID (.NOT.(Empty(cTopServer)))
         @ (aObjSize[1,1])+40,(aObjSize[1,2]+05) SAY "TopAlias:"  PIXEL
-        @ (aObjSize[1,1])+35,(aObjSize[1,2]+35) MSGET oTopAlias  VAR cTopAlias  SIZE 150,10 OF oDlg PIXEL FONT oFont VALID .NOT.(Empty(cTopAlias))
+        @ (aObjSize[1,1])+35,(aObjSize[1,2]+35) MSGET oTopAlias  VAR cTopAlias  SIZE 150,10 OF oDlg PIXEL FONT oFont VALID (.NOT.(Empty(cTopAlias)))
         @ (aObjSize[1,1])+60,(aObjSize[1,2]+05) SAY "TopPort:"   PIXEL
-        @ (aObjSize[1,1])+55,(aObjSize[1,2]+35) MSGET oTopPort   VAR nTopPort   SIZE 150,10 OF oDlg PIXEL FONT oFont VALID .NOT.(Empty(nTopPort))
+        @ (aObjSize[1,1])+55,(aObjSize[1,2]+35) MSGET oTopPort   VAR nTopPort   SIZE 150,10 OF oDlg PIXEL FONT oFont VALID (.NOT.(Empty(nTopPort)))
 
     ACTIVATE MSDIALOG oDlg CENTERED ON INIT Eval(bDialogInit)
 
@@ -1895,14 +1895,14 @@ STATIC FUNCTION DirMake(cMakeDir,nTimes,nSleep)
     Local lMakeOk
     Local nMakeOk
 
-    IF .NOT.(lMakeOk:=lIsDir(cMakeDir))
+    IF (.NOT.(lMakeOk:=lIsDir(cMakeDir)))
         MakeDir(cMakeDir)
         nMakeOk:=0
         DEFAULT nTimes:=3
         DEFAULT nSleep:=100
         While (;
                 .NOT.(lMakeOk:=lIsDir(cMakeDir));
-              .and.;
+                .and.;
                 (++nMakeOk<=nTimes);
         )
             Sleep(nSleep)
@@ -2048,14 +2048,14 @@ STATIC FUNCTION BrwGetSLeg(cAlias,bGetColors,bGetLegend,cResName,lArrColors)
                 IF (lFilter)
                     cBmpColor:=Upper(AllTrim(__aColors_[nLoop][2]))
                     nPosBmp:=aScan(__aLegend_,{|aBmpLeg|Upper(AllTrim(aBmpLeg[1]))==cBmpColor})
-                    IF .NOT.(nPosBmp==0)
+                    IF (.NOT.(nPosBmp==0))
                         uC1Ret:=__aColors_[nLoop][1] //Obtem a Condicao de Filtro
                     EndIF
                 Else
                     IF (cAlias)->(&(__aColors_[nLoop][1]))  //Analisa a Condicao
                         cBmpColor:=Upper(AllTrim(__aColors_[nLoop][2]))
                         nPosBmp:=aScan(__aLegend_,{|aBmpLeg|Upper(AllTrim(aBmpLeg[1]))==cBmpColor})
-                        IF .NOT.(nPosBmp==0)
+                        IF (.NOT.(nPosBmp==0))
                             uC1Ret:=OemToAnsi(__aLegend_[nPosBmp][2])  //Obtem a Descricao
                         EndIF
                         Exit
@@ -2098,7 +2098,7 @@ STATIC FUNCTION BrwFiltLeg(cAlias,aColors,aLegend,cTitle,cMsg,cMsgAction,cVarNam
     cMsg:=OemToAnsi(cMsg)
     cMsgAction:=OemToAnsi(cMsgAction)
 
-    BrwLegenda(@cTitle ,@cMsg,@aLegend,@bAction,@cMsgAction)
+    BrwLegenda(@cTitle,@cMsg,@aLegend,@bAction,@cMsgAction)
 
     nBmpPos:=aScan(aColors,{|aBmp|Upper(AllTrim(aBmp[2]))==cBmpName})
     IF (nBmpPos>0)
@@ -2177,17 +2177,17 @@ STATIC FUNCTION NDJEvalF3(cF3,lShowHelp,cException)
 
         lConpad1:=ConPad1(NIL,NIL,NIL,cF3)
 
-        IF .NOT.(lConpad1)
+        IF (.NOT.(lConpad1))
             cException:="Nenhuma informacao Selecionada"
-            IF .NOT.(lShowHelp)
+            IF (.NOT.(lShowHelp))
                 BREAK
             EndIF
             UserException(cException)
         EndIF
 
-        IF .NOT.(Type("aCpoRet")=="A")
+        IF (.NOT.(Type("aCpoRet")=="A"))
             cException:="Problemas no Retorno da Consulta Padra"+__cCRLF+__cCRLF+"Entre em contato com o Administrador do Sistema."
-            IF .NOT.(lShowHelp)
+            IF (.NOT.(lShowHelp))
                 BREAK
             EndIF
             UserException(cException)
@@ -2484,10 +2484,11 @@ User Function GetMvPar(cEmp,cFil,uMvPar,uDefault,lRpcSet,lReset,lHelp)
 
     BEGIN SEQUENCE
 
-        IF .NOT.(;
-                (IsInCallStack("_GetMvPar"));
-                .or.;
-                (IsInCallStack("U_GetMvPar").and.Empty(ProcName(1)));
+        IF (.NOT.(;
+                    (IsInCallStack("_GetMvPar"));
+                    .or.;
+                    (IsInCallStack("U_GetMvPar").and.Empty(ProcName(1)));
+                 );
         )
             //Nao Permito a Chamada Direta
             BREAK
@@ -2519,7 +2520,7 @@ User Function GetMvPar(cEmp,cFil,uMvPar,uDefault,lRpcSet,lReset,lHelp)
             Next nMV
         EndIF
 
-        IF .NOT.(lSetCentury)
+        IF (.NOT.(lSetCentury))
             __SetCentury("OFF")
         EndIF
 
@@ -2551,10 +2552,11 @@ User Function PutMvPar(cEmp,cFil,uMvPar,uMvCntPut,lRpcSet)
 
     BEGIN SEQUENCE
 
-        IF .NOT.(;
-                (IsInCallStack("_PutMvPar"));
-                .or.;
-                (IsInCallStack("U_PutMvPar").and.Empty(ProcName(1)));
+        IF (.NOT.(;
+                    (IsInCallStack("_PutMvPar"));
+                    .or.;
+                    (IsInCallStack("U_PutMvPar").and.Empty(ProcName(1)));
+                 );
         )
             //Nao Permito a Chamada Direta
             BREAK
@@ -2581,7 +2583,7 @@ User Function PutMvPar(cEmp,cFil,uMvPar,uMvCntPut,lRpcSet)
 
          uMvRet:=_GetMvPar(@cEmp,@cFil,@uMvPar,@uMvCntPut,.T.)
 
-        IF .NOT.(lSetCentury)
+        IF (.NOT.(lSetCentury))
             __SetCentury("OFF")
         EndIF
 
@@ -2642,7 +2644,7 @@ STATIC FUNCTION EvalPrg(bExec,cEmp,cFil,cModName,cFunName)
                 BREAK
             EndIF
 
-            bWindowInit:={||StaticCall(NDJLIB010 ,PutInternal,cFunName),uRet:=Eval(bExec)}
+            bWindowInit:={||StaticCall(NDJLIB010,PutInternal,cFunName),uRet:=Eval(bExec)}
             DEFINE WINDOW oMainWnd FROM 0,0 TO 0,0 TITLE OemToAnsi(cFunName)
             ACTIVATE WINDOW oMainWnd MAXIMIZED ON INIT (Eval(bWindowInit),oMainWnd:End())
 
@@ -2723,7 +2725,7 @@ STATIC FUNCTION FileToArr(cFile)
 
     Begin Sequence
 
-        IF .NOT.(File(cFile))
+        IF (.NOT.(File(cFile)))
             Break
         EndIF
 
@@ -2737,7 +2739,7 @@ STATIC FUNCTION FileToArr(cFile)
         EndIF
 
         fT_fGotop()
-        While .NOT.(fT_fEof())
+        While (.NOT.(fT_fEof()))
             cLine:=fT_fReadLn()
             aAdd(aFile,cLine)
             fT_fSkip()
@@ -2789,7 +2791,7 @@ Static Procedure PutSX1(cPerg,aPerg)
     While SX1->(.NOT.Eof().and.X1_GRUPO==cPerg)
         nAT:=SX1->(aScan(aPerg,{|x|((x[__nGrupo]==X1_GRUPO).and.(x[__nOrdem]==X1_ORDEM))}))
         lFound:=(nAT>0)
-        IF .NOT.(lFound)
+        IF (.NOT.(lFound))
             IF SX1->(RecLock("SX1",.F.))
                 SX1->(dbDelete())
                 SX1->(MsUnLock())
@@ -2843,56 +2845,56 @@ Static Procedure AddPerg(aPerg,cGrupo,cOrdem,cField,uCNT)
     Static aX1Fields
     Static __cX1Fields
 
-    IF .NOT.(Type("cEmpAnt")=="C")
+    IF (.NOT.(Type("cEmpAnt")=="C"))
         Private cEmpAnt:=""
     EndIF
 
     IF ((aX1Fields==NIL).or..NOT.(__cX1Fields==cEmpAnt))
         __cX1Fields:=cEmpAnt
         aX1Fields:={;
-                                    {"X1_GRUPO"   ,NIL,.T.,0},;
-                                    {"X1_ORDEM"   ,NIL,.T.,0},;
-                                    {"X1_PERGUNT" ,NIL,.T.,0},;
-                                    {"X1_PERSPA"  ,NIL,.T.,0},;
-                                    {"X1_PERENG"  ,NIL,.T.,0},;
-                                    {"X1_VARIAVL" ,NIL,.T.,0},;
-                                    {"X1_TIPO"    ,NIL,.T.,0},;
-                                    {"X1_TAMANHO" ,NIL,.T.,0},;
-                                    {"X1_DECIMAL" ,NIL,.T.,0},;
-                                    {"X1_PRESEL"  ,NIL,.F.,0},;
-                                    {"X1_GSC"     ,NIL,.T.,0},;
-                                    {"X1_VALID"   ,NIL,.T.,0},;
-                                    {"X1_VAR01"   ,NIL,.T.,0},;
-                                    {"X1_DEF01"   ,NIL,.T.,0},;
-                                    {"X1_DEFSPA1" ,NIL,.T.,0},;
-                                    {"X1_DEFENG1" ,NIL,.T.,0},;
-                                    {"X1_CNT01"   ,NIL,.F.,0},;
-                                    {"X1_VAR02"   ,NIL,.T.,0},;
-                                    {"X1_DEF02"   ,NIL,.T.,0},;
-                                    {"X1_DEFSPA2" ,NIL,.T.,0},;
-                                    {"X1_DEFENG2" ,NIL,.T.,0},;
-                                    {"X1_CNT02"   ,NIL,.F.,0},;
-                                    {"X1_VAR03"   ,NIL,.T.,0},;
-                                    {"X1_DEF03"   ,NIL,.T.,0},;
-                                    {"X1_DEFSPA3" ,NIL,.T.,0},;
-                                    {"X1_DEFENG3" ,NIL,.T.,0},;
-                                    {"X1_CNT03"   ,NIL,.F.,0},;
-                                    {"X1_VAR04"   ,NIL,.T.,0},;
-                                    {"X1_DEF04"   ,NIL,.T.,0},;
-                                    {"X1_DEFSPA4" ,NIL,.T.,0},;
-                                    {"X1_DEFENG4" ,NIL,.T.,0},;
-                                    {"X1_CNT04"   ,NIL,.F.,0},;
-                                    {"X1_VAR05"   ,NIL,.T.,0},;
-                                    {"X1_DEF05"   ,NIL,.T.,0},;
-                                    {"X1_DEFSPA5" ,NIL,.T.,0},;
-                                    {"X1_DEFENG5" ,NIL,.T.,0},;
-                                    {"X1_CNT05"   ,NIL,.F.,0},;
-                                    {"X1_F3"      ,NIL,.T.,0},;
-                                    {"X1_PYME"    ,NIL,.T.,0},;
-                                    {"X1_GRPSXG"  ,NIL,.T.,0},;
-                                    {"X1_HELP"    ,NIL,.T.,0},;
-                                    {"X1_PICTURE" ,NIL,.T.,0},;
-                                    {"X1_IDFIL"   ,NIL,.T.,0};
+                                    {"X1_GRUPO",NIL,.T.,0},;
+                                    {"X1_ORDEM",NIL,.T.,0},;
+                                    {"X1_PERGUNT",NIL,.T.,0},;
+                                    {"X1_PERSPA",NIL,.T.,0},;
+                                    {"X1_PERENG",NIL,.T.,0},;
+                                    {"X1_VARIAVL",NIL,.T.,0},;
+                                    {"X1_TIPO",NIL,.T.,0},;
+                                    {"X1_TAMANHO",NIL,.T.,0},;
+                                    {"X1_DECIMAL",NIL,.T.,0},;
+                                    {"X1_PRESEL",NIL,.F.,0},;
+                                    {"X1_GSC",NIL,.T.,0},;
+                                    {"X1_VALID",NIL,.T.,0},;
+                                    {"X1_VAR01",NIL,.T.,0},;
+                                    {"X1_DEF01",NIL,.T.,0},;
+                                    {"X1_DEFSPA1",NIL,.T.,0},;
+                                    {"X1_DEFENG1",NIL,.T.,0},;
+                                    {"X1_CNT01",NIL,.F.,0},;
+                                    {"X1_VAR02",NIL,.T.,0},;
+                                    {"X1_DEF02",NIL,.T.,0},;
+                                    {"X1_DEFSPA2",NIL,.T.,0},;
+                                    {"X1_DEFENG2",NIL,.T.,0},;
+                                    {"X1_CNT02",NIL,.F.,0},;
+                                    {"X1_VAR03",NIL,.T.,0},;
+                                    {"X1_DEF03",NIL,.T.,0},;
+                                    {"X1_DEFSPA3",NIL,.T.,0},;
+                                    {"X1_DEFENG3",NIL,.T.,0},;
+                                    {"X1_CNT03",NIL,.F.,0},;
+                                    {"X1_VAR04",NIL,.T.,0},;
+                                    {"X1_DEF04",NIL,.T.,0},;
+                                    {"X1_DEFSPA4",NIL,.T.,0},;
+                                    {"X1_DEFENG4",NIL,.T.,0},;
+                                    {"X1_CNT04",NIL,.F.,0},;
+                                    {"X1_VAR05",NIL,.T.,0},;
+                                    {"X1_DEF05",NIL,.T.,0},;
+                                    {"X1_DEFSPA5",NIL,.T.,0},;
+                                    {"X1_DEFENG5",NIL,.T.,0},;
+                                    {"X1_CNT05",NIL,.F.,0},;
+                                    {"X1_F3",NIL,.T.,0},;
+                                    {"X1_PYME",NIL,.T.,0},;
+                                    {"X1_GRPSXG",NIL,.T.,0},;
+                                    {"X1_HELP",NIL,.T.,0},;
+                                    {"X1_PICTURE",NIL,.T.,0},;
+                                    {"X1_IDFIL",NIL,.T.,0};
         }
 
         bEval:={|x,y|;
@@ -2954,7 +2956,7 @@ STATIC FUNCTION SXGSize(cGRPSXG,nSize,nDec,cPicture)
     DEFAULT nDec:=0
     DEFAULT cPicture:=""
 
-    IF .NOT.Empty(cGRPSXG)
+    IF (.NOT.Empty(cGRPSXG))
 
         SXG->(dbSetOrder(1))//XG_GRUPO
 
@@ -3086,13 +3088,13 @@ STATIC FUNCTION FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
             For nObj:=1 To nObjs
                 IF (lIsObject:=(ValType(aObjFolder[nFolder][nObj][01])=="O"))
                     IF (lIsBlock:=(ValType(aObjFolder[nFolder][nObj][02])=="B"))
-                        IF .NOT.(lSetOption:=Eval(aObjFolder[nFolder][nObj][02]))//Valid
+                        IF (.NOT.(lSetOption:=Eval(aObjFolder[nFolder][nObj][02])))//Valid
                             Exit
                         EndIF
                     EndIF
                 EndIF
             Next nObj
-            IF .NOT.(lSetOption)
+            IF (.NOT.(lSetOption))
                 nSetOption:=nFolder
                 Exit
             EndIF
@@ -3116,7 +3118,7 @@ STATIC FUNCTION FolderSetOption(nTarget,nSource,aObjFolder,aGdObjects,nActFolder
         Next nObj
     Next nFolder
 
-    IF .NOT.(lSetOption)
+    IF (.NOT.(lSetOption))
         For nFolder:=nSetOption To nSetOption
             nObjs:=Len(aObjFolder[nFolder])
             For nObj:=1 To nObjs
@@ -3230,7 +3232,7 @@ STATIC FUNCTION GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
                 uCell:=aCols[nRow][nField]
                 IF (lPicture)
                     cPicture:=aHeader[nField][__AHEADER_PICTURE__]
-                    IF .NOT.(Empty(cPicture))
+                    IF (.NOT.(Empty(cPicture)))
                         uCell:=Transform(uCell,cPicture)
                     EndIF
                 EndIF
@@ -3250,13 +3252,13 @@ STATIC FUNCTION GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
         oFWMSExcel:GetXMLFile(cFile)
         oFWMSExcel:DeActivate()
 
-        IF .NOT.(File(cFile))
+        IF (.NOT.(File(cFile)))
             cFile:=""
             BREAK
         EndIF
 
         cFileTMP:=(GetTempPath()+cFile)
-        IF .NOT.(__CopyFile(cFile,cFileTMP))
+        IF (.NOT.(__CopyFile(cFile,cFileTMP)))
             fErase(cFile)
             cFile:=""
             BREAK
@@ -3266,12 +3268,12 @@ STATIC FUNCTION GDToExcel(aHeader,aCols,cWorkSheet,cTable,lTotalize,lPicture)
 
         cFile:=cFileTMP
 
-        IF .NOT.(File(cFile))
+        IF (.NOT.(File(cFile)))
             cFile:=""
             BREAK
         EndIF
 
-        IF .NOT.(ApOleClient("MsExcel"))
+        IF (.NOT.(ApOleClient("MsExcel")))
             BREAK
         EndIF
 
@@ -3331,7 +3333,7 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
         lNewFWDB:=.T.
         IF adbQuery[nAliasAT][2]
             IF (ValType(adbQuery[nAliasAT][3])=="O")
-                IF .NOT.(oNDJLIB029:Compare(adbQuery[nAliasAT][4],aDBMSConn))
+                IF (.NOT.(oNDJLIB029:Compare(adbQuery[nAliasAT][4],aDBMSConn)))
                     cAlias:=GetNextAlias()
                     aAdd(adbQuery,{cAlias,.F.,NIL,NIL})
                     nAliasAT:=Len(adbQuery)
@@ -3354,7 +3356,7 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
         EndIF
         IF oFWDBAccess:HasConnection().or.oFWDBAccess:OpenConnection()
             cNewAlias:=oFWDBAccess:NewAlias(cQuery,cAlias,aSetField)
-            IF .NOT.(oFWDBAccess:HasError())
+            IF (.NOT.(oFWDBAccess:HasError()))
                 cAlias:=cNewAlias
                 adbQuery[nAliasAT][1]:=cAlias
                 IF (lNewFWDB)
@@ -3369,7 +3371,7 @@ STATIC FUNCTION dbQuery(adbQuery,cQuery,cAlias,lChgQuery,aDBMSConn,aSetField)
             (cAlias)->(dbCloseArea())
         EndIF
         TCQUERY (cQuery) ALIAS (cAlias) NEW
-        IF .NOT.(aSetField==NIL)
+        IF (.NOT.(aSetField==NIL))
             aEval(aSetField,{|e|TCSetField(cAlias,e[DBS_NAME],e[DBS_TYPE],e[DBS_LEN],e[DBS_DEC])})
         EndIF
     EndIF
@@ -3577,7 +3579,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
             //----------------------------------------------------------------------------
                 //Considera a Validacao apenas quando a Linha nao for a Linha Atual
             //----------------------------------------------------------------------------
-            IF .NOT.((n==nLoop))
+            IF (.NOT.((n==nLoop)))
                 nDuplic:=0
                 For nLoop2:=1 To nAux
                     //----------------------------------------------------------------------------
@@ -3645,7 +3647,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
 
     Next nLoop
 
-    IF .NOT.(lRet).and.nModelo<>1
+    IF (.NOT.(lRet).and.nModelo<>1)
 
         //----------------------------------------------------------------------------
             //Monta a mensagem conforme o modelo
@@ -3659,7 +3661,7 @@ STATIC FUNCTION GDCheckKey(aCpo,nModelo,aNoEmpty,cMsgAviso,lShowAviso)
             cEmptyString:="A linha atual possui campo de Preenchimento Obrigatөo."
         EndIF
 
-        IF nModelo==3 .or.nModelo==4
+        IF nModelo==3.or.nModelo==4
 
             IF (lDuplic)
 
@@ -3968,8 +3970,8 @@ Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
             endif
         endif
         lX3Obrigat:=X3Obrigat(cField)
-        if .not.(lX3Obrigat)
-            if .not.(lVldEmpty)
+        if (.not.(lX3Obrigat))
+            if (.not.(lVldEmpty))
                 if Empty(GetMemVar(@cMemVar))
                     loop
                 endif
@@ -3979,7 +3981,7 @@ Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
         cX3VldUser:=Alltrim(GetSx3Cache(cField,"X3_VLDUSER"))
         cValidField:="AllWaysTrue()"
         if Empty(cX3Valid)
-            if .not.(Empty(cX3VldUser))
+            if (.not.(Empty(cX3VldUser)))
                 cValidField:=cX3VldUser
             endif
         else
@@ -3994,7 +3996,7 @@ Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
             lX3Valid:=&(cValidField)
         end sequence
         DEFAULT lX3Valid:=.F.
-        if .not.(ValType(lX3Valid)=="L")
+        if (.not.(ValType(lX3Valid)=="L"))
             lX3Valid:=.F.
         endif
         aValid[nField]:=lX3Valid

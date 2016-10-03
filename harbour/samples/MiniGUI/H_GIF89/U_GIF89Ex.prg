@@ -1,6 +1,6 @@
 #include "totvs.ch"
 
-#DEFINE ANIMATE_COUNT    2
+#DEFINE ANIMATE_COUNT 1
 
 //------------------------------------------------------------------------------------------------
     /*
@@ -21,7 +21,7 @@ User Function GIF89Ex()
 
     Private oMainWnd
     Private ohb_GIF89:=u_hbGIF89()
-    
+
     IF lIsDir("C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\")
         cTempPath:="C:\GitHub\BlackTDN\harbour\samples\MiniGUI\H_GIF89\resources\"
     Else
@@ -50,8 +50,8 @@ Static Function GIF89Ex(cGIFFile)
 
     Local aPictInfo:={}
     Local aPictures:={}
-    Local aImageInfo:={}    
-    
+    Local aImageInfo:={}
+
     Local cExt
     Local cDir
     Local cFile
@@ -67,7 +67,7 @@ Static Function GIF89Ex(cGIFFile)
     Local oTimer
 
     SplitPath(cGIFFile,@cDriver,@cDir,@cFile,@cExt)
-    
+
     IF Empty(cDriver)
         cFile:=(GetTempPath()+cFile+cExt)
         IF !(__CopyFile(cGIFFile,cFile))
@@ -88,14 +88,14 @@ Static Function GIF89Ex(cGIFFile)
         oPanel:Align:=CONTROL_ALIGN_ALLCLIENT
 
         @ 0,0 BITMAP oGIF FILE cGIFFile OF oPanel SIZE aPictInfo[3],aPictInfo[2] NOBORDER WHEN .F. PIXEL
-        
+
         oGIF:lAutoSize:=.T.
         oGIF:lStretch:=.T.
         oGIF:Align:=CONTROL_ALIGN_NONE
 
         DEFINE TIMER oTimer OF oPanel:oWND INTERVAL nInterval ACTION PlayGif(@oDlg,@oGIF,@aPictures,@nCurrentFrame,@nTotalFrames,@aImageInfo,@nInterval,@oTimer,@nCount)
 
-    ACTIVATE DIALOG oDlg CENTERED ON INIT oTimer:Activate() 
+    ACTIVATE DIALOG oDlg CENTERED ON INIT oTimer:Activate()
 
     OnClose(@aPictures,@aPictInfo,@aImageInfo,@cFile)
 
@@ -123,14 +123,14 @@ Static Function PlayGif(oDlg,oGIF,aPictures,nCurrentFrame,nTotalFrames,aImageInf
                 lRet:=.F.
                 BREAK
             EndIF
-            nCurrentFrame:=1 
+            nCurrentFrame:=1
         ENDIF
 
-        oGIF:cBMPFile:=aPictures[nCurrentFrame] 
+        oGIF:cBMPFile:=aPictures[nCurrentFrame]
         nInterval:=ohb_GIF89:GetFrameDelay(aImageInfo[nCurrentFrame])
         oTimer:nInterval:=nInterval
 
-    END SEQUENCE    
+    END SEQUENCE
 
 Return(lRet)
 

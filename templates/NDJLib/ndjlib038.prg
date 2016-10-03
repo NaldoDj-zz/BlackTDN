@@ -72,12 +72,12 @@ Static Function ReSetPublic(lModule,cStack)
             nEL:=Len(aStack)
             aModName:=RetModName(.T.)
             For nBL:=nEL To 1 STEP-1
-                nAT:=aScan(aModName,{|aModName|(("U_" + aModName[2])==aStack[nBL])})
-                IF (nAT >0)
+                nAT:=aScan(aModName,{|aModName|(("U_"+aModName[2])==aStack[nBL])})
+                IF (nAT>0)
                     EXIT
                 EndIF
             Next nBL
-            IF (nAT >0)
+            IF (nAT>0)
                 cStack:=aStack[nBL]
             Else
                 cStack:=aStack[nEL]
@@ -91,7 +91,7 @@ Static Function ReSetPublic(lModule,cStack)
                 Eval(bReset)
             EndIF
         Next nBL
-    ElseIF .NOT.(cStack==NIL)
+    ElseIF (.NOT.(cStack==NIL))
         nEL:=__nPublicV
         For nBL:=1 To nEL
             IF (cStack==__aPublicV[nBL][4])
@@ -142,11 +142,11 @@ Static Function AddPublic(cPublic,uSet,cType,nSize,lRestart,lModule,cStack)
                 aModName:=RetModName(.T.)
                 For nBL:=nEL To 1 STEP-1
                     nAT:=aScan(aModName,{|aModName|(aModName[2]==aStack[nBL])})
-                    IF (nAT >0)
+                    IF (nAT>0)
                         EXIT
                     EndIF
                 Next nBL
-                IF (nAT >0)
+                IF (nAT>0)
                     cStack:=aStack[nBL]
                 Else
                     cStack:=aStack[nEL]
@@ -163,7 +163,7 @@ Static Function AddPublic(cPublic,uSet,cType,nSize,lRestart,lModule,cStack)
             lRestart:=.T.
         EndIF
         DEFAULT uSet:=GetValType(@cType,@nSize)
-        IF .NOT.(Type(cVar)==cType)
+        IF (.NOT.(Type(cVar)==cType))
             _SetNamedPrvt(@cVar,@uSet,@cStack)
         ElseIF (lRestart)
             IF (cType=="A")
@@ -181,7 +181,7 @@ Static Function AddPublic(cPublic,uSet,cType,nSize,lRestart,lModule,cStack)
             cStack:=__aPublicV[nAT][4]
         EndIF
         nAT:=aScan(__aPublicV,{|aPublic|(aPublic[1]==cVar).and.(aPublic[4]==cStack)})
-        IF (nAT >0)
+        IF (nAT>0)
             IF (cType==NIL)
                 cType:=__aPublicV[nAT][2]
             Else
