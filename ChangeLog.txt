@@ -10,6 +10,17 @@
      * Change, ! Fix, % Optimization, + Addition, * Removal, ; Comment
  */
 
+2016-10-09 20:58 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
+  * include/tryexception.ch
+  * templates/include/ndj.ch
+  * templates/include/tryexception.ch
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib004.prg
+  * templates/NDJLib/ndjlib019.prg
+  * templates/NDJLib/WS/include/tryexception.ch
+  * templates/P10/ctb/include/tryexception.ch
+  * TSQLite/include/tryexception.ch
+ 
 2016-10-09 16:01 UTC--300 Naldo DJ (marinaldo.jesus blacktdn.com.br)
   * templates/NDJLib/ndjlib001.prg
  

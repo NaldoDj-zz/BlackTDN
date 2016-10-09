@@ -9,8 +9,8 @@ CLASS NDJLIB019
     METHOD NEW() CONSTRUCTOR
     METHOD ClassName()
 
-    METHOD IniGetPValue(cFile,cSession,cPropertyName,cDefaultValue,cIgnoreToken)  
-    
+    METHOD IniGetPValue(cFile,cSession,cPropertyName,cDefaultValue,cIgnoreToken)
+
 ENDCLASS
 
 User Function DJLIB019()
@@ -35,6 +35,7 @@ RETURN(self:cClassName)
     /*/
 //------------------------------------------------------------------------------------------------
 METHOD IniGetPValue(cFile,cSession,cPropertyName,cDefaultValue,cIgnoreToken) CLASS NDJLIB019
+Return(IniGetPValue(@cFile,@cSession,@cPropertyName,@cDefaultValue,@cIgnoreToken))
 Static Function IniGetPValue(cFile,cSession,cPropertyName,cDefaultValue,cIgnoreToken)
     Local oTFINI:=TFINI():New(@cFile,@cIgnoreToken)
     Local cPropertyValue:=oTFINI:GetPropertyValue(@cSession,@cPropertyName,@cDefaultValue)

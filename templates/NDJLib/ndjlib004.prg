@@ -1907,7 +1907,7 @@ Static Function InitSystem()
         StaticCall(U_NDJBLKSCVL,EmpFrmClose)
 
         /*/Define as Variaveis Publicas a Serem utilizadas na NDJ/*/
-        SetPublic("__lBlackTDN",.T.,"L",0,.T.))
+        SetPublic("__lBlackTDN",.T.,"L",0,.T.)
 
         /*/ReDefine as Variaveis Publicas a Serem utilizadas na NDJ/*/
         ReSetPublic()

@@ -2,86 +2,87 @@
 
     #DEFINE _NDJ_CH
 
-	#IFNDEF TOTVS_INCLUDE
-		#DEFINE TOTVS_INCLUDE
-	#ENDIF
-	
+    #IFNDEF TOTVS_INCLUDE
+        #DEFINE TOTVS_INCLUDE
+    #ENDIF
+    
      /*/
         Arquivo:    NDJ.CH
         Autor:      Marinaldo de Jesus
         Descricao:  Arquivo de Cabecalho dos Programas Utilizados na NDJ
         Sintaxe:    #INCLUDE "NDJ.ch"    
      /*/
-	#IFDEF TOTVS_INCLUDE
+    #IFDEF TOTVS_INCLUDE
 
-	     #include "aabonos.ch"
-	     #include "amarc.ch"
-	     #include "ap5mail.ch"
-	     #include "apvisio.ch"
-	     #include "apwebex.ch"
-	     #include "apwebsrv.ch"
-	     #include "apwizard.ch"
-	     #include "aresult.ch"
-	     #include "atotais.ch"
-	     #include "avprint.ch"
-	     #include "axsdef.ch"
-	     #include "calenbmp.ch"
-	     #include "colors.ch"
-	     #include "common.ch"
-	     #include "constant.ch"
-	     #include "dbinfo.ch"
-	     #include "dbstruct.ch"
-	     #include "dbtree.ch"
-	     #include "dialog.ch"
-	     #include "eicconst.ch"
-	     #include "error.ch"
-	     #include "fildflt.ch"
-	     #include "fileio.ch"
-	     #include "fivewin.ch"
-	     #include "folder.ch"
-	     #include "font.ch"
-	     #include "headergd.ch"
-	     #include "jpeg.ch"
-	     #include "mproject.ch"
-	     #include "msgraphi.ch"
-	     #include "msmgadd.ch"
-	     #include "msobject.ch"
-	     #include "msole.ch"
-	     #include "msserial.ch"
-	     #include "olecont.ch"
-	     #include "poncalen.ch"
-	     #include "prbtvdef.ch"
-	     #include "prconst.ch"
-	     #include "prctrdef.ch"
-	     #include "print.ch"
-	     #include "protdef.ch"
-	     #include "protheus.ch"
-	     #include "prtopdef.ch"
-	     #include "ptmenu.ch"
-	     #include "rwmake.ch"
-	     #include "scopecnt.ch"
-	     #include "scrollbx.ch"
-	     #include "set.ch"
-	     #include "shell.ch"
-	     #include "siga.ch"
-	     #include "sigawin.ch"
-	     #include "std.ch"
-	     #include "stdwin.ch"
-	     #include "tbicode.ch"
-	     #include "tbiconn.ch"
-	     #include "tcbrowse.ch"
-	     #include "topconn.ch"
-	     #include "vkey.ch"
-	     #include "winapi.ch"
-	     #include "xmlxfun.ch"
+         #include "totvs.ch"
+         #include "aabonos.ch"
+         #include "amarc.ch"
+         #include "ap5mail.ch"
+         #include "apvisio.ch"
+         #include "apwebex.ch"
+         #include "apwebsrv.ch"
+         #include "apwizard.ch"
+         #include "aresult.ch"
+         #include "atotais.ch"
+         #include "avprint.ch"
+         #include "axsdef.ch"
+         #include "calenbmp.ch"
+         #include "colors.ch"
+         #include "common.ch"
+         #include "constant.ch"
+         #include "dbinfo.ch"
+         #include "dbstruct.ch"
+         #include "dbtree.ch"
+         #include "dialog.ch"
+         #include "eicconst.ch"
+         #include "error.ch"
+         #include "fildflt.ch"
+         #include "fileio.ch"
+         #include "fivewin.ch"
+         #include "folder.ch"
+         #include "font.ch"
+         #include "headergd.ch"
+         #include "jpeg.ch"
+         #include "mproject.ch"
+         #include "msgraphi.ch"
+         #include "msmgadd.ch"
+         #include "msobject.ch"
+         #include "msole.ch"
+         #include "msserial.ch"
+         #include "olecont.ch"
+         #include "poncalen.ch"
+         #include "prbtvdef.ch"
+         #include "prconst.ch"
+         #include "prctrdef.ch"
+         #include "print.ch"
+         #include "protdef.ch"
+         #include "protheus.ch"
+         #include "prtopdef.ch"
+         #include "ptmenu.ch"
+         #include "rwmake.ch"
+         #include "scopecnt.ch"
+         #include "scrollbx.ch"
+         #include "set.ch"
+         #include "shell.ch"
+         #include "siga.ch"
+         #include "sigawin.ch"
+         #include "std.ch"
+         #include "stdwin.ch"
+         #include "tbicode.ch"
+         #include "tbiconn.ch"
+         #include "tcbrowse.ch"
+         #include "topconn.ch"
+         #include "vkey.ch"
+         #include "winapi.ch"
+         #include "xmlxfun.ch"
 
-	#ENDIF
+    #ENDIF
 
-	#include "ctrl_vk.ch"
-	#include "tryexception.ch"
-	#include "thash.ch"
-	#include "tfini.ch"
-	#include "ndjipcdef.ch"
+    #include "ctrl_vk.ch"
+    #include "tryexception.ch"
+    #include "thash.ch"
+    #include "tfini.ch"
+    #include "ndjipcdef.ch"
 
      /*/
         Autor:        Marinaldo de Jesus
@@ -184,17 +185,17 @@
         Descricao:     Traducao para os comandos utilizados no processo de Comunicacao de Dados Baseado no Harbour/MiniGui
         Uso:           Transferencia de Dados (SendData/GetData)
     /*/
-	#xtranslate Set StationName To <st> 	=> _HMG_StationName := <st>
-	#xtranslate Set CommPath To <cph>		=> _HMG_CommPath := <cph>
-	#xtranslate _HMG_StationName := <st>	=> StaticCall( NDJLIB023 , StationName , <st> ,.T. )
-	#xtranslate _HMG_CommPath := <cph> 		=> StaticCall( NDJLIB023 , CommPath , <cph> )
-	#xtranslate _HMG_CommPath				=> StaticCall( NDJLIB023 , CommPath )
-	#xtranslate _HMG_StationName			=> StaticCall( NDJLIB023 , StationName )
-	#xtranslate _HMG_SendDataCount   		=> StaticCall( NDJLIB023 , SDataCount )
-	#xtranslate _HMG_SendDataCount++   		=> StaticCall( NDJLIB023 , SDataCount , StaticCall( NDJLIB023 , SDataCount ) + 1 )
-	#xtranslate _HMG_SendDataCount := <n>	=> StaticCall( NDJLIB023 , SDataCount , <n> )
-	#xtranslate MsgMiniGuiError(<m>)   		=> MsgInfo(<m>)
-	#xcommand 	Delete File <f>				=> fErase(<f>)
+    #xtranslate Set StationName To <st>     => _HMG_StationName := <st>
+    #xtranslate Set CommPath To <cph>       => _HMG_CommPath := <cph>
+    #xtranslate _HMG_StationName := <st>    => StaticCall( NDJLIB023 , StationName , <st> ,.T. )
+    #xtranslate _HMG_CommPath := <cph>      => StaticCall( NDJLIB023 , CommPath , <cph> )
+    #xtranslate _HMG_CommPath               => StaticCall( NDJLIB023 , CommPath )
+    #xtranslate _HMG_StationName            => StaticCall( NDJLIB023 , StationName )
+    #xtranslate _HMG_SendDataCount          => StaticCall( NDJLIB023 , SDataCount )
+    #xtranslate _HMG_SendDataCount++        => StaticCall( NDJLIB023 , SDataCount , StaticCall( NDJLIB023 , SDataCount ) + 1 )
+    #xtranslate _HMG_SendDataCount := <n>   => StaticCall( NDJLIB023 , SDataCount , <n> )
+    #xtranslate MsgMiniGuiError(<m>)        => MsgInfo(<m>)
+    #xcommand     Delete File <f>           => fErase(<f>)
 
     /*/
         Autor:         Marinaldo de Jesus
@@ -213,7 +214,7 @@
       #define HB_SYMBOL_UNUSED( symbol ) SYMBOL_UNUSED( symbol )
    #endif
    #ifndef SYMBOL_UNUSED
-      #define SYMBOL_UNUSED( symbol )    ( symbol := ( symbol ) )
+      #define SYMBOL_UNUSED( symbol ) ( symbol := ( symbol ) )
    #endif
 
     /*/
@@ -222,8 +223,8 @@
         Uso:           Geral
     /*/
    #ifndef __cCRLF__
-		#define __cCRLF__
-		Static __cCRLF := CRLF
-   #endif		
+        #define __cCRLF__
+        Static __cCRLF := CRLF
+   #endif        
 
 #ENDIF

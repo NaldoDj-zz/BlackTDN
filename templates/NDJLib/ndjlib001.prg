@@ -3895,32 +3895,37 @@ RETURN(cToken)
     */
 //-----------------------------------------------------------------------------------------------------
 METHOD X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad) CLASS NDJLIB001
+    Parameter aFields       AS ARRAY
+    Parameter aData         AS ARRAY
+    Parameter bX3ErrorVld   AS BLOCK
+    Parameter lVldEmpty     AS LOGICAL
+    Parameter lInitPad      AS LOGICAL
 RETURN(X3VldFields(@aFields,@aData,@bX3ErrorVld,@lVldEmpty,@lInitPad))
-Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
+Static Function X3VldFields(aFields AS ARRAY,aData AS ARRAY,bX3ErrorVld AS BLOCK,lVldEmpty AS LOGICAL,lInitPad AS LOGICAL)
 
-    local aValid
+    local aValid            AS ARRAY
 
-    local bError
-    local bErrorBlock
+    local bError            AS BLOCK
+    local bErrorBlock       AS BLOCK
 
-    local cField
-    local cMemVar
-    local cX3Valid
-    local cX3VldUser
-    local cX3Relacao
-    local cValidField
+    local cField            AS CHARACTER
+    local cMemVar           AS CHARACTER
+    local cX3Valid          AS CHARACTER
+    local cX3VldUser        AS CHARACTER
+    local cX3Relacao        AS CHARACTER
+    local cValidField       AS CHARACTER
 
-    local lX3Valid
-    local lX3Obrigat
-    local lX3Relacao
-    local lHelpInDark
-    local lX3ErrorVld
+    local lX3Valid          AS LOGICAL
+    local lX3Obrigat        AS LOGICAL
+    local lX3Relacao        AS LOGICAL
+    local lHelpInDark       AS LOGICAL
+    local lX3ErrorVld       AS LOGICAL
 
-    local lSetOwnerPrvt
-    local lForceSetOwner
+    local lSetOwnerPrvt     AS LOGICAL
+    local lForceSetOwner    AS LOGICAL
 
-    local nField
-    local nFields
+    local nField            AS INTEGER
+    local nFields           AS INTEGER
 
     local xValue
 
@@ -3937,13 +3942,13 @@ Static Function X3VldFields(aFields,aData,bX3ErrorVld,lVldEmpty,lInitPad)
         lForceSetOwner:=(lInitPad:=(lSetOwnerPrvt))
         xValue:=aData[nField]
         SetMemVar(@cMemVar,@xValue,@lSetOwnerPrvt,@lForceSetOwner,NIL,@lInitPad)
-   next nField
+    next nField
 
-   aValid:=Array(nFields)
-   aFill(aValid,.T.)
+    aValid:=Array(nFields)
+    aFill(aValid,.T.)
 
-   bError:={|e|BREAK(e)}
-   bErrorBlock:=ErrorBlock(bError)
+    bError:={|e|BREAK(e)}
+    bErrorBlock:=ErrorBlock(bError)
     lHelpInDark:=HelpInDark(.T.)
 
     lInitPad:=.F.
