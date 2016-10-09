@@ -1315,7 +1315,7 @@ STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
         IF (.NOT.(IsMemVar(@cVar)).or.(lForceSetOwner))
             IF (lSetOwnerPrvt)
                 IF (lPublic)
-                    StaticCall(NDJLIB004,SetPublic,@cVarAux,@uSetValue,NIL,NIL,@lForceSetOwner,NIL,@cStack)
+                    StaticCall(NDJLIB038,SetPublic,@cVarAux,@uSetValue,NIL,NIL,@lForceSetOwner,NIL,@cStack)
                 Else
                     IF (.NOT.(Empty(cStack)))
                         _SetNamedPrvt(cVarAux,@uSetValue,@cStack)
