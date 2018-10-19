@@ -11,8 +11,8 @@
 User Function GetApoSamples()
 
     Local aArray:=Array(10, 20)
-    Local aClone    := { aClone(aArray) , aClone(aArray) , { aClone(aArray) , aClone(aArray) } , { { { { aClone(aArray) , aClone(aArray) , aClone(aArray) , { { aClone(aArray) } } } } } } }
-    Local aPointer    := { aArray , aArray , { aArray , aArray } , { { { { aArray , aArray , aArray , { { aArray } } } } } } }
+    Local aClone:={aClone(aArray),aClone(aArray),{aClone(aArray),aClone(aArray)},{{{{aClone(aArray),aClone(aArray),aClone(aArray),{{aClone(aArray)}}}}}}}
+    Local aPointer:={aArray,aArray,{aArray,aArray},{{{{aArray,aArray,aArray,{{aArray}}}}}}}
     Local aValues:={;
                             10.50,;
                             ProcName(),;
