@@ -11,20 +11,20 @@ Static _nPGPx2Prn:=0.0695
         Funcao:u_DJFINR01()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 User Function DJFINR01()
 
     //------------------------------------------------------------------------------------------------
-        //Define Array que armazenara informações de LOG
+        //Define Array que armazenara informacoes de LOG
     //------------------------------------------------------------------------------------------------
     Local aLogCab:=Array(0)
     Local aLogDet:=Array(0)
     Local aLogAll
 
     //------------------------------------------------------------------------------------------------
-        //Define Array que armazenara os Recnos que não serão impressos
+        //Define Array que armazenara os Recnos que nao serao impressos
     //------------------------------------------------------------------------------------------------
     Local aNotPrint:=Array(0)
 
@@ -34,12 +34,12 @@ User Function DJFINR01()
     Local aArea:=GetArea()
 
     //------------------------------------------------------------------------------------------------
-        //Define Objeto que conterá o Retorno da ParamBox
+        //Define Objeto que contera o Retorno da ParamBox
     //------------------------------------------------------------------------------------------------
     Local oReportQst:=tHash():New()
 
     //------------------------------------------------------------------------------------------------
-        //Define Hash que armazenara informações de LOG
+        //Define Hash que armazenara informacoes de LOG
     //------------------------------------------------------------------------------------------------
     Local oLog:=tHash():New()
 
@@ -47,7 +47,7 @@ User Function DJFINR01()
     Local cAlias
 
     //------------------------------------------------------------------------------------------------
-        //Verifica as Perguntas do Relatório
+        //Verifica as Perguntas do Relatorio
     //------------------------------------------------------------------------------------------------
     Local lRPrint:=ReportQst(@oReportQst)
 
@@ -55,12 +55,12 @@ User Function DJFINR01()
     Local nJ
     Local nRecCount
 
-    Private cCadastro:=OemToAnsi("Autorização para emissão de DOC/TED")
+    Private cCadastro:=OemToAnsi("Autorizacao para emissao de DOC/TED")
 
     BEGIN SEQUENCE
 
         //------------------------------------------------------------------------------------------------
-            //Se não Confirmou os Parâmetros para a Emissão do Relatório...
+            //Se nao Confirmou os Parametros para a Emissao do Relatorio...
         //------------------------------------------------------------------------------------------------
         IF .NOT.(lRPrint)
             //------------------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ User Function DJFINR01()
         cAlias:=GetNextAlias()
 
         //------------------------------------------------------------------------------------------------
-            //Inicializa Hash que armazenara informações de LOG
+            //Inicializa Hash que armazenara informacoes de LOG
         //------------------------------------------------------------------------------------------------
         oLog:Set("VALOR",Array(0))
         oLog:Set("BANCO",Array(0))
@@ -86,17 +86,17 @@ User Function DJFINR01()
         MsAguarde({||nRecCount:=ReportView(@cAlias,@oReportQst,@oLog,@aNotPrint)},"Selecionando dados no SGBD","Aguarde...")
 
         //------------------------------------------------------------------------------------------------
-            //Verifica se Existem informações a Serem Impressas e...
+            //Verifica se Existem informacoes a Serem Impressas e...
         //------------------------------------------------------------------------------------------------
         lRPrint:=(nRecCount>0)
         //------------------------------------------------------------------------------------------------
-            //...Se não existir...
+            //...Se nao existir...
         //------------------------------------------------------------------------------------------------
         IF .NOT.(lRPrint)
             //------------------------------------------------------------------------------------------------
-                //...Avisa ao usuário e...
+                //...Avisa ao usuario e...
             //------------------------------------------------------------------------------------------------
-            ApMsgInfo("Não existem dados a serem impressos",ProcName())
+            ApMsgInfo("Nao existem dados a serem impressos",ProcName())
             //------------------------------------------------------------------------------------------------
                 //...Abandona
             //------------------------------------------------------------------------------------------------
@@ -104,12 +104,12 @@ User Function DJFINR01()
         ENDIF
 
         //------------------------------------------------------------------------------------------------
-            //Emite o Relatório
+            //Emite o Relatorio
         //------------------------------------------------------------------------------------------------
         lRPrint:=DJFINR01(@cAlias,@oReportQst,@nRecCount,@aNotPrint)
 
         //------------------------------------------------------------------------------------------------
-            //Libera a View da Memória
+            //Libera a View da Memoria
         //------------------------------------------------------------------------------------------------
         IF (Select(cAlias)>0)
             (cAlias)->(dbCloseArea())
@@ -118,7 +118,7 @@ User Function DJFINR01()
     END SEQUENCE
 
     //------------------------------------------------------------------------------------------------
-        //Se existirem informações de LOG...
+        //Se existirem informacoes de LOG...
     //------------------------------------------------------------------------------------------------
     aLogAll:=oLog:GetAllSessions()
     nJ:=Len(aLogAll)
@@ -128,7 +128,7 @@ User Function DJFINR01()
             //------------------------------------------------------------------------------------------------
                 //Prepara o LOG
             //------------------------------------------------------------------------------------------------
-            aAdd(aLogCab,"Log de Ocorrências ["+cLogT+"]")
+            aAdd(aLogCab,"Log de Ocorrencias ["+cLogT+"]")
             aAdd(aLogDet,oLog:Get(cLogT))
         EndIF
     Next nD
@@ -137,13 +137,13 @@ User Function DJFINR01()
     //------------------------------------------------------------------------------------------------
     IF .NOT.(Empty(aLogCab))
         //------------------------------------------------------------------------------------------------
-            //...Mostra-o ao usuário
+            //...Mostra-o ao usuario
         //------------------------------------------------------------------------------------------------
         TRY EXCEPTION
             cLogT:="LOG: "+cCadastro
             fMakeLog(@aLogDet,@aLogCab,NIL,.T.,NIL,@cLogT,NIL,NIL,NIL,.F.)
         CATCH EXCEPTION USING oException
-            cLogT:="Problema na Geração do LOG."
+            cLogT:="Problema na Geracao do LOG."
             IF (ValType(oException=="O"))
                 cLogT+=CRLF
                 cLogT+=CRLF
@@ -172,7 +172,7 @@ Return(lRPrint)
         Funcao:DJFINR01()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 Static Function DJFINR01(cAlias,oReportQst,nRecCount,aNotPrint)
@@ -182,7 +182,7 @@ Static Function DJFINR01(cAlias,oReportQst,nRecCount,aNotPrint)
     //------------------------------------------------------------------------------------------------
     oReport:SetMeter(nRecCount)
 //------------------------------------------------------------------------------------------------
-    //Ativa a Interface com o Usuário e Inicia a Impressão do Relatório
+    //Ativa a Interface com o Usuario e Inicia a Impressao do Relatorio
 //------------------------------------------------------------------------------------------------
 Return(oReport:PrintDialog())
 
@@ -192,7 +192,7 @@ Return(oReport:PrintDialog())
         Funcao:ReportQst()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 Static Function ReportQst(oReportQst)
@@ -205,7 +205,7 @@ Static Function ReportQst(oReportQst)
 
     //------------------------------------------------------------------------------------------------
     
-    Local cPBoxTit:=OemToAnsi("Informe os Parâmetros para Filtro dos Dados")
+    Local cPBoxTit:=OemToAnsi("Informe os Parametros para Filtro dos Dados")
     
     //------------------------------------------------------------------------------------------------
 
@@ -409,7 +409,7 @@ Static Function ReportQst(oReportQst)
     //------------------------------------------------------------------------------------------------
     aSize(aRadio,0)
     aAdd(aRadio,"1-Sim")
-    aAdd(aRadio,"2-Não" )
+    aAdd(aRadio,"2-Nao" )
     //11----------------------------------------------------------------------------------------------
     aPBoxPrm[nPBox][1]:=3                       //[1]:3 - Radio
     aPBoxPrm[nPBox][2]:="Filtrar Fornecedor"    //[2]:Descricao
@@ -487,14 +487,14 @@ Static Function ReportQst(oReportQst)
     //------------------------------------------------------------------------------------------------
 
     //------------------------------------------------------------------------------------------------
-        //Carrega a Interface com o usuário
+        //Carrega a Interface com o usuario
         //Parambox(aParametros,@cTitle,@aRet,[bOk],[aButtons],[lCentered],[nPosX],[nPosy],[oDlgWizard],[cLoad],[lCanSave],[lUserSave])
     //------------------------------------------------------------------------------------------------
     While (.NOT.(lParamBox:=ParamBox(@aPBoxPrm,@cPBoxTit,@aPBoxRet,NIL,NIL,.T.,NIL,NIL,NIL,NIL,.T.,.T.)))
         //------------------------------------------------------------------------------------------------
-            //...Verifica se Deseja "Abortar" a Geração e...
+            //...Verifica se Deseja "Abortar" a Geracao e...
         //------------------------------------------------------------------------------------------------
-        lParamBox:=MsgYesNo("Deseja Abortar a Geração?","Atenção!")
+        lParamBox:=MsgYesNo("Deseja Abortar a Geracao?","Atencao!")
         //------------------------------------------------------------------------------------------------
             //...Se optou por "Abortar" ...
         //------------------------------------------------------------------------------------------------
@@ -519,14 +519,14 @@ Static Function ReportQst(oReportQst)
         //------------------------------------------------------------------------------------------------
         For nPBox:=1 To Len(aPBoxPrm)
             //------------------------------------------------------------------------------------------------
-                //...Carrega os Parâmetros/Conteúdos em oReportQst
+                //...Carrega os Parametros/Conteudos em oReportQst
             //------------------------------------------------------------------------------------------------
             oReportQst:Set(aPBoxPrm[nPBox][2],aPBoxRet[nPBox])
         Next nPBox
     EndIF
 
 //------------------------------------------------------------------------------------------------
-    //Retorna .T. se confirmou ParamBox, caso contrário: .F.
+    //Retorna .T. se confirmou ParamBox, caso contrario: .F.
 //------------------------------------------------------------------------------------------------
 Return(lParamBox)
 
@@ -536,7 +536,7 @@ Return(lParamBox)
         Funcao:ReportDef()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 Static Function ReportDef(cAlias,oReportQst,aNotPrint)
@@ -548,7 +548,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     Local bAssinatura
 
     Local cTitulo:=cCadastro
-    Local cDescricao:=OemToAnsi("Este programa irá emitir a "+cTitulo)
+    Local cDescricao:=OemToAnsi("Este programa ira emitir a "+cTitulo)
 
     Local cSection
 
@@ -567,13 +567,13 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     Local oSections:=tHash():New()
 
     //-------------------------------------------------------------------------------------
-        //Define as Propriedades da Fonte que poderão ser Alteradas durante a Impressao
+        //Define as Propriedades da Fonte que poderao ser Alteradas durante a Impressao
     //-------------------------------------------------------------------------------------
     oFChange:AddNewSession("lBold")
     oFChange:AddNewSession("lItalic")
 
     //-------------------------------------------------------------------------------------
-        //Instancia o Componente de Impressão
+        //Instancia o Componente de Impressao
     //-------------------------------------------------------------------------------------
     oReport:=TReport():New("DJFINR01",cTitulo,NIL,{|oReport|ReportPrint(@oReport,@oSections,@cAlias,@oReportQst,@oFChange,@aNotPrint)},cDescricao)
 
@@ -584,7 +584,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oReport:SetLandScape()
     oReport:SetTotalInLine(.F.)
     //-------------------------------------------------------------------------------------
-        //Habilita(.T.)/Desabilita(.F.) a Impressão do Header
+        //Habilita(.T.)/Desabilita(.F.) a Impressao do Header
     //-------------------------------------------------------------------------------------
     oReport:lHeaderVisible:=.F.
 
@@ -594,29 +594,29 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oReport:cFontBody:="Courier New"
 
     //-------------------------------------------------------------------------------------
-        //Instancia o Objeto oPrint. Por padrão este objeto seria instanciado em PrintDialog
-        //Mas, considerando que preciso obter as dimensões do relatório,   mas precisamente,
-        //PageWidth(), forço o instanciamento aqui.
+        //Instancia o Objeto oPrint. Por padrao este objeto seria instanciado em PrintDialog
+        //Mas, considerando que preciso obter as dimensoes do relatorio,   mas precisamente,
+        //PageWidth(), forco o instanciamento aqui.
     //-------------------------------------------------------------------------------------
     oReport:oPrint:=tMSPrinter():New(cTitulo)
     //-------------------------------------------------------------------------------------
-        //Define o Modo de Impressão
+        //Define o Modo de Impressao
     //-------------------------------------------------------------------------------------
     oReport:oPrint:SetPortrait()
     //-------------------------------------------------------------------------------------
-        //Define as Dimensões do Relatório (/*A4 210 x 297 mm*/)
+        //Define as Dimensoes do Relatorio (/*A4 210 x 297 mm*/)
     //-------------------------------------------------------------------------------------
     oReport:oPrint:SetpaperSize(9/*A4 210 x 297 mm*/)
 
     //-------------------------------------------------------------------------------------
-        //Calcula o Tamanho da Pagina (Para que, neste ponto, PageWidth() retorne um  conteú
-        //do válido, foi necessário instanciar oPrint.
+        //Calcula o Tamanho da Pagina (Para que, neste ponto, PageWidth() retorne um  conteu
+        //do valido, foi necessario instanciar oPrint.
     //-------------------------------------------------------------------------------------
     nPageWidth:=oReport:PageWidth()
     nPGPxToPrn:=Int(nPageWidth*_nPGPx2Prn)
 
     //-------------------------------------------------------------------------------------
-        //Redefine a Margem Esquerda do Relatório
+        //Redefine a Margem Esquerda do Relatorio
         //(Obs.: oReport:LeftMargin()->Retorna a Margem)
     //-------------------------------------------------------------------------------------
     oReport:SetLeftMargin(3)
@@ -634,7 +634,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células SkipLine
+        //Instancia as Celulas SkipLine
     //-------------------------------------------------------------------------------------
     TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||""}/*{|| CB de Impressao }*/)
 
@@ -646,7 +646,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células Local&Data
+        //Instancia as Celulas Local&Data
     //-------------------------------------------------------------------------------------
     bLocalData:={||PadL(AllTrim(SM0->M0_CIDCOB)+", "+Day2Str(dDataBase)+" de "+MesExtenso(dDataBase)+" de "+Year2Str(dDataBase),nPGPxToPrn/2)}
     TRCell():New(oSection,cSection,"SM0",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bLocalData/*{|| CB de Impressao }*/)
@@ -668,9 +668,9 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células Autorizacao
+        //Instancia as Celulas Autorizacao
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDC(" AUTORIZAÇÃO ",Int(nPGPxToPrn/2))}/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDC(" AUTORIZAcaO ",Int(nPGPxToPrn/2))}/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -684,9 +684,9 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células Autorizacao
+        //Instancia as Celulas Autorizacao
     //-------------------------------------------------------------------------------------
-    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDR("Autorizamos a debitar em nossa conta corrente para emissão de DOC/TED.",nPGPxToPrn)}/*{|| CB de Impressao }*/)
+    TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,{||PaDR("Autorizamos a debitar em nossa conta corrente para emissao de DOC/TED.",nPGPxToPrn)}/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
         //Redefine a Fonte
     //-------------------------------------------------------------------------------------
@@ -702,7 +702,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células Remetente
+        //Instancia as Celulas Remetente
     //-------------------------------------------------------------------------------------
     TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
@@ -733,7 +733,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //------------------------------------------------------------------------------------
-        //Instancia as Células Favorecido
+        //Instancia as Celulas Favorecido
     //-------------------------------------------------------------------------------------
     TRCell():New(oSection,"CAB","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(14/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     TRCell():New(oSection,"SEP","",""/*Titulo*/,/*Picture*/,Int((nPGPxToPrn*(02/100)))/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
@@ -751,7 +751,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //--------------------------------------------------------------------------------------
-        //Instancia as Células VlrExtenso
+        //Instancia as Celulas VlrExtenso
     //-------------------------------------------------------------------------------------
     TRCell():New(oSection,cSection,"",""/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,/*{|| CB de Impressao }*/)
     //-------------------------------------------------------------------------------------
@@ -767,7 +767,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células AssineAqui
+        //Instancia as Celulas AssineAqui
     //-------------------------------------------------------------------------------------
     bAssineAqui:={||PadC(Replicate("_",Int(nPGPxToPrn/3)),nPGPxToPrn)}
     TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssineAqui/*{|| CB de Impressao }*/)
@@ -784,7 +784,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSections:Set(cSection,oSection)
 
     //-------------------------------------------------------------------------------------
-        //Instancia as Células AssineAqui
+        //Instancia as Celulas AssineAqui
     //-------------------------------------------------------------------------------------
     bAssinatura:={||PadC("Assinatura",nPGPxToPrn)}
     TRCell():New(oSection,cSection,"",/*Titulo*/,/*Picture*/,nPGPxToPrn/*Tamanho*/,/*lPixel*/,bAssinatura/*{|| CB de Impressao }*/)
@@ -794,7 +794,7 @@ Static Function ReportDef(cAlias,oReportQst,aNotPrint)
     oSection:Cell(cSection):oFontBody:=TFont():New("Lucida Console",NIL,10,NIL,.T./*lBold*/,NIL,NIL,NIL,NIL,.F./*lUnderline*/,.T./*lItalic*/)
 
     //-------------------------------------------------------------------------------------
-        //Define os Valores Padrões para Cada Section do Relatório
+        //Define os Valores Padroes para Cada Section do Relatorio
     //-------------------------------------------------------------------------------------
     aSections:=oSections:GetAllSessions()
     nJ:=Len(aSections)
@@ -821,7 +821,7 @@ Return(oReport)
         Funcao:ReportPrint()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPrint)
@@ -875,7 +875,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     Local oFontBUI:=TFont():New("Lucida Console",NIL,10,NIL,.T./*lBold*/,NIL,NIL,NIL,NIL,.F./*lUnderline*/,.T./*lItalic*/)
 
     //-------------------------------------------------------------------------------------
-        //Define os Blocos de Impressão para a Section Remetente
+        //Define os Blocos de Impressao para a Section Remetente
     //-------------------------------------------------------------------------------------
     oRemetente:Set("REMETENTE",{||SM0->M0_NOMECOM})
     oRemetente:Set("CNPJ/CPF",{||Transform(SM0->M0_CGC,cCGCPict)})
@@ -890,7 +890,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     aRemetente:=oRemetente:GetAllSessions()
 
     //-------------------------------------------------------------------------------------
-        //Define os Blocos de Impressão para a Section Favorecido
+        //Define os Blocos de Impressao para a Section Favorecido
     //-------------------------------------------------------------------------------------
     oFavorecido:Set("FAVORECIDO",{||SA2->A2_NOME})
     oFavorecido:Set("CNPJ/CPF",{||SA2->(Transform(A2_CGC,IF(A2_TIPO=="J",cCGCPict,cCPFPict)))})
@@ -905,7 +905,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     aFavorecido:=oFavorecido:GetAllSessions()
 
     //-------------------------------------------------------------------------------------
-        //Define os Blocos de Impressão da Section Remetente
+        //Define os Blocos de Impressao da Section Remetente
     //-------------------------------------------------------------------------------------
     cSection:="Remetente"
     oSection:=oSections:Get(cSection)
@@ -923,14 +923,14 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
     oSection:Cell("DET"):SetBlock({||Eval(oFavorecido:Get(aFavorecido[nD]))})
 
     //-------------------------------------------------------------------------------------
-        //Define o Bloco de Impressão da Section VlrExtenso
+        //Define o Bloco de Impressao da Section VlrExtenso
     //-------------------------------------------------------------------------------------
     cSection:="VlrExtenso"
     oSection:=oSections:Get(cSection)
     oSection:Cell(cSection):SetBlock({||"("+AllTrim(Extenso(nTSaldo))+")"})
 
     //-------------------------------------------------------------------------------------
-        //Inicio do Processo de Impressão
+        //Inicio do Processo de Impressao
     //-------------------------------------------------------------------------------------
     While (cAlias)->(.NOT.(Eof()))
 
@@ -950,7 +950,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         SA2->(MsGoTo(nSA2RecNo))
 
         //-------------------------------------------------------------------------------------
-            //Verifica se o Registro será impresso
+            //Verifica se o Registro sera impresso
         //-------------------------------------------------------------------------------------
         IF (aScan(aNotPrint,{|nRecNo|(nRecNo==nSA2RecNo)})>0)
             (cAlias)->(dbSkip())
@@ -973,7 +973,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         cKeyBreak:=SE2->(E2_FILIAL+E2_FORNECE+E2_LOJA)
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section SkipLine
+            //Inicia a Impressao da  Section SkipLine
         //-------------------------------------------------------------------------------------
         cSection:="SkipLine"
         oSection:=oSections:Get(cSection)
@@ -985,7 +985,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oSection:Finish()
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section Local&Data
+            //Inicia a Impressao da  Section Local&Data
         //-------------------------------------------------------------------------------------
         cSection:="Local&Data"
         oSection:=oSections:Get(cSection)
@@ -1009,7 +1009,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oReport:Box(oReport:Row(),oReport:Col(),oReport:Row()+100,nPageWidth)
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section AutorizacaoCab
+            //Inicia a Impressao da  Section AutorizacaoCab
         //-------------------------------------------------------------------------------------
         cSection:="AutorizacaoCab"
         oSection:=oSections:Get(cSection)
@@ -1028,7 +1028,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         Next nD
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section AutorizacaoDet
+            //Inicia a Impressao da  Section AutorizacaoDet
         //-------------------------------------------------------------------------------------
         cSection:="AutorizacaoDet"
         oSection:=oSections:Get(cSection)
@@ -1047,7 +1047,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         Next nD
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section Remetente
+            //Inicia a Impressao da  Section Remetente
         //-------------------------------------------------------------------------------------
         cSection:="Remetente"
         oSection:=oSections:Get(cSection)
@@ -1055,8 +1055,8 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         For nD:=1 To nJ
             oSection:Init()
                 //-------------------------------------------------------------------------------------
-                    //Verifica se o Banco/Agencia/Conta do Remetente estão Cadastrados no SA6
-                    //O posicionamento é Garantido pela TRPosition, e, por isso, uso MsSeek ao invés de 
+                    //Verifica se o Banco/Agencia/Conta do Remetente estao Cadastrados no SA6
+                    //O posicionamento e Garantido pela TRPosition, e, por isso, uso MsSeek ao inves de 
                     //dbSeek
                 //-------------------------------------------------------------------------------------
                 lSA6Found:=SA6->(MsSeek(cSA6Filial+oReportQst:Get("Banco")+oReportQst:Get("Agencia")+oReportQst:Get("Conta"),.F.))
@@ -1108,7 +1108,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oReport:SkipLine()
 
         //-------------------------------------------------------------------------------------
-            //Percorre Todos os Registros para a Totalização dos Valores do Fornecedor/Loja
+            //Percorre Todos os Registros para a Totalizacao dos Valores do Fornecedor/Loja
         //-------------------------------------------------------------------------------------
         While (cAlias)->(.NOT.(Eof()))
 
@@ -1157,7 +1157,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         End While
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section Favorecido
+            //Inicia a Impressao da  Section Favorecido
         //-------------------------------------------------------------------------------------
         cSection:="Favorecido"
         oSection:=oSections:Get(cSection)
@@ -1204,12 +1204,12 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         Next nD
 
         //-------------------------------------------------------------------------------------
-            //Desenha o Retangulo Para Impressão do Extenso
+            //Desenha o Retangulo Para Impressao do Extenso
         //-------------------------------------------------------------------------------------
         oReport:Box(oReport:Row(),oReport:Col(),oReport:Row()+100,nPageWidth)
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da  Section VlrExtenso
+            //Inicia a Impressao da  Section VlrExtenso
         //-------------------------------------------------------------------------------------
         cSection:="VlrExtenso"
         oSection:=oSections:Get(cSection)
@@ -1221,7 +1221,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oSection:Finish()
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da Section AssineAqui
+            //Inicia a Impressao da Section AssineAqui
         //-------------------------------------------------------------------------------------
         cSection:="AssineAqui"
         oSection:=oSections:Get(cSection)
@@ -1233,7 +1233,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oSection:Finish()
 
         //-------------------------------------------------------------------------------------
-            //Inicia a Impressão da Section Assinatura
+            //Inicia a Impressao da Section Assinatura
         //-------------------------------------------------------------------------------------
         cSection:="Assinatura"
         oSection:=oSections:Get(cSection)
@@ -1245,7 +1245,7 @@ Static Procedure ReportPrint(oReport,oSections,cAlias,oReportQst,oFChange,aNotPr
         oSection:Finish()
 
         //-------------------------------------------------------------------------------------
-            //Força a Quebra de Página
+            //Forca a Quebra de Pagina
         //------------------------------------------------------------------------------------
         cSection:="SkipLine"
         oSection:=oSections:Get(cSection)
@@ -1266,7 +1266,7 @@ Return
         Funcao:ReportQst()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:01/01/2015
-        Descricao:Autorização para emissão de DOC/TED
+        Descricao:Autorizacao para emissao de DOC/TED
     */
 //------------------------------------------------------------------------------------------------
 Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
@@ -1334,7 +1334,7 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
         //-------------------------------------------------------------------------------------
             //Tokeniza
         //-------------------------------------------------------------------------------------
-        aNDJ:=_StrToKArr(cExpFor,cToken)
+        aNDJ:=_StrTokArr(cExpFor,cToken)
         cExpFor:=""
         nJ:=Len(aNDJ)
         For nD:=1 To nJ
@@ -1403,12 +1403,12 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
         EndIF
 
         //-------------------------------------------------------------------------------------
-            //Garante que a Area de Trabalho será a da View
+            //Garante que a Area de Trabalho sera a da View
         //-------------------------------------------------------------------------------------
         dbSelectArea(cAlias)
 
         //-------------------------------------------------------------------------------------
-            //Obtem o Número de Registros a serem Processados
+            //Obtem o Numero de Registros a serem Processados
         //-------------------------------------------------------------------------------------
         While (cAlias)->(.NOT.(Eof()))
 
@@ -1443,7 +1443,7 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
             cKeyBreak:=SE2->(E2_FILIAL+E2_FORNECE+E2_LOJA)
 
             //-------------------------------------------------------------------------------------
-                //Percorre Todos os Registros para a Totalização dos Valores do Fornecedor/Loja
+                //Percorre Todos os Registros para a Totalizacao dos Valores do Fornecedor/Loja
             //-------------------------------------------------------------------------------------
             While (cAlias)->(.NOT.(Eof()))
 
@@ -1500,9 +1500,9 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
                 //-------------------------------------------------------------------------------------
                 cLogT:="VALOR"
                 //-------------------------------------------------------------------------------------
-                    //...Adiciona informação ao LOG
+                    //...Adiciona informacao ao LOG
                 //-------------------------------------------------------------------------------------
-                SA2->(aAdd(oLog:Get(cLogT),"Fornecedor não possui saldo a Receber: Código:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
+                SA2->(aAdd(oLog:Get(cLogT),"Fornecedor nao possui saldo a Receber: Codigo:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
                 //-------------------------------------------------------------------------------------
                     //...Carrega RecNo em a NotPrint
                 //-------------------------------------------------------------------------------------
@@ -1522,22 +1522,22 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
                 //-------------------------------------------------------------------------------------
                 cLogT:="BANCO"
                 //-------------------------------------------------------------------------------------
-                    //...Adiciona informação ao LOG
+                    //...Adiciona informacao ao LOG
                 //-------------------------------------------------------------------------------------
                 IF SA2->(Empty(A2_BANCO))
-                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor não possui BANCO   : Código:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
+                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor nao possui BANCO   : Codigo:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
                 EndIF
                 //-------------------------------------------------------------------------------------
-                    //...Adiciona informação ao LOG
+                    //...Adiciona informacao ao LOG
                 //-------------------------------------------------------------------------------------
                 IF SA2->(Empty(A2_AGENCIA))
-                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor não possui AGÊNCIA : Código:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
+                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor nao possui AGeNCIA : Codigo:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
                 EndIF
                 //-------------------------------------------------------------------------------------
-                    //...Adiciona informação ao LOG
+                    //...Adiciona informacao ao LOG
                 //-------------------------------------------------------------------------------------
                 IF SA2->(Empty(A2_NUMCON))
-                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor não possui CONTA   : Código:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
+                    SA2->(aAdd(oLog:Get(cLogT),"Fornecedor nao possui CONTA   : Codigo:["+A2_COD+"] Loja:["+A2_LOJA+"] Nome:["+A2_NOME+"] Valor:["+Transform(nTSaldo,"@E 999,999,999,999.99")+"]"))
                 EndIF
                 //-------------------------------------------------------------------------------------
                     //...Carrega RecNo em a NotPrint
@@ -1576,7 +1576,7 @@ Static Function ReportView(cAlias,oReportQst,oLog,aNotPrint)
     END EXCEPTION
 
 //-------------------------------------------------------------------------------------
-    //Retorna Número de Registros a Serem Processados
+    //Retorna Numero de Registros a Serem Processados
 //-------------------------------------------------------------------------------------
 Return(nRecCount)
 
@@ -1587,7 +1587,7 @@ Return(nRecCount)
         Funcao:A2CodForF3()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:30/12/2014
-        Desc.:Programa para retornar Consulta Padrao "Específica" baseada em f_Opcoes
+        Desc.:Programa para retornar Consulta Padrao "Especifica" baseada em f_Opcoes
         Uso:Retorno da Consulta F3 (A2REF3)
     */
 //-------------------------------------------------------------------------------------
@@ -1606,7 +1606,7 @@ Static Function A2CodForF3()
     Local cTitulo:= OemToAnsi("Consulta de Fornecedores")
 
     //------------------------------------------------------------------------------------------------
-        // Obtem uma Alias Temporário Válido para uso
+        // Obtem uma Alias Temporario Valido para uso
     //------------------------------------------------------------------------------------------------
     Local cAlias:= GetNextAlias()
 
@@ -1622,11 +1622,11 @@ Static Function A2CodForF3()
     Local nJ
 
     //------------------------------------------------------------------------------------------------
-        //Utiliza X3Tamanho para retornar o Tamanho do Campo baseado no Dicionário de Dados (SX3)
+        //Utiliza X3Tamanho para retornar o Tamanho do Campo baseado no Dicionario de Dados (SX3)
     //------------------------------------------------------------------------------------------------
     Local nTamKey:=(GetSx3Cache("A2_COD","X3_TAMANHO")+1+GetSx3Cache("A2_LOJA","X3_TAMANHO"))
     //------------------------------------------------------------------------------------------------
-        //Calcula o Máximo de Elementos a serem Selecionados de Acordo com o Tamanho da Chave+Separador
+        //Calcula o Maximo de Elementos a serem Selecionados de Acordo com o Tamanho da Chave+Separador
     //------------------------------------------------------------------------------------------------
     Local nElemRet:=SA2->(RecCount())
     //------------------------------------------------------------------------------------------------
@@ -1637,7 +1637,7 @@ Static Function A2CodForF3()
     Local uVarRet
 
     //------------------------------------------------------------------------------------------------
-        //Obtem o conteúdo do campo utilizado na Consulta Padrao Customizada
+        //Obtem o conteudo do campo utilizado na Consulta Padrao Customizada
     //------------------------------------------------------------------------------------------------
     DEFAULT _cSA2F3Ret:=(Space(GetSx3Cache("A2_COD","X3_TAMANHO"))+":"+Space(GetSx3Cache("A2_LOJA","X3_TAMANHO")))
 
@@ -1674,7 +1674,7 @@ Static Function A2CodForF3()
     End While
 
     //------------------------------------------------------------------------------------------------
-        //Libera a View da Memória
+        //Libera a View da Memoria
     //------------------------------------------------------------------------------------------------
     (cAlias)->(dbCloseArea())
 
@@ -1702,7 +1702,7 @@ Static Function A2CodForF3()
             //Ajusta o Retorno caso exista o separador
         //------------------------------------------------------------------------------------------------
         IF (cToken$cOpcoes)
-            aOpcoes:=_StrToKArr(uVarRet,cToken)
+            aOpcoes:=_StrTokArr(uVarRet,cToken)
             uVarRet:=""
             aEval(aOpcoes,{uVarRet+=PadR(e,nTamKey)})
         EndIF
@@ -1734,7 +1734,7 @@ Static Function A2CodForF3()
     EndIF
 
     //------------------------------------------------------------------------------------------------
-        //Alimenta a variável Static para uso no Retorno da Consulta Padrao.
+        //Alimenta a variavel Static para uso no Retorno da Consulta Padrao.
     //------------------------------------------------------------------------------------------------
     _cSA2F3Ret:=cF3Ret
 
@@ -1748,14 +1748,14 @@ Return(cF3Ret)
 //-------------------------------------------------------------------------------------
     /*
         Programa:u_DJFINR01.prw
-        Funcao:_StrToKArr()
+        Funcao:_StrTokArr()
         Autor:Marinaldo de Jesus [BlackTDN:(http://www.blacktdn.com.br/)]
         Data:30/12/2014
-        Desc.:Autorização para emissão de DOC/TED
-        Uso:Impressão do Relatório Autorização para emissão de DOC/TED
+        Desc.:Autorizacao para emissao de DOC/TED
+        Uso:Impressao do Relatorio Autorizacao para emissao de DOC/TED
     */
 //-------------------------------------------------------------------------------------
-Static Function _StrToKArr(cStr,cToken)
+Static Function _StrTokArr(cStr,cToken)
     Local cDToken
     DEFAULT cStr:=""
     DEFAULT cToken:=","
@@ -1763,4 +1763,4 @@ Static Function _StrToKArr(cStr,cToken)
     While (cDToken$cStr)
         cStr:=StrTran(cStr,cDToken,cToken+" "+cToken)
     End While
-Return(StrToKArr(cStr,cToken))
+Return(StrTokArr2(cStr,cToken))

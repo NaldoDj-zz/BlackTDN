@@ -139,7 +139,7 @@ Static Function GetStackParameters()
             cStackEnv:=StrTran(cStackEnv,"STACK ",cCRLF+"STACK ")
         EndIF
         
-        aStackEnv:=StrTokArr(cStackEnv,cCRLF)
+        aStackEnv:=StrTokArr2(cStackEnv,cCRLF)
 
         cStackEnv:=NIL
 
@@ -280,7 +280,7 @@ Return(aStackParameters)
 Static Function AddStackParameters(aStackParameters,nStack,cStackEnv)
 
     Local aScope
-    Local aTokens:=StrTokArr(cStackEnv,":")
+    Local aTokens:=StrTokArr2(cStackEnv,":")
     Local aDateFormat
     
     Local cType
@@ -298,7 +298,7 @@ Static Function AddStackParameters(aStackParameters,nStack,cStackEnv)
     Local uValue
 
     IF (nTokens>=1)
-        aScope:=StrTokArr(aTokens[1]," ")
+        aScope:=StrTokArr2(aTokens[1]," ")
         IF (Len(aScope)>=1)
             cScope:=Upper(AllTrim(aScope[1]))
         Else

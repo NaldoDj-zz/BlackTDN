@@ -21,7 +21,7 @@
     Uso:Jogo Sudoku
 
     * Copyright 2005-2015 marinaldo.jesus [http://www.blacktdn.com.br]
-    
+
     TODO: Rever codigo de forma a so utilizar funcoes da LIB.
 */
 User Function Sudoku()
@@ -42,43 +42,43 @@ User Function Sudoku()
     CursorWait()
 
         BEGIN SEQUENCE
-        
+
             #IFNDEF SODUKO_NO_CHANGE
-        
+
                 IF !(SudokuNivel())
                     Break
                 EndIF
-        
+
             #ENDIF
-        
+
             aEval(aSudokuElem,{|uElem,nElem|aSudokuElem[nElem]:=aClone(Array(9,SUDOKU_ELEM))})
-        
+
             DEFINE FONT oFont NAME "Courier New" SIZE 0,-11 BOLD
             DEFINE FONT oFontNum NAME "Courier New" SIZE 18,30 BOLD
             DEFINE MSDIALOG oDlg TITLE OemToAnsi("Sudoku:: by Naldo Dj") From 0,0 TO 610,610 OF GetWndDefault() STYLE DS_MODALFRAME STATUS PIXEL
-            
+
                 oDlg:lEscClose:=.F.
-            
+
                 @ 015,005 GROUP aSudokuGrps[1] TO 100,100 OF oDlg PIXEL
                 @ 015,102 GROUP aSudokuGrps[2] TO 100,200 OF oDlg PIXEL
                 @ 015,202 GROUP aSudokuGrps[3] TO 100,300 OF oDlg PIXEL
-            
+
                 @ 100,005 GROUP aSudokuGrps[4] TO 200,100 OF oDlg PIXEL
                 @ 100,102 GROUP aSudokuGrps[5] TO 200,200 OF oDlg PIXEL
                 @ 100,202 GROUP aSudokuGrps[6] TO 200,300 OF oDlg PIXEL
-            
+
                 @ 200,005 GROUP aSudokuGrps[7] TO 300,100 OF oDlg PIXEL
                 @ 200,102 GROUP aSudokuGrps[8] TO 300,200 OF oDlg PIXEL
                 @ 200,202 GROUP aSudokuGrps[9] TO 300,300 OF oDlg PIXEL
-            
+
                 aEval(aSudokuGrps,{|uElem,nElem|aSudokuGrps[nElem]:oFont:=oFont})
-            
+
                 #IFNDEF SODUKO_NO_CHANGE
                     aSudokuGetNum:=BuildSudoku(oDlg,oFontNum,@aSudokuElem,lIniciante,lIntermediario,lAvancado)
                 #ELSE
                     aSudokuGetNum:=BuildSudoku(oDlg,oFontNum,@aSudokuElem)
-                #ENDIF    
-            
+                #ENDIF
+
                 bDialogInit:={||;
                                         ExeWhile(;
                                                     NIL,;//Variavel de Retorno que sera incrementada pelo bloco
@@ -94,7 +94,7 @@ User Function Sudoku()
                                         GlbUnlock(),;
                                         SdkBtnBar(oDlg,@lNewSudoku,aSvKeys,@aSudokuElem,aSudokuGetNum),;
                                         StartJob("U_SudokuExec",GetEnvServer(),.F.,"SudokuTime",{Time(),1});
-                }        
+                }
 
             ACTIVATE MSDIALOG oDlg CENTERED ON INIT Eval(bDialogInit)
             RestKeys(aSvKeys)
@@ -116,7 +116,7 @@ Static Function NewSudoku(lNewSudoku)
     BEGIN SEQUENCE
 
         DEFAULT lNewSudoku:=.F.
-        
+
         IF !(lNewSudoku)
 
             While !(GlbLock())
@@ -127,7 +127,7 @@ Static Function NewSudoku(lNewSudoku)
             ClearGlbValue("bStartSudoku")
             ClearGlbValue("cSudokuTime")
             GlbUnlock()
-        
+
             Break
 
         EndIF
@@ -186,7 +186,7 @@ Static Function NewSudoku(lNewSudoku)
 
     Local lChkAllNum:=.F.
 
-    DEFINE BUTTONBAR oButtonBar    SIZE 025,025 3D TOP OF oDlg PIXEL
+    DEFINE BUTTONBAR oButtonBar    SIZE 025,025 3D TOP OF oDlg //PIXEL
 
     DEFINE BUTTON oButtonNewG    RESOURCE "PMSCOLOR"    OF oButtonBar GROUP ACTION Eval(bButtonNewG)    TOOLTIP OemToAnsi("Novo Jogo...<F2>")
     oButtonNewG:cTitle:=OemToAnsi("Novo")
@@ -198,7 +198,7 @@ Static Function NewSudoku(lNewSudoku)
 
     DEFINE BUTTON oButtonParM    RESOURCE "BMPPARAM"    OF oButtonBar GROUP ACTION Eval(bButtonParM)    TOOLTIP OemToAnsi('Par?etros...<F4>')
     oButtonParM:cTitle:=OemToAnsi("Config.")
-    SetKey(VK_F4,oButtonParM:bAction)  
+    SetKey(VK_F4,oButtonParM:bAction)
 
     DEFINE BUTTON oButtonChkG    RESOURCE "OK"          OF oButtonBar GROUP ACTION Eval(bButtonChkG)    TOOLTIP OemToAnsi('Ok...<Ctrl-O>')
     oButtonChkG:cTitle:=OemToAnsi("OK")
@@ -220,7 +220,7 @@ Static Function NewSudoku(lNewSudoku)
 
         DEFINE TIMER oTimer INTERVAL (1) ACTION (oElapTime:Refresh()) OF oDlg
         ACTIVATE TIMER oTimer
-        
+
     #ENDIF
 
     oButtonBar:bRClicked:={||AllwaysTrue()}
@@ -242,7 +242,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
     Local nCol
 
     Local nItem
-    Local nIntes
+    Local nItens
     Local nLoop
     Local nLoops
     Local nCntRow
@@ -250,7 +250,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
     Local nColIndex
 
     #IFNDEF SODUKO_NO_CHANGE
-        
+
         Local bChange
 
         Local nChange1
@@ -273,7 +273,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                                 .or.;
                                 (nLoop==nChange1);
                         );
-            }        
+            }
         ElseIF (lIntermediario)
             bChange:={||(;
                                 (nSudokuGetNum==nChange1);
@@ -294,7 +294,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                                 .or.;
                                 (nLoop==nChange3);
                             );
-            }        
+            }
         ElseIF (lAvancado)
             bChange:={||(;
                                 (nSudokuGetNum==nChange1);
@@ -352,10 +352,10 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                                 (nLoop==nChange9);
             );
         }
-        EndIF                    
-        
+        EndIF
+
     #ENDIF
-        
+
     nLoops:=Len(aSudokuElem)
     nCntRow:=0
     For nLoop:=1 To nLoops
@@ -388,13 +388,13 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                     cSudokuGetNum:=" "
 
                 EndIF
-            
+
             #ELSE
-            
+
                 lChange:=.F.
-            
+
             #ENDIF
-            
+
             aSudokuElem[nLoop][nItem,SUDOKU_VAR]:=cSudokuGetNum
             aSudokuElem[nLoop][nItem,SUDOKU_OBJ]:=TGet():New(;
                                                                 nRow,;//01:<nRow>
@@ -431,12 +431,12 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                     (nCntCol==3);
                     .or.;
                     (nCntCol==6);
-            )    
+            )
                 IF (nCntCol==3)
                     nCol+=40
                 Else
                     nCol+=45
-                EndIF    
+                EndIF
             Else
                 nCol+=28
             EndIF
@@ -446,7 +446,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
                 (nCntRow==3);
                 .or.;
                 (nCntRow==6);
-            )    
+            )
             IF (nCntRow==3)
                 nRow+=40
             Else
@@ -454,7 +454,7 @@ Static Function BuildSudoku(oDlg,oFont,aSudokuElem,lIniciante,lIntermediario,lAv
             EndIF
         Else
             nRow+=26
-        EndIF    
+        EndIF
     Next nLoop
 
 Return(aSudokuGetNum)
@@ -462,8 +462,6 @@ Return(aSudokuGetNum)
 Static Function SudokuNivel(lButtonParam)
 
     Local aSvKeys:=GetKeys()
-
-    Local bSet15:={||RestKeys(aSvKeys,.T.),oDlg:End()}
 
     Local lContinue:=.T.
 
@@ -483,7 +481,7 @@ Static Function SudokuNivel(lButtonParam)
 
         IF (;
                 !(lButtonParam);
-                .and.;    
+                .and.;
                 !Empty(lNoModify);
         )
             Break
@@ -493,19 +491,19 @@ Static Function SudokuNivel(lButtonParam)
 
         DEFINE FONT oFont NAME "Arial" SIZE 0,-11 BOLD
         DEFINE MSDIALOG oDlg FROM  094,001 TO 250,350 TITLE OemToAnsi("Sudoku:: by Naldo Dj") OF GetWndDefault() STYLE DS_MODALFRAME STATUS PIXEL
-        
+
             @ 015,005   GROUP oGroup TO 075,172 LABEL OemToAnsi("Escolha o Nivel do Jogo") OF oDlg PIXEL
             oGroup:oFont:=oFont
-            
+
             @ 025,010   RADIO oRadio VAR nOpcSudoku ITEMS   OemToAnsi("Iniciante"),;
                                                             OemToAnsi("Intermediario"),;
                                                             OemToAnsi("Avancado");
                         SIZE 115,010 OF oDlg PIXEL
-        
+
             @ 060,010 CHECKBOX oCheckBox VAR lNoModify PROMPT OemToAnsi("Utilizar a opcao acima ate o final do Jogo.") SIZE 160,010 OF oDlg PIXEL
 
             oDlg:lEscClose:=.F.//Nao permite sair ao se pressionar a tecla ESC.
-        
+
         ACTIVATE MSDIALOG oDlg CENTERED ON INIT SdkPrmBar(oDlg,aSvKeys,lButtonParam,@lContinue)
         RestKeys(aSvKeys,.T.)
 
@@ -522,10 +520,10 @@ Static Function SudokuNivel(lButtonParam)
                 lIniciante:=.F.
                 lIntermediario:=.F.
                 lAvancado:=.T.
-        End Case    
+        End Case
 
     END SEQUENCE
-    
+
 Return(lContinue)
 
 Static Function SdkPrmBar(oDlg,aSvKeys,lButtonParam,lContinue)
@@ -606,7 +604,7 @@ Static Function SudokuNumArray()
     nStcInitRow:=nInitRow
     nSaveInitCol:=nInitCol
 
-    aSudokuIndex:=aSudokuModel[nSudokuIndex] 
+    aSudokuIndex:=aSudokuModel[nSudokuIndex]
     nFinishRow:=Len(aSudokuIndex)
 
     aSudokuGetNum:=Array(9,9)
@@ -639,7 +637,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"5","3","1","6","4","2","9","7","8"},;
                                         {"6","4","2","9","7","8","5","3","1"},;
                                         {"9","7","8","5","3","1","6","4","2"};
-                                    },;    
+                                    },;
                                     {;
                                         {"2","1","3","4","5","6","7","8","9"},;
                                         {"4","5","6","7","8","9","1","2","3"},;
@@ -738,7 +736,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"3","8","4","6","9","2","7","1","5"},;
                                         {"2","7","6","5","1","4","8","9","3"},;
                                         {"1","9","5","7","8","3","6","2","4"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"8","4","3","2","6","9","5","7","1"},;
                                         {"7","6","2","4","5","1","3","8","9"},;
@@ -749,7 +747,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"6","2","7","1","4","5","9","3","8"},;
                                         {"4","3","8","9","2","6","1","5","7"},;
                                         {"5","1","9","8","3","7","2","4","6"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"5","1","9","8","3","7","2","4","6"},;
                                         {"4","3","8","9","2","6","1","5","7"},;
@@ -760,7 +758,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"3","8","4","6","9","2","7","1","5"},;
                                         {"2","7","6","5","1","4","8","9","3"},;
                                         {"1","9","5","7","8","3","6","2","4"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"4","3","8","9","2","6","1","5","7"},;
                                         {"6","2","7","1","4","5","9","3","8"},;
@@ -793,7 +791,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"7","6","2","4","5","1","3","8","9"},;
                                         {"8","4","3","2","6","9","5","7","1"},;
                                         {"9","5","1","3","7","8","4","6","2"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"9","5","1","3","7","8","4","6","2"},;
                                         {"7","6","2","4","5","1","3","8","9"},;
@@ -804,7 +802,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"6","2","7","1","4","5","9","3","8"},;
                                         {"4","3","8","9","2","6","1","5","7"},;
                                         {"5","1","9","8","3","7","2","4","6"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"8","4","3","2","6","9","5","7","1"},;
                                         {"9","5","1","3","7","8","4","6","2"},;
@@ -815,7 +813,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"3","8","4","6","9","2","7","1","5"},;
                                         {"2","7","6","5","1","4","8","9","3"},;
                                         {"1","9","5","7","8","3","6","2","4"};
-                                    },;                                      
+                                    },;
                                     {;
                                         {"1","2","3","4","5","6","7","8","9"},;
                                         {"4","5","6","7","8","9","1","2","3"},;
@@ -837,7 +835,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"8","3","7","2","4","6","5","1","9"},;
                                         {"9","2","6","1","5","7","4","3","8"},;
                                         {"1","4","5","9","3","8","6","2","7"};
-                                    },;    
+                                    },;
                                     {;
                                         {"3","8","4","6","9","2","7","1","5"},;
                                         {"2","7","6","5","1","4","8","9","3"},;
@@ -848,7 +846,7 @@ Static Function SudokuModGet(aSudokuModel,nSudokuModel)
                                         {"9","5","1","3","7","8","4","6","2"},;
                                         {"7","6","2","4","5","1","3","8","9"},;
                                         {"8","4","3","2","6","9","5","7","1"};
-                                    };                                      
+                                    };
                             }
 
     DEFAULT nSudokuModel:=Len(aSudokuModel)
@@ -889,7 +887,7 @@ Static Function ChkSudoku(oDlg,aSudokuElem,aSudokuGetNum,lChkAllNum)
     Local aChkOk:={}
 
     Local cMsgInfo
-    Local cTitle 
+    Local cTitle
 
     Local nLoop
     Local nLoops
@@ -918,7 +916,7 @@ Static Function ChkSudoku(oDlg,aSudokuElem,aSudokuGetNum,lChkAllNum)
     BEGIN SEQUENCE
 
         IF !(lChkAllNum)
-        
+
             IF ((nLoop:=aScan(aChkOk,{|aOk|!(aOk[1])}))>0)
                 cMsgInfo:="Existem Informacoes inconsistentes!"
                 cMsgInfo+=CRLF
@@ -927,16 +925,16 @@ Static Function ChkSudoku(oDlg,aSudokuElem,aSudokuGetNum,lChkAllNum)
                 Break
             EndIF
 
-            cMsgInfo:="Parabens, voce conclui a partida com sucesso!" 
-            cMsgInfo+=CRLF 
+            cMsgInfo:="Parabens, voce conclui a partida com sucesso!"
+            cMsgInfo+=CRLF
             cMsgInfo+=CRLF
             cMsgInfo+="Tempo: "+GetGlbValue("cSudokuTime")
             cTitle:="OK"
 
         Else
-        
-            cMsgInfo:="Que Pena. voce desistiu do Jogo!" 
-            cMsgInfo+=CRLF 
+
+            cMsgInfo:="Que Pena. voce desistiu do Jogo!"
+            cMsgInfo+=CRLF
             cMsgInfo+=CRLF
             cMsgInfo+="Tempo: "+GetGlbValue("cSudokuTime")
             cTitle:="Desistente"
@@ -959,7 +957,9 @@ Static Function SudokuTime(cTime,nCountTime)
 
     #IFNDEF SODUKO_NO_CHANGE
 
-        Local bSudokuTime:={||SudokuTime()}
+        if (.f.)
+            SudokuTime(cTime,nCountTime)
+        endif
 
         RstTimeRemaining()
 
@@ -974,7 +974,7 @@ Static Function SudokuTime(cTime,nCountTime)
             GlbUnlock()
         End While
 
-    #ENDIF    
+    #ENDIF
 
 Return(NIL)
 
@@ -982,7 +982,7 @@ Static Function SudokuHelp()
 Return(ShellExecute("open","http://naldodjblogs.blogspot.com/2008/11/sudoku-tutorial.html","","",1))
 
 User Function SudokuExec(cExecIn,aFormParam)
-         
+
     Local uRet
 
     DEFAULT cExecIn:=""

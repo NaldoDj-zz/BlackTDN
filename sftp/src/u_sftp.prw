@@ -10,32 +10,32 @@ static aMsgs
         Data:29/04/2015
         Descricao:Transferencia de dados segura usando o protocolo SFTP a partir do pscp.exe
         Sintaxe:uSFTP():New()->Objeto do Tipo uSFTP
-        
-        //------------------------------------------------------------------------------------------------        
+
+        //------------------------------------------------------------------------------------------------
         Documentacao de uso de pscp.exe:
         http://tartarus.org/~simon/putty-snapshots/htmldoc/Chapter5.html#pscp-starting
-        
-        //------------------------------------------------------------------------------------------------        
+
+        //------------------------------------------------------------------------------------------------
         Downloads do pscp.exe:
         http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
-        
-        //------------------------------------------------------------------------------------------------        
+
+        //------------------------------------------------------------------------------------------------
         Obs.: pscp.exe devera ser adicionado como Resource no Projeto do IDE (TDS)
         TODO: (1) Implementar o envio via socket utilizando o Harbour como conector sftp (https://github.com/NaldoDj/PuTTY)
-        
-        //------------------------------------------------------------------------------------------------        
+
+        //------------------------------------------------------------------------------------------------
         PuTTY Secure Copy client
-        
+
         Release 0.64
-        
+
         Usage:
-        
+
         pscp [options] [user@]host:source target
         pscp [options] source [source...] [user@]host:target
         pscp [options] -ls [user@]host:filespec
- 
+
         Options:
-        
+
           -V        print version information and exit
           -pgpfp    print PGP key fingerprints and exit
           -p        preserve file attributes
@@ -59,12 +59,12 @@ static aMsgs
           -sftp     force use of SFTP protocol
           -scp      force use of SCP protocol
     /*/
-    
+
 //------------------------------------------------------------------------------------------------
 CLASS uSFTP
 
     DATA aSFTPLog
-    
+
     DATA cClassName
 
     DATA nError
@@ -121,9 +121,9 @@ METHOD Set(cParameter,uValue) CLASS uSFTP
 Return(self)
 
 METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWMode) CLASS uSFTP
- 
+
     Local aFiles
-    
+
     Local cAppSFTP:="pscp.exe"
     Local cBatSFTP:="pscp.bat"
 
@@ -142,12 +142,12 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
     Local cWaitRunPath
 
     Local lCopyFile
- 
+
     Local nError:=0
-    
+
     Local nFile
     Local nFiles
- 
+
     BEGIN SEQUENCE
 
         IF (Valtype(self:oParameters)=="O")
@@ -162,22 +162,22 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             DEFAULT lForceClient:=self:Get("lForceClient")
             DEFAULT nSWMode:=self:Get("nSWMode")
         EndIF
-    
+
         DEFAULT cSource:=""
         DEFAULT cTarget:=""
         DEFAULT cURL:=""
         DEFAULT cUSR:=""
         DEFAULT cPWD:=""
         DEFAULT cPort:="22"
-        
+
         //-------------------------------------------------------------------------------
         //cMode=>P:Put;G:Get
         DEFAULT cMode:="P"
-        
+
         DEFAULT lSrv:=.T.
         DEFAULT lForceClient:=.F.
         DEFAULT nSWMode:=SW_MAXIMIZE
-        
+
         //-------------------------------------------------------------------------------
         //Verifica se vai forcar a Execucao do comando a partir do Client
         IF (lForceClient)
@@ -242,14 +242,14 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                             ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cSrvPath+"]")
                             BREAK
                         EndIF
-                    EndIF            
+                    EndIF
                     //-------------------------------------------------------------------------------
                     //Redefine o Destino dos Arquivos
                     cTarget:=cDirTmp
-                EndIF                    
+                EndIF
             EndIF
         EndIF
-        
+
         //-------------------------------------------------------------------------------
         //Define o Caminho para o aplicativo de Transferencia SFTP
         IF (lSrv).and.(.NOT.(lForceClient))
@@ -269,7 +269,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             EndIF
             cDirSFTP+="SFTP\"
         EndIF
-        
+
         //-------------------------------------------------------------------------------
         //Verifica a existencia do diretorio para Extracao do aplicativo de Transferencia SFTP
         IF .NOT.(lIsDir(cDirSFTP))
@@ -282,7 +282,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
         //-------------------------------------------------------------------------------
         //Obtem o Caminho completo do aplicativo de Transferencia SFTP
         cFullAppSFTP:=(cDirSFTP+cAppSFTP)
-        
+
         //-------------------------------------------------------------------------------
         //Verifica a existencia aplicativo de Transferencia SFTP
         IF .NOT.(File(cFullAppSFTP))
@@ -295,17 +295,17 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                 BREAK
             EndIF
         EndIF
-       
+
         //-------------------------------------------------------------------------------
         //Elabora o Comando para execucao do Aplicativo de Transferencia SFTP
         //-------------------------------------------------------------------------------
         //Exemplo Client:
         //P:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort C:\tmp\files\*.txt cURL:cTarget
-        //G:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort cURL:cTarget/*.txt C:\tmp\files\ 
+        //G:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort cURL:cTarget/*.txt C:\tmp\files\
         //-------------------------------------------------------------------------------
         //Exemplo Server:
         //P:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort \tmp\files\*.txt cURL:cTarget
-        //G:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort cURL:cTarget/*.txt \tmp\files\ 
+        //G:pscp.exe -sftp -C -l cUSR -pw cPWD -P cPort cURL:cTarget/*.txt \tmp\files\
         //-------------------------------------------------------------------------------
         cCommandLine:=""
         IF (lSrv).and.(.NOT.(lForceClient))
@@ -347,7 +347,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
         cCommandLine+=" "
         //-------------------------------------------------------------------------------
         //connect with specified username
-        cCommandLine+="-l" 
+        cCommandLine+="-l"
         cCommandLine+=" "
         cCommandLine+=cUSR
         //-------------------------------------------------------------------------------
@@ -380,9 +380,9 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                     cCommandLine+=SubStr(cSource,2)
                 Else
                     cCommandLine+=cSource
-                EndIF    
+                EndIF
             Else
-                cCommandLine+=cSource            
+                cCommandLine+=cSource
             EndIF
             cCommandLine+=" "
             cCommandLine+=cURL
@@ -410,23 +410,23 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
         cCommandLine+=" >> "
         cCommandLine+=cfLogAppSFTP
         cCommandLine+=" "
-        
+
         //-------------------------------------------------------------------------------
         //Define o Batch File
         cFullBatSFTP:=StrTran(cfLogAppSFTP,ctLogAppSFTP,cBatSFTP)
-        
+
         //-------------------------------------------------------------------------------
-        //Redefine cCommandLine incluindo mode con 
+        //Redefine cCommandLine incluindo mode con
         cCommandLine:="mode con:lines=45 cols=165"+CRLF+cCommandLine
 
         //-------------------------------------------------------------------------------
         //Grava o Comando no Batch File
         MemoWrite(cFullBatSFTP,cCommandLine)
-        
+
         //-------------------------------------------------------------------------------
         //Redefine cCommandLine
         cCommandLine:=cFullBatSFTP
-        
+
         //-------------------------------------------------------------------------------
         //Redefine cTarget quando lForceClient:.T. e cMode:"G"
         IF (lForceClient)
@@ -438,8 +438,8 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                 EndIF
                 cTarget+="*.*"
             EndIF
-        EndIF    
-        
+        EndIF
+
         //-------------------------------------------------------------------------------
         //Verifica se o comando vai ser executado a partir do servidor
         IF (lSrv).and.(.NOT.(lForceClient))
@@ -454,7 +454,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             //WaitRunSrv(cCommandLineLine,lWaitRun,cPath):lSuccess
             cWaitRunPath:=cRootPath
             cWaitRunPath+=IF(Left(cDirSFTP,1)=="\",SubStr(cDirSFTP,2),cDirSFTP)
-            IF .NOT.(WaitRunSrv(cCommandLine,.T.,cWaitRunPath))
+            IF .NOT.(WaitRunSrv(cWaitRunPath+cCommandLine,.T.,cWaitRunPath))
                 nError:=-3
                 ConOut("["+ProcName()+"]["+LoadMsgs(nError)+"]["+cCommandLine+"][Path]["+cRootPath+"]")
                 BREAK
@@ -495,9 +495,9 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             EndIF
 
         EndIF
-    
+
     END SEQUENCE
-    
+
     //-------------------------------------------------------------------------------
     //Obtem o Log de Execucao
     IF .NOT.(Empty(cfLogAppSFTP))
@@ -507,7 +507,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             fErase(cfLogAppSFTP)
         EndIF
     EndIF
-    
+
     IF (lForceClient)
         //-------------------------------------------------------------------------------
         //Verifica se deve Excluir os Arquivos Temporarios
@@ -517,7 +517,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
                 nFiles:=aDir(cSource,@aFiles)
             Else
                 nFiles:=aDir(cTarget,@aFiles)
-            EndIF   
+            EndIF
             //-------------------------------------------------------------------------------
             //Excluindo os Arquivos Temporarios
             For nFile:=1 To nFiles
@@ -532,7 +532,7 @@ METHOD Execute(cSource,cTarget,cURL,cUSR,cPWD,cMode,lSrv,cPort,lForceClient,nSWM
             EndIF
         EndIF
     EndIF
-    
+
     self:nError:=nError
 
 Return(self:nError)

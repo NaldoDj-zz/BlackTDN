@@ -1810,8 +1810,8 @@
         Descricao:Ponto de entrada PSWVALID
         Sintaxe:<vide parametros formais>
     /*/
-*    User Function PswValid()
-*    Return(.T.)
+    User Function PswValid()
+    Return(.T.)
 
     /*/
         Funcao:PswSize
@@ -1832,7 +1832,9 @@
     /*/
     User Function CallChgXNU()
         
-        Local cArqMnu:=ParamIXB[5]
+        Local cArqMnu
+        
+        cArqMnu:=if(type("ParamIXB")=="A",&("ParamIXB")[5],"")
         
         Begin Sequence
         

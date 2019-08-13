@@ -47,7 +47,7 @@ User Function RpcPackTabs(aParameters)
 
             For nLoop:=0 To nLoops
                 cTabs:=Upper(AllTrim(GetNewPar("NDJ_PACK"+StrZero(nLoop,nStrZero),"")))
-                aTabs:=StrTokArr(cTabs,";")
+                aTabs:=StrTokArr2(cTabs,";")
                 nTabs:=Len(aTabs)
                 For nTab:=1 To nTabs
                     cTab:=aTabs[ nTab ]

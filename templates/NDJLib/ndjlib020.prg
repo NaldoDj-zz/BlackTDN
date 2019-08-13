@@ -13,6 +13,8 @@ CLASS TFINI FROM THASH
 
     DATA cINIFile
     
+    DATA lHasError
+    
     DATA cClassName
 
     METHOD NEW(cINIFile,cIgnoreToken) CONSTRUCTOR
@@ -68,7 +70,7 @@ METHOD New(cINIFile,cIgnoreToken) CLASS TFINI
     self:cINIFile:=cINIFile
     aTFINI:=self:aTHASH
     
-    TINILoad(@aTFINI,@cINIFile,@cIgnoreToken)
+    self:lHasError:=TINILoad(@aTFINI,@cINIFile,@cIgnoreToken)
 
 Return(self)
 

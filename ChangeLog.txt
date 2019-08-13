@@ -2,6 +2,200 @@
  * $Id$
  */
 
+2019-08-13 06:52 UTC--300 NaldoDj (marinaldo.jesus blacktdn.com.br)
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/ATFCPATRI.prw"
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/Pontos de Entrada/AT010GRV.PRW"
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/Pontos de Entrada/AVALCOT.prw"
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/Pontos de Entrada/CARGASC1.PRW"
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/Pontos de Entrada/MT103IPC.prw"
+  - "templates/P10/ndj_01/Projeto/Ativo Fixo/Pontos de Entrada/MTA130C8.prw"
+  - "templates/P10/ndj_01/Projeto/Consulta R/303/241pida de Contatos/Fontes/NDJC001.prw"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/MA030BRW.prw"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/MA030ROT.prw"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/NDJA001I.PRW"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/NDJA001O.PRW"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/NDJI001.prw"
+  - "templates/P10/ndj_01/Projeto/Estrutura/303/247/303/243o do Cadastro( Organiza/303/247/303/265es e Institui/303/247/303/265es ) e Endere/303/247amento dos Produtos na SC/Fontes/NDJV001.prw"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/GCNFISCAL.prw"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/NDJ0143.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/NDJ0144.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/NDJ0145.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/NDJ0146.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/NDJA0010.prw"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA103F.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA103P.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA110C.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA140A.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA140V.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_MATA160.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_NDJA001.CH"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_NDJA001.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_NDJA002.CH"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_NDJA002.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_RpcAC9ACBChk.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_RpcSCPMSChk.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Especificos/U_SD1ToAFN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/MT103COR.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/MT103LEG.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/MT103NTZ.prw"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/MT110LOK.PRW"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_A140EXC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_AVALCOPC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_AVALCOT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_FT340CHG.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_FT340GRV.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_FT340MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_FT340VLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M020ALT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M020INC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M110EXIT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M110MONT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M110STTS.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M130FIL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_M160PLAN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA030BUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA103BUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA110BAR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA120BUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA130QSC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA140BUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MA160BAR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MATRKBUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT097APR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT100AGR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT100TOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT103CAN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT103FIM.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT103NFE.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT103NTZ.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110BLO.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110CON.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110COR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110END.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110FIL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110GRV.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110LEG.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110ROT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110TOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT110VLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120ALT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120BRW.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120COR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120EXC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120FIM.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120GOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120ISC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120LEG.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT120VLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT130WF.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140APV.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140COR.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140FIL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140LOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140SAI.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT140TOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT150LEG.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT150LOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT150OK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160FIL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160LEG.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160LOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160OK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160PLN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160QRY.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MT160TEL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MTA103MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MTA110MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MTA120G2.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MTA140MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_MTA160MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_PMA220AB.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Compras/Pontos de Entrada/U_QIEIMPRL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Especificos/U_CNTA100F.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Especificos/U_NDJA004.CH"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Especificos/U_NDJA004.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100CAN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100FIB.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100FIL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100FOL.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100GRC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN100GRM.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN110GRV.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN120ENCMD.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN120PDM.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN120PED.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN130PGRV.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN130TOK.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN130VLIN.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200BUT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200FSC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200GRP.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200IT.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200PID.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CN200SPC.PRG"
+  - "templates/P10/ndj_01/Projeto/Gest/303/243o de Contratos/Ponto de Entrada/U_CTA100MNU.PRG"
+  - "templates/P10/ndj_01/Projeto/Gestao de Pessoal/NDJ0085.PRW"
+  - "templates/P10/ndj_01/Projeto/Ponto de Restaura/303/247/303/243o/Especificos/NDJRPBKP.PRG"
+  - "templates/P10/ndj_01/Projeto/Ponto de Restaura/303/247/303/243o/ini/ndj_rp.ini"
+  - "templates/P10/ndj_01/Projeto/Ponto de Restaura/303/247/303/243o/Update/NDJUPDRP.PRG"
+  - "templates/P10/ndj_01/Projeto/SC Bloqueio por Valor/Especificos/U_NDJBlkScVl.prg"
+  - "templates/P10/ndj_01/Projeto/SC Bloqueio por Valor/Pontos de Entrada/U_MT110GET.PRG"
+  - "templates/P10/ndj_01/Projeto/SC Bloqueio por Valor/Pontos de Entrada/U_MT110TEL.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/u_xAltHrs.prg"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/u_xCodSBM.prg"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_Af8xOrigIni.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_AF1FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_CN9FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_CNAFLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_CNBFLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_CNCFLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_CNEFLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_SC1FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_SC7FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_SC8FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_SD1FLDVLD.PRG"
+  - "templates/P10/ndj_01/Projeto/Valida/303/247/303/243o de Campos/U_SF1FLDVLD.PRG"
+  - templates/P10/rh/gpe_writer/source/totvs/gpeword.ch
+  * bin/check.hb
+  * games/u_Sudoku/u_Sudoku.prg
+  * harbour/samples/hbvpdf/tests/u_hbvpdf_tstpdf.prg
+  * include/tryexception.ch
+  * sftp/src/u_sftp.prw
+  * templates/ctb/ContabilizacaoCSV/src/uCSV2CTB.prw
+  * templates/include/ndj.ch
+  * templates/include/paramtypex.ch
+  * templates/include/thash.ch
+  * templates/include/tryexception.ch
+  * templates/NDJLib/ndjlib001.prg
+  * templates/NDJLib/ndjlib002.prg
+  * templates/NDJLib/ndjlib004.prg
+  * templates/NDJLib/ndjlib006.prg
+  * templates/NDJLib/ndjlib008.prg
+  * templates/NDJLib/ndjlib014.prg
+  * templates/NDJLib/ndjlib020.prg
+  * templates/NDJLib/ndjlib021.prg
+  * templates/NDJLib/ndjlib032.prg
+  * templates/NDJLib/ndjlib036.prg
+  * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
+  * templates/NDJLib/u_TVarInfo/U_GetApoInfo/u_getapoinfo.prg
+  * templates/P10/ctb/pe/U_CT102BUT.PRG
+  * templates/P10/ndj_01/Projeto/WS/services/u_wsNDJAtestoNF.prg
+  * templates/P10/ndj_01/Projeto/WS/services/U_WsUserValid.prg
+  * templates/P10/ndj_01/Projeto/WS/services/U_WsUserValid.prw
+  * templates/P10/ndj_01/Updates/U_NDJUPDDIC.PRG
+  * templates/P10/rh/gpe_writer/source/totvs/gpewiter.prw
+  * templates/P10/rh/gpe_writer/source/totvs/gpewriter.ch
+  * templates/P10/rh/gpe_writer/source/totvs/GPEWriter.PRJ
+  * templates/P11/RH/GPE/dirf/srd2rhr.prw
+  * templates/P11/RH/GPE/dirf/srd2rhs.prw
+  * templates/P11/RH/GPE/Miscelanea/u_btdnGM01.prw
+  * templates/P11/RH/GPE/Relatorios/u_btdnGR07.prw
+  * templates/tReport/u_DJFINR01.prw
+  * templates/uTCREPORT/src/uTCREPORT.prg
+  * u_Ft/u_fTfdbSample.prg
+  * u_Ft/u_fTfSample.prg
+  * u_TVarInfo/U_GetApoInfo/U_GetApoInfo.prg
+
 /* Read doc/howtorep.txt and use this format for entry headers:
    YYYY*MM*DD HH:MM UTC[*|+]hhmm Your Full Name (your_email address)
    2013*12*31 13:59 UTC+0100 Foo Bar (foo.bar foobar.org)

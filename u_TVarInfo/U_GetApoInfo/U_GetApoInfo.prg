@@ -101,7 +101,7 @@ Static Function MyGetApoInfo(uacQuery,cTkn,bEval,lGetApoFilter)
                 lQuery:=.F.
             Else
                 IF !(cTkn==NIL)
-                    aQuery:=StrTokArr(uacQuery,cTkn)
+                    aQuery:=StrTokArr2(uacQuery,cTkn)
                 Else
                     aAdd(aQuery,Upper(uacQuery))
                 EndIF

@@ -181,7 +181,7 @@ Static Function UsrRetMail(cUserID)
             PswSeek(cUserID);
    )
         cUsrMail:=PswRet(1)[1][14]
-        aUsrMail:=StrTokArr(cUsrMail,";")
+        aUsrMail:=StrTokArr2(cUsrMail,";")
         cUsrMail:=""
         nEL:=Len(aUsrMail)
         For nBL:=1 To nEL

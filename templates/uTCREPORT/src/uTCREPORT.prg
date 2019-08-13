@@ -1195,7 +1195,7 @@ Static Function __HeaderPrint(aHeaders)
     IF (Type("LI")=="N")
         varRef(nLine,LI)
     ELSEIF (Type("nLi")=="N")
-        varRef(nLine,nLi)                            '
+        varRef(nLine,nLi)
     ELSEIF (Type("nLin")=="N")
         varRef(nLine,nLin)
     Else

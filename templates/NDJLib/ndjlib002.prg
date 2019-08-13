@@ -303,7 +303,7 @@ Static Function AddMailDest(aDest,cMailDest)
     Local nEL
 
     IF !Empty(cMailDest)
-        aMails:=StrTokArr(cMailDest,";")
+        aMails:=StrTokArr2(cMailDest,";")
         nEL:=Len(aMails)
         For nBL:=1 To nEL
             cMailAdd:=aMails[ nBL ]

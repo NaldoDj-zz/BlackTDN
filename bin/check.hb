@@ -286,7 +286,7 @@ STATIC FUNCTION CheckFile( cName, /* @ */ aErr, lApplyFixes )
          IF ! FNameExc( cName, aCanHaveAnyEncoding )
             tmp := -1
             IF ! IsASCII7( cFile, @tmp ) .AND. ! IsUTF8( cFile )
-               AAdd( aErr, "content: is non-UTF-8/ASCII-7: " + hb_ntos( tmp ) )
+ *              AAdd( aErr, "content: is non-UTF-8/ASCII-7: " + hb_ntos( tmp ) )
             ENDIF
          ENDIF
 

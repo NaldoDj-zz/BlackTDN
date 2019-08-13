@@ -83,7 +83,7 @@ Method SetProgress(cProgress,cToken) Class tNDJProgress
         aAdd(self:aMethods,"RANDOM")
         self:nMethods:=Len(self:aMethods)
     EndIF
-    self:aProgress:=_StrToKArr(@cProgress,@cToken)
+    self:aProgress:=_StrTokArr(@cProgress,@cToken)
     self:lRandom:=.F.
     self:lRandom:=.F.
     self:lShuttle:=.NOT.(self:lShuttle)
@@ -320,7 +320,7 @@ Return(self:nMax)
 Method GetnProgress() Class tNDJProgress
 Return(self:nProgress)
 
-Static Function _StrToKArr(cStr,cToken)
+Static Function _StrTokArr(cStr,cToken)
     Local cDToken
     DEFAULT cStr:=""
     DEFAULT cToken:=";"
@@ -328,7 +328,7 @@ Static Function _StrToKArr(cStr,cToken)
     While (cDToken$cStr)
         cStr:=StrTran(cStr,cDToken,cToken+" "+cToken)
     End While
-Return(StrToKArr(cStr,cToken))
+Return(StrTokArr2(cStr,cToken))
 
 Static Function __Random(nB,nE)
 

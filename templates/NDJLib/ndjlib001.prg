@@ -61,7 +61,7 @@ CLASS NDJLIB001
     METHOD RunInSrv(cCommandLine,lWaitRun,cPath)
     METHOD MemoToaPrn(cMemo,nBytes,lUseCrLf)
     METHOD StrToArray(cString,cConcat,bAddParser)
-    METHOD _StrToKArr(cStr,cToken)
+    METHOD _StrTokArr(cStr,cToken)
     METHOD StrDelChr(cStrDelChr,aChrDelStr)
     METHOD _GetMvPar(cEmp,cFil,uMvPar,uDefault,lReset)
     METHOD _PutMvPar(cEmp,cFil,uMvPar,uMvCntPut)
@@ -227,7 +227,7 @@ STATIC FUNCTION NDJMV2Mail(cGetMv,cToken)
     DEFAULT cGetMv:=""
     DEFAULT cToken:=NDJ_TOKEN_MAILD
 
-    aListMail:=StrToKArr(Alltrim(GetNewPar(cGetMv,"")),cToken)
+    aListMail:=StrTokArr2(Alltrim(GetNewPar(cGetMv,"")),cToken)
 
     aEval(aListMail,{|cMail,nElem|aListMail[nElem]:=StaticCall(NDJLIB014,WF4Mail,cMail)})
 
@@ -1312,6 +1312,7 @@ STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
         Else
             uRetValue:=uSetValue
         EndIF
+
         IF (.NOT.(IsMemVar(@cVar)).or.(lForceSetOwner))
             IF (lSetOwnerPrvt)
                 IF (lPublic)
@@ -1328,6 +1329,10 @@ STATIC FUNCTION SetMemVar(cVar,uSetValue,lSetOwnerPrvt,lForceSetOwner,lRetLastVa
             &(cVar):=uSetValue
         EndIF
 
+        if (FindFunction("FWFldPut"))
+            FWFldPut(cVar,uSetValue)
+        endif
+        
     CATCHEXCEPTION USING oException
 
         uSetValue:=NIL
@@ -1366,10 +1371,18 @@ STATIC FUNCTION GetMemVar(cVar,lInitPad,cLado)
 
         IF (IsMemVar(@cVar))
             uRetValue:=&(cVar)
+            if (empty(uRetValue))
+                if (FindFunction("FWFldGet"))
+                    uRetValue:=FWFldGet(cVar)
+                endif
+            endif
         Else
             IF (.NOT.(cVar==Upper("__Undefined__")))
                 cVarAux:=SubStr(cVar,4)
-                IF (.NOT.(GetSx3Cache(@cVarAux,"X3_CAMPO")==NIL))
+                if (FindFunction("FWFldGet"))
+                    uRetValue:=FWFldGet(cVarAux)
+                endif
+                IF (empty(uRetValue).and.(.NOT.(GetSx3Cache(@cVarAux,"X3_CAMPO")==NIL)))
                     uRetValue:=CriaVar(@cVarAux,@lInitPad,@cLado,.F.)
                 EndIF
             EndIF
@@ -2193,9 +2206,10 @@ STATIC FUNCTION NDJEvalF3(cF3,lShowHelp,cException)
             UserException(cException)
         EndIF
 
-        aEval(aCpoRet,{|cEval|&(cEval)})   //Atualiza os Campos de acordo com o Retorno da Consulta Padrao
+        //Atualiza os Campos de acordo com o Retorno da Consulta Padrao
+        aEval(aCpoRet,{|cEval|&(cEval)})
 
-    CATCHEXCEPTION oException
+    CATCHEXCEPTION USING oException
 
         IF (ValType(oException)=="O")
             cException:=oException:Description
@@ -2374,16 +2388,16 @@ RETURN(aStrTokArr)
 
 //--------------------------------------------------------------------------------------------------------------
     /*
-        Funcao:_StrToKArr
+        Funcao:_StrTokArr
         Autor:Marinaldo de Jesus (BlackTDN:http://www.blacktdn.com.br)
-        Funcao:_StrToKArr
+        Funcao:_StrTokArr
         Autor:Marinaldo de Jesus (TOTALIT:http://www.totalitsolutions.com.br)
         Data:06/03/2015
     */
 //--------------------------------------------------------------------------------------------------------------
-METHOD _StrToKArr(cStr,cToken) CLASS NDJLIB001
-RETURN(_StrToKArr(@cStr,@cToken))
-STATIC FUNCTION _StrToKArr(cStr,cToken)
+METHOD _StrTokArr(cStr,cToken) CLASS NDJLIB001
+RETURN(_StrTokArr(@cStr,@cToken))
+STATIC FUNCTION _StrTokArr(cStr,cToken)
     Local cDToken
     DEFAULT cStr:=""
     DEFAULT cToken:=";"
@@ -2391,7 +2405,7 @@ STATIC FUNCTION _StrToKArr(cStr,cToken)
     While (cDToken$cStr)
         cStr:=StrTran(cStr,cDToken,cToken+" "+cToken)
     End While
-RETURN(StrToKArr(cStr,cToken))
+RETURN(StrTokArr2(cStr,cToken))
 
 //--------------------------------------------------------------------------------------------------------------
     /*/
@@ -3792,13 +3806,14 @@ STATIC FUNCTION xGetIKValue(cAlias,cIKValue,cToken)
     Local cField
     Local xValue
     Local cFType
+    Local nField
     TRY EXCEPTION
         xValue:=(cAlias)->(&cIKValue)
     CATCH EXCEPTION
         TRY EXCEPTION
             DEFAULT cToken:="+"
             cValue:=""
-            aKFields:=_StrToKArr(@cIKValue,@cToken)
+            aKFields:=_StrTokArr(@cIKValue,@cToken)
             nKFields:=Len(aKFields)
             For nField:=1 To nKFields
                 cField:=aKFields[nField]

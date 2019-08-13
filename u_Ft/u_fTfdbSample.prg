@@ -62,9 +62,9 @@ Static Function FileToArr(cFile)
                 cLine:=StrTran(cLine,'","',cToken)  //Defino o Separador
                 cLine:=StrTran(cLine,'"',"")        //Retiro as Aspas 
                 IF (ofTdb:ft_fRecno()==1)
-                    aCab:=StrTokArr(cLine,cToken)   //A primeira Linha contem o Cabeçalho dos campos
+                    aCab:=StrTokArr2(cLine,cToken)   //A primeira Linha contem o Cabeçalho dos campos
                 Else
-                    aAdd(aDet,StrTokArr(cLine,cToken))  //As demais linhas sao os Detalhes
+                    aAdd(aDet,StrTokArr2(cLine,cToken))  //As demais linhas sao os Detalhes
                 EndIF
                 cLine:="" 
                 ofTdb:ft_fSkip()

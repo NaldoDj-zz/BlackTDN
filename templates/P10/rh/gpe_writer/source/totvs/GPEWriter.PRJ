@@ -14,17 +14,17 @@ Group GPEWriter
    ProjectsCount=1
    Project GPEWriter
       FoldersCount=2
-      Folder Fontes
+      Folder src
          VSSPath=Fontes
          FilesCount=1
-         File \gpe_writer\source\totvs\gpewiter.prw
+         File \GitHub\BlackTDN\templates\P10\rh\gpe_writer\source\totvs\gpewiter.prw
              Type=T
          End
       End
-      Folder Definições
-         VSSPath=Definições
+      Folder include
+         VSSPath=Include
          FilesCount=1
-         File \gpe_writer\source\totvs\gpewriter.ch
+         File \GitHub\BlackTDN\templates\P10\rh\gpe_writer\source\totvs\gpewriter.ch
              Type=T
          End
       End

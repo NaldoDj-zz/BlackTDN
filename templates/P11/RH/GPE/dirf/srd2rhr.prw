@@ -245,7 +245,7 @@ Static Procedure SRD2RHR(cTitle)
             //Seleciona As Empresas a serem Processadas
         //------------------------------------------------------------------------------------------------------
         cEmpresas:=SM0Opcoes()
-        aEmpresas:=_StrToKArr(cEmpresas,",")
+        aEmpresas:=_StrTokArr(cEmpresas,",")
 
         //------------------------------------------------------------------------------------------------------
             //Processa para Todas as Empresas Selecionadas
@@ -555,7 +555,7 @@ Static Procedure UPDSRD2RHR(cAlias,oProcess,oLog)
     //------------------------------------------------------------------------------------------------------
         //Obtem os Campos para composição da Chave de Pesquisa
     //------------------------------------------------------------------------------------------------------
-    aRHRKeyExp:=StrToKArr(cRHRKeyExp,"+")
+    aRHRKeyExp:=StrTokArr(cRHRKeyExp,"+")
     nKFields:=Len(aRHRKeyExp)
 
     //------------------------------------------------------------------------------------------------------
@@ -1323,7 +1323,7 @@ Static Function SM0Opcoes()
             //Ajusta o Retorno caso exista o separador
         //------------------------------------------------------------------------------------------------
         IF (cToken$cOpcoes)
-            aOpcoes:=_StrToKArr(uVarRet,cToken)
+            aOpcoes:=_StrTokArr(uVarRet,cToken)
             uVarRet:=""
             aEval(aOpcoes,{uVarRet+=PadR(e,nTamKey)})
         EndIF
@@ -1369,14 +1369,14 @@ Return(cF3Ret)
 //-------------------------------------------------------------------------------------
     /*
         Programa:SRD2RHR.PRW
-        Funcao:_StrToKArr()
+        Funcao:_StrTokArr()
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:30/12/2014
         Desc.:Autorização para emissão de DOC/TED
         Uso:Impressão do Relatório Autorização para emissão de DOC/TED
     */
 //-------------------------------------------------------------------------------------
-Static Function _StrToKArr(cStr,cToken)
+Static Function _StrTokArr(cStr,cToken)
     Local cDToken
     DEFAULT cStr:=""
     DEFAULT cToken:=","
@@ -1384,7 +1384,7 @@ Static Function _StrToKArr(cStr,cToken)
     While (cDToken$cStr)
         cStr:=StrTran(cStr,cDToken,cToken+" "+cToken)
     End While
-Return(StrToKArr(cStr,cToken))
+Return(StrTokArr2(cStr,cToken))
 
 //------------------------------------------------------------------------------------------------
     /*

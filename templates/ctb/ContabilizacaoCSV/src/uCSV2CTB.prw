@@ -255,7 +255,7 @@ static function CSVToCTB(oProcess,lError)
 
             //Atualiza aCSVLine com a Linha Corrente
             cCSVLine:=ft_fReadLn()
-            aCSVLine:=StrTokArr(cCSVLine,cToken)
+            aCSVLine:=StrTokArr2(cCSVLine,cToken)
 
             if .not.(lHead)
                 lHead:=.T.

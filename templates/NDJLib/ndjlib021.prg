@@ -297,11 +297,11 @@ Static Function RPSave(cIniFile,cRPKey,cMsgError)
             UserException(STR0004+cCustomPath+"\PathData"+STR0003+cINIFile)
         EndIF
 
-        aTables:=StrToKArr(oRPIni:GetPropertyValue("GENERAL","Tables",""),",")
+        aTables:=StrTokArr2(oRPIni:GetPropertyValue("GENERAL","Tables",""),",")
         RPSaveTable(@oRPIni,@cPathData,@aTables)
 
         IF !Empty(cPathSXS)
-            aTConfig:=StrToKArr(oRPIni:GetPropertyValue("GENERAL","TConfig",""),",")
+            aTConfig:=StrTokArr2(oRPIni:GetPropertyValue("GENERAL","TConfig",""),",")
             RPSaveTable(@oRPIni,@cPathSXS,@aTConfig)
         EndIF    
 
@@ -439,14 +439,14 @@ Static Function RPSaveTable(oRPIni,cPath,aTables)
 
         cIndexKey:=oRPIni:GetPropertyValue(cTable,"IndexKey","")
         IF !Empty(cIndexKey)
-            Eval(bAddField,StrToKArr(cIndexKey,"+"))
+            Eval(bAddField,StrTokArr2(cIndexKey,"+"))
         EndIF
 
         cFields:=oRPIni:GetPropertyValue(cTable,"Fields","")
         IF ("*"$cFields)
             aTAliasStruct:=aAliasStruct
         Else
-            Eval(bAddField,StrTokArr(cFields,","))
+            Eval(bAddField,StrTokArr2(cFields,","))
         EndIF
 
         lUniqueStructure:=(aTAliasStruct==aAliasStruct)
@@ -849,11 +849,11 @@ Static Function RPRestore(cPathCustomExpr,cMsgError)
         EndIF    
 
         IF !Empty(cPathSXS)
-            aTConfig:=StrToKArr(oRPIni:GetPropertyValue("GENERAL","TConfig",""),",")
+            aTConfig:=StrTokArr2(oRPIni:GetPropertyValue("GENERAL","TConfig",""),",")
             RPRestoreTable(@oRPIni,@cPathSXS,@aTConfig,@lUniqueDBMS,@cEnvRestore,@cRestoreFullPath,@lVirtualLink)
         EndIF    
 
-        aTables:=StrToKArr(oRPIni:GetPropertyValue("GENERAL","Tables",""),",")
+        aTables:=StrTokArr2(oRPIni:GetPropertyValue("GENERAL","Tables",""),",")
         RPRestoreTable(@oRPIni,@cPathData,@aTables,@lUniqueDBMS,@cEnvRestore,@cRestoreFullPath,@lVirtualLink)
 
         RPPWDRestore(@oRPIni,@cCustomPath,@cIniFile,@cPathCustomExpr,@cRestoreFullPath,@lVirtualLink)

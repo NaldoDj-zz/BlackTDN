@@ -458,7 +458,7 @@ METHOD Run() CLASS uSCP
             //Read more:http://www.blacktdn.com.br/2011/04/protheus-executando-aplicacoes-externas.html#ixzz3YemwKcI7
             //WaitRunSrv(cCommandLineLine,lWaitRun,cPath):lSuccess
             cWaitRunPath:=cRootPath
-            cWaitRunPath+=IF(Left(cDirSFTP,1)=="\",SubStr(cDirSFTP,2),cDirSFTP)
+            cWaitRunPath+=IF(Left(cDirSCP,1)=="\",SubStr(cDirSCP,2),cDirSCP)
             //------------------------------------------------------------------------------
             //Adiciona o cWaitRunPath ao Log
             IF (ltLogReport)
@@ -467,7 +467,7 @@ METHOD Run() CLASS uSCP
             EndIF        
             //------------------------------------------------------------------------------
             //Executa o Comando
-            IF .NOT.(WaitRunSrv(cCommandLine,.T.,cWaitRunPath))
+            IF .NOT.(WaitRunSrv(cWaitRunPath+cCommandLine,.T.,cWaitRunPath))
                 nStatus:=-3
                 cMsg:="["+self:cClassName+"]["+LoadMsgs(nStatus)+"]["+cCommandLine+"][Path]["+cRootPath+"]"
                 IF (ltLogReport)
