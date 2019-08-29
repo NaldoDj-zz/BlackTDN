@@ -25,112 +25,149 @@
 
     #IFNDEF _SET_BELL
         #DEFINE _SET_BELL   26
-    #ENDIF    
+    #ENDIF   
 
     #XCOMMAND TRYEXCEPTION  => ;
-        IF(!(Type("aTryException")=="A").or.!(Type("nTryException")=="N"),PutTryExceptionVars(),NIL) ;;
-        aAdd(aTryException,Array(TRY_ELEMENTS)) ;;
-        ++nTryException ;;
-        aTryException\[nTryException\]\[TRY_SET_BELL\]:=Set(_SET_BELL,"OFF") ;;
-        aTryException\[nTryException\]\[TRY_ERROR_BLOCK\]:=ErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
-        aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\]:=SysErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
-        aTryException\[nTryException\]\[TRY_INDEX\]:=nTryException ;;
-        ErrorBlock(\{\|oError\|aTryException\[nTryException\]\[TRY_OBJERROR\]:=oError,BREAK(@oError)\}) ;;
-        SysErrorBlock(\{\|oError\|aTryException\[nTryException\]\[TRY_OBJERROR\]:=oError,BREAK(@oError)\}) ;;
+        if(!(Type("aTryException")=="A").or.!(Type("nTryException")=="N"),PutTryExceptionVars(),nil) ;;
+        aAdd(&("aTryException"),Array(TRY_ELEMENTS)) ;;
+        &("++nTryException") ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\]:=Set(_SET_BELL,"OFF") ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\]:=ErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\]:=SysErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_INDEX\]:=&("nTryException") ;;
+        ErrorBlock(\{\|oError\|&("aTryException")\[&("nTryException")\]\[TRY_OBJERROR\]:=oError,BREAK(@oError)\}) ;;
+        SysErrorBlock(\{\|oError\|&("aTryException")\[&("nTryException")\]\[TRY_OBJERROR\]:=oError,BREAK(@oError)\}) ;;
         BEGIN SEQUENCE ;;
     
     #XCOMMAND TRYEXCEPTION USING <bError> [PARAMETERS <aParameters>] => ;
-        IF(!(Type("aTryException")=="A").or.!(Type("nTryException")=="N"),PutTryExceptionVars(),NIL) ;;
-        aAdd(aTryException,Array(TRY_ELEMENTS)) ;;
-        ++nTryException ;;
-        aTryException\[nTryException\]\[TRY_SET_BELL\]:=Set(_SET_BELL,"OFF") ;;
-        aTryException\[nTryException\]\[TRY_ERROR_BLOCK\]:=ErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
-        aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\]:=SysErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
-        aTryException\[nTryException\]\[TRY_INDEX\]:=nTryException ;;
-        ErrorBlock(\{\|oError\|aTryException\[nTryException\]\[TRY_OBJERROR\]:=oError,Eval(<bError>,@oError,[@<aParameters>])\}) ;;
-        SysErrorBlock(\{\|oError\|aTryException\[nTryException\]\[TRY_OBJERROR\]:=oError,Eval(<bError>,@oError,[@<aParameters>])\}) ;;
+        if(!(Type("aTryException")=="A").or.!(Type("nTryException")=="N"),PutTryExceptionVars(),nil) ;;
+        aAdd(&("aTryException"),Array(TRY_ELEMENTS)) ;;
+        &("++nTryException") ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\]:=Set(_SET_BELL,"OFF") ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\]:=ErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\]:=SysErrorBlock(\{\|oError\|BREAK(@oError)\}) ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_INDEX\]:=&("nTryException") ;;
+        ErrorBlock(\{\|oError\|&("aTryException")\[&("nTryException")\]\[TRY_OBJERROR\]:=oError,Eval(<bError>,@oError,[@<aParameters>])\}) ;;
+        SysErrorBlock(\{\|oError\|&("aTryException")\[&("nTryException")\]\[TRY_OBJERROR\]:=oError,Eval(<bError>,@oError,[@<aParameters>])\}) ;;
         BEGIN SEQUENCE ;;
 
     #XCOMMAND CATCHEXCEPTION    =>  ;
-            aTryException\[nTryException\]\[TRY_ERROR_MESSAGE\]:=CaptureError(.T.,@nTryException,@nTryException,1) ;; 
+            &("aTryException")\[&("nTryException")\]\[TRY_ERROR_MESSAGE\]:=CaptureError(.T.,&("nTryException"),&("nTryException"),1) ;; 
             RECOVER ;;
     
     #XCOMMAND CATCHEXCEPTION USING <oException> => ;
         RECOVER ;;
-        aTryException\[nTryException\]\[TRY_ERROR_MESSAGE\]:=CaptureError(.T.,@nTryException,@nTryException,1) ;; 
-        <oException>:=aTryException\[nTryException\]\[TRY_OBJERROR\] ;;
+        &("aTryException")\[&("nTryException")\]\[TRY_ERROR_MESSAGE\]:=CaptureError(.T.,&("nTryException"),&("nTryException"),1) ;; 
+        <oException>:=&("aTryException")\[&("nTryException")\]\[TRY_OBJERROR\] ;;
     
     #XCOMMAND ENDEXCEPTION        => ;
         END SEQUENCE ;;
-        IF ((Type("aTryException")=="A").and.(Type("nTryException")=="N")) ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_ERROR_BLOCK\])=="B") ;;
-                ErrorBlock(aTryException\[nTryException\]\[TRY_ERROR_BLOCK\]) ;;
-            ENDIF ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\])=="B") ;;
-                SysErrorBlock(aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\]) ;;
-            ENDIF ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_SET_BELL\])=="L") ;;
-                IF (aTryException\[nTryException\]\[TRY_SET_BELL\]) ;;
+        if ((Type("aTryException")=="A").and.(Type("nTryException")=="N")) ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\])=="B") ;;
+                ErrorBlock(&("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\]) ;;
+            endif ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\])=="B") ;;
+                SysErrorBlock(&("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\]) ;;
+            endif ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\])=="L") ;;
+                if (&("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\]) ;;
                     Set(_SET_BELL,"ON") ;;
-                EndIF ;;    
-            ENDIF ;;            
-            aDel(aTryException,nTryException) ;;
-            aSize(aTryException,--nTryException) ;;
-        ENDIF ;;
+                endif ;;    
+            endif ;;            
+            aDel(&("aTryException"),&("nTryException")) ;;
+            aSize(&("aTryException"),&("--nTryException")) ;;
+        endif ;;
 
     #XCOMMAND ENDEXCEPTION NODELSTACKERROR  => ;
         END SEQUENCE ;;
-        IF ((Type("aTryException")=="A").and.(Type("nTryException")=="N")) ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_ERROR_BLOCK\])=="B") ;;
-                ErrorBlock(aTryException\[nTryException\]\[TRY_ERROR_BLOCK\]) ;;
-            ENDIF ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\])=="B") ;;
-                SysErrorBlock(aTryException\[nTryException\]\[TRY_SYSERROR_BLOCK\]) ;;
-            ENDIF ;;
-            IF (ValType(aTryException\[nTryException\]\[TRY_SET_BELL\])=="L") ;;
-                IF (aTryException\[nTryException\]\[TRY_SET_BELL\]) ;;
+        if ((Type("aTryException")=="A").and.(Type("nTryException")=="N")) ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\])=="B") ;;
+                ErrorBlock(&("aTryException")\[&("nTryException")\]\[TRY_ERROR_BLOCK\]) ;;
+            endif ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\])=="B") ;;
+                SysErrorBlock(&("aTryException")\[&("nTryException")\]\[TRY_SYSERROR_BLOCK\]) ;;
+            endif ;;
+            if (ValType(&("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\])=="L") ;;
+                if (&("aTryException")\[&("nTryException")\]\[TRY_SET_BELL\]) ;;
                     Set(_SET_BELL,"ON") ;;
-                EndIF ;;    
-            ENDIF ;;
-            --nTryException ;;
-        ENDIF ;;
+                endif ;;    
+            endif ;;
+            &("--nTryException") ;;
+        endif ;;
+ 
+    static procedure PutTryExceptionVars() 
+        local aStacks          as array
+        local nStacks          as numeric 
+        local lTryException    as logical
+        lTryException:=((Type("aTryException")=="A").and.(Type("nTryException")=="N"))
+        if (!lTryException)
+            aStacks:=GetCStack(0)
+            nStacks:=len(aStacks)
+            _SetNamedPrvt("aTryException",array(0),aStacks[nStacks])
+            _SetNamedPrvt("nTryException",0,aStacks[nStacks])
+        endif
+    return
+    
+    static function GetCStack(nStart as numeric) as array
 
-    Static Function PutTryExceptionVars()
-        Public aTryException:={}
-        Public nTryException:=0
-    Return(NIL)
+        local aCallStack    as array
     
-    Static Function CaptureError(lObjError,nStart,nFinish,nStep)
-        Local cError:=''
-        Local lTryException:=((Type('aTryException')=='A').and.(Type('nTryException')=='N'))
-        Local nError
-        IF (lTryException)
-            lObjError:=IF((lObjError==NIL),.F.,lObjError)
-            nStart:=IF((nStart==NIL),1,nStart)
-            nFinish:=IF((nFinish==NIL),Len(aTryException),nFinish)
-            nStep:=IF((nStep==NIL),1,nStep)
-            For nError:=nStart To nFinish Step nStep
-                IF (lObjError)
-                    IF (ValType(aTryException[nError][TRY_OBJERROR])=='O')
-                        cError+=aTryException[nError][TRY_OBJERROR]:Description
-                        cError+=aTryException[nError][TRY_OBJERROR]:ErrorStack
-                        cError+=aTryException[nError][TRY_OBJERROR]:ErrorEnv
-                    EndIF
-                Else
-                    IF (ValType(aTryException[nError][TRY_ERROR_MESSAGE])=='C')
-                        cError+=aTryException[nError][TRY_ERROR_MESSAGE]
-                    EndIF
-                EndIF    
-            Next nError
-        EndIF
-    Return(cError)
+        local cCallStack    as character
     
-    Static Function __tryDummy()
+        local nCallStack    as numeric
+    
+        DEFAULT nStart:=0
+    
+        nCallStack:=nStart
+        aCallStack:=array(0)
+        while (cCallStack:=ProcName(++nCallStack),.NOT.(Empty(cCallStack)))
+            aAdd(aCallStack,cCallStack)
+        end while
+    
+    return(aCallStack)
+    
+    static function CaptureError(lObjError as logical,nStart as numeric,nFinish as numeric,nStep as numeric) as character
+        
+        local cError        as character
+        
+        local lObj          as logical
+        local lTryException as logical
+        
+        local nS            as numeric
+        local nF            as numeric
+        local nP            as numeric
+        
+        local nError        as numeric
+        
+        cError:=""
+        lTryException:=((Type("aTryException")=="A").and.(Type("nTryException")=="N"))
+        if (lTryException)
+            lObj:=if((lObjError==nil),.F.,lObjError)
+            nS:=max(if((nStart==nil),1,nStart),1)
+            nF:=min(if((nFinish==nil),len(&("aTryException")),nFinish),len(&("aTryException")))
+            nP:=if((nStep==nil),1,nStep)
+            for nError:=nS to nF step nP
+                if (lObjError)
+                    if (ValType(&("aTryException")[nError][TRY_OBJERROR])=='O')
+                        cError+=&("aTryException")[nError][TRY_OBJERROR]:Description
+                        cError+=&("aTryException")[nError][TRY_OBJERROR]:ErrorStack
+                        cError+=&("aTryException")[nError][TRY_OBJERROR]:ErrorEnv
+                    endif
+                else
+                    if (ValType(&("aTryException")[nError][TRY_ERROR_MESSAGE])=='C')
+                        cError+=&("aTryException")[nError][TRY_ERROR_MESSAGE]
+                    endif
+                endif    
+            next nError
+        endif
+        return(cError)
+    
+    static function __tryDummy()
         if (.F.)
             __tryDummy()
             CaptureError()
             PutTryExceptionVars()
         endif
-    Return(.F.)
+    return(.F.)
 
 #ENDIF

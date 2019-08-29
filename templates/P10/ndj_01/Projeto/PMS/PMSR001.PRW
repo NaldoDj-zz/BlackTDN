@@ -60,7 +60,7 @@ dbSetOrder(1)
 wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.T.,aOrd,.T.,Tamanho,,.T.)
 
 If nLastKey == 27
-	Return
+    Return
 Endif
 
 SetDefault(aReturn,cString)
@@ -187,14 +187,14 @@ MS_FLUSH()
 Return
 
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		lRecursa	:= __Dummy( .F. )
-		__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

@@ -6,9 +6,9 @@ User Function PMSRSINT
 /* ==================================================================== */
 //===================================================================== */
 Private oProjDe     := NIL
-Private oProjAte    := NIL	
-Private oOriDe      := NIL	
-Private oOriAte     := NIL	
+Private oProjAte    := NIL    
+Private oOriDe      := NIL    
+Private oOriAte     := NIL    
 Private cProjDe     := Space(10)
 Private cProjAte    := Space(10)
 Private cOriDe      := Space(03)
@@ -141,10 +141,10 @@ Local nPosCombo
 
 For nPosCombo := 1 To Len(aGrupos)
 
-	If ( cGrupo == aGrupos[ nPosCombo ] )
-	
-  	   Exit
-	Endif	
+    If ( cGrupo == aGrupos[ nPosCombo ] )
+    
+         Exit
+    Endif    
 Next nPosCombo
 
 Return nPosCombo
@@ -314,7 +314,7 @@ AADD( aCampos, { "MARK", "", "Selecionar" , "" })
    
 Do Case                             
    Case nPosCombo = 1 //"Por Projetos"          
-        AADD( aCampos, { "AF8PROJET", "", OemToAnsi("Id Projeto") 	       , "" })
+        AADD( aCampos, { "AF8PROJET", "", OemToAnsi("Id Projeto")            , "" })
         AADD( aCampos, { "AF8DESCRI", "", OemToAnsi("Projeto")             , "" })
         
    Case nPosCombo = 2 //"Por Origem de Recurso" 
@@ -323,23 +323,23 @@ Do Case
    
    Case nPosCombo = 3 //"Por Tema Estratégico"  
         AADD( aCampos, { "AF8XCODTE", "", OemToAnsi("Id Tema Estatégico")  , "" })
-        AADD( aCampos, { "AF8XTEMA" , "", OemToAnsi("Tema Estatégico")	   , "" })
+        AADD( aCampos, { "AF8XTEMA" , "", OemToAnsi("Tema Estatégico")       , "" })
    
    Case nPosCombo = 4 //"Por Tipo de Ação"      
-        AADD( aCampos, { "AF8XCODTA", "", OemToAnsi("Id Tipo de Ação")	   , "" })
-        AADD( aCampos, { "AF8XDESTA", "", OemToAnsi("Tipo de Ação")	       , "" })
+        AADD( aCampos, { "AF8XCODTA", "", OemToAnsi("Id Tipo de Ação")       , "" })
+        AADD( aCampos, { "AF8XDESTA", "", OemToAnsi("Tipo de Ação")           , "" })
 
    Case nPosCombo = 5 //"Por Indicador"                             
-        AADD( aCampos, { "AF8XCODIN", "", OemToAnsi("Id Indicador")	       , "" })
-        AADD( aCampos, { "AF8XIND"  , "", OemToAnsi("Indicador")	       , "" })
+        AADD( aCampos, { "AF8XCODIN", "", OemToAnsi("Id Indicador")           , "" })
+        AADD( aCampos, { "AF8XIND"  , "", OemToAnsi("Indicador")           , "" })
       
    Case nPosCombo = 6 //"Por Sponsor"           
-        AADD( aCampos, { "AF8XCODSP", "", OemToAnsi("Id Sponsor")	       , "" })
-        AADD( aCampos, { "AF8XSPON" , "", OemToAnsi("Sponsor")	           , "" })
+        AADD( aCampos, { "AF8XCODSP", "", OemToAnsi("Id Sponsor")           , "" })
+        AADD( aCampos, { "AF8XSPON" , "", OemToAnsi("Sponsor")               , "" })
         
    Case nPosCombo = 7 //"Por Gerente"                   
         AADD( aCampos, { "AF8XCODGE", "", OemToAnsi("Id Gerente")          , "" })
-        AADD( aCampos, { "AF8XGER"  , "", OemToAnsi("Gerente")	           , "" })        
+        AADD( aCampos, { "AF8XGER"  , "", OemToAnsi("Gerente")               , "" })        
         
    Case nPosCombo = 8 //"Por Macro Processo"                   
         AADD( aCampos, { "AF8XCODMA", "", OemToAnsi("Id Macro Processo")   , "" })
@@ -458,7 +458,7 @@ Else
       EndCase
       
       DBSelectArea(cNmArqGrid)
-  	  RECLOCK( cNmArqGrid, .T. )
+        RECLOCK( cNmArqGrid, .T. )
 
       Do Case
          Case nPosCombo = 1 //"Por Projetos"          
@@ -495,10 +495,10 @@ Else
               ( cNmArqGrid )->AF8XMACRO := cAF8XMACRO
       EndCase
 
-	  MSUNLOCK()
-	 
-	  DBSelectArea(cNmArqProj)
-	  ( cNmArqProj )->( DBSkip() )
+      MSUNLOCK()
+     
+      DBSelectArea(cNmArqProj)
+      ( cNmArqProj )->( DBSkip() )
    EndDo
         
    DBSelectArea(cNmArqGrid)
@@ -585,11 +585,11 @@ Local cQuery      := ""
 Local aListBox1   := {}
 Local aProjetos   := {}
 
-Local oFont	      := NIL
-Local oRadio	  := NIL	
-Local oPeriodo	  := NIL	
+Local oFont          := NIL
+Local oRadio      := NIL    
+Local oPeriodo      := NIL    
 
-Local oGrupo  	  := NIL
+Local oGrupo        := NIL
 Local oTipRel     := NIL
 Local oNotasProj  := NIL 
 
@@ -655,7 +655,7 @@ Local _aSize      := {}
 
 Local oPanel
 
-Private nOpcRad	  := 1
+Private nOpcRad      := 1
 Private nTipRel
 
 Private cPeriodo  := ""
@@ -726,7 +726,7 @@ _aSize [5] := 802
 DEFINE MSDIALOG oDlg TITLE OemToAnsi("Visão Gerencial - Seleção/Impressão de Projetos do PA-2011 (PREVISTO X REALIZADO)") From _aSize [1], _aSize [1] TO _aSize [6], _aSize [5] OF oMainWnd PIXEL
 
 @ 000,000 MSPANEL oPanel OF oDlg
-oPanel:Align	:= CONTROL_ALIGN_ALLCLIENT
+oPanel:Align    := CONTROL_ALIGN_ALLCLIENT
 
 nLinha   := _aSize [1] + 4
 
@@ -814,7 +814,7 @@ oMark1 :oBrowse:SetHeaderImage( 2, "COLRIGHT" )
 oMark1 :oBrowse:SetHeaderImage( 3, "COLDOWN"  )
    
 ( cNmArqGrid )->( DBGOTOP() )
-                         	
+                             
 ACTIVATE MSDIALOG oDlg
 
 If ( nOpc == 2 )
@@ -838,7 +838,7 @@ Local nIndAtivo
 
 Do Case                             
    Case nPosCombo = 1 //"Por Projetos"          
-        AADD( aCampos, { "AF8PROJET", OemToAnsi("Id Projeto") 	       , .T., 1, 10, "@9", "C", 0 } )
+        AADD( aCampos, { "AF8PROJET", OemToAnsi("Id Projeto")            , .T., 1, 10, "@9", "C", 0 } )
         AADD( aCampos, { "AF8DESCRI", OemToAnsi("Projeto")             , .T., 2, 90, "@!", "C", 0 } )
         
    Case nPosCombo = 2 //"Por Origem de Recurso" 
@@ -847,23 +847,23 @@ Do Case
    
    Case nPosCombo = 3 //"Por Tema Estratégico"  
         AADD( aCampos, { "AF8XCODTE", OemToAnsi("Id Tema Estatégico")  , .T., 1, 03, "@9", "C", 0 } )
-        AADD( aCampos, { "AF8XTEMA" , OemToAnsi("Tema Estatégico")	   , .T., 2, 40, "@!", "C", 0 } )
+        AADD( aCampos, { "AF8XTEMA" , OemToAnsi("Tema Estatégico")       , .T., 2, 40, "@!", "C", 0 } )
    
    Case nPosCombo = 4 //"Por Tipo de Ação"      
-        AADD( aCampos, { "AF8XCODTA", OemToAnsi("Id Tipo de Ação")	   , .T., 1, 03, "@9", "C", 0 } )
-        AADD( aCampos, { "AF8XDESTA", OemToAnsi("Tipo de Ação")	       , .T., 2, 20, "@!", "C", 0 } )
+        AADD( aCampos, { "AF8XCODTA", OemToAnsi("Id Tipo de Ação")       , .T., 1, 03, "@9", "C", 0 } )
+        AADD( aCampos, { "AF8XDESTA", OemToAnsi("Tipo de Ação")           , .T., 2, 20, "@!", "C", 0 } )
 
    Case nPosCombo = 5 //"Por Indicador"                             
-        AADD( aCampos, { "AF8XCODIN", OemToAnsi("Id Indicador")	       , .T., 1, 03, "@9", "C", 0 } )
-        AADD( aCampos, { "AF8XIND"  , OemToAnsi("Indicador")	       , .T., 2, 80, "@!", "C", 0 } )
+        AADD( aCampos, { "AF8XCODIN", OemToAnsi("Id Indicador")           , .T., 1, 03, "@9", "C", 0 } )
+        AADD( aCampos, { "AF8XIND"  , OemToAnsi("Indicador")           , .T., 2, 80, "@!", "C", 0 } )
       
    Case nPosCombo = 6 //"Por Sponsor"           
-        AADD( aCampos, { "AF8XCODSP", OemToAnsi("Id Sponsor")	       , .T., 1, 06, "@9", "C", 0 } )
-        AADD( aCampos, { "AF8XSPON" , OemToAnsi("Sponsor")	           , .T., 2, 30, "@!", "C", 0 } )
+        AADD( aCampos, { "AF8XCODSP", OemToAnsi("Id Sponsor")           , .T., 1, 06, "@9", "C", 0 } )
+        AADD( aCampos, { "AF8XSPON" , OemToAnsi("Sponsor")               , .T., 2, 30, "@!", "C", 0 } )
         
    Case nPosCombo = 7 //"Por Gerente"                   
         AADD( aCampos, { "AF8XCODGE", OemToAnsi("Id Gerente")          , .T., 1, 06, "@9", "C", 0 } )
-        AADD( aCampos, { "AF8XGER"  , OemToAnsi("Gerente")	           , .T., 2, 30, "@!", "C", 0 } )                
+        AADD( aCampos, { "AF8XGER"  , OemToAnsi("Gerente")               , .T., 2, 30, "@!", "C", 0 } )                
         
    Case nPosCombo = 8 //"Por Macro Processo"                   
         AADD( aCampos, { "AF8XCODMA", OemToAnsi("Id Macro Processo")   , .T., 1, 03, "@9", "C", 0 } )
@@ -927,12 +927,12 @@ If ( nColBrow > 1 )
            oMark6:oBrowse:SetHeaderImage( If( ( nColBrow + 1 ) = 2, 3, 2 ), "COLRIGHT"  )  
            oMark6:oBrowse:Refresh()                       
       
-      Case nPosCombo = 7 //"Por Gerente"               			
+      Case nPosCombo = 7 //"Por Gerente"                           
            oMark7:oBrowse:SetHeaderImage( ( nColBrow + 1 ), "COLDOWN" )
            oMark7:oBrowse:SetHeaderImage( If( ( nColBrow + 1 ) = 2, 3, 2 ), "COLRIGHT"  )  
            oMark7:oBrowse:Refresh()                       
       
-      Case nPosCombo = 8 //"Por Macro Processo"               			
+      Case nPosCombo = 8 //"Por Macro Processo"                           
            oMark8:oBrowse:SetHeaderImage( ( nColBrow + 1 ), "COLDOWN" )
            oMark8:oBrowse:SetHeaderImage( If( ( nColBrow + 1 ) = 2, 3, 2 ), "COLRIGHT"  )  
            oMark8:oBrowse:Refresh()           
@@ -975,218 +975,218 @@ If ( nTipRel == 2 .And. nPosCombo > 1 )
    MsgStop("Apenas o relatório analítico por projeto encontra-se disponível para consulta/impressão.")
    Return
 Else   
-	If ( nTipRel == 2 )
-	
-	  cDescRelat := "Relatório Analítico"
-	Else
-	  cDescRelat := "Relatório Sintético"
-	EndIf
+    If ( nTipRel == 2 )
+    
+      cDescRelat := "Relatório Analítico"
+    Else
+      cDescRelat := "Relatório Sintético"
+    EndIf
 
-	( cNmArqGrid )->( DBGoTop() )
-	Do While ( cNmArqGrid )->(! Eof() )     
+    ( cNmArqGrid )->( DBGoTop() )
+    Do While ( cNmArqGrid )->(! Eof() )     
 
-	  If ( Alltrim( ( cNmArqGrid )->MARK ) <> "" )      
-		 lAoMenos1 := .T.                      
-	  EndIf   
-	  ( cNmArqGrid )->( DBSkip() )           
-	Enddo
+      If ( Alltrim( ( cNmArqGrid )->MARK ) <> "" )      
+         lAoMenos1 := .T.                      
+      EndIf   
+      ( cNmArqGrid )->( DBSkip() )           
+    Enddo
 
-	If ! lAoMenos1
-	
-	     MsgStop( OemToAnsi( "Não há nada selecionado!" ) )
-	     ( cNmArqGrid )->( DBGOTO( nRegistro ) )      
-	Else
+    If ! lAoMenos1
+    
+         MsgStop( OemToAnsi( "Não há nada selecionado!" ) )
+         ( cNmArqGrid )->( DBGOTO( nRegistro ) )      
+    Else
 
-	  For nNotasProj := 1 To Len(aNotasProj)
+      For nNotasProj := 1 To Len(aNotasProj)
 
-		  If ( cNotasProj == aNotasProj[ nNotasProj ] )
-			 Exit
-		  Endif	
-	  Next nNotasProj
-	  
-	  If ( nNotasProj == 1 )
+          If ( cNotasProj == aNotasProj[ nNotasProj ] )
+             Exit
+          Endif    
+      Next nNotasProj
+      
+      If ( nNotasProj == 1 )
 
-		 If ( nTipRel == 2 )                       
-			cQuery    := MemoRead( "\SQL\DETirepropacao.sql" )
-			cQueryDET := MemoRead( "\SQL\_irepropacaoDET.sql" ) 
-		 Else
-			cQuery := MemoRead( "\SQL\irepropacao.sql" )
-		 EndIf
-	  Else
-	  
-		 If ( nTipRel == 2 )                       
-			cQuery    := MemoRead( "\SQL\DETirepvisaopms.sql" )
-			cQueryDet := MemoRead( "\SQL\_irepvisaopmsDET.sql" )
-		 Else
-			cQuery := MemoRead( "\SQL\irepvisaopms.sql" )
-		 EndIf
-	  EndIf
-	  
-	  For nPerCombo := 1 To Len(aMeses)
-		  If ( cPeriodo == aMeses[ nPerCombo ] )
-			 Exit
-		  Endif	
-	  Next nPerCombo
+         If ( nTipRel == 2 )                       
+            cQuery    := MemoRead( "\SQL\DETirepropacao.sql" )
+            cQueryDET := MemoRead( "\SQL\_irepropacaoDET.sql" ) 
+         Else
+            cQuery := MemoRead( "\SQL\irepropacao.sql" )
+         EndIf
+      Else
+      
+         If ( nTipRel == 2 )                       
+            cQuery    := MemoRead( "\SQL\DETirepvisaopms.sql" )
+            cQueryDet := MemoRead( "\SQL\_irepvisaopmsDET.sql" )
+         Else
+            cQuery := MemoRead( "\SQL\irepvisaopms.sql" )
+         EndIf
+      EndIf
+      
+      For nPerCombo := 1 To Len(aMeses)
+          If ( cPeriodo == aMeses[ nPerCombo ] )
+             Exit
+          Endif    
+      Next nPerCombo
 
-	  cDataIni := "01/"+ALLTRIM(STR(nPerCombo))+"/"+ALLTRIM(STR(YEAR(DATE())))
-	  cDataFin := "01/"+ALLTRIM(STR(nPerCombo))+"/"+ALLTRIM(STR(YEAR(DATE())))
+      cDataIni := "01/"+ALLTRIM(STR(nPerCombo))+"/"+ALLTRIM(STR(YEAR(DATE())))
+      cDataFin := "01/"+ALLTRIM(STR(nPerCombo))+"/"+ALLTRIM(STR(YEAR(DATE())))
 
-	  cDataIni := DTOS(Firstday(CTOD(cDataIni)))
-	  cDataFin := DTOS(Lastday (CTOD(cDataFin)))
+      cDataIni := DTOS(Firstday(CTOD(cDataIni)))
+      cDataFin := DTOS(Lastday (CTOD(cDataFin)))
 
-	  If ( nOpcRad == 2 )
-		 cDescRelat += " Acumulado ( "
-		 cDataIni   := "'"+ "20110101" +"'"
-		 cDataFin   := "'"+ cDataFin   +"'"
-	  Else
-		 cDescRelat += " Mensal ( "
-		 cDataIni   := "'"+ cDataIni   +"'"
-		 cDataFin   := "'"+ cDataFin   +"'"
-	  EndIf
+      If ( nOpcRad == 2 )
+         cDescRelat += " Acumulado ( "
+         cDataIni   := "'"+ "20110101" +"'"
+         cDataFin   := "'"+ cDataFin   +"'"
+      Else
+         cDescRelat += " Mensal ( "
+         cDataIni   := "'"+ cDataIni   +"'"
+         cDataFin   := "'"+ cDataFin   +"'"
+      EndIf
 
-	  cDescRelat += cPeriodo + " )"
+      cDescRelat += cPeriodo + " )"
 
-	  While ( AT( "@DATAINI", cQuery ) <> 0 )
-		 cQuery := STUFF( cQuery, AT( "@DATAINI", cQuery ), 8, cDataIni )
-	  EndDo                                               
+      While ( AT( "@DATAINI", cQuery ) <> 0 )
+         cQuery := STUFF( cQuery, AT( "@DATAINI", cQuery ), 8, cDataIni )
+      EndDo                                               
 
-	  While ( AT( "@DATAFIN", cQuery ) <> 0 )
-		 cQuery := STUFF( cQuery, AT( "@DATAFIN", cQuery ), 8, cDataFin )
-	  EndDo                                                     
+      While ( AT( "@DATAFIN", cQuery ) <> 0 )
+         cQuery := STUFF( cQuery, AT( "@DATAFIN", cQuery ), 8, cDataFin )
+      EndDo                                                     
 
-	  cQuery += " "
-	  cQuery += MontaWhere()
-	  cQuery += " "
+      cQuery += " "
+      cQuery += MontaWhere()
+      cQuery += " "
 
-	  Do Case
-		 Case nPosCombo = 1 //"Por Projetos"
-			  cQuery += "ORDER BY AF8_PROJET, AF8_REVISA, AF8_XCODOR"
-	          
-		 Case nPosCombo = 2 //"Por Origem de Recurso"     
-			  cQuery += "ORDER BY AF8_XCODOR, AF8_PROJET, AF8_REVISA"				                                                                                                   
-	          
-		 Case nPosCombo = 3 //"Por Tema Estratégico" 
-			  cQuery += "ORDER BY AF8_XCODTE, AF8_PROJET, AF8_REVISA"	        
-	          
-		 Case nPosCombo = 4 //"Por Tipo de Ação"     
-			  cQuery += "ORDER BY AF8_XCODTA, AF8_PROJET, AF8_REVISA"	   	   	      
-	          
-		 Case nPosCombo = 5 //"Por Indicador"                               
-			  cQuery += "ORDER BY AF8_XCODIN, AF8_PROJET, AF8_REVISA"			    	      	      
-	          
-		 Case nPosCombo = 6 //"Por Sponsor"                                 
-			  cQuery += "ORDER BY AF8_XCODSP, AF8_PROJET, AF8_REVISA"
-	          
-		 Case nPosCombo = 7 //"Por Gerente"               			
-			  cQuery += "ORDER BY AF8_XCODGE, AF8_PROJET, AF8_REVISA"
+      Do Case
+         Case nPosCombo = 1 //"Por Projetos"
+              cQuery += "ORDER BY AF8_PROJET, AF8_REVISA, AF8_XCODOR"
+              
+         Case nPosCombo = 2 //"Por Origem de Recurso"     
+              cQuery += "ORDER BY AF8_XCODOR, AF8_PROJET, AF8_REVISA"                                                                                                                   
+              
+         Case nPosCombo = 3 //"Por Tema Estratégico" 
+              cQuery += "ORDER BY AF8_XCODTE, AF8_PROJET, AF8_REVISA"            
+              
+         Case nPosCombo = 4 //"Por Tipo de Ação"     
+              cQuery += "ORDER BY AF8_XCODTA, AF8_PROJET, AF8_REVISA"                        
+              
+         Case nPosCombo = 5 //"Por Indicador"                               
+              cQuery += "ORDER BY AF8_XCODIN, AF8_PROJET, AF8_REVISA"                                    
+              
+         Case nPosCombo = 6 //"Por Sponsor"                                 
+              cQuery += "ORDER BY AF8_XCODSP, AF8_PROJET, AF8_REVISA"
+              
+         Case nPosCombo = 7 //"Por Gerente"                           
+              cQuery += "ORDER BY AF8_XCODGE, AF8_PROJET, AF8_REVISA"
 
-		 Case nPosCombo = 8 //"Por Macro Processo"               			
-			  cQuery += "ORDER BY AF8_XCODMA, AF8_PROJET, AF8_REVISA"
-	  EndCase             
-	  
-	  cNmArqSQL   := Alltrim(CriaTrab(,.F.))+".sql"
-	  MemoWrite( "\SQL\"+cNmArqSQL, cQuery )       
-	  
-	  If ( nTipRel == 2 )                       
-		 cNmArqSQLDET := STUFF( cNmArqSQL, AT( ".", cNmArqSQL ), 1, "DET." )
-		 MemoWrite( "\SQL\"+cNmArqSQLDET, cQueryDet )
-	  EndIf
+         Case nPosCombo = 8 //"Por Macro Processo"                           
+              cQuery += "ORDER BY AF8_XCODMA, AF8_PROJET, AF8_REVISA"
+      EndCase             
+      
+      cNmArqSQL   := Alltrim(CriaTrab(,.F.))+".sql"
+      MemoWrite( "\SQL\"+cNmArqSQL, cQuery )       
+      
+      If ( nTipRel == 2 )                       
+         cNmArqSQLDET := STUFF( cNmArqSQL, AT( ".", cNmArqSQL ), 1, "DET." )
+         MemoWrite( "\SQL\"+cNmArqSQLDET, cQueryDet )
+      EndIf
 
-	  cRootPath   := GetSrvProfString( "ROOTPATH", "" )
-	  
-	  cDirFile    := cRootPath + "\web\reports\VerIReport\dist\VerIreport.jar"
-	  
-	  While ( AT( "\", cRootPath ) <> 0 )
-		cRootPath := STUFF( cRootPath, AT( "\", cRootPath ), 1, "." )
-	  EndDo                                               
-	  
-	  While ( AT( ".", cRootPath ) <> 0 )
-		cRootPath := STUFF( cRootPath, AT( ".", cRootPath ), 1, "\\" )        
-	  EndDo                                                           
+      cRootPath   := GetSrvProfString( "ROOTPATH", "" )
+      
+      cDirFile    := cRootPath + "\web\reports\VerIReport\dist\VerIreport.jar"
+      
+      While ( AT( "\", cRootPath ) <> 0 )
+        cRootPath := STUFF( cRootPath, AT( "\", cRootPath ), 1, "." )
+      EndDo                                               
+      
+      While ( AT( ".", cRootPath ) <> 0 )
+        cRootPath := STUFF( cRootPath, AT( ".", cRootPath ), 1, "\\" )        
+      EndDo                                                           
 
-	  cRootPath   := cRootPath + "\\web\\reports\\"
-	  cParamRel   := AllTrim(Str(nPosCombo))
-	  cVisualiza  := AllTrim(Str(nVisualiza))
-	  cMasterDet  := AllTrim(Str(nTipRel))
-	  
-	  cString     := "'"
-	  cString     += "JAVA.EXE -jar "
-	  cString     += '"' + cDirFile   + '" '
-	  cString     += '"' + cRootPath  + "VerIReport\\ireport.properties"+'" '
-	  cString     += '"' + cNmArqSQL  + '" '
-	  cString     += '"' + cParamRel  + '" '
-	  cString     += '"' + cVisualiza + '" '
-	  cString     += '"' + cMasterDet + '" '
-	  cString     += '"' + "0"        + '" '
+      cRootPath   := cRootPath + "\\web\\reports\\"
+      cParamRel   := AllTrim(Str(nPosCombo))
+      cVisualiza  := AllTrim(Str(nVisualiza))
+      cMasterDet  := AllTrim(Str(nTipRel))
+      
+      cString     := "'"
+      cString     += "JAVA.EXE -jar "
+      cString     += '"' + cDirFile   + '" '
+      cString     += '"' + cRootPath  + "VerIReport\\ireport.properties"+'" '
+      cString     += '"' + cNmArqSQL  + '" '
+      cString     += '"' + cParamRel  + '" '
+      cString     += '"' + cVisualiza + '" '
+      cString     += '"' + cMasterDet + '" '
+      cString     += '"' + "0"        + '" '
 
-	  If ( nTipRel == 2 )
-		 cString  += '"' + cDescRelat   + '" '
-		 cString  += '"' + cNmArqSQLDET + '" '
-	  Else
-		 cString  += '"' + cDescRelat   + '" '
-		 cString  += '"' + ""           + '" '
-	  EndIf
+      If ( nTipRel == 2 )
+         cString  += '"' + cDescRelat   + '" '
+         cString  += '"' + cNmArqSQLDET + '" '
+      Else
+         cString  += '"' + cDescRelat   + '" '
+         cString  += '"' + ""           + '" '
+      EndIf
 
-	  cString     += '"' + AllTrim(Str(nNotasProj)) + '"'  
-	  cString     += "'"
-	                           
+      cString     += '"' + AllTrim(Str(nNotasProj)) + '"'  
+      cString     += "'"
+                               
       lExecJava   := WAITRUNSRV( &cString, .T., "C:\" )
-	  
+      
       If ! lExecJava
    
            MsgStop( OemToAnsi( "Não foi possível gerar/exibir o relatório." ) )
            Return
       Else   
 
-	     If ( cVisualiza == "2" )
-		    cNmArq1  := "\web\reports\PDFTEMP\"+StrTran(cNmArqSQL,".sql","" )
- 		    cNmArq1  := Substr( cNmArq1, 1, Len( cNmArq1 ) - 1 ) + ".pdf"
-		    cNmArq2  := AllTrim(GetTempPath()) +StrTran(cNmArqSQL,".sql","" )
-		    cNmArq2  := Substr( cNmArq2, 1, Len( cNmArq2 ) - 1 ) + ".pdf"         
-	     Else 
-		    cNmArq1  := "\web\reports\XLSTEMP\"+StrTran(cNmArqSQL,".sql","" )
-		    cNmArq1  := Substr( cNmArq1, 1, Len( cNmArq1 ) - 1 ) + ".xls"
-		    cNmArq2  := AllTrim(GetTempPath()) +StrTran(cNmArqSQL,".sql","" )
-		    cNmArq2  := Substr( cNmArq2, 1, Len( cNmArq2 ) - 1 ) + ".xls" 
-	     EndIf                                                                   
+         If ( cVisualiza == "2" )
+            cNmArq1  := "\web\reports\PDFTEMP\"+StrTran(cNmArqSQL,".sql","" )
+             cNmArq1  := Substr( cNmArq1, 1, Len( cNmArq1 ) - 1 ) + ".pdf"
+            cNmArq2  := AllTrim(GetTempPath()) +StrTran(cNmArqSQL,".sql","" )
+            cNmArq2  := Substr( cNmArq2, 1, Len( cNmArq2 ) - 1 ) + ".pdf"         
+         Else 
+            cNmArq1  := "\web\reports\XLSTEMP\"+StrTran(cNmArqSQL,".sql","" )
+            cNmArq1  := Substr( cNmArq1, 1, Len( cNmArq1 ) - 1 ) + ".xls"
+            cNmArq2  := AllTrim(GetTempPath()) +StrTran(cNmArqSQL,".sql","" )
+            cNmArq2  := Substr( cNmArq2, 1, Len( cNmArq2 ) - 1 ) + ".xls" 
+         EndIf                                                                   
 
-	     lCopiouArq  := __copyfile( cNmArq1, cNmArq2 )
-	     
-   	     FErase( "\SQL\"+cNmArqSQL )
+         lCopiouArq  := __copyfile( cNmArq1, cNmArq2 )
+         
+            FErase( "\SQL\"+cNmArqSQL )
 
-	     If ( nTipRel == 2 )
+         If ( nTipRel == 2 )
 
-		    FErase( "\SQL\"+cNmArqSQLDET )
-	     EndIf
-	  
-	     FErase( cNmArq1 )	     
-	           
+            FErase( "\SQL\"+cNmArqSQLDET )
+         EndIf
+      
+         FErase( cNmArq1 )         
+               
          If ! lCopiouArq
    
               MsgStop( OemToAnsi( "Não foi possível gerar/exibir o relatório." ) )
               Return      
          Else   
-                 	     
-	        ShellExecute( "Open", cNmArq2, "", AllTrim(GetTempPath()), 1 )	                    
-	     EndIf   	     
-	     
-	  EndIf
-	  
-	  ( cNmArqGrid )->( DBGOTOP() )	  
-	EndIf
+                          
+            ShellExecute( "Open", cNmArq2, "", AllTrim(GetTempPath()), 1 )                        
+         EndIf            
+         
+      EndIf
+      
+      ( cNmArqGrid )->( DBGOTOP() )      
+    EndIf
 EndIf
 
 Return
 
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		lRecursa	:= __Dummy( .F. )
-		__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

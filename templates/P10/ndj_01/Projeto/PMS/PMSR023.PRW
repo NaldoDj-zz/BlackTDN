@@ -64,7 +64,7 @@ Pergunte("SC1REL1")
 wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.T.,aOrd,.T.,Tamanho,,.T.)
 
 If nLastKey == 27
-	Return
+    Return
 Endif
 
 SetDefault(aReturn,cString)
@@ -100,7 +100,7 @@ Return
 Static Function RunReport(Cabec1,Cabec2,Titulo,nLin)
 
 
-Local cTESTE	:= GetNextAlias()
+Local cTESTE    := GetNextAlias()
 
 //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 //³ SETREGUA -> Indica quantos registros serao processados para a regua ³
@@ -238,43 +238,43 @@ else
       dbSelectArea("SC1")
       if SC1->(DBSEEK(XFILIAL("SC1")+(cTESTE)->C1_NUM+(cTESTE)->C1_ITEM))
         wsituacao = StaticCall( U_MT110COR , GetC1Status)
-      endif                	
+      endif                    
       if mod(nlin,2) = 0
          wcor = "'##D3D3D3'"
       else 
          wcor = "'##FFFFFF'"   
-   	  endif
-   	 wlinha  = "<tr bgcolor="+wcor+" colspan='15'>"     		  
-   	 wlinha += "<td>'"+(cTESTE)->C1_NUM+"</td>"
-   	 wlinha += "<td>'"+(cTESTE)->C1_ITEM+"</td>"   		  
+         endif
+        wlinha  = "<tr bgcolor="+wcor+" colspan='15'>"               
+        wlinha += "<td>'"+(cTESTE)->C1_NUM+"</td>"
+        wlinha += "<td>'"+(cTESTE)->C1_ITEM+"</td>"             
      wlinha += "<td>"+(cTESTE)->C1_XNUMPRO+"</td>"  
-     wlinha += "<td>"+WSITUACAO+"</td>"       		  
-   	 wlinha += "<td>"+(cTESTE)->C1_SOLICIT+"</td>" 
-   	 wlinha += "<td>"+(cTESTE)->GERENTE+"</td>"      
-   	 wlinha += "<td>"+(cTESTE)->SPONSOR+"</td>"
-   	 wlinha += "<td>'"+(cTESTE)->C1_XPROJET+"</td>"     
-   	 wlinha += "<td>"+(cTESTE)->DESCRICAO+"</td>"    	  
-   	 wlinha += "<td>'"+(cTESTE)->C1_XTAREFA+"</td>" 
-  	 wlinha += "<td>'"+(cTESTE)->C1_XCODOR+"</td>"   
-   	 wlinha += "<td>"+(cTESTE)->DESC_ORIGEM+"</td>"  
-   	 wlinha += "<td>"+(cTESTE)->C1_PRODUTO+"</td>" 
-   	 wlinha += "<td>"+(cTESTE)->C1_DESCRI+"</td>"       
-   	 wlinha += "<td>"+str((cTESTE)->C1_QUANT,4)+"</td>" 
-   	 wlinha += "<td>"+strtran(str((cTESTE)->C1_XTOTAL,12,2),".",",")+"</td>" 
-   	 wlinha += "<td>"+(cTESTE)->INFORMA+"</td></tr>"       
+     wlinha += "<td>"+WSITUACAO+"</td>"                 
+        wlinha += "<td>"+(cTESTE)->C1_SOLICIT+"</td>" 
+        wlinha += "<td>"+(cTESTE)->GERENTE+"</td>"      
+        wlinha += "<td>"+(cTESTE)->SPONSOR+"</td>"
+        wlinha += "<td>'"+(cTESTE)->C1_XPROJET+"</td>"     
+        wlinha += "<td>"+(cTESTE)->DESCRICAO+"</td>"          
+        wlinha += "<td>'"+(cTESTE)->C1_XTAREFA+"</td>" 
+       wlinha += "<td>'"+(cTESTE)->C1_XCODOR+"</td>"   
+        wlinha += "<td>"+(cTESTE)->DESC_ORIGEM+"</td>"  
+        wlinha += "<td>"+(cTESTE)->C1_PRODUTO+"</td>" 
+        wlinha += "<td>"+(cTESTE)->C1_DESCRI+"</td>"       
+        wlinha += "<td>"+str((cTESTE)->C1_QUANT,4)+"</td>" 
+        wlinha += "<td>"+strtran(str((cTESTE)->C1_XTOTAL,12,2),".",",")+"</td>" 
+        wlinha += "<td>"+(cTESTE)->INFORMA+"</td></tr>"       
      @nlin,00 psay wlinha
      nlin += 1     
-     wlinha = space(232)   	                 
+     wlinha = space(232)                        
      dbSelectArea(cTESTE)
      dbSkip() // Avanca o ponteiro do registro no arquivo
   EndDo
   nlin += 1                            
   wlinha ="</table>"
   If !ApOleClient("MsExcel")
- 	MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
-	Return
+     MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
+    Return
   EndIf
-  MS_FLUSH()   	
+  MS_FLUSH()       
   __CopyFile(__reldir+wnrel+".##R" , AllTrim(GetTempPath())+wnrel+".HTM")
   oExcelApp:= MsExcel():New()
   oExcelApp:WorkBooks:Open(AllTrim(GetTempPath())+wnrel+".HTM")
@@ -284,14 +284,14 @@ endif
 Return
   
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		lRecursa	:= __Dummy( .F. )
-		__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

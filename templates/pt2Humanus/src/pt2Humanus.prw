@@ -806,6 +806,7 @@ static function ProcRedefine(oProcess,oFont,nLeft,nWidth,nCTLFLeft,lODlgF,lODlgW
                 oProcess:oDlg:oCTLFocus:nLeft+=nCTLFLeft
             endif
             oProcess:oDlg:Refresh(.T.)
+            oProcess:oDlg:SetFocus()
         endif
         lProcRedefine:=.T.
     endif

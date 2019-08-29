@@ -60,7 +60,7 @@ Pergunte("AF1REL")
 wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.T.,aOrd,.T.,Tamanho,,.T.)
 
 If nLastKey == 27
-	Return
+    Return
 Endif
 
 SetDefault(aReturn,cString)
@@ -207,7 +207,7 @@ if MV_PAR01 = 1 .or. MV_PAR01 = 3
   //³ Finaliza a execucao do relatorio...                                 ³
   //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
 //  If MsgYesNo("Deseja exibir o grafico ?")
-//	MatGraph(Titulo,.T.,.T.,.T.,2,5,aGraph)
+//    MatGraph(Titulo,.T.,.T.,.T.,2,5,aGraph)
 //  endif
    if MV_PAR01 = 1
      SET DEVICE TO SCREEN
@@ -223,30 +223,30 @@ if MV_PAR01 = 1 .or. MV_PAR01 = 3
      Endif
      MS_FLUSH()
    else 
-	// Chama funcao generica para montagem de grafico
-	/*
-	±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
-	±±³Descri‡…o ³ Funcao generica para montagem de dialog com grafico        ³±±
-	±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
-	±±³Parametros³                                                            ³±±
-	±±³        01³ ExpC1 = Titulo da Janela                                   ³±±
-	±±³        02³ ExpL1 = Flag indicando se inicializa grafico em 3 dimensoes³±±
-	±±³        03³ ExpL2 = Flag indicando se mostra menu para mudar caracteris³±±
-	±±³          ³ ticas do grafico como tipo e numero de dimensoes (2 ou 3)  ³±±
-	±±³        04³ ExpL3 = Indica se muda a cor em cada barra ou faixa de vlr ³±±
-	±±³        05³ ExpN1 = Indica o tipo inicial do grafico                   ³±±
-	±±³        06³ ExpN2 = Indica a cor inicial dos valores apresentados      ³±±
-	±±³        07³ ExpA1 = Array com os dados a serem apresentados. Dimensoes:³±±
-	±±³          ³ [1] Nome a ser colocado no eixo x (Caracter)               ³±±
-	±±³          ³ [2] Valor do eixo y (Numerico)                             ³±±
-	±±³        08³ ExpC2 = Alias do arquivo de trabalho que contem os dados   ³±±
-	±±³        09³ ExpA2 = Array com os campos que devem ter o conteudo lido  ³±±
-	±±³          ³ [1] Nome do campo que tem os dados do eixo x (Caracter)    ³±±
-	±±³          ³ [2] Nome do campo que tem os valores do eixo y (Caracter)  ³±±
-	±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
-	*/
+    // Chama funcao generica para montagem de grafico
+    /*
+    ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
+    ±±³Descri‡…o ³ Funcao generica para montagem de dialog com grafico        ³±±
+    ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+    ±±³Parametros³                                                            ³±±
+    ±±³        01³ ExpC1 = Titulo da Janela                                   ³±±
+    ±±³        02³ ExpL1 = Flag indicando se inicializa grafico em 3 dimensoes³±±
+    ±±³        03³ ExpL2 = Flag indicando se mostra menu para mudar caracteris³±±
+    ±±³          ³ ticas do grafico como tipo e numero de dimensoes (2 ou 3)  ³±±
+    ±±³        04³ ExpL3 = Indica se muda a cor em cada barra ou faixa de vlr ³±±
+    ±±³        05³ ExpN1 = Indica o tipo inicial do grafico                   ³±±
+    ±±³        06³ ExpN2 = Indica a cor inicial dos valores apresentados      ³±±
+    ±±³        07³ ExpA1 = Array com os dados a serem apresentados. Dimensoes:³±±
+    ±±³          ³ [1] Nome a ser colocado no eixo x (Caracter)               ³±±
+    ±±³          ³ [2] Valor do eixo y (Numerico)                             ³±±
+    ±±³        08³ ExpC2 = Alias do arquivo de trabalho que contem os dados   ³±±
+    ±±³        09³ ExpA2 = Array com os campos que devem ter o conteudo lido  ³±±
+    ±±³          ³ [1] Nome do campo que tem os dados do eixo x (Caracter)    ³±±
+    ±±³          ³ [2] Nome do campo que tem os valores do eixo y (Caracter)  ³±±
+    ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
+    */
 
-	MatGraph( "RELATORIO CONSOLIDADO POR ORIGEM DE RECURSO",.T.,.T.,.T.,2,2,aGraph)  
+    MatGraph( "RELATORIO CONSOLIDADO POR ORIGEM DE RECURSO",.T.,.T.,.T.,2,2,aGraph)  
     MS_FLUSH() 
    endif
 else
@@ -319,12 +319,12 @@ else
   EndDo                           
   wlinha ="</table>"
   If !ApOleClient("MsExcel")
- 	MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
-	Return
+     MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
+    Return
   EndIf
-  MS_FLUSH()   	
+  MS_FLUSH()       
   __CopyFile(__reldir+wnrel+".##R" , AllTrim(GetTempPath())+wnrel+".HTM")
-	
+    
   oExcelApp:= MsExcel():New()
   oExcelApp:WorkBooks:Open(AllTrim(GetTempPath())+wnrel+".HTM")
   oExcelApp:SetVisible(.T.)   
@@ -332,14 +332,14 @@ endif
 Return
 
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		lRecursa	:= __Dummy( .F. )
-		__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

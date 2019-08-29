@@ -1,6 +1,6 @@
 /*
- * $Id: memtst.prg
- * baseado no original de: Harbour Project source code: $Id: memtst.prg 13932 2010-02-20 11:57:17Z vszakats $
+ * #Id: memtst.prg
+ * baseado no original de: Harbour Project source code: #Id: memtst.prg 13932 2010-02-20 11:57:17Z vszakats $
  * a small memory manager test code
  */
 #define N_LOOPS      (1000*1000)
@@ -284,19 +284,19 @@ return
               #endif
            #endif
         #endif
-	#else
-		static Function hb_secondsCPU()
-		IF ( __lWGTickCount )
-			Return(WGetTickCount())
-		Else
-			Return(Seconds())
-		EndIF	
+    #else
+        static Function hb_secondsCPU()
+        IF ( __lWGTickCount )
+            Return(WGetTickCount())
+        Else
+            Return(Seconds())
+        EndIF    
     #endif
 #else
-	static Function hb_secondsCPU()
-	IF ( __lWGTickCount )
-		Return(WGetTickCount())
-	Else
-		Return(Seconds())
-	EndIF	
+    static Function hb_secondsCPU()
+    IF ( __lWGTickCount )
+        Return(WGetTickCount())
+    Else
+        Return(Seconds())
+    EndIF    
 #endif 

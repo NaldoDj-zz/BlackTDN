@@ -3,15 +3,15 @@
 #include "PROTHEUS.CH"
 
 #IFNDEF DEFAULT
-	#xcommand DEFAULT	<uVar1> := <uVal1> ;
-						[, <uVarN> := <uValN> ] => ;
-    					<uVar1> := If( <uVar1> == nil, <uVal1>, <uVar1> ) ;;
-   						[ <uVarN> := If( <uVarN> == nil, <uValN>, <uVarN> ); ]
+    #xcommand DEFAULT    <uVar1> := <uVal1> ;
+                        [, <uVarN> := <uValN> ] => ;
+                        <uVar1> := If( <uVar1> == nil, <uVal1>, <uVar1> ) ;;
+                           [ <uVarN> := If( <uVarN> == nil, <uValN>, <uVarN> ); ]
 #ENDIF
 
 #IFNDEF FWGETTAMFILIAL
-	#DEFINE FWGETTAMFILIAL Len(xFilial("SRA"))
-#ENDIF	
+    #DEFINE FWGETTAMFILIAL Len(xFilial("SRA"))
+#ENDIF    
 
 #include "uTCREPORT.CH"
 
@@ -35,7 +35,7 @@
 ±±³Programador ³ Data   ³ BOPS ³  Motivo da Alteracao                     ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
 ±±³Marinaldo   ³27/09/01³Melhor³Tratamento para o Terminal de Consulta    ³±±
-±±³Marinaldo   ³15/10/01³Melhor³Imprimir Resultado Acumulado			  ³±±
+±±³Marinaldo   ³15/10/01³Melhor³Imprimir Resultado Acumulado              ³±±
 ±±³Marinaldo   ³16/10/01³Melhor³Utilizar a Funcao GetMarcacoes() para  car³±±
 ±±³            ³--------³------³regar o Calendario de Marcacoes e as marca³±±
 ±±³            ³--------³------³coes dos Funcionarios. Se houver a  sequen³±±
@@ -47,21 +47,21 @@
 ±±³Marinaldo   ³17/10/01³Melhor³Quando houver Troca de Turno no Inicio  do³±±
 ±±³            ³--------³------³periodo Considerar o Turno da Troca.      ³±±
 ±±³Marinaldo   ³06/11/01³Acerto³Buscar a Descricao dos Resultados no Cadas³±±
-±±³            ³--------³------³tro de Verbas							  ³±±
+±±³            ³--------³------³tro de Verbas                              ³±±
 ±±³Marinaldo   ³06/11/01³010922³Tratamento de Troca de Regra de  Apontamen³±±
-±±³            ³--------³------³to.    									  ³±±
+±±³            ³--------³------³to.                                          ³±±
 ±±³Marinaldo   ³19/11/01³Melhor³A funcao GetMarcacoes passara a utilizar a³±±
 ±±³            ³--------³------³Funcao fDiasFolga() para Verificar as  Fol³±±
-±±³            ³--------³------³gas Automaticas.						  ³±±
+±±³            ³--------³------³gas Automaticas.                          ³±±
 ±±³Marinaldo   ³22/11/01³Acerto³Quando Dia For Feriado e Regra Estiver  De³±±
 ±±³            ³--------³------³Definida que Funcionario Trabalha em Feria³±±
 ±±³            ³--------³------³do e nao possuir Marcacoes. Imprimir a Men³±±
-±±³            ³--------³------³sagem de Ausente						  ³±±
+±±³            ³--------³------³sagem de Ausente                          ³±±
 ±±³Mauricio MR ³10/12/01³Acerto³A)Complementacao Parametros em fAbonos:   ³±±
-±±³            ³--------³------³TpMarca e C.C.					          ³±±
+±±³            ³--------³------³TpMarca e C.C.                              ³±±
 ±±³            ³--------³------³B)Criacao das Funcoes LoadX3Box (Generica)³±±
 ±±³            ³--------³------³e DescTpMarca(Especifica).                ³±±
-±±³            ³--------³------³C)Descrimina o Tipo de Marcacao	          ³±±
+±±³            ³--------³------³C)Descrimina o Tipo de Marcacao              ³±±
 ±±³Marinaldo   ³12/11/01³Melhor³Redefinicao do Codigo HTML para o Terminal³±±
 ±±³            ³--------³------³de Consultar (RH OnLine)                  ³±± 
 ±±³Mauricio MR ³22/01/02³Acerto³  Acerto Quebra de Pagina.                ³±±
@@ -70,7 +70,7 @@
 ±±³            ³        ³      ³  impressao de linha detalhe na ImpFun.   ³±±
 ±±³            ³        ³      ³  Inicializada Li:=1 no Cabec.            ³±±
 ±±³Marinaldo   ³21/02/02³Acerto³Retirada da ValidPerg() que alterava e car³±±
-±±³            ³        ³      ³regava novos Perguntes					  ³±± 
+±±³            ³        ³      ³regava novos Perguntes                      ³±± 
 ±±³Mauricio MR ³26/03/02³14291 ³  Melhoria.Impressao da descricao dos tur-³±±
 ±±³            ³        ³      ³  nos trabalhados no periodo.             ³±± 
 ±±³Mauricio MR ³15/04/02³Acerto³  Correcao do Grupo de Perguntas. Ocorria ³±±
@@ -108,7 +108,7 @@
 ±±³            ³        ³      ³  seja impresso o tipo de afastamento a   ³±±
 ±±³            ³        ³      ³  partir da data de demissao.             ³±± 
 ±±³Mauricio MR ³04/12/02³------³Retirada a restricao de existencia de cra-³±± 
-±±³            ³--------³------³cha para a emissao do relatorio.	      ³±± 
+±±³            ³--------³------³cha para a emissao do relatorio.          ³±± 
 ±±³Mauricio MR ³12/12/02³061160³A)Alteracao na verificacao das ocorrencias³±±
 ±±³            ³--------³------³de marcacao e ausencia da mesma para o dia³±± 
 ±±³            ³--------³------³considerando feriado e excecoes.          ³±± 
@@ -119,35 +119,35 @@
 ±±³            ³--------³      ³titulos de Calc e Inf para impressao de ho³±± 
 ±±³            ³--------³      ³ras calculadas visto que podem ter abonos.³±±
 ±±³            ³--------³      ³e nesse caso as horas correspondentes sao ³±±
-±±³            ³--------³      ³informadas.								  ³±±
+±±³            ³--------³      ³informadas.                                  ³±±
 ±±³            ³--------³      ³C)Nao imprimimos informacoes de abonos nos³±± 
 ±±³            ³--------³      ³totais se a impressao for de eventos do   ³±± 
-±±³            ³--------³      ³resultado.								  ³±±
+±±³            ³--------³      ³resultado.                                  ³±±
 ±±³            ³--------³      ³D)Verificamos se o motivo abona efetivamen³±± 
 ±±³            ³--------³      ³te o apontamento e para motivos sem evento³±± 
-±±³            ³--------³      ³deduzimos a qtde efetivamente abonada.	  ³±±
+±±³            ³--------³      ³deduzimos a qtde efetivamente abonada.      ³±±
 ±±³Mauricio MR ³26/02/03³Acerto³A) Calculamos o acumulado de horas Efeti- ³±±
-±±³            ³--------³      ³vamente abonadas por evento.			  ³±±
+±±³            ³--------³      ³vamente abonadas por evento.              ³±±
 ±±³Mauricio MR ³14/04/03³Acerto³A) Consideramos a existencia dos parame - ³±±
-±±³            ³--------³      ³tros MV_ABOSEVE e MV_SUBABAP.			  ³±±
+±±³            ³--------³      ³tros MV_ABOSEVE e MV_SUBABAP.              ³±±
 ±±³Mauricio MR ³08/05/03³Melhor³A) Ajuste para permitir ate 99.999,99 hs  ³±±
 ±±³            ³--------³      ³para lancamentos vindos de resultados.    ³±±
 ±±³Mauricio MR ³27/05/03³64292 ³A) Imprime funcionario demitido somente   ³±±
 ±±³            ³--------³      ³qdo a data for superior a data de demissao³±±
 ±±³Mauricio MR ³26/06/03³Acerto³A) Imprime a descricao dos abonos tambem  ³±±
-±±³            ³--------³      ³na emissao de resultados.				  ³±±
+±±³            ³--------³      ³na emissao de resultados.                  ³±±
 ±±³Mauricio MR ³18/08/03³Acerto³A) Alterada a Monta_Per() para verificar o³±±
 ±±³            ³--------³      ³o compartilhamento do SPO e alteracao da  ³±±
 ±±³            ³--------³      ³verificacao de periodos a serem considera ³±±
-±±³            ³--------³      ³dos.									  ³±±
+±±³            ³--------³      ³dos.                                      ³±±
 ±±³Mauricio MR ³16/09/03³Acerto³A) Verificada a escolha da base de horas  ³±±
 ±±³            ³--------³      ³e se for centesimal somente sera calculada³±±
 ±±³            ³--------³      ³para eventos oriundos do apontamento.     ³±±
 ±±³Mauricio MR ³20/10/03³Acerto³A) Para funcionarios que trabalham em fe- ³±±
 ±±³            ³--------³      ³riado e for feriado apontar o dia conforme³±±
-±±³            ³--------³      ³o tipo de dia da tabela padrao. 		  ³±±
+±±³            ³--------³      ³o tipo de dia da tabela padrao.           ³±±
 ±±³Mauricio MR ³29/10/03³Melhor³A) Para funcionarios afastados com excecao³±±
-±±³            ³--------³      ³prioriza a excecao.						  ³±±
+±±³            ³--------³      ³prioriza a excecao.                          ³±±
 ±±³Mauricio MR ³26/02/04³Acerto³A) Permite Escolher se Imprime Motivo da  ³±±
 ±±³            ³--------³      ³Excecao ao inves do de Afastamento.       ³±±
 ±±³Allyson M.  ³18/11/11³028864³Ajuste p/ considerar evento referente bco.³±±
@@ -158,27 +158,27 @@
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 User Function ImpEsp( lTerminal , cFilTerminal , cMatTerminal , cPerAponta )
-	DEFAULT lTerminal := .F.
-	IF .NOT.(lTerminal)
-		uTCREPORT ACTIVATE
-		uTCREPORT SET FONT "Lucida Console" SIZE 0,-12 BOLD 
-		uTCREPORT SET LINE HEIGHT 50
-		uTCREPORT SET EDIT ON
-	ENDIF
+    DEFAULT lTerminal := .F.
+    IF .NOT.(lTerminal)
+        uTCREPORT ACTIVATE
+        uTCREPORT SET FONT "Lucida Console" SIZE 0,-12 BOLD 
+        uTCREPORT SET LINE HEIGHT 50
+        uTCREPORT SET EDIT ON
+    ENDIF
 Return(ImpEsp( @lTerminal , @cFilTerminal , @cMatTerminal , @cPerAponta ))
 Static Function ImpEsp( lTerminal , cFilTerminal , cMatTerminal , cPerAponta )
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³ Define Variaveis Locais (Basicas)                            ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-Local aArea		 := GetArea()
+Local aArea         := GetArea()
 Local cDesc1     := STR0001  // 'Espelho do Ponto'
 Local cDesc2     := STR0002  // 'Ser  impresso de acordo com os parametros solicitados pelo'
 Local cDesc3     := STR0003  // 'usuario.'
 Local cString    := 'SRA' //-- Alias do arquivo principal (Base)
 Local aOrd       := {STR0004 , STR0005 , STR0006 , STR0007, STR0038 } // 'Matricula'###'Centro de Custo'###'Nome'###'Turno'###'C.Custo + Nome'
-Local wnRel		 := ""
-Local cHtml		 := ""  
+Local wnRel         := ""
+Local cHtml         := ""  
 Local cAviso 
 
 //-- Tratamento dos arquivos envolvidos no Fechamento Mensal (Para evitar que o processo nao seja finalizado)
@@ -227,10 +227,10 @@ Private dPerFim  := Ctod("//")
 Private cMenPad1 := Space(30)
 Private cMenPad2 := Space(19)
 Private cIndCond := ''
-Private cFilSPA	 := IF(Empty(xFilial("SPA")),Space(02),SRA->RA_FILIAL)
+Private cFilSPA     := IF(Empty(xFilial("SPA")),Space(02),SRA->RA_FILIAL)
 Private cFor     := ''
 Private nOrdem   := 0
-Private cAponFer := ''	
+Private cAponFer := ''    
 Private aInfo    := {}
 Private aTurnos  := {}
 Private aPrtTurn := {}
@@ -241,30 +241,30 @@ DEFAULT lTerminal := .F.
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³Parƒmetro MV_COLMARC										   ³
+³Parƒmetro MV_COLMARC                                           ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 nColunas := SuperGetmv("MV_COLMARC")
 IF ( nColunas == NIL )
-	Help("", 1, "MVCOLNCAD")
-	Return( .F. )
+    Help("", 1, "MVCOLNCAD")
+    Return( .F. )
 EndIF
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³Calcula Tamanho e Tipo de Impressao de modo a conter  integral³
-³mente o cabecalho. 										   ³
+³mente o cabecalho.                                            ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 IF ( nColunas < 5 )
-   nTamanho		:= "M"
-   aReturn[4]	:= 1     
+   nTamanho        := "M"
+   aReturn[4]    := 1     
 Else
-   nTamanho		:= "G" 
-   aReturn[4]	:= 1   
+   nTamanho        := "G" 
+   aReturn[4]    := 1   
 EndIF
    
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³O numero de colunas eh sempre aos pares					   ³
+³O numero de colunas eh sempre aos pares                       ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 nColunas *= 2
 
@@ -273,17 +273,17 @@ nColunas *= 2
 ³ Envia controle para a funcao SETPRINT                        ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 IF !( lTerminal )
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³Nome Default do relatorio em Disco							   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	wnrel := "PONR010"
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³Inicializa a SetPrint										   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	wnrel := SetPrint(cString, wnrel, cPerg, Titulo, cDesc1, cDesc2, cDesc3, .F., aOrd, ,nTamanho)
-EndIF	
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³Nome Default do relatorio em Disco                               ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    wnrel := "PONR010"
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³Inicializa a SetPrint                                           ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    wnrel := SetPrint(cString, wnrel, cPerg, Titulo, cDesc1, cDesc2, cDesc3, .F., aOrd, ,nTamanho)
+EndIF    
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
@@ -301,74 +301,74 @@ Pergunte( "PNR010" , .F. )
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³ Carregando variaveis mv_par?? para Variaveis do Sistema.     ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-FilialDe	:= IF( !lTerminal , mv_par01, cFilTerminal )			//Filial  De
-FilialAte	:= IF( !lTerminal , mv_par02, cFilTerminal )			//Filial  Ate
-CcDe		:= IF( !lTerminal , mv_par03, SRA->RA_CC   )			//Centro de Custo De
-CcAte		:= IF( !lTerminal , mv_par04, SRA->RA_CC   )			//Centro de Custo Ate
-TurDe		:= IF( !lTerminal , mv_par05, SRA->RA_TNOTRAB)			//Turno De
-TurAte		:= IF( !lTerminal , mv_par06, SRA->RA_TNOTRAB)			//Turno Ate
-MatDe		:= IF( !lTerminal , mv_par07, cMatTerminal)				//Matricula De
-MatAte		:= IF( !lTerminal , mv_par08, cMatTerminal)				//Matricula Ate
-NomDe		:= IF( !lTerminal , mv_par09, SRA->RA_NOME)				//Nome De
-NomAte		:= IF( !lTerminal , mv_par10, SRA->RA_NOME)				//Nome Ate
-cSit		:= IF( !lTerminal , mv_par11, fSituacao( NIL , .F. ))	//Situacao
-cCat		:= IF( !lTerminal , mv_par12, fCategoria( NIL , .F. ))	//Categoria
-nImpHrs		:= IF( !lTerminal , mv_par13, 3 )						//Imprimir horas Calculadas/Inform/Ambas/NA
-nImpAut		:= IF( !lTerminal , mv_par14, 1 )						//Demonstrar horas Autoriz/Nao Autorizadas
-nCopias		:= IF( !lTerminal , If(mv_par15>0,mv_par15,1),1)		//N£mero de C¢pias
-lSemMarc	:= IF( !lTerminal , (mv_par16==1)	, .F. )				//Imprime para Funcion rios sem Marca‡oes
-cMenPad1	:= IF( !lTerminal , mv_par17, "" )						//Mensagem padr„o anterior a Assinatura
-cMenPad2	:= IF( !lTerminal , mv_par18, "" )						//Mens. padr„o anterior a Assinatura(Cont.)
+FilialDe    := IF( !lTerminal , mv_par01, cFilTerminal )            //Filial  De
+FilialAte    := IF( !lTerminal , mv_par02, cFilTerminal )            //Filial  Ate
+CcDe        := IF( !lTerminal , mv_par03, SRA->RA_CC   )            //Centro de Custo De
+CcAte        := IF( !lTerminal , mv_par04, SRA->RA_CC   )            //Centro de Custo Ate
+TurDe        := IF( !lTerminal , mv_par05, SRA->RA_TNOTRAB)            //Turno De
+TurAte        := IF( !lTerminal , mv_par06, SRA->RA_TNOTRAB)            //Turno Ate
+MatDe        := IF( !lTerminal , mv_par07, cMatTerminal)                //Matricula De
+MatAte        := IF( !lTerminal , mv_par08, cMatTerminal)                //Matricula Ate
+NomDe        := IF( !lTerminal , mv_par09, SRA->RA_NOME)                //Nome De
+NomAte        := IF( !lTerminal , mv_par10, SRA->RA_NOME)                //Nome Ate
+cSit        := IF( !lTerminal , mv_par11, fSituacao( NIL , .F. ))    //Situacao
+cCat        := IF( !lTerminal , mv_par12, fCategoria( NIL , .F. ))    //Categoria
+nImpHrs        := IF( !lTerminal , mv_par13, 3 )                        //Imprimir horas Calculadas/Inform/Ambas/NA
+nImpAut        := IF( !lTerminal , mv_par14, 1 )                        //Demonstrar horas Autoriz/Nao Autorizadas
+nCopias        := IF( !lTerminal , If(mv_par15>0,mv_par15,1),1)        //N£mero de C¢pias
+lSemMarc    := IF( !lTerminal , (mv_par16==1)    , .F. )                //Imprime para Funcion rios sem Marca‡oes
+cMenPad1    := IF( !lTerminal , mv_par17, "" )                        //Mensagem padr„o anterior a Assinatura
+cMenPad2    := IF( !lTerminal , mv_par18, "" )                        //Mens. padr„o anterior a Assinatura(Cont.)
 dPerIni     := IF( !lTerminal ,;
-                    mv_par19,Stod( Subst( cPerAponta , 1 , 8 ) ))	//Data Contendo o Inicio do Periodo de Apontamento
+                    mv_par19,Stod( Subst( cPerAponta , 1 , 8 ) ))    //Data Contendo o Inicio do Periodo de Apontamento
 dPerFim     := IF( !lTerminal ,;
-                    mv_par20,Stod( Subst( cPerAponta , 9 , 8 ) ))	//Data Contendo o Fim  do Periodo de Apontamento
-lSexagenal	:= IF( !lTerminal , (mv_par21==1), .T.  )				//Horas em  (Sexagenal/Centesimal)
-lImpRes		:= IF( !lTerminal , (mv_par22==1), .F.	)				//Imprime eventos a partir do resultado ?
-lImpTroca   := IF( !lTerminal , (mv_par23==1), .F.	)				//Imprime Descricao Troca de Turnos ou o Atual 
-lImpExcecao := IF( !lTerminal , (mv_par24==1), .F.	)				//Imprime Descricao da Excecao no Lugar da do Afastamento 
+                    mv_par20,Stod( Subst( cPerAponta , 9 , 8 ) ))    //Data Contendo o Fim  do Periodo de Apontamento
+lSexagenal    := IF( !lTerminal , (mv_par21==1), .T.  )                //Horas em  (Sexagenal/Centesimal)
+lImpRes        := IF( !lTerminal , (mv_par22==1), .F.    )                //Imprime eventos a partir do resultado ?
+lImpTroca   := IF( !lTerminal , (mv_par23==1), .F.    )                //Imprime Descricao Troca de Turnos ou o Atual 
+lImpExcecao := IF( !lTerminal , (mv_par24==1), .F.    )                //Imprime Descricao da Excecao no Lugar da do Afastamento 
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³ Redefine o Tamanho das Mensagens Padroes					   ³
+³ Redefine o Tamanho das Mensagens Padroes                       ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 cMenpad1 := IF(Empty( cMenPad1 ) , Space( 30 ) , cMenPad1 )
 cMenpad2 := IF(Empty( cMenPad2 ) , Space( 19 ) , cMenPad2 )
 
 Begin Sequence
 
-	IF ( lTerminal )
-		//-- Verifica se foi possivel abrir os arquivos sem exclusividade
-		If Pn090Open(@cHtml, @cAviso)
-			cHtml := ""	
-			cHtml := Pnr010Imp( NIL , NIL , NIL , lTerminal )
-			 /*
-			ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			³ Apos a obtencao da consulta solicitada fecha os arquivos     ³
-			³ utilizados no fechamento mensal para abertura exclusiva      ³
-			ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		    Aeval(aFilesOpen, bCloseFiles)
-		Else
-    	   cHtml := HtmlDefault( cAviso , cHtml )   
-		Endif    
-    	
-	ElseIF !( nLastKey == 27 )
-	
-		SetDefault( aReturn , cString )
-		
-		IF Empty( dPerIni ) .or. Empty( dPerFim )
-			Help(" ",1,"PONFORAPER" , , OemToAnsi( STR0039 ) , 5 , 0  )	//'Periodo de Apontamento Invalido.'
-			Break
-		EndIF
-	
-		IF !( nLastKey == 27 )
-	
-		    RptStatus( { |lEnd| Pnr010Imp(@lEnd, wNRel, cString , lTerminal ) } , Titulo )
-	
-		EndIF
-	
-	EndIF
-	
+    IF ( lTerminal )
+        //-- Verifica se foi possivel abrir os arquivos sem exclusividade
+        If Pn090Open(@cHtml, @cAviso)
+            cHtml := ""    
+            cHtml := Pnr010Imp( NIL , NIL , NIL , lTerminal )
+             /*
+            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            ³ Apos a obtencao da consulta solicitada fecha os arquivos     ³
+            ³ utilizados no fechamento mensal para abertura exclusiva      ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+            Aeval(aFilesOpen, bCloseFiles)
+        Else
+           cHtml := HtmlDefault( cAviso , cHtml )   
+        Endif    
+        
+    ElseIF !( nLastKey == 27 )
+    
+        SetDefault( aReturn , cString )
+        
+        IF Empty( dPerIni ) .or. Empty( dPerFim )
+            Help(" ",1,"PONFORAPER" , , OemToAnsi( STR0039 ) , 5 , 0  )    //'Periodo de Apontamento Invalido.'
+            Break
+        EndIF
+    
+        IF !( nLastKey == 27 )
+    
+            RptStatus( { |lEnd| Pnr010Imp(@lEnd, wNRel, cString , lTerminal ) } , Titulo )
+    
+        EndIF
+    
+    EndIF
+    
 End Sequence
 
 Return( cHtml )
@@ -393,58 +393,58 @@ Return( cHtml )
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 Static Function Pnr010Imp( lEnd , WnRel ,cString , lTerminal )
 
-Local aComplPer		:= {}
-Local aAbonosPer	:= {}
-Local cFil			:= ""
-Local cMat			:= ""
-Local cTno			:= ""
-Local cLastFil		:= "__cLastFil__"
-Local cAcessaSRA	:= &("{ || " + ChkRH("PONR010","SRA","2") + "}")
-Local cSeq			:= ""
-Local cTurno		:= ""
-Local cHtml			:= ""
-Local lSPJExclu		:= !Empty( xFilial("SPJ") )
-Local lSP9Exclu		:= !Empty( xFilial("SP9") )
-Local nCount		:= 0.00
-Local nX			:= 0.00
-Local lMvAbosEve	:= .F.
-Local lMvSubAbAp	:= .F.
+Local aComplPer        := {}
+Local aAbonosPer    := {}
+Local cFil            := ""
+Local cMat            := ""
+Local cTno            := ""
+Local cLastFil        := "__cLastFil__"
+Local cAcessaSRA    := &("{ || " + ChkRH("PONR010","SRA","2") + "}")
+Local cSeq            := ""
+Local cTurno        := ""
+Local cHtml            := ""
+Local lSPJExclu        := !Empty( xFilial("SPJ") )
+Local lSP9Exclu        := !Empty( xFilial("SP9") )
+Local nCount        := 0.00
+Local nX            := 0.00
+Local lMvAbosEve    := .F.
+Local lMvSubAbAp    := .F.
 
-Private aFuncFunc  := {SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1)}		
+Private aFuncFunc  := {SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1), SPACE(1)}        
 Private aMarcacoes := {}
 Private aTabPadrao := {}
 Private aTabCalend := {}
 Private aPeriodos  := {}
-Private aId		   := {}
-Private aBoxSPC	   := LoadX3Box("PC_TPMARCA") 
-Private aBoxSPH	   := LoadX3Box("PH_TPMARCA")
+Private aId           := {}
+Private aBoxSPC       := LoadX3Box("PC_TPMARCA") 
+Private aBoxSPH       := LoadX3Box("PH_TPMARCA")
 Private cHeader    := ""
-Private dIniCale   := Ctod("//")	//-- Data Inicial a considerar para o Calendario
-Private dFimCale   := Ctod("//")	//-- Data Final a considerar para o calendario
-Private dMarcIni   := Ctod("//")	//-- Data Inicial a Considerar para Recuperar as Marcacoes
-Private dMarcFim   := Ctod("//")	//-- Data Final a Considerar para Recuperar as Marcacoes
-Private dIniPonMes := Ctod("//")	//-- Data Inicial do Periodo em Aberto 
-Private dFimPonMes := Ctod("//")	//-- Data Final do Periodo em Aberto 
+Private dIniCale   := Ctod("//")    //-- Data Inicial a considerar para o Calendario
+Private dFimCale   := Ctod("//")    //-- Data Final a considerar para o calendario
+Private dMarcIni   := Ctod("//")    //-- Data Inicial a Considerar para Recuperar as Marcacoes
+Private dMarcFim   := Ctod("//")    //-- Data Final a Considerar para Recuperar as Marcacoes
+Private dIniPonMes := Ctod("//")    //-- Data Inicial do Periodo em Aberto 
+Private dFimPonMes := Ctod("//")    //-- Data Final do Periodo em Aberto 
 Private lImpAcum   := .F.
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³Como a Cada Periodo Lido reinicializamos as Datas Inicial e Fi³
-³nal preservamos-as nas variaveis: dCaleIni e dCaleFim.		   ³
+³nal preservamos-as nas variaveis: dCaleIni e dCaleFim.           ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 dIniCale   := dPerIni   //-- Data Inicial a considerar para o Calendario
 dFimCale   := dPerFim   //-- Data Final a considerar para o calendario
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³Inicializa Variaveis Static								   ³
+³Inicializa Variaveis Static                                   ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 ( CarExtAut() , RstGetTabExtra() )
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
 ³Seleciona a Ordem do Funcionario e Monta chave para  posiciona³
-³namento													   ³
+³namento                                                       ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 dbSelectArea('SRA')
 
@@ -455,339 +455,339 @@ uTCREPORT SETORDER nOrdem
 
 SRA->( dbSetOrder( nOrdem ) )
 IF ( ( nOrdem == 1 ) .or. ( lTerminal ) )
-	cInicio  := 'RA_FILIAL + RA_MAT'
-	IF !( lTerminal )
-		SRA->( MsSeek( FilialDe + MatDe , .T. ) )
-		cFim := FilialAte + MatAte
-	Else
-		cFim := SRA->( &(cInicio) )
-	EndIF	
+    cInicio  := 'RA_FILIAL + RA_MAT'
+    IF !( lTerminal )
+        SRA->( MsSeek( FilialDe + MatDe , .T. ) )
+        cFim := FilialAte + MatAte
+    Else
+        cFim := SRA->( &(cInicio) )
+    EndIF    
 ElseIF ( nOrdem == 2 )
-	SRA->( MsSeek( FilialDe + CcDe + MatDe , .T. ) )
-	cInicio  := 'RA_FILIAL + RA_CC + RA_MAT'
-	cFim     := FilialAte + CcAte + MatAte
+    SRA->( MsSeek( FilialDe + CcDe + MatDe , .T. ) )
+    cInicio  := 'RA_FILIAL + RA_CC + RA_MAT'
+    cFim     := FilialAte + CcAte + MatAte
 ElseIF ( nOrdem == 3 )
-	SRA->( MsSeek( FilialDe + NomDe + MatDe , .T. ) )
-	cInicio  := 'RA_FILIAL + RA_NOME + RA_MAT'
-	cFim     := FilialAte + NomAte + MatAte
+    SRA->( MsSeek( FilialDe + NomDe + MatDe , .T. ) )
+    cInicio  := 'RA_FILIAL + RA_NOME + RA_MAT'
+    cFim     := FilialAte + NomAte + MatAte
 ElseIF ( nOrdem == 4 )
    SRA->( MsSeek( FilialDe + TurDe , .T. ) )
    cInicio  := 'RA_FILIAL + RA_TNOTRAB'
    cFim     := FilialAte + TurAte
 ElseIF ( nOrdem == 5 )
-	SRA->( dbSetOrder(8) )
-	SRA->( MsSeek( FilialDe + CcDe + NomDe , .T. ) )
-	cInicio  := 'RA_FILIAL + RA_CC + RA_NOME'
-	cFim     := FilialAte + CcAte + NomAte
+    SRA->( dbSetOrder(8) )
+    SRA->( MsSeek( FilialDe + CcDe + NomDe , .T. ) )
+    cInicio  := 'RA_FILIAL + RA_CC + RA_NOME'
+    cFim     := FilialAte + CcAte + NomAte
 EndIF
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³Inicializa R‚gua de Impress„o								   ³
+³Inicializa R‚gua de Impress„o                                   ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 IF !( lTerminal )
-	SetRegua( SRA->( RecCount() ) )
-EndIF	
+    SetRegua( SRA->( RecCount() ) )
+EndIF    
 
 /*
 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-³Processa o Cadastro de Funcionarios						   ³
+³Processa o Cadastro de Funcionarios                           ³
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 While SRA->( !Eof() .and. &(cInicio) <= cFim )
 
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³So Faz Validacoes Quando nao for Terminal					   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	IF !( lTerminal ) 
-	
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Incrementa a R‚gua de Impress„o							   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IncRegua()
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³So Faz Validacoes Quando nao for Terminal                       ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    IF !( lTerminal ) 
+    
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Incrementa a R‚gua de Impress„o                               ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IncRegua()
 
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Cancela a Impress„o 										   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( lEnd )
-			Impr( cCancela , 'C' )
-			Exit
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Cancela a Impress„o                                            ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( lEnd )
+            Impr( cCancela , 'C' )
+            Exit
+        EndIF
 
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Consiste controle de acessos e filiais validas               ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF SRA->( !( RA_FILIAL $ fValidFil() ) .or. !Eval( cAcessaSRA ) )
-			SRA->( dbSkip() )
-			Loop
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Consiste controle de acessos e filiais validas               ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF SRA->( !( RA_FILIAL $ fValidFil() ) .or. !Eval( cAcessaSRA ) )
+            SRA->( dbSkip() )
+            Loop
+        EndIF
 
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Consiste Parametrizacao do Intervalo de Impressao            ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF SRA->(;
-					(  RA_TNOTRAB	< Turde ) .or. ( 	RA_TNOTRAB	> TurAte ) .or. ;
-					(  RA_NOME 		< NomDe ) .or. ( 	RA_NOME 	> NomAte ) .or. ;
-					(  RA_MAT 		< MatDe ) .or. ( 	RA_MAT 		> MatAte ) .or. ;
-					(  RA_CC 		< CCDe  ) .or. ( 	RA_CC 		> CCAte	 ) .or. ;
-					!( RA_SITFOLH	$ cSit	) .or. !(	RA_CATFUNC	$ cCat	 );
-				)
-			SRA->( dbSkip() )
-			Loop
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Consiste Parametrizacao do Intervalo de Impressao            ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF SRA->(;
+                    (  RA_TNOTRAB    < Turde ) .or. (     RA_TNOTRAB    > TurAte ) .or. ;
+                    (  RA_NOME         < NomDe ) .or. (     RA_NOME     > NomAte ) .or. ;
+                    (  RA_MAT         < MatDe ) .or. (     RA_MAT         > MatAte ) .or. ;
+                    (  RA_CC         < CCDe  ) .or. (     RA_CC         > CCAte     ) .or. ;
+                    !( RA_SITFOLH    $ cSit    ) .or. !(    RA_CATFUNC    $ cCat     );
+                )
+            SRA->( dbSkip() )
+            Loop
+        EndIF
 
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Consiste a data de Demiss„o								   ³
-		³Se o Funcionario Foi Demitido Anteriormente ao Inicio do Perio³
-		³do Solicitado Desconsidera-o								   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF !Empty(SRA->RA_DEMISSA) .and. ( SRA->RA_DEMISSA < dIniCale )
-			SRA->( dbSkip() )
-			Loop
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Consiste a data de Demiss„o                                   ³
+        ³Se o Funcionario Foi Demitido Anteriormente ao Inicio do Perio³
+        ³do Solicitado Desconsidera-o                                   ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF !Empty(SRA->RA_DEMISSA) .and. ( SRA->RA_DEMISSA < dIniCale )
+            SRA->( dbSkip() )
+            Loop
+        EndIF
 
-	EndIF
+    EndIF
 
     /*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Verifica a Troca de Filial           						  ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	IF !( SRA->RA_FILIAL == cLastFil )
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Verifica a Troca de Filial                                     ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    IF !( SRA->RA_FILIAL == cLastFil )
 
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Alimenta as variaveis com o conteudo dos MV_'S correspondetes³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/		
-		lMvAbosEve	:= ( Upper(AllTrim(SuperGetMv("MV_ABOSEVE",NIL,"N",cLastFil))) == "S" )	//--Verifica se Deduz as horas abonadas das horas do evento Sem a necessidade de informa o Codigo do Evento no motivo de abono que abona horas
-		lMvSubAbAp	:= ( Upper(AllTrim(SuperGetMv("MV_SUBABAP",NIL,"N",cLastFil))) == "S" )	//--Verifica se Quando Abono nao Abonar Horas e Possuir codigo de Evento, se devera Gera-lo em outro evento e abater suas horas das Horas Calculadas
-	    
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Atualiza a Filial Corrente           						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		cLastFil := SRA->RA_FILIAL
-		
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Carrega periodo de Apontamento Aberto						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF !CheckPonMes( @dPerIni , @dPerFim , .F. , .T. , .F. , cLastFil )
-			Exit
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Alimenta as variaveis com o conteudo dos MV_'S correspondetes³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/        
+        lMvAbosEve    := ( Upper(AllTrim(SuperGetMv("MV_ABOSEVE",NIL,"N",cLastFil))) == "S" )    //--Verifica se Deduz as horas abonadas das horas do evento Sem a necessidade de informa o Codigo do Evento no motivo de abono que abona horas
+        lMvSubAbAp    := ( Upper(AllTrim(SuperGetMv("MV_SUBABAP",NIL,"N",cLastFil))) == "S" )    //--Verifica se Quando Abono nao Abonar Horas e Possuir codigo de Evento, se devera Gera-lo em outro evento e abater suas horas das Horas Calculadas
+        
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Atualiza a Filial Corrente                                     ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        cLastFil := SRA->RA_FILIAL
+        
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Carrega periodo de Apontamento Aberto                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF !CheckPonMes( @dPerIni , @dPerFim , .F. , .T. , .F. , cLastFil )
+            Exit
+        EndIF
 
-    	/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Obtem datas do Periodo em Aberto							  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		GetPonMesDat( @dIniPonMes , @dFimPonMes , cLastFil )
-		
-    	/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Atualiza o Array de Informa‡”es sobre a Empresa.			  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		aInfo := {}
-		fInfo( @aInfo , cLastFil )
-	
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Carrega as Tabelas de Horario Padrao						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( lSPJExclu .or. Empty( aTabPadrao ) )
-			aTabPadrao := {}
-			fTabTurno( @aTabPadrao , IF( lSPJExclu , cLastFil , NIL ) )
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Obtem datas do Periodo em Aberto                              ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        GetPonMesDat( @dIniPonMes , @dFimPonMes , cLastFil )
+        
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Atualiza o Array de Informa‡”es sobre a Empresa.              ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        aInfo := {}
+        fInfo( @aInfo , cLastFil )
+    
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Carrega as Tabelas de Horario Padrao                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( lSPJExclu .or. Empty( aTabPadrao ) )
+            aTabPadrao := {}
+            fTabTurno( @aTabPadrao , IF( lSPJExclu , cLastFil , NIL ) )
+        EndIF
 
-    	/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Carrega TODOS os Eventos da Filial						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( Empty( aId ) .or. ( lSP9Exclu ) )
-			aId := {}
-			CarId( fFilFunc("SP9") , @aId , "*" )
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Carrega TODOS os Eventos da Filial                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( Empty( aId ) .or. ( lSP9Exclu ) )
+            aId := {}
+            CarId( fFilFunc("SP9") , @aId , "*" )
+        EndIF
 
-	EndIF
+    EndIF
 
-   	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³Retorna Periodos de Apontamentos Selecionados				  ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	IF ( lTerminal )
-		dPerIni	:= dIniCale
-		dPerFim := dFimCale
-	EndIF
-	aPeriodos := Monta_per( dIniCale , dFimCale , cLastFil , SRA->RA_MAT , dPerIni , dPerFim )
+       /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³Retorna Periodos de Apontamentos Selecionados                  ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    IF ( lTerminal )
+        dPerIni    := dIniCale
+        dPerFim := dFimCale
+    EndIF
+    aPeriodos := Monta_per( dIniCale , dFimCale , cLastFil , SRA->RA_MAT , dPerIni , dPerFim )
 
-   	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³Corre Todos os Periodos 									  ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	naPeriodos := Len( aPeriodos )
-	For nX := 1 To naPeriodos
+       /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³Corre Todos os Periodos                                       ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    naPeriodos := Len( aPeriodos )
+    For nX := 1 To naPeriodos
 
-   		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Reinicializa as Datas Inicial e Final a cada Periodo Lido.	  ³
-		³Os Valores de dPerIni e dPerFim foram preservados nas   varia³
-		³veis: dCaleIni e dCaleFim.									  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-        dPerIni		:= aPeriodos[ nX , 1 ]
-        dPerFim		:= aPeriodos[ nX , 2 ] 
+           /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Reinicializa as Datas Inicial e Final a cada Periodo Lido.      ³
+        ³Os Valores de dPerIni e dPerFim foram preservados nas   varia³
+        ³veis: dCaleIni e dCaleFim.                                      ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        dPerIni        := aPeriodos[ nX , 1 ]
+        dPerFim        := aPeriodos[ nX , 2 ] 
 
-   		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Obtem as Datas para Recuperacao das Marcacoes				  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-        dMarcIni	:= aPeriodos[ nX , 3 ]
-        dMarcFim	:= aPeriodos[ nX , 4 ]
+           /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Obtem as Datas para Recuperacao das Marcacoes                  ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        dMarcIni    := aPeriodos[ nX , 3 ]
+        dMarcFim    := aPeriodos[ nX , 4 ]
 
-   		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Verifica se Impressao eh de Acumulado						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		lImpAcum := ( dPerFim < dIniPonMes )
-		   
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Retorna Turno/Sequencia das Marca‡”es Acumuladas			  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( lImpAcum )
-			IF SPF->( dbSeek( SRA->( RA_FILIAL + RA_MAT ) + Dtos( dPerIni) ) ) .and. !Empty(SPF->PF_SEQUEPA)
-				cTurno	:= SPF->PF_TURNOPA
-				cSeq	:= SPF->PF_SEQUEPA
-			Else
-	    		/*
-				ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-				³ Tenta Achar a Sequencia Inicial utilizando RetSeq()³
-				ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-				IF !RetSeq(cSeq,@cTurno,dPerIni,dPerFim,dDataBase,aTabPadrao,@cSeq) .or. Empty( cSeq )
-	    			/*
-					ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-					³Tenta Achar a Sequencia Inicial utilizando fQualSeq()		  ³
-					ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-					cSeq := fQualSeq( NIL , aTabPadrao , dPerIni , @cTurno )
-				EndIF
-			EndIF
-			/*
-			ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			³Obtem Codigo e Descricao da Funcao do Trabalhador na Epoca   ³
-			ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/			
-			fBuscaCC(dMarcFim, @aFuncFunc[1], @aFuncFunc[2], Nil, .F. , .T.  ) 
-			aFuncFunc[2]:= Substr(aFuncFunc[2], 1, 25)
-			fBuscaFunc(dMarcFim, @aFuncFunc[3], @aFuncFunc[4],20, @aFuncFunc[5], @aFuncFunc[6],25, .F. )
-		Else
-   			/*
-			ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			³Considera a Sequencia e Turno do Cadastro            		  ³
-			ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-			cTurno	:= SRA->RA_TNOTRAB
-			cSeq	:= SRA->RA_SEQTURN
-			/*
-			ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			³Obtem Codigo e Descricao da Funcao do Trabalhador     		  ³
-			ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/			
-			aFuncFunc[1]:= SRA->RA_CC
-			aFuncFunc[2]:= DescCc(aFuncFunc[1], SRA->RA_FILIAL, 25)
-			aFuncFunc[3]:= SRA->RA_CODFUNC 
-			aFuncFunc[4]:= DescFun(SRA->RA_CODFUNC , SRA->RA_FILIAL)
-			aFuncFunc[6]:= DescCateg(SRA->RA_CATFUNC , 25)
-		EndIF
-	
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Carrega Arrays com as Marca‡”es do Periodo (aMarcacoes), com³
-		³o Calendario de Marca‡”es do Periodo (aTabCalend) e com    as³	
-		³Trocas de Turno do Funcionario (aTurnos)					  ³	
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		( aMarcacoes := {} , aTabCalend := {} , aTurnos := {} )   
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Importante: 												  ³
-		³ O periodo fornecido abaixo para recuperar as marcacoes   cor³
-		³ respondente ao periodo de apontamentoo Calendario de 	 Marca³	
-		³ ‡”es do Periodo ( aTabCalend ) e com  as Trocas de Turno  do³	
-		³ Funcionario ( aTurnos ) integral afim de criar o  calendario³	
-		³ com as ordens correspondentes as gravadas nas marcacoes	  ³	
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF !GetMarcacoes(	@aMarcacoes					,;	//Marcacoes dos Funcionarios
-							@aTabCalend					,;	//Calendario de Marcacoes
-							@aTabPadrao					,;	//Tabela Padrao
-							@aTurnos					,;	//Turnos de Trabalho
-							dPerIni 					,;	//Periodo Inicial
-							dPerFim						,;	//Periodo Final
-							SRA->RA_FILIAL				,;	//Filial
-							SRA->RA_MAT					,;	//Matricula
-							cTurno						,;	//Turno
-							cSeq						,;	//Sequencia de Turno
-							SRA->RA_CC					,;	//Centro de Custo
-							IF(lImpAcum,"SPG","SP8")	,;	//Alias para Carga das Marcacoes
-							NIL							,;	//Se carrega Recno em aMarcacoes
-							.T.							,;	//Se considera Apenas Ordenadas
-						    .T.    						,;	//Se Verifica as Folgas Automaticas
-						  	.F.    			 			 ;	//Se Grava Evento de Folga Automatica Periodo Anterior
-					 )
-			Loop
-		EndIF					 
-	   
-	    aPrtTurn:={}
-	    Aeval(aTurnos, {|x| If( x[2] >= dPerIni .AND. x[2]<= dPerFim, Aadd(aPrtTurn, x),Nil )} ) 
-	   
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Reinicializa os Arrays aToais e aAbonados					  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		( aTotais := {} , aAbonados := {} )
+           /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Verifica se Impressao eh de Acumulado                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        lImpAcum := ( dPerFim < dIniPonMes )
+           
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Retorna Turno/Sequencia das Marca‡”es Acumuladas              ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( lImpAcum )
+            IF SPF->( dbSeek( SRA->( RA_FILIAL + RA_MAT ) + Dtos( dPerIni) ) ) .and. !Empty(SPF->PF_SEQUEPA)
+                cTurno    := SPF->PF_TURNOPA
+                cSeq    := SPF->PF_SEQUEPA
+            Else
+                /*
+                ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                ³ Tenta Achar a Sequencia Inicial utilizando RetSeq()³
+                ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+                IF !RetSeq(cSeq,@cTurno,dPerIni,dPerFim,dDataBase,aTabPadrao,@cSeq) .or. Empty( cSeq )
+                    /*
+                    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                    ³Tenta Achar a Sequencia Inicial utilizando fQualSeq()          ³
+                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+                    cSeq := fQualSeq( NIL , aTabPadrao , dPerIni , @cTurno )
+                EndIF
+            EndIF
+            /*
+            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            ³Obtem Codigo e Descricao da Funcao do Trabalhador na Epoca   ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/            
+            fBuscaCC(dMarcFim, @aFuncFunc[1], @aFuncFunc[2], Nil, .F. , .T.  ) 
+            aFuncFunc[2]:= Substr(aFuncFunc[2], 1, 25)
+            fBuscaFunc(dMarcFim, @aFuncFunc[3], @aFuncFunc[4],20, @aFuncFunc[5], @aFuncFunc[6],25, .F. )
+        Else
+               /*
+            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            ³Considera a Sequencia e Turno do Cadastro                      ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+            cTurno    := SRA->RA_TNOTRAB
+            cSeq    := SRA->RA_SEQTURN
+            /*
+            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            ³Obtem Codigo e Descricao da Funcao do Trabalhador               ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/            
+            aFuncFunc[1]:= SRA->RA_CC
+            aFuncFunc[2]:= DescCc(aFuncFunc[1], SRA->RA_FILIAL, 25)
+            aFuncFunc[3]:= SRA->RA_CODFUNC 
+            aFuncFunc[4]:= DescFun(SRA->RA_CODFUNC , SRA->RA_FILIAL)
+            aFuncFunc[6]:= DescCateg(SRA->RA_CATFUNC , 25)
+        EndIF
+    
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Carrega Arrays com as Marca‡”es do Periodo (aMarcacoes), com³
+        ³o Calendario de Marca‡”es do Periodo (aTabCalend) e com    as³    
+        ³Trocas de Turno do Funcionario (aTurnos)                      ³    
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        ( aMarcacoes := {} , aTabCalend := {} , aTurnos := {} )   
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Importante:                                                   ³
+        ³ O periodo fornecido abaixo para recuperar as marcacoes   cor³
+        ³ respondente ao periodo de apontamentoo Calendario de      Marca³    
+        ³ ‡”es do Periodo ( aTabCalend ) e com  as Trocas de Turno  do³    
+        ³ Funcionario ( aTurnos ) integral afim de criar o  calendario³    
+        ³ com as ordens correspondentes as gravadas nas marcacoes      ³    
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF !GetMarcacoes(    @aMarcacoes                    ,;    //Marcacoes dos Funcionarios
+                            @aTabCalend                    ,;    //Calendario de Marcacoes
+                            @aTabPadrao                    ,;    //Tabela Padrao
+                            @aTurnos                    ,;    //Turnos de Trabalho
+                            dPerIni                     ,;    //Periodo Inicial
+                            dPerFim                        ,;    //Periodo Final
+                            SRA->RA_FILIAL                ,;    //Filial
+                            SRA->RA_MAT                    ,;    //Matricula
+                            cTurno                        ,;    //Turno
+                            cSeq                        ,;    //Sequencia de Turno
+                            SRA->RA_CC                    ,;    //Centro de Custo
+                            IF(lImpAcum,"SPG","SP8")    ,;    //Alias para Carga das Marcacoes
+                            NIL                            ,;    //Se carrega Recno em aMarcacoes
+                            .T.                            ,;    //Se considera Apenas Ordenadas
+                            .T.                            ,;    //Se Verifica as Folgas Automaticas
+                              .F.                              ;    //Se Grava Evento de Folga Automatica Periodo Anterior
+                     )
+            Loop
+        EndIF                     
+       
+        aPrtTurn:={}
+        Aeval(aTurnos, {|x| If( x[2] >= dPerIni .AND. x[2]<= dPerFim, Aadd(aPrtTurn, x),Nil )} ) 
+       
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Reinicializa os Arrays aToais e aAbonados                      ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        ( aTotais := {} , aAbonados := {} )
 
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Carrega os Abonos Conforme Periodo       					  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		fAbonosPer( @aAbonosPer , dPerIni , dPerFim , cLastFil , SRA->RA_MAT )
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Carrega os Abonos Conforme Periodo                             ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        fAbonosPer( @aAbonosPer , dPerIni , dPerFim , cLastFil , SRA->RA_MAT )
 
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Carrega os Totais de Horas e Abonos.						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		CarAboTot( @aTotais , @aAbonados , aAbonosPer, lMvAbosEve, lMvSubAbAp )
-	
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Carrega o Array a ser utilizado na Impress„o.				  ³
-		³aPeriodos[nX,3] --> Inicio do Periodo para considerar as  mar³
-		³                    cacoes e tabela						  ³
-		³aPeriodos[nX,4] --> Fim do Periodo para considerar as   marca³
-		³                    coes e tabela							  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( !fMontaAimp( aTabCalend, aMarcacoes, @aImp,dMarcIni,dMarcFim, lTerminal) .and. !( lSemMarc ) )
-			Loop
-		EndIF
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Carrega os Totais de Horas e Abonos.                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        CarAboTot( @aTotais , @aAbonados , aAbonosPer, lMvAbosEve, lMvSubAbAp )
+    
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Carrega o Array a ser utilizado na Impress„o.                  ³
+        ³aPeriodos[nX,3] --> Inicio do Periodo para considerar as  mar³
+        ³                    cacoes e tabela                          ³
+        ³aPeriodos[nX,4] --> Fim do Periodo para considerar as   marca³
+        ³                    coes e tabela                              ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( !fMontaAimp( aTabCalend, aMarcacoes, @aImp,dMarcIni,dMarcFim, lTerminal) .and. !( lSemMarc ) )
+            Loop
+        EndIF
 
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Imprime o Espelho para um Funcionario.						  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		For nCount := 1 To nCopias
-			IF !( lTerminal )
-				fImpFun( aImp , nColunas )
-			Else
-				cHtml := fImpFun( aImp , nColunas , lTerminal )
-		    EndIF
-		Next nCount
-	
-	    /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³Reinicializa Variaveis										  ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		aImp      := {}
-		aTotais   := {}
-		aAbonados := {}
-		
-	Next nX
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Imprime o Espelho para um Funcionario.                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        For nCount := 1 To nCopias
+            IF !( lTerminal )
+                fImpFun( aImp , nColunas )
+            Else
+                cHtml := fImpFun( aImp , nColunas , lTerminal )
+            EndIF
+        Next nCount
+    
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³Reinicializa Variaveis                                          ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        aImp      := {}
+        aTotais   := {}
+        aAbonados := {}
+        
+    Next nX
 
     SRA->( dbSkip() )
 
@@ -799,17 +799,17 @@ End While
 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
 IF !( lTerminal )
 
-	dbSelectArea('SRA')
-	dbSetOrder(1)
+    dbSelectArea('SRA')
+    dbSetOrder(1)
 
-	Set Device To Screen
-	IF ( aReturn[5] == 1 )
-		Set Printer To
-		dbCommit()
-		OurSpool(wnrel)
-	EndIF
+    Set Device To Screen
+    IF ( aReturn[5] == 1 )
+        Set Printer To
+        dbCommit()
+        OurSpool(wnrel)
+    EndIF
 
-	Ms_Flush()
+    Ms_Flush()
 
 EndIF
 
@@ -831,237 +831,237 @@ Return( cHtml )
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 Static Function fImpFun( aImp , nColunas , lTerminal )
 
-Local cDet      	:= ""
-Local cHtml			:= ""    
-Local cOcorr		:= ""   
-Local cAbHora		:= ""
-Local lZebrado		:= .F.
-Local nX        	:= 0.00
-Local nY        	:= 0.00
-Local nFor      	:= 0.00
-Local nCol      	:= 0.00
-Local nColMarc  	:= 0.00
-Local nTamLin   	:= 0.00
-Local nMin			:= 0.00
-Local nLenImp		:= 0.00
-Local nLenImpnX		:= 0.00
-Local nTamAuxlin	:= 0.00   
-Local nAbHora		:= 0
+Local cDet          := ""
+Local cHtml            := ""    
+Local cOcorr        := ""   
+Local cAbHora        := ""
+Local lZebrado        := .F.
+Local nX            := 0.00
+Local nY            := 0.00
+Local nFor          := 0.00
+Local nCol          := 0.00
+Local nColMarc      := 0.00
+Local nTamLin       := 0.00
+Local nMin            := 0.00
+Local nLenImp        := 0.00
+Local nLenImpnX        := 0.00
+Local nTamAuxlin    := 0.00   
+Local nAbHora        := 0
 
 //-- Define o tamanho da linha com base no MV_ColMarc.
 aEval(aImp, { |x| nColMarc := If(Len(x)-3>nColMarc, Len(x)-3, nColMarc) } )
 nColMarc += If(nColMarc%2 == 0, 0, 1)
 //-- Calcula Tamanho e Tipo de Impressao de modo a conter integralmente o cabecalho. 
 IF ( nColunas < 10 )
-   nTamanho		:='M'
-   aReturn[4]	:= 1    
+   nTamanho        :='M'
+   aReturn[4]    := 1    
 Else
-   nTamanho		:='G' 
-   aReturn[4]	:= 1   
+   nTamanho        :='G' 
+   aReturn[4]    := 1   
 EndIF
  
 //-- Calcula a Maior das Qtdes de Colunas existentes
 nColunas := Max(nColunas, nColMarc)
 
 //-- Define configura‡”es da impress„o
-nTamAuxLin	:= 19+(nColunas*6)+50
-nTamLin    	:= If(nTamAuxLin <= 80,80,If(nTamAuxLin<=132,132,220))
+nTamAuxLin    := 19+(nColunas*6)+50
+nTamLin        := If(nTamAuxLin <= 80,80,If(nTamAuxLin<=132,132,220))
 
 IF ( lTerminal )
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Inicio da Estrutura do Codigo HTML						   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-	cHtml += HtmlProcId() + CRLF
-	cHtml += '<html>'  + CRLF
-	cHtml += 	'<head>'  + CRLF
-	cHtml += 		'<title>RH Online</title>'  + CRLF
-	cHtml +=		'<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'  + CRLF
-	cHtml +=		'<link rel="stylesheet" href="css/rhonline.css" type="text/css">'  + CRLF
-	cHtml +=	'</head>'  + CRLF
-	cHtml +=	'<body bgcolor="#FFFFFF" text="#000000">' + CRLF
-	cHtml +=		'<table width="515" border="0" cellspacing="0" cellpadding="0">'  + CRLF
-  	cHtml +=			'<tr>'  + CRLF
-    cHtml +=				'<td class="titulo">'  + CRLF
-    cHtml +=					'<p>' + CRLF
-    cHtml +=						'<img src="'+TcfRetDirImg()+'/icone_titulo.gif" width="7" height="9">' + CRLF
-    cHtml +=							'<span class="titulo_opcao">' + CRLF
-    cHtml +=								STR0040 + CRLF	//'Consultar Marca&ccedil;&otilde;es'
-    cHtml +=							'</span>' + CRLF
-    cHtml +=							'<br><br>' + CRLF
-	cHtml +=					'</p>' + CRLF
-	cHtml +=				'</td>' + CRLF
-  	cHtml +=			'</tr>' + CRLF
-  	cHtml +=			'<tr>' + CRLF
-    cHtml +=				'<td>' + CRLF
-    cHtml +=					'<table width="515" border="0" cellspacing="0" cellpadding="0">' + CRLF
-    cHtml +=						'<tr>' + CRLF
-    cHtml +=							'<td background="'+TcfRetDirImg()+'/tabela_conteudo_1.gif" width="10">&nbsp;</td>' + CRLF
-    cHtml +=							'<td class="titulo" width="498">' + CRLF
-    cHtml +=								'<table width="498" border="0" cellspacing="2" cellpadding="1">' + CRLF
-	cHtml += Imp_Cabec( nTamLin , nColunas , nTamanho , lTerminal )
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Inicio da Estrutura do Codigo HTML                           ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    cHtml += HtmlProcId() + CRLF
+    cHtml += '<html>'  + CRLF
+    cHtml +=     '<head>'  + CRLF
+    cHtml +=         '<title>RH Online</title>'  + CRLF
+    cHtml +=        '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">'  + CRLF
+    cHtml +=        '<link rel="stylesheet" href="css/rhonline.css" type="text/css">'  + CRLF
+    cHtml +=    '</head>'  + CRLF
+    cHtml +=    '<body bgcolor="#FFFFFF" text="#000000">' + CRLF
+    cHtml +=        '<table width="515" border="0" cellspacing="0" cellpadding="0">'  + CRLF
+      cHtml +=            '<tr>'  + CRLF
+    cHtml +=                '<td class="titulo">'  + CRLF
+    cHtml +=                    '<p>' + CRLF
+    cHtml +=                        '<img src="'+TcfRetDirImg()+'/icone_titulo.gif" width="7" height="9">' + CRLF
+    cHtml +=                            '<span class="titulo_opcao">' + CRLF
+    cHtml +=                                STR0040 + CRLF    //'Consultar Marca&ccedil;&otilde;es'
+    cHtml +=                            '</span>' + CRLF
+    cHtml +=                            '<br><br>' + CRLF
+    cHtml +=                    '</p>' + CRLF
+    cHtml +=                '</td>' + CRLF
+      cHtml +=            '</tr>' + CRLF
+      cHtml +=            '<tr>' + CRLF
+    cHtml +=                '<td>' + CRLF
+    cHtml +=                    '<table width="515" border="0" cellspacing="0" cellpadding="0">' + CRLF
+    cHtml +=                        '<tr>' + CRLF
+    cHtml +=                            '<td background="'+TcfRetDirImg()+'/tabela_conteudo_1.gif" width="10">&nbsp;</td>' + CRLF
+    cHtml +=                            '<td class="titulo" width="498">' + CRLF
+    cHtml +=                                '<table width="498" border="0" cellspacing="2" cellpadding="1">' + CRLF
+    cHtml += Imp_Cabec( nTamLin , nColunas , nTamanho , lTerminal )
 Else
-	//-- Inicializa Li com 1 para n„o imprimir cabecalho padrao
-	Li := 01
-	//-- Imprime Cabecalho Especifico.
-	Imp_Cabec( nTamLin , nColunas ,  nTamanho , lTerminal, 1 )
+    //-- Inicializa Li com 1 para n„o imprimir cabecalho padrao
+    Li := 01
+    //-- Imprime Cabecalho Especifico.
+    Imp_Cabec( nTamLin , nColunas ,  nTamanho , lTerminal, 1 )
 EndIF
 
 //-- Imprime Marca‡”es
 nLenImp := Len(aImp)
 For nX := 1 To nLenImp
-	IF !( lTerminal )
-		cDet := PADR(DtoC(aImp[nX,1]),10) + Space(1) + DiaSemana(aImp[nX,1],8)
-		nMin := Min(nColunas+4,Len(aImp[nX]))
-		If Len(aImp[nX]) >= 4
-			For nY := 4 To nMin                              
-			    //-- Imprime Marcacoes. Ao imprimir, verificar se as marcacoes passam de 9E/9S
-			    //-- a partir dai acrescenta 2 espacoes apos imprimir a marcacao para disponibiliza-la
-			    //-- corretamente abaixo do cabecalho correspondente. 
-				cDet +=  If( Empty( aImp[nX,nY]), Replicate(".", nColunas*6 -2), aImp[nX,nY] ) + Space(If(nY<21,1,2))
-			Next nY 
-			//-- Imprime a ocorrencia (Ex.Excecao, DSR, Nao Trabalhado...)
-			//cDet += AllTrim( aImp[nX,2] )
-		Else
-			cDet += If( Empty( aImp[nX,2]), Replicate(".", nColunas*6 -2), aImp[nX,2] )
-		Endif                                                                   
-		//-- Qdo for "1a E. 2a S."  acrescenta mais 12 Brancos para que na eventual existencia de
-		//-- ocorrencias como Excecoes e DSr e Compensado, as descricoes das mesmas saem integras,
-		//-- sem cortes.                                    
-	    //-- If(nColunas<3, SPACE(12),''), VEJA ABAIXO
-		//-- Imprime o motivo de Abono....
-		cDet := Left(cDet+Space(19+(nColunas*6))+If(nColunas<3, SPACE(12),'') , 19+(nColunas*6)+ If(nColunas<3, 12,0) ) + aImp[nX,3]
-		cDet := Left(Alltrim(cDet)+Space(nTamLin),nTamLin)
-		ImprEsp(cDet, 'C',,nTamLin , nColunas ,  nTamanho , lTerminal,1 )
-	Else
-		/*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Detalhes do Codigo HTML          							   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-		IF ( lZebrado := ( nX%2 == 0.00 ) )
-			cHtml += '<tr bgcolor="#FAFBFC">' + CRLF
-			cHtml += 	'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
-			cHtml += 		Dtoc(aImp[nX,1]) + CRLF
-			cHtml += 	'</td>' + CRLF
-			cHtml += 	'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
-			cHtml +=		DiaSemana(aImp[nX,1]) + CRLF
-			cHtml += 	'</td>' + CRLF
-		Else
-			cHtml += '<tr>' + CRLF
-			cHtml += 	'<td class="dados_2" nowrap><div align="center">' + CRLF
-			cHtml += 		Dtoc(aImp[nX,1]) + CRLF
-			cHtml += 	'</td>' + CRLF
-			cHtml += 	'<td class="dados_2" nowrap><div align="left">' + CRLF
-			cHtml +=		DiaSemana(aImp[nX,1]) + CRLF
-			cHtml += 	'</td>' + CRLF
-		EndIF
-		IF ( nLenImpnX := Len(aImp[nX]) ) < ( ( nColunas + nLenImpnX ) - 1 )
-			For nY := Len(aImp[nX]) To ( ( nColunas + 3 ) - 1 )
-				aAdd(aImp[nX] , Space(05) )
-			Next nY
-		EndIF
-		nLenImpnX := Len(aImp[nX])
-		For nY := 4 To nLenImpnX
-			IF ( lZebrado )
-				cHtml += 	'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
-				cHtml += 		aImp[nX,nY] + CRLF
-				cHtml += 	'</td>' + CRLF
-			Else
-				cHtml += 	'<td class="dados_2" nowrap><div align="center">' + CRLF
-				cHtml += 		aImp[nX,nY] + CRLF
-				cHtml += 	'</td>' + CRLF
-			EndIF	
-		Next nY
-		//-- Trata Abonos e Excecoes
-		nAbHora:=  At( ":" , aImp[nX,3] ) 
-		If nAbHora > 0 
-			cOcorr :=	Capital( SubStr( aImp[nX,3] , 1 , nAbHora - 3 ) ) 
-			cAbHora:= 	Capital( SubStr( aImp[nX,3] , nAbHora - 2 ) ) 
-		Else                                                                      
-			cOcorr :=	Capital( AllTrim( aImp[nX,3] ) )
-			cAbHora:= 	'&nbsp;'	
-		Endif                                                
-		
-		IF ( lZebrado )
-			cHtml += 		'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
-			cHtml +=			Capital( AllTrim( aImp[nX,2] ) )
-			cHtml += 		'</td>' + CRLF
-			cHtml += 		'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
-			cHtml +=	 		cOcorr   						
-			cHtml += 		'</td>' + CRLF
-			cHtml += 		'<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
-			cHtml +=	 		cAbHora	
-			cHtml += 		'</td>' + CRLF
-		Else
-			cHtml += 		'<td class="dados_2" nowrap><div align="center">' + CRLF
-			cHtml +=			Capital( AllTrim( aImp[nX,2] ) )
-			cHtml += 		'</td>' + CRLF
-			cHtml += 		'<td class="dados_2" nowrap><div align="left">' + CRLF
-			cHtml +=	 		cOcorr   						
-			cHtml += 		'</td>' + CRLF
-			cHtml += 		'<td class="dados_2" nowrap><div align="left">' + CRLF
-			cHtml +=			cAbHora
-			cHtml += 		'</td>' + CRLF
-		EndIF	
-	EndIF
+    IF !( lTerminal )
+        cDet := PADR(DtoC(aImp[nX,1]),10) + Space(1) + DiaSemana(aImp[nX,1],8)
+        nMin := Min(nColunas+4,Len(aImp[nX]))
+        If Len(aImp[nX]) >= 4
+            For nY := 4 To nMin                              
+                //-- Imprime Marcacoes. Ao imprimir, verificar se as marcacoes passam de 9E/9S
+                //-- a partir dai acrescenta 2 espacoes apos imprimir a marcacao para disponibiliza-la
+                //-- corretamente abaixo do cabecalho correspondente. 
+                cDet +=  If( Empty( aImp[nX,nY]), Replicate(".", nColunas*6 -2), aImp[nX,nY] ) + Space(If(nY<21,1,2))
+            Next nY 
+            //-- Imprime a ocorrencia (Ex.Excecao, DSR, Nao Trabalhado...)
+            //cDet += AllTrim( aImp[nX,2] )
+        Else
+            cDet += If( Empty( aImp[nX,2]), Replicate(".", nColunas*6 -2), aImp[nX,2] )
+        Endif                                                                   
+        //-- Qdo for "1a E. 2a S."  acrescenta mais 12 Brancos para que na eventual existencia de
+        //-- ocorrencias como Excecoes e DSr e Compensado, as descricoes das mesmas saem integras,
+        //-- sem cortes.                                    
+        //-- If(nColunas<3, SPACE(12),''), VEJA ABAIXO
+        //-- Imprime o motivo de Abono....
+        cDet := Left(cDet+Space(19+(nColunas*6))+If(nColunas<3, SPACE(12),'') , 19+(nColunas*6)+ If(nColunas<3, 12,0) ) + aImp[nX,3]
+        cDet := Left(Alltrim(cDet)+Space(nTamLin),nTamLin)
+        ImprEsp(cDet, 'C',,nTamLin , nColunas ,  nTamanho , lTerminal,1 )
+    Else
+        /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Detalhes do Codigo HTML                                         ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        IF ( lZebrado := ( nX%2 == 0.00 ) )
+            cHtml += '<tr bgcolor="#FAFBFC">' + CRLF
+            cHtml +=     '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
+            cHtml +=         Dtoc(aImp[nX,1]) + CRLF
+            cHtml +=     '</td>' + CRLF
+            cHtml +=     '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
+            cHtml +=        DiaSemana(aImp[nX,1]) + CRLF
+            cHtml +=     '</td>' + CRLF
+        Else
+            cHtml += '<tr>' + CRLF
+            cHtml +=     '<td class="dados_2" nowrap><div align="center">' + CRLF
+            cHtml +=         Dtoc(aImp[nX,1]) + CRLF
+            cHtml +=     '</td>' + CRLF
+            cHtml +=     '<td class="dados_2" nowrap><div align="left">' + CRLF
+            cHtml +=        DiaSemana(aImp[nX,1]) + CRLF
+            cHtml +=     '</td>' + CRLF
+        EndIF
+        IF ( nLenImpnX := Len(aImp[nX]) ) < ( ( nColunas + nLenImpnX ) - 1 )
+            For nY := Len(aImp[nX]) To ( ( nColunas + 3 ) - 1 )
+                aAdd(aImp[nX] , Space(05) )
+            Next nY
+        EndIF
+        nLenImpnX := Len(aImp[nX])
+        For nY := 4 To nLenImpnX
+            IF ( lZebrado )
+                cHtml +=     '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
+                cHtml +=         aImp[nX,nY] + CRLF
+                cHtml +=     '</td>' + CRLF
+            Else
+                cHtml +=     '<td class="dados_2" nowrap><div align="center">' + CRLF
+                cHtml +=         aImp[nX,nY] + CRLF
+                cHtml +=     '</td>' + CRLF
+            EndIF    
+        Next nY
+        //-- Trata Abonos e Excecoes
+        nAbHora:=  At( ":" , aImp[nX,3] ) 
+        If nAbHora > 0 
+            cOcorr :=    Capital( SubStr( aImp[nX,3] , 1 , nAbHora - 3 ) ) 
+            cAbHora:=     Capital( SubStr( aImp[nX,3] , nAbHora - 2 ) ) 
+        Else                                                                      
+            cOcorr :=    Capital( AllTrim( aImp[nX,3] ) )
+            cAbHora:=     '&nbsp;'    
+        Endif                                                
+        
+        IF ( lZebrado )
+            cHtml +=         '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="center">' + CRLF
+            cHtml +=            Capital( AllTrim( aImp[nX,2] ) )
+            cHtml +=         '</td>' + CRLF
+            cHtml +=         '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
+            cHtml +=             cOcorr                           
+            cHtml +=         '</td>' + CRLF
+            cHtml +=         '<td class="dados_2" bgcolor="#FAFBFC" nowrap><div align="left">' + CRLF
+            cHtml +=             cAbHora    
+            cHtml +=         '</td>' + CRLF
+        Else
+            cHtml +=         '<td class="dados_2" nowrap><div align="center">' + CRLF
+            cHtml +=            Capital( AllTrim( aImp[nX,2] ) )
+            cHtml +=         '</td>' + CRLF
+            cHtml +=         '<td class="dados_2" nowrap><div align="left">' + CRLF
+            cHtml +=             cOcorr                           
+            cHtml +=         '</td>' + CRLF
+            cHtml +=         '<td class="dados_2" nowrap><div align="left">' + CRLF
+            cHtml +=            cAbHora
+            cHtml +=         '</td>' + CRLF
+        EndIF    
+    EndIF
 Next nX
 
 IF !( lTerminal )
 
-	ImprEsp(Replicate('-',nTamLin), 'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
-	ImprEsp(' ','C',,nTamLin , nColunas ,  nTamanho , lTerminal )
-	ImprEsp(cMenPad1 + cMenPad2 + Replicate('_',31), 'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
-	ImprEsp(Space(52) + STR0013 , 'C',,nTamLin , nColunas ,  nTamanho , lTerminal ) // 'Assinatura do Funcionario'
-	
-	//-- Se existirem totais, e se for selecionada sua impress„o, ser„o impressos.
-	If Len(aTotais) > 0 .and. nImpHrs # 4
-		ImprEsp(Replicate('-',nTamLin),'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
-		cDet := STR0014  // 'T O T A I S'
-		ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
-		ImprEsp(' ','C',,nTamLin , nColunas ,  nTamanho , lTerminal, 2 )
-		If Len(aTotais) % 2 # 0
-			aAdd (aTotais, Space(Len(aTotais[1])))
-		Endif
-		If nImpHrs == 1 .or. nImpHrs == 3
-			cDet := STR0017  // 'Cod Descricao                Calc.    Infor.  Cod Descricao                Calc.    Infor.'
-		ElseIf nImpHrs == 2
-			cDet := STR0016  // 'Cod Descricao                         Infor.  Cod Descricao                         Infor.'
-		Endif
-	
-		ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal ,2)
-		ImprEsp(Replicate('=',44)+Space(2)+Replicate('=',44),'C',,nTamLin , nColunas ,  nTamanho , lTerminal, 2 )
-		nMetade := Len(aTotais) / 2
-		For nX := 1 To Len(aTotais)/2
-			cDet := aTotais[nX]+Space(2)+aTotais[nX+nMetade]
-			ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal,2 )
-		Next nX
-	Endif
-	
-	ImprEsp(Replicate('-',nTamLin),'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+    ImprEsp(Replicate('-',nTamLin), 'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+    ImprEsp(' ','C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+    ImprEsp(cMenPad1 + cMenPad2 + Replicate('_',31), 'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+    ImprEsp(Space(52) + STR0013 , 'C',,nTamLin , nColunas ,  nTamanho , lTerminal ) // 'Assinatura do Funcionario'
+    
+    //-- Se existirem totais, e se for selecionada sua impress„o, ser„o impressos.
+    If Len(aTotais) > 0 .and. nImpHrs # 4
+        ImprEsp(Replicate('-',nTamLin),'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+        cDet := STR0014  // 'T O T A I S'
+        ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
+        ImprEsp(' ','C',,nTamLin , nColunas ,  nTamanho , lTerminal, 2 )
+        If Len(aTotais) % 2 # 0
+            aAdd (aTotais, Space(Len(aTotais[1])))
+        Endif
+        If nImpHrs == 1 .or. nImpHrs == 3
+            cDet := STR0017  // 'Cod Descricao                Calc.    Infor.  Cod Descricao                Calc.    Infor.'
+        ElseIf nImpHrs == 2
+            cDet := STR0016  // 'Cod Descricao                         Infor.  Cod Descricao                         Infor.'
+        Endif
+    
+        ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal ,2)
+        ImprEsp(Replicate('=',44)+Space(2)+Replicate('=',44),'C',,nTamLin , nColunas ,  nTamanho , lTerminal, 2 )
+        nMetade := Len(aTotais) / 2
+        For nX := 1 To Len(aTotais)/2
+            cDet := aTotais[nX]+Space(2)+aTotais[nX+nMetade]
+            ImprEsp(cDet,'C',,nTamLin , nColunas ,  nTamanho , lTerminal,2 )
+        Next nX
+    Endif
+    
+    ImprEsp(Replicate('-',nTamLin),'C',,nTamLin , nColunas ,  nTamanho , lTerminal )
 
 Else
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Final da Estrutura do Codigo HTML							   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-    cHtml +=									'<tr>' + CRLF
-    cHtml +=										'<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF 
-    cHtml +=									'</tr>' + CRLF
-	cHtml +=								'</table>' + CRLF
-	cHtml +=							'</td>' + CRLF
-    cHtml +=							'<td background="'+TcfRetDirImg()+'/tabela_conteudo_2.gif" width="7">&nbsp;</td>' + CRLF
-    cHtml +=						'</tr>' + CRLF
-    cHtml +=					'</table>' + CRLF
-    cHtml +=				'</td>' + CRLF
-  	cHtml +=			'</tr>' + CRLF
-	cHtml +=		'</table>' + CRLF
-	cHtml +=		'<p align="right"><a href="javascript:self.print()"><img src="'+TcfRetDirImg()+'/imprimir.gif" width="90" height="28" hspace="20" border="0"></a></p>' + CRLF
-	cHtml +=	'</body>' + CRLF
-	cHtml += '</html>' + CRLF
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Final da Estrutura do Codigo HTML                               ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    cHtml +=                                    '<tr>' + CRLF
+    cHtml +=                                        '<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF 
+    cHtml +=                                    '</tr>' + CRLF
+    cHtml +=                                '</table>' + CRLF
+    cHtml +=                            '</td>' + CRLF
+    cHtml +=                            '<td background="'+TcfRetDirImg()+'/tabela_conteudo_2.gif" width="7">&nbsp;</td>' + CRLF
+    cHtml +=                        '</tr>' + CRLF
+    cHtml +=                    '</table>' + CRLF
+    cHtml +=                '</td>' + CRLF
+      cHtml +=            '</tr>' + CRLF
+    cHtml +=        '</table>' + CRLF
+    cHtml +=        '<p align="right"><a href="javascript:self.print()"><img src="'+TcfRetDirImg()+'/imprimir.gif" width="90" height="28" hspace="20" border="0"></a></p>' + CRLF
+    cHtml +=    '</body>' + CRLF
+    cHtml += '</html>' + CRLF
 EndIF
 
 uTCREPORT SET PAGE BREAK
-	
+    
 Return( cHtml )
 
 /*
@@ -1095,11 +1095,11 @@ Local lAfasta    := .T.
 Local nX         := 0
 Local nDia       := 0
 Local nMarc      := 0
-Local nLenMarc	 := Len( aMarcacoes )
+Local nLenMarc     := Len( aMarcacoes )
 Local nLenDescAb := Len( aDescAbono )
 Local nTab       := 0
 Local nContMarc  := 0
-Local nDias		 := 0 
+Local nDias         := 0 
 
 //-- Variaveis ja inicializadas.
 aImp := {}
@@ -1107,180 +1107,180 @@ aImp := {}
 nDias := ( dDtBase - dInicio )
 For nDia := 0 To nDias
 
-	//-- Reinicializa Variaveis.
-	dData      := dInicio + nDia
-	aDescAbono := {}
-	cOcorr     := ""
-	cTipAfas   := ""
-	cDescAfas  := ""
-	cOcorr	   := ""
+    //-- Reinicializa Variaveis.
+    dData      := dInicio + nDia
+    aDescAbono := {}
+    cOcorr     := ""
+    cTipAfas   := ""
+    cDescAfas  := ""
+    cOcorr       := ""
 
-	//-- o Array aTabcalend ‚ setado para a 1a Entrada do dia em quest„o.
-	IF ( nTab := aScan(aTabCalend, {|x| x[1] == dData .and. x[4] == '1E' }) ) == 0.00
-		Loop
-	EndIF
+    //-- o Array aTabcalend ‚ setado para a 1a Entrada do dia em quest„o.
+    IF ( nTab := aScan(aTabCalend, {|x| x[1] == dData .and. x[4] == '1E' }) ) == 0.00
+        Loop
+    EndIF
 
-	//-- o Array aMarcacoes ‚ setado para a 1a Marca‡„o do dia em quest„o.
-	nMarc := aScan(aMarcacoes, { |x| x[3] == aTabCalend[nTab, 2] })
+    //-- o Array aMarcacoes ‚ setado para a 1a Marca‡„o do dia em quest„o.
+    nMarc := aScan(aMarcacoes, { |x| x[3] == aTabCalend[nTab, 2] })
 
-	//-- Consiste Afastamentos, Demissoes ou Transferencias.
-	IF ( ( lAfasta := aTabCalend[ nTab , 24 ] ) .or. SRA->( RA_SITFOLH $ 'DúT' .and. dData > RA_DEMISSA ) )
-		lAfasta		:= .T.
-		cTipAfas	:= IF(!Empty(aTabCalend[ nTab , 25 ]),aTabCalend[ nTab , 25 ],fDemissao(SRA->RA_SITFOLH, SRA->RA_RESCRAI) )
-		cDescAfas	:= fDescAfast( cTipAfas )
-	EndIF
+    //-- Consiste Afastamentos, Demissoes ou Transferencias.
+    IF ( ( lAfasta := aTabCalend[ nTab , 24 ] ) .or. SRA->( RA_SITFOLH $ 'DúT' .and. dData > RA_DEMISSA ) )
+        lAfasta        := .T.
+        cTipAfas    := IF(!Empty(aTabCalend[ nTab , 25 ]),aTabCalend[ nTab , 25 ],fDemissao(SRA->RA_SITFOLH, SRA->RA_RESCRAI) )
+        cDescAfas    := fDescAfast( cTipAfas )
+    EndIF
 
-	//Verifica Regra de Apontamento ( Trabalha Feriado ? )
-	lTrabaFer := ( PosSPA( aTabCalend[ nTab , 23 ] , cFilSPA , "PA_FERIADO" , 01 ) == "S" )
+    //Verifica Regra de Apontamento ( Trabalha Feriado ? )
+    lTrabaFer := ( PosSPA( aTabCalend[ nTab , 23 ] , cFilSPA , "PA_FERIADO" , 01 ) == "S" )
 
-	//-- Consiste Feriados.
-	IF ( lFeriado := aTabCalend[ nTab , 19 ] )  .AND. !lTrabaFer
-		cOcorr := aTabCalend[ nTab , 22 ]
-	EndIF
+    //-- Consiste Feriados.
+    IF ( lFeriado := aTabCalend[ nTab , 19 ] )  .AND. !lTrabaFer
+        cOcorr := aTabCalend[ nTab , 22 ]
+    EndIF
 
-	//-- Carrega Array aDescAbono com os Abonos ocorridos no Dia
-	nLenDescAb := Len(aAbonados)
-	For nX := 1 To nLenDescAb
-		If aAbonados[nX,1] == dData
-			aAdd(aDescAbono, aAbonados[nX,2] + Space(1) + aAbonados[nX,3]+ Space(2) + aAbonados[nX,4])
-		EndIf
-	Next nX
+    //-- Carrega Array aDescAbono com os Abonos ocorridos no Dia
+    nLenDescAb := Len(aAbonados)
+    For nX := 1 To nLenDescAb
+        If aAbonados[nX,1] == dData
+            aAdd(aDescAbono, aAbonados[nX,2] + Space(1) + aAbonados[nX,3]+ Space(2) + aAbonados[nX,4])
+        EndIf
+    Next nX
 
-	//-- Ordem e Tipo do dia em quest„o.
-	cOrdem  := aTabCalend[nTab,2]
-	cTipDia := aTabCalend[nTab,6]
+    //-- Ordem e Tipo do dia em quest„o.
+    cOrdem  := aTabCalend[nTab,2]
+    cTipDia := aTabCalend[nTab,6]
 
     //-- Se a Data da marcacao for Posterior a Admissao
-	IF dData >= SRA->RA_ADMISSA
-		//-- Se Afastado
-		If ( lAfasta  .AND. aTabCalend[nTab,10] <> 'E' ) .OR. ( lAfasta  .AND. aTabCalend[nTab,10] == 'E' .AND. ( !lImpExcecao .OR. !aTabCalend[nTab,32] ) )
-			cOcorr := cDescAfas
-		//-- Se nao for Afastado
-		Else                    
+    IF dData >= SRA->RA_ADMISSA
+        //-- Se Afastado
+        If ( lAfasta  .AND. aTabCalend[nTab,10] <> 'E' ) .OR. ( lAfasta  .AND. aTabCalend[nTab,10] == 'E' .AND. ( !lImpExcecao .OR. !aTabCalend[nTab,32] ) )
+            cOcorr := cDescAfas
+        //-- Se nao for Afastado
+        Else                    
 
-		    //-- Se tiver EXCECAO para o Dia  ------------------------------------------------
-			If aTabCalend[nTab,10] == 'E'			
-		       //-- Se excecao trabalhada
-		       If cTipDia == 'S'  
-		          //-- Se nao fez Marcacao
-		          If Empty(nMarc)
-					 cOcorr := STR0020  // '** Ausente **'					     
-				  //-- Se fez marcacao	 
-		          Else
-		          	 //-- Motivo da Marcacao
-	          		 If !Empty(aTabCalend[nTab,11])
-					 	cOcorr := AllTrim(aTabCalend[nTab,11])
-					 Else
-					 	cOcorr := STR0018  // '** Excecao nao Trabalhada **'
-					 EndIf
-		          Endif	 
-		       //-- Se excecao outros dias (DSR/Compensado/Nao Trabalhado)
-		       Else
- 					//-- Motivo da Marcacao
-		       		If !Empty(aTabCalend[nTab,11])
-						cOcorr := AllTrim(aTabCalend[nTab,11])
-					Else
-						cOcorr := STR0018  // '** Excecao nao Trabalhada **'  
-					EndIf
-			   Endif	
+            //-- Se tiver EXCECAO para o Dia  ------------------------------------------------
+            If aTabCalend[nTab,10] == 'E'            
+               //-- Se excecao trabalhada
+               If cTipDia == 'S'  
+                  //-- Se nao fez Marcacao
+                  If Empty(nMarc)
+                     cOcorr := STR0020  // '** Ausente **'                         
+                  //-- Se fez marcacao     
+                  Else
+                       //-- Motivo da Marcacao
+                       If !Empty(aTabCalend[nTab,11])
+                         cOcorr := AllTrim(aTabCalend[nTab,11])
+                     Else
+                         cOcorr := STR0018  // '** Excecao nao Trabalhada **'
+                     EndIf
+                  Endif     
+               //-- Se excecao outros dias (DSR/Compensado/Nao Trabalhado)
+               Else
+                     //-- Motivo da Marcacao
+                       If !Empty(aTabCalend[nTab,11])
+                        cOcorr := AllTrim(aTabCalend[nTab,11])
+                    Else
+                        cOcorr := STR0018  // '** Excecao nao Trabalhada **'  
+                    EndIf
+               Endif    
 
-		    //-- Se nao Tiver Excecao  no Dia ---------------------------------------------------
-		    Else    
-		        //-- Se feriado 
-		       	If lFeriado 
-		       	    //-- Se nao trabalha no Feriado
-		       	    If !lTrabaFer 
-						cOcorr := If(!Empty(cOcorr),cOcorr,STR0019 ) // '** Feriado **'                       
-					//-- Se trabalha no Feriado
-					Else                  
-					    //-- Se Dia Trabalhado e Nao fez Marcacao
-				    	If cTipDia == 'S' .and. Empty(nMarc)
-							cOcorr := STR0020  // '** Ausente **'
-				    	ElseIf cTipDia == 'D'
-							cOcorr := STR0021  // '** D.S.R. **'
-						ElseIf cTipDia == 'C'
-							cOcorr := STR0022  // '** Compensado **'
-						ElseIf cTipDia == 'N'
-							cOcorr := STR0023  // '** Nao Trabalhado **'
-						EndIf
-					Endif	
-		    	Else                                    
-		    	    //-- Se Dia Trabalhado e Nao fez Marcacao
-			    	If cTipDia == 'S' .and. Empty(nMarc)
-						cOcorr := STR0020  // '** Ausente **'
-			    	ElseIf cTipDia == 'D'
-						cOcorr := STR0021  // '** D.S.R. **'
-					ElseIf cTipDia == 'C'
-						cOcorr := STR0022  // '** Compensado **'
-					ElseIf cTipDia == 'N'
-						cOcorr := STR0023  // '** Nao Trabalhado **'
-					EndIf
-				
-				Endif	
-		    Endif
-		Endif
-	Endif	    
-	
-	nLenDescAb := Len(aDescAbono) 
+            //-- Se nao Tiver Excecao  no Dia ---------------------------------------------------
+            Else    
+                //-- Se feriado 
+                   If lFeriado 
+                       //-- Se nao trabalha no Feriado
+                       If !lTrabaFer 
+                        cOcorr := If(!Empty(cOcorr),cOcorr,STR0019 ) // '** Feriado **'                       
+                    //-- Se trabalha no Feriado
+                    Else                  
+                        //-- Se Dia Trabalhado e Nao fez Marcacao
+                        If cTipDia == 'S' .and. Empty(nMarc)
+                            cOcorr := STR0020  // '** Ausente **'
+                        ElseIf cTipDia == 'D'
+                            cOcorr := STR0021  // '** D.S.R. **'
+                        ElseIf cTipDia == 'C'
+                            cOcorr := STR0022  // '** Compensado **'
+                        ElseIf cTipDia == 'N'
+                            cOcorr := STR0023  // '** Nao Trabalhado **'
+                        EndIf
+                    Endif    
+                Else                                    
+                    //-- Se Dia Trabalhado e Nao fez Marcacao
+                    If cTipDia == 'S' .and. Empty(nMarc)
+                        cOcorr := STR0020  // '** Ausente **'
+                    ElseIf cTipDia == 'D'
+                        cOcorr := STR0021  // '** D.S.R. **'
+                    ElseIf cTipDia == 'C'
+                        cOcorr := STR0022  // '** Compensado **'
+                    ElseIf cTipDia == 'N'
+                        cOcorr := STR0023  // '** Nao Trabalhado **'
+                    EndIf
+                
+                Endif    
+            Endif
+        Endif
+    Endif        
+    
+    nLenDescAb := Len(aDescAbono) 
 
-	//-- Adiciona Nova Data a ser impressa.
-	aAdd(aImp,{})
-	aAdd(aImp[Len(aImp)], aTabCalend[nTab,1])
+    //-- Adiciona Nova Data a ser impressa.
+    aAdd(aImp,{})
+    aAdd(aImp[Len(aImp)], aTabCalend[nTab,1])
 
-	//-- Ocorrencia na Data.
-	If (lTerminal) 
-		aAdd( aImp[Len(aImp)], cOcorr) 
-	Endif	
-	
-	//-- Abono na Data.
-	If ( nLenDescAb  > 0 )
-	    If !( lTerminal)
-	    	If cOcorr == STR0020  // '** Ausente **'
-			  	aAdd( aImp[Len(aImp)], cOcorr ) // '** Ausente **'
-			Else
-				If !empty(cOcorr)
-					aAdd( aImp[Len(aImp)],	Space(01)) 
-				  	aAdd( aImp[Len(aImp)], cOcorr )
-					aAdd( aImp,{})
-					aAdd( aImp[Len(aImp)], aTabCalend[nTab,1])
-					aAdd( aImp[Len(aImp)],	Space(01) )
-				Else                                   
-					aAdd( aImp[Len(aImp)],	Space(01)) 
-				Endif	
-			Endif
-	    Endif
-		For nX := 1 To nLenDescAb
-			If nX == 1
-				aAdd( aImp[Len(aImp)], aDescAbono[nX])
-			Else
-				aAdd(aImp, {})
-				aAdd(aImp[Len(aImp)], aTabCalend[nTab,1]		)
-				aAdd(aImp[Len(aImp)], Space(01)			 	)
-				aAdd(aImp[Len(aImp)], aDescAbono[nX]			)
-			Endif
-		Next nX
-	Else
-		If ( lTerminal ) 
-			aAdd( aImp[Len(aImp)], '' )
-		Else
-			If cOcorr == STR0020  // '** Ausente **'
-				aAdd( aImp[Len(aImp)], cOcorr) 
-				aAdd( aImp[Len(aImp)], Space(01)) 
-			Else
-				aAdd( aImp[Len(aImp)], Space(01)) 
-			  	aAdd( aImp[Len(aImp)], cOcorr )
-			Endif	
-		Endif		
-	Endif
+    //-- Ocorrencia na Data.
+    If (lTerminal) 
+        aAdd( aImp[Len(aImp)], cOcorr) 
+    Endif    
+    
+    //-- Abono na Data.
+    If ( nLenDescAb  > 0 )
+        If !( lTerminal)
+            If cOcorr == STR0020  // '** Ausente **'
+                  aAdd( aImp[Len(aImp)], cOcorr ) // '** Ausente **'
+            Else
+                If !empty(cOcorr)
+                    aAdd( aImp[Len(aImp)],    Space(01)) 
+                      aAdd( aImp[Len(aImp)], cOcorr )
+                    aAdd( aImp,{})
+                    aAdd( aImp[Len(aImp)], aTabCalend[nTab,1])
+                    aAdd( aImp[Len(aImp)],    Space(01) )
+                Else                                   
+                    aAdd( aImp[Len(aImp)],    Space(01)) 
+                Endif    
+            Endif
+        Endif
+        For nX := 1 To nLenDescAb
+            If nX == 1
+                aAdd( aImp[Len(aImp)], aDescAbono[nX])
+            Else
+                aAdd(aImp, {})
+                aAdd(aImp[Len(aImp)], aTabCalend[nTab,1]        )
+                aAdd(aImp[Len(aImp)], Space(01)                 )
+                aAdd(aImp[Len(aImp)], aDescAbono[nX]            )
+            Endif
+        Next nX
+    Else
+        If ( lTerminal ) 
+            aAdd( aImp[Len(aImp)], '' )
+        Else
+            If cOcorr == STR0020  // '** Ausente **'
+                aAdd( aImp[Len(aImp)], cOcorr) 
+                aAdd( aImp[Len(aImp)], Space(01)) 
+            Else
+                aAdd( aImp[Len(aImp)], Space(01)) 
+                  aAdd( aImp[Len(aImp)], cOcorr )
+            Endif    
+        Endif        
+    Endif
 
-	//-- Marca‡oes ocorridas na data.
-	If nMarc > 0
-		While nMarc <= nLenMarc .and. cOrdem == aMarcacoes[nMarc,3]
-			nContMarc ++
-			aAdd( aImp[Len(aImp)], StrTran(StrZero(aMarcacoes[nMarc,2],5,2),'.',':'))
-			nMarc ++
-		End While
-	EndIf
+    //-- Marca‡oes ocorridas na data.
+    If nMarc > 0
+        While nMarc <= nLenMarc .and. cOrdem == aMarcacoes[nMarc,3]
+            nContMarc ++
+            aAdd( aImp[Len(aImp)], StrTran(StrZero(aMarcacoes[nMarc,2],5,2),'.',':'))
+            nMarc ++
+        End While
+    EndIf
 
 Next nDia
 
@@ -1304,13 +1304,13 @@ Return( lRet )
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß/*/
 Static Function Imp_Cabec(nTamLin ,nColunas, nTamanho , lTerminal,nTipoCab )
 
-Local cDet			:= ""
-Local cHtml			:= ""
-Local lImpTurnos	:=.F.
-Local nVezes		:= ( nColunas / 2 )
-Local nQtdeTurno	:= 0.00
-Local nX			:= 0.00
-Local nTamTno		:= ( Min(TamSx3("R6_DESC")[1], nTamLin) )
+Local cDet            := ""
+Local cHtml            := ""
+Local lImpTurnos    :=.F.
+Local nVezes        := ( nColunas / 2 )
+Local nQtdeTurno    := 0.00
+Local nX            := 0.00
+Local nTamTno        := ( Min(TamSx3("R6_DESC")[1], nTamLin) )
                         
 DEFAULT lTerminal := .F.
 DEFAULT nTipoCab  := 3 // 1 - Cab para as Marcacoes / 2 - Totais / 3 - Sem Cab Auxiliar
@@ -1319,147 +1319,147 @@ lImpTurnos := If(Li==1,.T.,.F.) //-- Somente imprime as trocas de turnos na 1 pa
 
 IF !( lTerminal )
 
-	//-- Inicializa a impress„o
-	uTCREPORT HIDE DEFAULT HEADER
+    //-- Inicializa a impress„o
+    uTCREPORT HIDE DEFAULT HEADER
 
     @ 0,0 PSAY AvalImp(nTamLin )
-	
-	//-- Inicializa Li com 1 para n„o imprimir cabecalho padrao
-	Li := 01
+    
+    //-- Inicializa Li com 1 para n„o imprimir cabecalho padrao
+    Li := 01
 
-	//-- Linha 01
-	//-- Emp...: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Matr..: 99-999999  Chapa : 9999999999
-	cDet := STR0024  + PADR( If(Len(aInfo)>0,aInfo[03],SM0->M0_NomeCom) , 50)  // 'Emp...: '
-	cDet += SPACE(2)+ STR0025  + SRA->RA_Filial + '-' + SRA->RA_Mat  // ' Matr..: '
-	cDet += STR0026  + SRA->RA_Chapa // '  Chapa : '
-	Impr(cDet,'C')
-	
-	//-- Linha 02
-	//-- End...: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Nome..: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-	cDet := STR0027  + PADR( If(Len(aInfo)>0,aInfo[04],SM0->M0_EndCob) , 50) // 'End...: '
-	cDet += SPACE(2)+ STR0028  + SRA->RA_Nome  // ' Nome..: '
-	Impr(cDet,'C')
-	
-	//-- Linha 03
-	//-- CGC...: 99.999.999/9999-99                Categ.: XXXXXXXXXXXXXXX 
-	cDet := STR0029  + PADR(Transform( If(Len(aInfo)>0,aInfo[08],SM0->M0_CGC),'@R ##.###.###/####-##'),50)   // 'CGC...: '
-	cDet += SPACE(2) + STR0032  + aFuncFunc[6] // ' Categ.: '
-	Impr(cDet,'C')
-	
-	//-- Linha 04
-	//-- C.C...: 99999999-XXXXXXXXXXXXXXXXXXXXXXX  Funcao: 9999-XXXXXXXXXXXXXXXXXXXX
-	cDet := STR0031  + PADR(AllTrim(aFuncFunc[1]) + '-' + aFuncFunc[2] , 50) // 'C.C...: '
-	cDet += SPACE(2) + STR0030  + aFuncFunc[3] + '-' + aFuncFunc[4]  // 'Funcao: '
-	Impr(cDet,'C')
-	
-	//-- Linha 06
-	//-- Turno.: 999-XXXXXXXXXXXXXXXXXXXXX
-	//-- Imprime Trocas de turnos
-	nQtdeTurno:=Len(aPrtTurn)
-	
-	If !lImpTroca .OR. nQtdeTurno<2   //-- Imprime Somente a descricao do turno atual
-	   If !lImpTroca .OR. nQtdeTurno == 0 //-- Periodo Atual ou Superior
-	   	  cDet := STR0033  + AllTrim(SRA->RA_TnoTrab) + ' ' + fDescTno(SRA->RA_Filial,SRA->RA_TnoTrab, nTamTno) // 'Turno.: '
-	   Else	 //Periodo Anterior 
-		  cDet := STR0033  + AllTrim(Alltrim(aPrtTurn[1,1])) + ' ' + fDescTno(SRA->RA_Filial,aPrtTurn[1,1], nTamTno) // 'Turno.: '
-	   Endif
-	   Impr(cDet,'C')
-	Else
+    //-- Linha 01
+    //-- Emp...: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Matr..: 99-999999  Chapa : 9999999999
+    cDet := STR0024  + PADR( If(Len(aInfo)>0,aInfo[03],SM0->M0_NomeCom) , 50)  // 'Emp...: '
+    cDet += SPACE(2)+ STR0025  + SRA->RA_Filial + '-' + SRA->RA_Mat  // ' Matr..: '
+    cDet += STR0026  + SRA->RA_Chapa // '  Chapa : '
+    Impr(cDet,'C')
+    
+    //-- Linha 02
+    //-- End...: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Nome..: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    cDet := STR0027  + PADR( If(Len(aInfo)>0,aInfo[04],SM0->M0_EndCob) , 50) // 'End...: '
+    cDet += SPACE(2)+ STR0028  + SRA->RA_Nome  // ' Nome..: '
+    Impr(cDet,'C')
+    
+    //-- Linha 03
+    //-- CGC...: 99.999.999/9999-99                Categ.: XXXXXXXXXXXXXXX 
+    cDet := STR0029  + PADR(Transform( If(Len(aInfo)>0,aInfo[08],SM0->M0_CGC),'@R ##.###.###/####-##'),50)   // 'CGC...: '
+    cDet += SPACE(2) + STR0032  + aFuncFunc[6] // ' Categ.: '
+    Impr(cDet,'C')
+    
+    //-- Linha 04
+    //-- C.C...: 99999999-XXXXXXXXXXXXXXXXXXXXXXX  Funcao: 9999-XXXXXXXXXXXXXXXXXXXX
+    cDet := STR0031  + PADR(AllTrim(aFuncFunc[1]) + '-' + aFuncFunc[2] , 50) // 'C.C...: '
+    cDet += SPACE(2) + STR0030  + aFuncFunc[3] + '-' + aFuncFunc[4]  // 'Funcao: '
+    Impr(cDet,'C')
+    
+    //-- Linha 06
+    //-- Turno.: 999-XXXXXXXXXXXXXXXXXXXXX
+    //-- Imprime Trocas de turnos
+    nQtdeTurno:=Len(aPrtTurn)
+    
+    If !lImpTroca .OR. nQtdeTurno<2   //-- Imprime Somente a descricao do turno atual
+       If !lImpTroca .OR. nQtdeTurno == 0 //-- Periodo Atual ou Superior
+             cDet := STR0033  + AllTrim(SRA->RA_TnoTrab) + ' ' + fDescTno(SRA->RA_Filial,SRA->RA_TnoTrab, nTamTno) // 'Turno.: '
+       Else     //Periodo Anterior 
+          cDet := STR0033  + AllTrim(Alltrim(aPrtTurn[1,1])) + ' ' + fDescTno(SRA->RA_Filial,aPrtTurn[1,1], nTamTno) // 'Turno.: '
+       Endif
+       Impr(cDet,'C')
+    Else
         If lImpTurnos // Se for o mesmo funcionario nao imprime trocas de turnos a partir da 2 pagina
-        	//-- Imprime Trocas de Turnos no Periodo
-			For nX := 1 To nQtdeTurno
-				cDet:= If(nX==1,STR0049,SPACE(Len(STR0049)))
-		    	cDet:= cDet+DTOC(aPrtTurn[nX,2])+" "+STR0048+Alltrim(aPrtTurn[nX,1])+": "+Alltrim(fDescTno( SRA->RA_FILIAL, aPrtTurn[nX,1], nTamTno))
-				Impr(cDet,'C')
-			Next nX 
-		
-		Endif	
-	Endif
-	
-	If nTipoCab==1
-		//-- Monta e Imprime Cabecalho das Marcacoes
-		cHeader := STR0034  // '   DATA    DIA     '
-		
-		//								99/99/9999 Segunda
-		For nX := 1 To nVezes
-			cHeader += StrZero(nX,If(nX<10,1,2)) + STR0035  + StrZero(nX,If(nX<10,1,2)) + STR0036  // 'a E. '###'a S. '
-		Next nX
-		//-- Qdo for "1a E. 2a S."  acrescenta mais 20 Brancos para que na eventual existencia de
-		//-- ocorrencias como Excecoes e DSr e Compensado, as descricoes das mesmas saem integras,
-		//-- sem cortes. 
-		cHeader+=If(nVezes==1,SPACE(12),'') 
-		cHeader += STR0037  // 'Motivo de Abono           Horas'
-		Impr(Replicate('-',nTamLin), 'C')
-		Impr(cHeader, 'C')
-		Impr(Replicate('-',nTamLin), 'C')
-	
-	Elseif nTipoCab==2                   
-		Impr(Replicate('-',nTamLin), 'C')
-		Impr(' ' ,'C')
-		If Len(aTotais) % 2 # 0
-			aAdd (aTotais, Space(Len(aTotais[1])))
-		Endif
-		If nImpHrs == 1 .or. nImpHrs == 3
-			cDet := STR0017  // 'Cod Descricao             Calc. Infor.    Cod Descricao             Calc. Infor.'
-		ElseIf nImpHrs == 2
-			cDet := STR0016  // 'Cod Descricao                   Infor.    Cod Descricao                   Infor.'
-		Endif
-	
-		Impr(cDet,'C')
-		Impr(Replicate('=',38)+Space(4)+Replicate('=',38),'C')
-	Endif
+            //-- Imprime Trocas de Turnos no Periodo
+            For nX := 1 To nQtdeTurno
+                cDet:= If(nX==1,STR0049,SPACE(Len(STR0049)))
+                cDet:= cDet+DTOC(aPrtTurn[nX,2])+" "+STR0048+Alltrim(aPrtTurn[nX,1])+": "+Alltrim(fDescTno( SRA->RA_FILIAL, aPrtTurn[nX,1], nTamTno))
+                Impr(cDet,'C')
+            Next nX 
+        
+        Endif    
+    Endif
+    
+    If nTipoCab==1
+        //-- Monta e Imprime Cabecalho das Marcacoes
+        cHeader := STR0034  // '   DATA    DIA     '
+        
+        //                                99/99/9999 Segunda
+        For nX := 1 To nVezes
+            cHeader += StrZero(nX,If(nX<10,1,2)) + STR0035  + StrZero(nX,If(nX<10,1,2)) + STR0036  // 'a E. '###'a S. '
+        Next nX
+        //-- Qdo for "1a E. 2a S."  acrescenta mais 20 Brancos para que na eventual existencia de
+        //-- ocorrencias como Excecoes e DSr e Compensado, as descricoes das mesmas saem integras,
+        //-- sem cortes. 
+        cHeader+=If(nVezes==1,SPACE(12),'') 
+        cHeader += STR0037  // 'Motivo de Abono           Horas'
+        Impr(Replicate('-',nTamLin), 'C')
+        Impr(cHeader, 'C')
+        Impr(Replicate('-',nTamLin), 'C')
+    
+    Elseif nTipoCab==2                   
+        Impr(Replicate('-',nTamLin), 'C')
+        Impr(' ' ,'C')
+        If Len(aTotais) % 2 # 0
+            aAdd (aTotais, Space(Len(aTotais[1])))
+        Endif
+        If nImpHrs == 1 .or. nImpHrs == 3
+            cDet := STR0017  // 'Cod Descricao             Calc. Infor.    Cod Descricao             Calc. Infor.'
+        ElseIf nImpHrs == 2
+            cDet := STR0016  // 'Cod Descricao                   Infor.    Cod Descricao                   Infor.'
+        Endif
+    
+        Impr(cDet,'C')
+        Impr(Replicate('=',38)+Space(4)+Replicate('=',38),'C')
+    Endif
 Else
-	/*
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Monta o Cabecalho das Marcacoes							   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-    cHtml +=									'<tr>' + CRLF
-    cHtml +=										'<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF
-    cHtml +=									'</tr>' + CRLF
-	cHtml +=									'<tr>' + CRLF
-	cHtml +=											'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-    cHtml +=												'<div align="left">' + CRLF
-	cHtml +=													STR0042 + CRLF	//'Data'
-    cHtml +=												'</div>' + CRLF
-	cHtml +=											'</td>' + CRLF
-	cHtml +=											'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-    cHtml +=												'<div align="left">' + CRLF
-	cHtml +=													STR0043 + CRLF	//'Dia'
-    cHtml +=												'</div>' + CRLF
-	cHtml +=											'</td>' + CRLF
-	For nX := 1 To nVezes
-		cHtml +=										'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-   		cHtml +=											'<div align="center">' + CRLF
-    	cHtml +=												StrZero(nX,If(nX<10,1,2)) + STR0044 + CRLF	// '&#170;E.'
-   		cHtml +=											'</div>' + CRLF
-    	cHtml +=										'</td>' + CRLF
-		cHtml +=										'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-   		cHtml +=											'<div align="center">' + CRLF
-    	cHtml +=												StrZero(nX,If(nX<10,1,2)) + STR0045 + CRLF	//'&#170;S.'
-   		cHtml +=											'</div>' + CRLF
-    	cHtml +=										'</td>' + CRLF
-	Next nX
-	cHtml +=											'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-    cHtml +=												'<div align="left">' + CRLF
-	cHtml +=													STR0046 + CRLF //'Observa&ccedil;&otilde;s
-    cHtml +=												'</div>' + CRLF
-	cHtml +=											'</td>' + CRLF
-	cHtml +=											'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-    cHtml +=												'<div align="left">' + CRLF
-	cHtml +=													STR0041 + CRLF	//'Motivo de Abono           Horas  Tipo da Marca&ccedil;&atilde;o'
-    cHtml +=												'</div>' + CRLF
-	cHtml +=											'</td>' + CRLF
-	cHtml +=											'<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
-    cHtml +=												'<div align="left">' + CRLF
-	cHtml +=													STR0047 + CRLF	//'Horas  Tipo da Marca&ccedil;&atilde;o'
-    cHtml +=												'</div>' + CRLF
-	cHtml +=											'</td>' + CRLF
-    cHtml +=									'</tr>' + CRLF
-    cHtml +=									'<tr>' + CRLF
-    cHtml +=										'<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF
-    cHtml +=									'</tr>' + CRLF
+    /*
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Monta o Cabecalho das Marcacoes                               ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+    cHtml +=                                    '<tr>' + CRLF
+    cHtml +=                                        '<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF
+    cHtml +=                                    '</tr>' + CRLF
+    cHtml +=                                    '<tr>' + CRLF
+    cHtml +=                                            '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+    cHtml +=                                                '<div align="left">' + CRLF
+    cHtml +=                                                    STR0042 + CRLF    //'Data'
+    cHtml +=                                                '</div>' + CRLF
+    cHtml +=                                            '</td>' + CRLF
+    cHtml +=                                            '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+    cHtml +=                                                '<div align="left">' + CRLF
+    cHtml +=                                                    STR0043 + CRLF    //'Dia'
+    cHtml +=                                                '</div>' + CRLF
+    cHtml +=                                            '</td>' + CRLF
+    For nX := 1 To nVezes
+        cHtml +=                                        '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+           cHtml +=                                            '<div align="center">' + CRLF
+        cHtml +=                                                StrZero(nX,If(nX<10,1,2)) + STR0044 + CRLF    // '&#170;E.'
+           cHtml +=                                            '</div>' + CRLF
+        cHtml +=                                        '</td>' + CRLF
+        cHtml +=                                        '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+           cHtml +=                                            '<div align="center">' + CRLF
+        cHtml +=                                                StrZero(nX,If(nX<10,1,2)) + STR0045 + CRLF    //'&#170;S.'
+           cHtml +=                                            '</div>' + CRLF
+        cHtml +=                                        '</td>' + CRLF
+    Next nX
+    cHtml +=                                            '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+    cHtml +=                                                '<div align="left">' + CRLF
+    cHtml +=                                                    STR0046 + CRLF //'Observa&ccedil;&otilde;s
+    cHtml +=                                                '</div>' + CRLF
+    cHtml +=                                            '</td>' + CRLF
+    cHtml +=                                            '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+    cHtml +=                                                '<div align="left">' + CRLF
+    cHtml +=                                                    STR0041 + CRLF    //'Motivo de Abono           Horas  Tipo da Marca&ccedil;&atilde;o'
+    cHtml +=                                                '</div>' + CRLF
+    cHtml +=                                            '</td>' + CRLF
+    cHtml +=                                            '<td class="etiquetas_1" bgcolor="#FAFBFC" nowrap>' + CRLF
+    cHtml +=                                                '<div align="left">' + CRLF
+    cHtml +=                                                    STR0047 + CRLF    //'Horas  Tipo da Marca&ccedil;&atilde;o'
+    cHtml +=                                                '</div>' + CRLF
+    cHtml +=                                            '</td>' + CRLF
+    cHtml +=                                    '</tr>' + CRLF
+    cHtml +=                                    '<tr>' + CRLF
+    cHtml +=                                        '<td colspan="' + AllTrim( Str( nColunas + 5 ) ) + '" class="etiquetas_1" bgcolor="#FAFBFC"><hr size="1"></td>' + CRLF
+    cHtml +=                                    '</tr>' + CRLF
 EndIF
-	
+    
 Return( cHtml )
 
 /*
@@ -1478,117 +1478,117 @@ Return( cHtml )
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 Static Function CarAboTot( aTotais , aAbonados , aAbonosPer, lMvAbosEve, lMvSubAbAp ) 
 
-Local aTotSpc		:= {} //-- 1-SPC->PC_PD/2-SPC->PC_QUANTC/3-SPC->PC_QUANTI/4-SPC->PC_QTABONO
-Local aCodAbono		:= {}
-Local aJustifica	:= {} //-- Retorno fAbonos() c/Cod abono e horas abonadas.
-Local cString   	:= ""
-Local cFilSP9   	:= xFilial( "SP9" , SRA->RA_FILIAL )
-Local cFilSRV		:= xFilial( "SRV" , SRA->RA_FILIAL )
-Local cFilSPC   	:= xFilial( "SPC" , SRA->RA_FILIAL )
-Local cFilSPH   	:= xFilial( "SPH" , SRA->RA_FILIAL )
-Local cImpHoras 	:= If(nImpHrs==1,"C",If(nImpHrs==2,"I","*")) //-- Calc/Info/Ambas
-Local cAutoriza 	:= If(nImpAut==1,"A",If(nImpAut==2,"N","*")) //-- Aut./N.Aut./Ambas
-Local cAliasRes		:= IF( lImpAcum , "SPL" , "SPB" )
-Local cAliasApo		:= IF( lImpAcum , "SPH" , "SPC" )
-Local bAcessaSPC 	:= &("{ || " + ChkRH("PONR010","SPC","2") + "}")
-Local bAcessaSPH 	:= &("{ || " + ChkRH("PONR010","SPH","2") + "}")
-Local bAcessaSPB 	:= &("{ || " + ChkRH("PONR010","SPB","2") + "}")
-Local bAcessaSPL 	:= &("{ || " + ChkRH("PONR010","SPL","2") + "}")
-Local bAcessRes		:= IF( lImpAcum , bAcessaSPH , bAcessaSPC )
-Local bAcessApo		:= IF( lImpAcum , bAcessaSPL , bAcessaSPB )
-Local lCalcula	 	:= .F.
-Local lExtra	 	:= .F.
-Local nColSpc   	:= 0.00
-Local nCtSpc    	:= 0.00
-Local nQuaSpc		:= 0.00
-Local nPass     	:= 0.00
-Local nHorasCal 	:= 0.00
-Local nHorasInf 	:= 0.00
-Local nX        	:= 0.00
+Local aTotSpc        := {} //-- 1-SPC->PC_PD/2-SPC->PC_QUANTC/3-SPC->PC_QUANTI/4-SPC->PC_QTABONO
+Local aCodAbono        := {}
+Local aJustifica    := {} //-- Retorno fAbonos() c/Cod abono e horas abonadas.
+Local cString       := ""
+Local cFilSP9       := xFilial( "SP9" , SRA->RA_FILIAL )
+Local cFilSRV        := xFilial( "SRV" , SRA->RA_FILIAL )
+Local cFilSPC       := xFilial( "SPC" , SRA->RA_FILIAL )
+Local cFilSPH       := xFilial( "SPH" , SRA->RA_FILIAL )
+Local cImpHoras     := If(nImpHrs==1,"C",If(nImpHrs==2,"I","*")) //-- Calc/Info/Ambas
+Local cAutoriza     := If(nImpAut==1,"A",If(nImpAut==2,"N","*")) //-- Aut./N.Aut./Ambas
+Local cAliasRes        := IF( lImpAcum , "SPL" , "SPB" )
+Local cAliasApo        := IF( lImpAcum , "SPH" , "SPC" )
+Local bAcessaSPC     := &("{ || " + ChkRH("PONR010","SPC","2") + "}")
+Local bAcessaSPH     := &("{ || " + ChkRH("PONR010","SPH","2") + "}")
+Local bAcessaSPB     := &("{ || " + ChkRH("PONR010","SPB","2") + "}")
+Local bAcessaSPL     := &("{ || " + ChkRH("PONR010","SPL","2") + "}")
+Local bAcessRes        := IF( lImpAcum , bAcessaSPH , bAcessaSPC )
+Local bAcessApo        := IF( lImpAcum , bAcessaSPL , bAcessaSPB )
+Local lCalcula         := .F.
+Local lExtra         := .F.
+Local nColSpc       := 0.00
+Local nCtSpc        := 0.00
+Local nQuaSpc        := 0.00
+Local nPass         := 0.00
+Local nHorasCal     := 0.00
+Local nHorasInf     := 0.00
+Local nX            := 0.00
 
 If ( lImpRes )
-	//Totaliza Codigos a partir do Resultado	
-	fTotalSPB(;
-				@aTotSpc		,;
-				SRA->RA_Filial	,;
-				SRA->RA_Mat		,;
-				dMarcIni		,;
-				dMarcFim		,;
-				bAcessRes		,;
-				cAliasRes		,;
-				cAutoriza		 ;
-			  )
-	//-- Converte as horas para sexagenal quando impressao for a partir do resultado
-	If ( lSexagenal )	// Sexagenal
-		For nCtSpc := 1 To Len(aTotSpc)
-			For nColSpc := 2 To 4
-				aTotSpc[nCtSpc,nColSpc]:=fConvHr(aTotSpc[nCtSpc,nColSpc],'H')
-			Next nColSpc
-		Next nCtSpc
-	Endif
+    //Totaliza Codigos a partir do Resultado    
+    fTotalSPB(;
+                @aTotSpc        ,;
+                SRA->RA_Filial    ,;
+                SRA->RA_Mat        ,;
+                dMarcIni        ,;
+                dMarcFim        ,;
+                bAcessRes        ,;
+                cAliasRes        ,;
+                cAutoriza         ;
+              )
+    //-- Converte as horas para sexagenal quando impressao for a partir do resultado
+    If ( lSexagenal )    // Sexagenal
+        For nCtSpc := 1 To Len(aTotSpc)
+            For nColSpc := 2 To 4
+                aTotSpc[nCtSpc,nColSpc]:=fConvHr(aTotSpc[nCtSpc,nColSpc],'H')
+            Next nColSpc
+        Next nCtSpc
+    Endif
 Endif
 
 //Totaliza Codigos a partir do Movimento
 fTotaliza(;
-			@aTotSpc,;
-			SRA->RA_FILIAL,;
-			SRA->RA_MAT,;
-			bAcessApo,;
-			cAliasApo,;
-			cAutoriza,;
-			@aCodAbono,;
-			aAbonosPer,;
-			lMvAbosEve,;
-			lMvSubAbAp;
-	 	)
+            @aTotSpc,;
+            SRA->RA_FILIAL,;
+            SRA->RA_MAT,;
+            bAcessApo,;
+            cAliasApo,;
+            cAutoriza,;
+            @aCodAbono,;
+            aAbonosPer,;
+            lMvAbosEve,;
+            lMvSubAbAp;
+         )
 //-- Converte as horas para Centesimal quando impressao for a partir do apontamento
 If !( lImpRes ) .and. !( lSexagenal ) // Centesimal
-	For nCtSpc :=1 To Len(aTotSpc)
-		For nColSpc :=2 To 4
-			aTotSpc[nCtSpc,nColSpc]:=fConvHr(aTotSpc[nCtSpc,nColSpc],'D')
-		Next nColSpc
-	Next nCtSpc
+    For nCtSpc :=1 To Len(aTotSpc)
+        For nColSpc :=2 To 4
+            aTotSpc[nCtSpc,nColSpc]:=fConvHr(aTotSpc[nCtSpc,nColSpc],'D')
+        Next nColSpc
+    Next nCtSpc
 Endif
 
 
 //-- Monta Array com Totais de Horas
 If nImpHrs # 4  //-- Se solicitado para Listar Totais de Horas
-	For nPass := 1 To Len(aTotSpc)
-		IF ( lImpRes ) //Impressao dos Resultados
-			//-- Se encontrar o Codigo da Verba ou For um codigo de hora extra valido de acordo com o solicitado  
-			If PosSrv( aTotSpc[nPass,1] , cFilSRV , NIL , 01 )
-		   	   nHorasCal 	:= aTotSpc[nPass,2] //-- Calculado - Abonado
-			   nHorasInf 	:= aTotSpc[nPass,3] //-- Informado
-			   If nHorasCal > 0 .and. cImpHoras $ 'Cú*' .or. nHorasInf > 0 .and. cImpHoras $ 'Iú*'
-			  	  cString := If(cImpHoras$'Cú*',Transform(nHorasCal, '@E 99,999.99'),Space(9)) + Space(1)
-				  cString += If(cImpHoras$'Iú*',Transform(nHorasInf, '@E 99,999.99'),Space(9))
-				  aAdd(aTotais, aTotSpc[nPass,1] + Space(1) + SRV->RV_DESC + Space(1) + cString )
-		  	   EndIf	
-	        Endif
-		ElseIf PosSP9( aTotSpc[nPass,1] , cFilSP9 , NIL , 01 )
-			//-- Impressao a Partir do Movimento
-			nHorasCal 	:= aTotSpc[nPass,2] //-- Calculado - Abonado
-			nHorasInf 	:= aTotSpc[nPass,3] //-- Informado
-			If nHorasCal > 0 .and. cImpHoras $ 'Cú*' .or. nHorasInf > 0 .and. cImpHoras $ 'Iú*'
-				cString := If(cImpHoras$'Cú*',Transform(nHorasCal, '@E 99,999.99'),Space(9)) + Space(1)
-				cString += If(cImpHoras$'Iú*',Transform(nHorasInf, '@E 99,999.99'),Space(9))
-				aAdd(aTotais, aTotSpc[nPass,1] + Space(1) + DescPDPon(aTotSpc[nPass,1], cFilSP9 ) + Space(1) + cString )
-			EndIf  
-		EndIF
-	Next nPass
-	
-	//-- Acrescenta as informacoes referentes aos eventos associados aos motivos de abono
-	//-- Condicoes: Se nao For Impressao de Resultados 
-	//-- 			e Se For para Imprimir Horas Calculadas ou Ambas
-	If !( lImpRes ) .and. (nImpHrs == 1 .or. nImpHrs == 3) 
-		For nX := 1 To Len(aCodAbono) 
-			// Converte as horas para Centesimal
-			If !( lSexagenal ) // Centesimal
-				aCodAbono[nX,2]:=fConvHr(aCodAbono[nX,2],'D')
-			Endif
-			aAdd(aTotais, aCodAbono[nX,1] + Space(1) + DescPDPon(aCodAbono[nX,1], cFilSP9) + '      0,00 '  + Transform(aCodAbono[nX,2],'@E 99,999.99') )
-		Next nX
-	Endif
+    For nPass := 1 To Len(aTotSpc)
+        IF ( lImpRes ) //Impressao dos Resultados
+            //-- Se encontrar o Codigo da Verba ou For um codigo de hora extra valido de acordo com o solicitado  
+            If PosSrv( aTotSpc[nPass,1] , cFilSRV , NIL , 01 )
+                  nHorasCal     := aTotSpc[nPass,2] //-- Calculado - Abonado
+               nHorasInf     := aTotSpc[nPass,3] //-- Informado
+               If nHorasCal > 0 .and. cImpHoras $ 'Cú*' .or. nHorasInf > 0 .and. cImpHoras $ 'Iú*'
+                    cString := If(cImpHoras$'Cú*',Transform(nHorasCal, '@E 99,999.99'),Space(9)) + Space(1)
+                  cString += If(cImpHoras$'Iú*',Transform(nHorasInf, '@E 99,999.99'),Space(9))
+                  aAdd(aTotais, aTotSpc[nPass,1] + Space(1) + SRV->RV_DESC + Space(1) + cString )
+                 EndIf    
+            Endif
+        ElseIf PosSP9( aTotSpc[nPass,1] , cFilSP9 , NIL , 01 )
+            //-- Impressao a Partir do Movimento
+            nHorasCal     := aTotSpc[nPass,2] //-- Calculado - Abonado
+            nHorasInf     := aTotSpc[nPass,3] //-- Informado
+            If nHorasCal > 0 .and. cImpHoras $ 'Cú*' .or. nHorasInf > 0 .and. cImpHoras $ 'Iú*'
+                cString := If(cImpHoras$'Cú*',Transform(nHorasCal, '@E 99,999.99'),Space(9)) + Space(1)
+                cString += If(cImpHoras$'Iú*',Transform(nHorasInf, '@E 99,999.99'),Space(9))
+                aAdd(aTotais, aTotSpc[nPass,1] + Space(1) + DescPDPon(aTotSpc[nPass,1], cFilSP9 ) + Space(1) + cString )
+            EndIf  
+        EndIF
+    Next nPass
+    
+    //-- Acrescenta as informacoes referentes aos eventos associados aos motivos de abono
+    //-- Condicoes: Se nao For Impressao de Resultados 
+    //--             e Se For para Imprimir Horas Calculadas ou Ambas
+    If !( lImpRes ) .and. (nImpHrs == 1 .or. nImpHrs == 3) 
+        For nX := 1 To Len(aCodAbono) 
+            // Converte as horas para Centesimal
+            If !( lSexagenal ) // Centesimal
+                aCodAbono[nX,2]:=fConvHr(aCodAbono[nX,2],'D')
+            Endif
+            aAdd(aTotais, aCodAbono[nX,1] + Space(1) + DescPDPon(aCodAbono[nX,1], cFilSP9) + '      0,00 '  + Transform(aCodAbono[nX,2],'@E 99,999.99') )
+        Next nX
+    Endif
 EndIf
 
 Return( NIL )
@@ -1597,199 +1597,199 @@ Return( NIL )
 ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
-±±³Fun‡…o	 ³fTotaliza ³ Autor ³ Mauricio MR           ³ Data ³ 27/05/02 ³±±
+±±³Fun‡…o     ³fTotaliza ³ Autor ³ Mauricio MR           ³ Data ³ 27/05/02 ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
 ±±³Descri‡…o ³ Totalizar as Verbas do SPC (Apontamentos) /SPH (Acumulado) ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
-±±³ Uso		 ³ Generico 												  ³±±
+±±³ Uso         ³ Generico                                                   ³±±
 ±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß/*/
-Static Function fTotaliza(	aTotais		,;
-							cFil		,;
-							cMat		,;
-							bAcessa 	,;
-							cAlias		,;
-							cAutoriza	,;
-							aCodAbono	,;
-							aAbonosPer	,;
-							lMvAbosEve	,;
-							lMvSubAbAp 	 ;
-						 )
+Static Function fTotaliza(    aTotais        ,;
+                            cFil        ,;
+                            cMat        ,;
+                            bAcessa     ,;
+                            cAlias        ,;
+                            cAutoriza    ,;
+                            aCodAbono    ,;
+                            aAbonosPer    ,;
+                            lMvAbosEve    ,;
+                            lMvSubAbAp      ;
+                         )
 
-Local aJustifica	:= {}
-Local cCodigo		:= ""
-Local cPrefix		:= SubStr(cAlias,-2)
-Local cTno			:= ""
-Local cCodExtras	:= ""
-Local cEvento		:= ""
-Local cPD			:= ""
-Local cPDI			:= ""
-Local cCC			:= ""
-Local cTPMARCA		:= ""
-Local dPD			:= Ctod("//")
-Local lExtra		:= .T.
-Local lAbHoras		:= .T.
-Local nQuaSpc		:= 0.00
-Local nX			:= 0.00 
-Local nEfetAbono	:= 0.00
-Local nQUANTC		:= 0.00
-Local nQuanti		:= 0.00
-Local nQTABONO		:= 0.00
+Local aJustifica    := {}
+Local cCodigo        := ""
+Local cPrefix        := SubStr(cAlias,-2)
+Local cTno            := ""
+Local cCodExtras    := ""
+Local cEvento        := ""
+Local cPD            := ""
+Local cPDI            := ""
+Local cCC            := ""
+Local cTPMARCA        := ""
+Local dPD            := Ctod("//")
+Local lExtra        := .T.
+Local lAbHoras        := .T.
+Local nQuaSpc        := 0.00
+Local nX            := 0.00 
+Local nEfetAbono    := 0.00
+Local nQUANTC        := 0.00
+Local nQuanti        := 0.00
+Local nQTABONO        := 0.00
 
 If ( cAlias )->(dbSeek( cFil + cMat ) )
-	While (cAlias)->( !Eof() .and. cFil+cMat == &(cPrefix+"_FILIAL")+&(cPrefix+"_MAT") )
+    While (cAlias)->( !Eof() .and. cFil+cMat == &(cPrefix+"_FILIAL")+&(cPrefix+"_MAT") )
         
-        dData	:= (cAlias)->(&(cPrefix+"_DATA"))  	//-- Data do Apontamento
-        cPD		:= (cAlias)->(&(cPrefix+"_PD"))    	//-- Codigo do Evento
-        cPDI	:= (cAlias)->(&(cPrefix+"_PDI"))     	//-- Codigo do Evento Informado
-        nQUANTC	:= (cAlias)->(&(cPrefix+"_QUANTC"))  	//-- Quantidade Calculada pelo Apontamento
-        nQuanti	:= (cAlias)->(&(cPrefix+"_QUANTI"))  	//-- Quantidade Informada
-        nQTABONO:= (cAlias)->(&(cPrefix+"_QTABONO")) 	//-- Quantidade Abonada
-		cTPMARCA:= (cAlias)->(&(cPrefix+"_TPMARCA")) 	//-- Tipo da Marcacao
-		cCC		:= (cAlias)->(&(cPrefix+"_CC")) 		//-- Centro de Custos
-		
-		If (cAlias)->( !Eval(bAcessa) )
-			(cAlias)->( dbSkip() )
-			Loop
-		EndIf
-		
-		If dData < dMarcIni .or. dDATA > dMarcFim 
-			(cAlias)->( dbSkip() )
-			Loop
-		Endif
+        dData    := (cAlias)->(&(cPrefix+"_DATA"))      //-- Data do Apontamento
+        cPD        := (cAlias)->(&(cPrefix+"_PD"))        //-- Codigo do Evento
+        cPDI    := (cAlias)->(&(cPrefix+"_PDI"))         //-- Codigo do Evento Informado
+        nQUANTC    := (cAlias)->(&(cPrefix+"_QUANTC"))      //-- Quantidade Calculada pelo Apontamento
+        nQuanti    := (cAlias)->(&(cPrefix+"_QUANTI"))      //-- Quantidade Informada
+        nQTABONO:= (cAlias)->(&(cPrefix+"_QTABONO"))     //-- Quantidade Abonada
+        cTPMARCA:= (cAlias)->(&(cPrefix+"_TPMARCA"))     //-- Tipo da Marcacao
+        cCC        := (cAlias)->(&(cPrefix+"_CC"))         //-- Centro de Custos
         
-		 /*
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Obtem TODOS os ABONOS do Evento							   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+        If (cAlias)->( !Eval(bAcessa) )
+            (cAlias)->( dbSkip() )
+            Loop
+        EndIf
+        
+        If dData < dMarcIni .or. dDATA > dMarcFim 
+            (cAlias)->( dbSkip() )
+            Loop
+        Endif
+        
+         /*
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Obtem TODOS os ABONOS do Evento                               ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
         //-- Trata a Qtde de Abonos
-        aJustifica 	:= {} //-- Reinicializa aJustifica
-        nEfetAbono	:=	0.00
-		If nQuanti == 0 .and. fAbonos( dData , cPD , NIL , @aJustifica , cTPMARCA , cCC , aAbonosPer ) > 0
+        aJustifica     := {} //-- Reinicializa aJustifica
+        nEfetAbono    :=    0.00
+        If nQuanti == 0 .and. fAbonos( dData , cPD , NIL , @aJustifica , cTPMARCA , cCC , aAbonosPer ) > 0
             
             //-- Corre Todos os Abonos
-			For nX := 1 To Len(aJustifica)
-			    
-			   /*
-				ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-				³ Cria Array Analitico de Abonos com horas Convertidas.		   ³
-				ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-				//-- Obtem a Quantidade de Horas Abonadas
-				nQuaSpc := aJustifica[nX,2] //_QtAbono
-				
-				//-- Converte as horas Abonadas para Centesimal
-				If !( lSexagenal ) // Centesimal
-					nQuaSpc:= fConvHr(nQuaSpc,'D')
-				Endif
+            For nX := 1 To Len(aJustifica)
+                
+               /*
+                ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                ³ Cria Array Analitico de Abonos com horas Convertidas.           ³
+                ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+                //-- Obtem a Quantidade de Horas Abonadas
+                nQuaSpc := aJustifica[nX,2] //_QtAbono
+                
+                //-- Converte as horas Abonadas para Centesimal
+                If !( lSexagenal ) // Centesimal
+                    nQuaSpc:= fConvHr(nQuaSpc,'D')
+                Endif
                 
                 //-- Cria Novo Elemento no array ANALITICO de Abonos 
-				aAdd( aAbonados, {} )
-				aAdd( aAbonados[Len(aAbonados)], dData )
-				aAdd( aAbonados[Len(aAbonados)], DescAbono(aJustifica[nX,1],'C') )
-				
-				aAdd( aAbonados[Len(aAbonados)], StrTran(StrZero(nQuaSpc,5,2),'.',':') )
-				aAdd( aAbonados[Len(aAbonados)], DescTpMarca(aBoxSPC,cTPMARCA))
-				
-				If !( lImpres )
-					/*
-					ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-					³ Trata das Informacoes sobre o Evento Associado ao Motivo corrente ³
-					ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/ 
-					//-- Obtem Evento Associado
-					cEvento := PosSP6( aJustifica[nX,1] , SRA->RA_FILIAL , "P6_EVENTO" , 01 )
-					If ( lAbHoras := ( PosSP6( aJustifica[nX,1] , SRA->RA_FILIAL , "P6_ABHORAS" , 01 ) $ " S" ) )
-					    //-- Se o motivo abona Horas
-						If ( lAbHoras )
-							If !Empty( cEvento )
-								If ( nPos := aScan( aCodAbono, { |x| x[1] == cEvento } ) ) > 0
-									aCodAbono[nPos,2] := __TimeSum(aCodAbono[nPos,2], aJustifica[nX,2] ) //_QtAbono
-								Else
-									aAdd(aCodAbono, {cEvento,  aJustifica[nX,2] }) // Codigo do Evento e Qtde Abonada
-								EndIf
-							Else 
-								/*
-								ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-								³ A T E N C A O: Neste Ponto deveriamos tratar o paramentro MV_ABOSEVE  ³
-								³                no entanto, como ja havia a deducao abaixo e caso al-  ³
-								³                guem migra-se da versao 609 com o cadastro de motivo   ³
-								³                de abonos abonando horas mas sem o codigo, deixariamos ³
-								³                de tratar como antes e o cliente argumentaria alteracao³
-								³                de conceito.											³
-								ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/ 
-							    //-- Se o motivo  nao possui abono associado
-							    //-- Calcula o total de horas a abonar efetivamente
-							    nEfetAbono:= __TimeSum(nEfetAbono, aJustifica[nX,2] ) //_QtAbono
-							EndIf
-						Endif
-					Else	
-						/*
-						ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-						³Se Motivo de Abono Nao Abona Horas e o Codigo do Evento Relaci³
-						³onado ao Abono nao Estiver Vazio, Eh como se fosse uma  altera³
-						³racao do Codigo de Evento. Ou seja, Vai para os Totais      as³
-						³Horas do Abono que serao subtraidas das Horas Calculadas (  Po³
-						³deriamos Chamar esta operacao de "Informados via Abono" ).	   ³
-						³Para que esse processo seja feito o Parametro MV_SUBABAP  deve³
-						³ra ter o Conteudo igual a "S"								   ³
-						ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
-						IF ( ( lMvSubAbAp ) .and. !Empty( cEvento ) )
-						   //-- Se o motivo  nao possui abono associado
-						   //-- Calcula o total de horas a abonar efetivamente 
-						   If ( nPos := aScan( aCodAbono, { |x| x[1] == cEvento } ) ) > 0
-								aCodAbono[nPos,2] := __TimeSum(aCodAbono[nPos,2], aJustifica[nX,2] ) //_QtAbono
-						   Else
-								aAdd(aCodAbono, {cEvento,  aJustifica[nX,2] }) // Codigo do Evento e Qtde Abonada
-						   EndIf
-						   //-- O total de horas acumulado em nEfetAbono sera deduzido do 
-						   //-- total de horas apontadas.
-						   nEfetAbono:= __TimeSum(nEfetAbono, aJustifica[nX,2] ) //_QtAbono
-						Endif
-					EndIf
-				Endif	
-			Next nX 
-		Endif
+                aAdd( aAbonados, {} )
+                aAdd( aAbonados[Len(aAbonados)], dData )
+                aAdd( aAbonados[Len(aAbonados)], DescAbono(aJustifica[nX,1],'C') )
+                
+                aAdd( aAbonados[Len(aAbonados)], StrTran(StrZero(nQuaSpc,5,2),'.',':') )
+                aAdd( aAbonados[Len(aAbonados)], DescTpMarca(aBoxSPC,cTPMARCA))
+                
+                If !( lImpres )
+                    /*
+                    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                    ³ Trata das Informacoes sobre o Evento Associado ao Motivo corrente ³
+                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/ 
+                    //-- Obtem Evento Associado
+                    cEvento := PosSP6( aJustifica[nX,1] , SRA->RA_FILIAL , "P6_EVENTO" , 01 )
+                    If ( lAbHoras := ( PosSP6( aJustifica[nX,1] , SRA->RA_FILIAL , "P6_ABHORAS" , 01 ) $ " S" ) )
+                        //-- Se o motivo abona Horas
+                        If ( lAbHoras )
+                            If !Empty( cEvento )
+                                If ( nPos := aScan( aCodAbono, { |x| x[1] == cEvento } ) ) > 0
+                                    aCodAbono[nPos,2] := __TimeSum(aCodAbono[nPos,2], aJustifica[nX,2] ) //_QtAbono
+                                Else
+                                    aAdd(aCodAbono, {cEvento,  aJustifica[nX,2] }) // Codigo do Evento e Qtde Abonada
+                                EndIf
+                            Else 
+                                /*
+                                ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                                ³ A T E N C A O: Neste Ponto deveriamos tratar o paramentro MV_ABOSEVE  ³
+                                ³                no entanto, como ja havia a deducao abaixo e caso al-  ³
+                                ³                guem migra-se da versao 609 com o cadastro de motivo   ³
+                                ³                de abonos abonando horas mas sem o codigo, deixariamos ³
+                                ³                de tratar como antes e o cliente argumentaria alteracao³
+                                ³                de conceito.                                            ³
+                                ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/ 
+                                //-- Se o motivo  nao possui abono associado
+                                //-- Calcula o total de horas a abonar efetivamente
+                                nEfetAbono:= __TimeSum(nEfetAbono, aJustifica[nX,2] ) //_QtAbono
+                            EndIf
+                        Endif
+                    Else    
+                        /*
+                        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                        ³Se Motivo de Abono Nao Abona Horas e o Codigo do Evento Relaci³
+                        ³onado ao Abono nao Estiver Vazio, Eh como se fosse uma  altera³
+                        ³racao do Codigo de Evento. Ou seja, Vai para os Totais      as³
+                        ³Horas do Abono que serao subtraidas das Horas Calculadas (  Po³
+                        ³deriamos Chamar esta operacao de "Informados via Abono" ).       ³
+                        ³Para que esse processo seja feito o Parametro MV_SUBABAP  deve³
+                        ³ra ter o Conteudo igual a "S"                                   ³
+                        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ*/
+                        IF ( ( lMvSubAbAp ) .and. !Empty( cEvento ) )
+                           //-- Se o motivo  nao possui abono associado
+                           //-- Calcula o total de horas a abonar efetivamente 
+                           If ( nPos := aScan( aCodAbono, { |x| x[1] == cEvento } ) ) > 0
+                                aCodAbono[nPos,2] := __TimeSum(aCodAbono[nPos,2], aJustifica[nX,2] ) //_QtAbono
+                           Else
+                                aAdd(aCodAbono, {cEvento,  aJustifica[nX,2] }) // Codigo do Evento e Qtde Abonada
+                           EndIf
+                           //-- O total de horas acumulado em nEfetAbono sera deduzido do 
+                           //-- total de horas apontadas.
+                           nEfetAbono:= __TimeSum(nEfetAbono, aJustifica[nX,2] ) //_QtAbono
+                        Endif
+                    EndIf
+                Endif    
+            Next nX 
+        Endif
         
         If !( lImpres )
-	        //-- Obtem o Codigo do Evento  (Informado ou Calculado)
-	        cCodigo:= If(!Empty(cPDI), cPDI, cPD )
-	         
-	        //-- Obtem a posicao no Calendario para a Data
-	        
-	        If ( nPos 	:= aScan(aTabCalend, {|x| x[1] ==dDATA .and. x[4] == '1E' }) ) > 0 
-			    //-- Obtem o Turno vigente na Data
-			    cTno	:=	aTabCalend[nPos,14]  
-			    //-- Carrega ou recupera os codigos correspondentes a horas extras na Data
-			    cCodExtras	:= ''
-			    CarExtAut( @cCodExtras , cTno , cAutoriza )
-			    lExtra:=.F.
-			    If cCodigo$cCodExtras 
-			       lExtra:=.T.
-			    Endif   
-			Endif      
-	                 
-	        //-- Se o Evento for Alguma HE Solicitada (Autorizada ou Nao Autorizada) 
-	        //-- Ou  Valido Qquer Evento (Autorizado e Nao Autorizado)
-	        //-- OU  Evento possui um identificador correspondente a Evento Autorizado ou Nao Autorizado.
-			//-- Ou  Evento e' referente a banco de horas 
-	        If lExtra .or. cAutoriza == '*' .or. (aScan(aId,{|aEvento| ( aEvento[1] == cCodigo .and. Right(aEvento[2],1) == cAutoriza ) .Or. ( aEvento[1] == cCodigo .And. cAutoriza == 'A' .And. Empty(aEvento[2]) .And. aEvento[4] == "S" ) }  ) > 0.00)
-	           
-		        //-- Procura em aTotais pelo acumulado do Evento Lido
-				If ( nPos := aScan(aTotais,{|x| x[1] = cCodigo  }) ) > 0    
-				   //-- Subtrai do evento a qtde de horas que efetivamente abona horas conforme motivo de abono
-			       aTotais[nPos,2] := __TimeSum(aTotais[nPos,2],If(nQuanti>0, 0, __TimeSub(nQUANTC,nEfetAbono)))
-				   aTotais[nPos,3] := __TimeSum(aTotais[nPos,3],nQuanti)
-				   aTotais[nPos,4] := __TimeSum(aTotais[nPos,4],nQTABONO)
-			    
-				Else 
-				   //-- Adiciona Evento em Acumulados
-				   //-- Subtrai do evento a qtde de horas que efetivamente abona horas conforme motivo de abono
-	           	   aAdd(aTotais,{cCodigo,If(nQuanti > 0, 0, __TimeSub(nQUANTC,nEfetAbono)), nQuanti,nQTABONO,lExtra })
-	            Endif
-	        Endif
+            //-- Obtem o Codigo do Evento  (Informado ou Calculado)
+            cCodigo:= If(!Empty(cPDI), cPDI, cPD )
+             
+            //-- Obtem a posicao no Calendario para a Data
+            
+            If ( nPos     := aScan(aTabCalend, {|x| x[1] ==dDATA .and. x[4] == '1E' }) ) > 0 
+                //-- Obtem o Turno vigente na Data
+                cTno    :=    aTabCalend[nPos,14]  
+                //-- Carrega ou recupera os codigos correspondentes a horas extras na Data
+                cCodExtras    := ''
+                CarExtAut( @cCodExtras , cTno , cAutoriza )
+                lExtra:=.F.
+                If cCodigo$cCodExtras 
+                   lExtra:=.T.
+                Endif   
+            Endif      
+                     
+            //-- Se o Evento for Alguma HE Solicitada (Autorizada ou Nao Autorizada) 
+            //-- Ou  Valido Qquer Evento (Autorizado e Nao Autorizado)
+            //-- OU  Evento possui um identificador correspondente a Evento Autorizado ou Nao Autorizado.
+            //-- Ou  Evento e' referente a banco de horas 
+            If lExtra .or. cAutoriza == '*' .or. (aScan(aId,{|aEvento| ( aEvento[1] == cCodigo .and. Right(aEvento[2],1) == cAutoriza ) .Or. ( aEvento[1] == cCodigo .And. cAutoriza == 'A' .And. Empty(aEvento[2]) .And. aEvento[4] == "S" ) }  ) > 0.00)
+               
+                //-- Procura em aTotais pelo acumulado do Evento Lido
+                If ( nPos := aScan(aTotais,{|x| x[1] = cCodigo  }) ) > 0    
+                   //-- Subtrai do evento a qtde de horas que efetivamente abona horas conforme motivo de abono
+                   aTotais[nPos,2] := __TimeSum(aTotais[nPos,2],If(nQuanti>0, 0, __TimeSub(nQUANTC,nEfetAbono)))
+                   aTotais[nPos,3] := __TimeSum(aTotais[nPos,3],nQuanti)
+                   aTotais[nPos,4] := __TimeSum(aTotais[nPos,4],nQTABONO)
+                
+                Else 
+                   //-- Adiciona Evento em Acumulados
+                   //-- Subtrai do evento a qtde de horas que efetivamente abona horas conforme motivo de abono
+                      aAdd(aTotais,{cCodigo,If(nQuanti > 0, 0, __TimeSub(nQUANTC,nEfetAbono)), nQuanti,nQTABONO,lExtra })
+                Endif
+            Endif
          Endif
-		(cAlias)->( dbSkip() )
-	End While
+        (cAlias)->( dbSkip() )
+    End While
 Endif
 
 Return( NIL )
@@ -1798,11 +1798,11 @@ Return( NIL )
 ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
-±±³Fun‡…o	 ³fTotalSPB ³ Autor ³ EQUIPE DE RH		    ³ Data ³ 05/06/00 ³±±
+±±³Fun‡…o     ³fTotalSPB ³ Autor ³ EQUIPE DE RH            ³ Data ³ 05/06/00 ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
 ±±³Descri‡…o ³ Totaliza eventos a partir do SPB.                          ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
-±±³ Uso		 ³ Generico 												  ³±±
+±±³ Uso         ³ Generico                                                   ³±±
 ±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß/*/
@@ -1810,28 +1810,28 @@ Static Function fTotalSPB(aTotais,cFil,cMat,dDataIni,dDataFim,bAcessa,cAlias)
 
 Local cPrefix := ""
 
-cPrefix		:= SubStr(cAlias,-2)
+cPrefix        := SubStr(cAlias,-2)
 
 If ( cAlias )->( dbSeek( cFil + cMat ) )
-	While (cAlias)->( !Eof() .and. cFil+cMat == &(cPrefix+"_FILIAL")+&(cPrefix+"_MAT") )
+    While (cAlias)->( !Eof() .and. cFil+cMat == &(cPrefix+"_FILIAL")+&(cPrefix+"_MAT") )
 
-		If (cAlias)->( &(cPrefix+"_DATA") < dDataIni .or. &(cPrefix+"_DATA") > dDataFim )
-			(cAlias)->( dbSkip() )
-			Loop
-		Endif
+        If (cAlias)->( &(cPrefix+"_DATA") < dDataIni .or. &(cPrefix+"_DATA") > dDataFim )
+            (cAlias)->( dbSkip() )
+            Loop
+        Endif
 
-		If (cAlias)->( !Eval(bAcessa) )
-			(cAlias)->( dbSkip() )
-			Loop
-		EndIf
+        If (cAlias)->( !Eval(bAcessa) )
+            (cAlias)->( dbSkip() )
+            Loop
+        EndIf
 
-		If ( nPos := aScan(aTotais,{|x| x[1] == (cAlias)->( &(cPrefix+"_PD") ) }) ) > 0
-			aTotais[nPos,2] := aTotais[nPos,2] + (cAlias)->( &(cPrefix+"_HORAS") ) 
-		Else
-			aAdd(aTotais,{(cAlias)->( &(cPrefix+"_PD") ),(cAlias)->( &(cPrefix+"_HORAS") ),0,0 })
-		Endif
-		(cAlias)->( dbSkip() )
-	End While
+        If ( nPos := aScan(aTotais,{|x| x[1] == (cAlias)->( &(cPrefix+"_PD") ) }) ) > 0
+            aTotais[nPos,2] := aTotais[nPos,2] + (cAlias)->( &(cPrefix+"_HORAS") ) 
+        Else
+            aAdd(aTotais,{(cAlias)->( &(cPrefix+"_PD") ),(cAlias)->( &(cPrefix+"_HORAS") ),0,0 })
+        Endif
+        (cAlias)->( dbSkip() )
+    End While
 Endif
 
 Return( NIL )
@@ -1936,15 +1936,15 @@ Return( cRet )
 ±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß/*/
-Static Function ImprEsp(	Detalhe		,;
-							FimFolha	,;
-							Pos_cabec	,;
-							nTamLin		,;
-							nColunas	,;
-							nTamanho	,;
-							lTerminal	,;
-							nTipoCab	 ;
-						 )
+Static Function ImprEsp(    Detalhe        ,;
+                            FimFolha    ,;
+                            Pos_cabec    ,;
+                            nTamLin        ,;
+                            nColunas    ,;
+                            nTamanho    ,;
+                            lTerminal    ,;
+                            nTipoCab     ;
+                         )
 
 IF ( LI > 57 )
    uTCREPORT SET PAGE BREAK
@@ -1972,8 +1972,8 @@ Return( NIL )
 Static Function Monta_Per( dDataIni , dDataFim , cFil , cMat , dIniAtu , dFimAtu )
 
 Local aPeriodos := {}
-Local cFilSPO	:= xFilial( "SPO" , cFil )
-Local dAdmissa	:= SRA->RA_ADMISSA
+Local cFilSPO    := xFilial( "SPO" , cFil )
+Local dAdmissa    := SRA->RA_ADMISSA
 Local dPerIni   := Ctod("//")
 Local dPerFim   := Ctod("//")
 
@@ -1986,28 +1986,28 @@ While SPO->( !Eof() .and. PO_FILIAL == cFilSPO )
 
     //-- Filtra Periodos de Apontamento a Serem considerados em funcao do Periodo Solicitado
     IF dPerFim < dDataIni .OR. dPerIni > dDataFim                                                      
-		SPO->( dbSkip() )  
-		Loop  
+        SPO->( dbSkip() )  
+        Loop  
     Endif
 
     //-- Somente Considera Periodos de Apontamentos com Data Final Superior a Data de Admissao
     IF ( dPerFim >= dAdmissa )
        aAdd( aPeriodos , { dPerIni , dPerFim , Max( dPerIni , dDataIni ) , Min( dPerFim , dDataFim ) } )
-	Else
-		Exit
-	EndIF
+    Else
+        Exit
+    EndIF
 
-	SPO->( dbSkip() )
+    SPO->( dbSkip() )
 
 End While
 
 IF ( aScan( aPeriodos , { |x| x[1] == dIniAtu .and. x[2] == dFimAtu } ) == 0.00 )
-	dPerIni := dIniAtu
-	dPerFim	:= dFimAtu 
-	IF !(dPerFim < dDataIni .OR. dPerIni > dDataFim)
-		IF ( dPerFim >= dAdmissa )
-			aAdd(aPeriodos, { dPerIni, dPerFim, Max(dPerIni,dDataIni), Min(dPerFim,dDataFim) } )
-		EndIF
+    dPerIni := dIniAtu
+    dPerFim    := dFimAtu 
+    IF !(dPerFim < dDataIni .OR. dPerIni > dDataFim)
+        IF ( dPerFim >= dAdmissa )
+            aAdd(aPeriodos, { dPerIni, dPerFim, Max(dPerIni,dDataIni), Min(dPerFim,dDataFim) } )
+        EndIF
     Endif
 EndIF
 
@@ -2033,64 +2033,64 @@ Return( aPeriodos )
 ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/
 Static Function CarExtAut( cCodExtras , cTnoCad , cAutoriza )
 
-Local aTabExtra		:= {}
-Local cFilSP4		:= fFilFunc("SP4")
-Local cTno			:= ""
-Local lFound		:= .F.
-Local lRet			:= .T.
-Local nX			:= 0
-Local naTabExtra	:= 0    
-Local ncTurno	    := 0.00
+Local aTabExtra        := {}
+Local cFilSP4        := fFilFunc("SP4")
+Local cTno            := ""
+Local lFound        := .F.
+Local lRet            := .T.
+Local nX            := 0
+Local naTabExtra    := 0    
+Local ncTurno        := 0.00
 
 Static aExtrasTno
 
 If ( PCount() == 0.00 )
 
-	aExtrasTno	:= NIL              
+    aExtrasTno    := NIL              
 
 Else
 
-	DEFAULT aExtrasTno	:= {} 
-		
-	//-- Procura Tabela (Filial + Turno corrente)
-	If ( lFound	:= ( SP4->( dbSeek( cFilSP4 + cTnoCad , .F. ) ) ) )
-	   cTno		:=	cTnoCad
-	   lFound	:=	.T.
-	Else      
-	    //-- Procura Tabela (Filial)    
-	    cTno	:= Space(Len(SP4->P4_TURNO))
-		lFound	:= SP4->( dbSeek(  cFilSP4 + cTno , .F.) )
-	Endif    
-	
-	//-- Se Existe Tabela de HE
-	If ( lFound )
-	   //-- Verifica se a Tabela de HE para o Turno ainda nao foi carregada
-	   If (ncTurno:=aScan(aExtrasTno,{|aTurno| aTurno[1]  == cFilSP4 .and. aTurno[2] == cTno} )) == 0.00
-	      //-- Se nao Encontrou Carrega Tabela para Filial e Turno especificos
-	      GetTabExtra( @aTabExtra , cFilSP4 , cTno , .F. , .F. )     
-	      //-- Posiciona no inicio da Tabela de HE da Filial Solicitada
-		  If !Empty(aTabExtra)
-			  naTabExtra:=	Len(aTabExtra)
-			  //-- Corre C¢digos de Hora Extra da Filial
-			  For nX:=1 To naTabExtra
-					//-- Se Ambos os Tipos de Eventos ou Autorizados
-					If cAutoriza == '*' .or. (cAutoriza == 'A' .and. !Empty(aTabExtra[nX,4]))
-						cCodExtras += aTabExtra[nX,4]+'A' //-- Cod Autorizado                
-					Endif
-					//-- Se Ambos os Tipos de Eventos ou Nao Autorizados					
-					If cAutoriza == '*' .or. (cAutoriza == 'N' .and. !Empty(aTabExtra[nX,5]))
-						cCodExtras += aTabExtra[nX,5]+'N' //-- Cod Nao Autorizado                
-					EndIf
-			  Next nX
-		  Endif	  
-		  //-- Cria Nova Relacao de Codigos Extras para o Turno Lido
-		  aAdd(aExtrasTno,{cFilSP4,cTno,cCodExtras})
-	    Else
-	        //-- Recupera Tabela Anteriormente Lida
-	        cCodExtras:=aExtrasTno[ncTurno,3] 
-	    Endif                    
-	    
-	Endif	
+    DEFAULT aExtrasTno    := {} 
+        
+    //-- Procura Tabela (Filial + Turno corrente)
+    If ( lFound    := ( SP4->( dbSeek( cFilSP4 + cTnoCad , .F. ) ) ) )
+       cTno        :=    cTnoCad
+       lFound    :=    .T.
+    Else      
+        //-- Procura Tabela (Filial)    
+        cTno    := Space(Len(SP4->P4_TURNO))
+        lFound    := SP4->( dbSeek(  cFilSP4 + cTno , .F.) )
+    Endif    
+    
+    //-- Se Existe Tabela de HE
+    If ( lFound )
+       //-- Verifica se a Tabela de HE para o Turno ainda nao foi carregada
+       If (ncTurno:=aScan(aExtrasTno,{|aTurno| aTurno[1]  == cFilSP4 .and. aTurno[2] == cTno} )) == 0.00
+          //-- Se nao Encontrou Carrega Tabela para Filial e Turno especificos
+          GetTabExtra( @aTabExtra , cFilSP4 , cTno , .F. , .F. )     
+          //-- Posiciona no inicio da Tabela de HE da Filial Solicitada
+          If !Empty(aTabExtra)
+              naTabExtra:=    Len(aTabExtra)
+              //-- Corre C¢digos de Hora Extra da Filial
+              For nX:=1 To naTabExtra
+                    //-- Se Ambos os Tipos de Eventos ou Autorizados
+                    If cAutoriza == '*' .or. (cAutoriza == 'A' .and. !Empty(aTabExtra[nX,4]))
+                        cCodExtras += aTabExtra[nX,4]+'A' //-- Cod Autorizado                
+                    Endif
+                    //-- Se Ambos os Tipos de Eventos ou Nao Autorizados                    
+                    If cAutoriza == '*' .or. (cAutoriza == 'N' .and. !Empty(aTabExtra[nX,5]))
+                        cCodExtras += aTabExtra[nX,5]+'N' //-- Cod Nao Autorizado                
+                    EndIf
+              Next nX
+          Endif      
+          //-- Cria Nova Relacao de Codigos Extras para o Turno Lido
+          aAdd(aExtrasTno,{cFilSP4,cTno,cCodExtras})
+        Else
+            //-- Recupera Tabela Anteriormente Lida
+            cCodExtras:=aExtrasTno[ncTurno,3] 
+        Endif                    
+        
+    Endif    
 
 Endif
 
@@ -2102,10 +2102,10 @@ Return( lRet )
 ±±ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿±±
 ±±³Fun‡„o    ³ CarId    ³ Autor ³ Mauricio MR           ³ Data ³ 24/05/02 ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´±±
-±±³Descri‡„o ³ Retorna Relacao de Eventos da Filial						  ³±±
+±±³Descri‡„o ³ Retorna Relacao de Eventos da Filial                          ³±±
 ±±ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´±±
-±±³Parametros³ cFil       --> Codigo da Filial desejada					  ³±±
-±±³          ³ aId    	  --> Array com a Relacao	                      ³±±
+±±³Parametros³ cFil       --> Codigo da Filial desejada                      ³±±
+±±³          ³ aId          --> Array com a Relacao                          ³±±
 ±±³          ³ cAutoriza  --> "*" Horas Autorizadas/Nao Autorizadas       ³±± 
 ±±³          ³                "A" Horas Autorizadas                       ³±± 
 ±±³          ³                "N" Horas Nao Autorizadas                   ³±±
@@ -2113,23 +2113,23 @@ Return( lRet )
 ±±³ Uso      ³ PONM010                                                    ³±±
 ±±ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ±±
 ±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±±
-ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/	
+ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß*/    
 Static Function CarId( cFil , aId , cAutoriza )
 
-Local nPos	:= 0.00
+Local nPos    := 0.00
 
 //-- Preenche o Array aCodAut com os Eventos (Menos DSR Mes Ant.)
 SP9->( dbSeek( cFil , .T. ) )
 While SP9->( !Eof() .and. cFil == P9_FILIAL )
-	IF ( ( Right(SP9->P9_IDPON,1) == cAutoriza ) .or. ( cAutoriza == "*" ) )
-		aAdd( aId , Array( 04 ) )
-		nPos := Len( aId )
-		aId[ nPos , 01 ] := SP9->P9_CODIGO	//-- Codigo do Evento 
-		aId[ nPos , 02 ] := SP9->P9_IDPON 	//-- Identificador do Ponto 
-		aId[ nPos , 03 ] := SP9->P9_CODFOL	//-- Codigo do da Verba Folha
-		aId[ nPos , 04 ] := SP9->P9_BHORAS	//-- Evento para B.Horas
-	EndIF
-	SP9->( dbSkip() )
+    IF ( ( Right(SP9->P9_IDPON,1) == cAutoriza ) .or. ( cAutoriza == "*" ) )
+        aAdd( aId , Array( 04 ) )
+        nPos := Len( aId )
+        aId[ nPos , 01 ] := SP9->P9_CODIGO    //-- Codigo do Evento 
+        aId[ nPos , 02 ] := SP9->P9_IDPON     //-- Identificador do Ponto 
+        aId[ nPos , 03 ] := SP9->P9_CODFOL    //-- Codigo do da Verba Folha
+        aId[ nPos , 04 ] := SP9->P9_BHORAS    //-- Evento para B.Horas
+    EndIF
+    SP9->( dbSkip() )
 EndDo
 
 Return( NIL )

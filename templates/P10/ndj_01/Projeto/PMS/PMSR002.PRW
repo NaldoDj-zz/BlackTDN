@@ -65,7 +65,7 @@ Pergunte("AF1REL2")
 wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.T.,aOrd,.T.,Tamanho,,.T.)
 
 If nLastKey == 27
-	Return
+    Return
 Endif
 
 SetDefault(aReturn,cString)
@@ -252,26 +252,26 @@ else
       witem = 1                     
       While AF4->(!EOF()) .AND. (AF4->AF4_ORCAME = AF1->AF1_ORCAME)
           if mod(nlin,2) = 0
-      		wcor = "'##D3D3D3'"
-   		  else 
-      		wcor = "'##FFFFFF'"   
-   		  endif
-   		  wlinha  = "<tr bgcolor="+wcor+">"     		  
-   		  wlinha += "<td>"+AF1->AF1_DESCRI+"</td>"
-   		  wlinha += "<td>"+str(witem,3)+"</td>"   		  
-          wlinha += "<td>"+AF4->AF4_XORIRE+"</td>"    		  
-   		  wlinha += "<td>"+AF1->AF1_XDIR+"</td>" 
-   		  wlinha += "<td>"+AF1->AF1_XUNIOR+"</td>"      
-   		  wlinha += "<td>"+AF1->AF1_XSPON+"</td>"
-   		  wlinha += "<td>"+AF1->AF1_XGER+"</td>"      
-   		  wlinha += "<td>"+AF1->AF1_XDESTA+"</td>" 
-  		  wlinha += "<td>"+AF1->AF1_XMACRO+"</td>"   
-   		  wlinha += "<td>"+AF1->AF1_XIND+"</td>"  
-   		  wlinha += "<td>"+AF1->AF1_XINDS+"</td>" 
-   		  wlinha += "<td>"+AF1->AF1_XPMORG+"</td>"       
-   		  wlinha += "<td>"+AF1->AF1_XTEMA+"</td>"
-   		  wlinha += "<td>"+AF1->AF1_XDESC+"</td>"    
-   		  wlinha += "<td>"+AF1->AF1_XDPROG+"</td>"            
+              wcor = "'##D3D3D3'"
+             else 
+              wcor = "'##FFFFFF'"   
+             endif
+             wlinha  = "<tr bgcolor="+wcor+">"               
+             wlinha += "<td>"+AF1->AF1_DESCRI+"</td>"
+             wlinha += "<td>"+str(witem,3)+"</td>"             
+          wlinha += "<td>"+AF4->AF4_XORIRE+"</td>"              
+             wlinha += "<td>"+AF1->AF1_XDIR+"</td>" 
+             wlinha += "<td>"+AF1->AF1_XUNIOR+"</td>"      
+             wlinha += "<td>"+AF1->AF1_XSPON+"</td>"
+             wlinha += "<td>"+AF1->AF1_XGER+"</td>"      
+             wlinha += "<td>"+AF1->AF1_XDESTA+"</td>" 
+            wlinha += "<td>"+AF1->AF1_XMACRO+"</td>"   
+             wlinha += "<td>"+AF1->AF1_XIND+"</td>"  
+             wlinha += "<td>"+AF1->AF1_XINDS+"</td>" 
+             wlinha += "<td>"+AF1->AF1_XPMORG+"</td>"       
+             wlinha += "<td>"+AF1->AF1_XTEMA+"</td>"
+             wlinha += "<td>"+AF1->AF1_XDESC+"</td>"    
+             wlinha += "<td>"+AF1->AF1_XDPROG+"</td>"            
           WORIRE   = AF4->AF4_XORIRE    
           wtotalger = 0.00                      
           WTIPOD   = AF4->AF4_TIPOD
@@ -287,56 +287,56 @@ else
               IF AF4_TIPOD = "MU" .OR. AF4_TIPOD = "HW" .OR. AF4_TIPOD = "MA" .OR. AF4_TIPOD = "SW" .OR. AF4_TIPOD = "BO"  
                  WCAPITAL +=  AF4->AF4_VALOR 
               ENDIF
-    	      IF AF4_TIPOD = "SJ"
-        	     WPJ +=  AF4->AF4_VALOR 
-	          ENDIF 
-    	      IF AF4_TIPOD = "MO"
-        	     WPJ +=  AF4->AF4_VALOR 
-	          ENDIF  	           
-    	      IF AF4_TIPOD = "SF"
-        	     WPF +=  AF4->AF4_VALOR 
-	          ENDIF 
-    	      IF AF4_TIPOD = "PE"
-        	     WPESSOAL +=  AF4->AF4_VALOR 
-	          ENDIF 
-    	      IF AF4_TIPOD = "VI" .OR. AF4_TIPOD = "VN" 
-        	     WVIAGEM +=  AF4->AF4_VALOR 
-	          ENDIF              
-    	      IF AF4_TIPOD = "OA"  
-        	     WCUSTEIO +=  AF4->AF4_VALOR 
-	          ENDIF     
-	          wtotalger += AF4->AF4_VALOR                                             
-    	      AF4->(dbSkip())
-		  EndDo           
-  	      wlinha += "<td>"+strtran(str(wpj,12,2),".",",")+"</td>"
-		  wlinha += "<td>"+strtran(str(wpf,12,2),".",",")+"</td>"
-		  wlinha += "<td>"+strtran(str(wppf,12,2),".",",")+"</td>"		  
-		  wlinha += "<td>"+strtran(str(wpessoal,12,2),".",",")+"</td>"
-		  wlinha += "<td>"+strtran(str(wcusteio,12,2),".",",")+"</td>"
-		  wlinha += "<td>"+strtran(str(wcapital,12,2),".",",")+"</td>"
-		  wlinha += "<td>"+strtran(str(wviagem,12,2),".",",")+"</td>"  
-		  wlinha += "<td>"+strtran(str(wtotalger,12,2),".",",")+"</td>" 		  
-   		  wlinha += "<td>"+dtoc(AF1->AF1_XDATIN)+"</td>"
+              IF AF4_TIPOD = "SJ"
+                 WPJ +=  AF4->AF4_VALOR 
+              ENDIF 
+              IF AF4_TIPOD = "MO"
+                 WPJ +=  AF4->AF4_VALOR 
+              ENDIF                 
+              IF AF4_TIPOD = "SF"
+                 WPF +=  AF4->AF4_VALOR 
+              ENDIF 
+              IF AF4_TIPOD = "PE"
+                 WPESSOAL +=  AF4->AF4_VALOR 
+              ENDIF 
+              IF AF4_TIPOD = "VI" .OR. AF4_TIPOD = "VN" 
+                 WVIAGEM +=  AF4->AF4_VALOR 
+              ENDIF              
+              IF AF4_TIPOD = "OA"  
+                 WCUSTEIO +=  AF4->AF4_VALOR 
+              ENDIF     
+              wtotalger += AF4->AF4_VALOR                                             
+              AF4->(dbSkip())
+          EndDo           
+            wlinha += "<td>"+strtran(str(wpj,12,2),".",",")+"</td>"
+          wlinha += "<td>"+strtran(str(wpf,12,2),".",",")+"</td>"
+          wlinha += "<td>"+strtran(str(wppf,12,2),".",",")+"</td>"          
+          wlinha += "<td>"+strtran(str(wpessoal,12,2),".",",")+"</td>"
+          wlinha += "<td>"+strtran(str(wcusteio,12,2),".",",")+"</td>"
+          wlinha += "<td>"+strtran(str(wcapital,12,2),".",",")+"</td>"
+          wlinha += "<td>"+strtran(str(wviagem,12,2),".",",")+"</td>"  
+          wlinha += "<td>"+strtran(str(wtotalger,12,2),".",",")+"</td>"           
+             wlinha += "<td>"+dtoc(AF1->AF1_XDATIN)+"</td>"
           wlinha += "<td>"+dtoc(AF1->AF1_XDATFI)+"</td>"
-   		  IF AF1->AF1_XSTATU = "1"
-      	   	wlinha += "<td>NOVO</td>"
-   		  ELSE  
-      		wlinha += "<td>EM CURSO</td>"   
-   		  ENDIF   
-   		  wlinha += "<td>"+AF1->AF1_FASE+"</td>"
-   		  dbSelectArea("AE9")
-   		  IF AE9->(DBSEEK(XFILIAL("AE9")+AF1->AF1_FASE)) 
-      		wlinha += "<td>"+AE9->AE9_DESCRI+"</td>"
-   		  ELSE 
-      		wlinha += "<td>FASE NAO ENCONTRADA</td>"   
-   		  ENDIF		 
+             IF AF1->AF1_XSTATU = "1"
+                 wlinha += "<td>NOVO</td>"
+             ELSE  
+              wlinha += "<td>EM CURSO</td>"   
+             ENDIF   
+             wlinha += "<td>"+AF1->AF1_FASE+"</td>"
+             dbSelectArea("AE9")
+             IF AE9->(DBSEEK(XFILIAL("AE9")+AF1->AF1_FASE)) 
+              wlinha += "<td>"+AE9->AE9_DESCRI+"</td>"
+             ELSE 
+              wlinha += "<td>FASE NAO ENCONTRADA</td>"   
+             ENDIF         
           wlinha += "<td>"+AF1->AF1_XPRIO+"</td>"  
           wlinha += "<td>"+AF1->AF1_XDESTA+"</td>"                    
           wlinha += "</tr>"   
           @nlin,00 psay wlinha   
           nlin += 1
           wlinha = space(232)
-          witem += 1         		   
+          witem += 1                    
        EndDo        
    Endif         
 /*   wlinha += "<td>"+dtoc(AF1->AF1_XDATIN)+"</td>"
@@ -369,12 +369,12 @@ else
   nlin += 1                            
   wlinha ="</table>"
   If !ApOleClient("MsExcel")
- 	MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
-	Return
+     MsgStop("Microsoft Excel nao instalado.")  //"Microsoft Excel nao instalado."
+    Return
   EndIf
-  MS_FLUSH()   	
+  MS_FLUSH()       
   __CopyFile(__reldir+wnrel+".##R" , AllTrim(GetTempPath())+wnrel+".HTM")
-	
+    
   oExcelApp:= MsExcel():New()
   oExcelApp:WorkBooks:Open(AllTrim(GetTempPath())+wnrel+".HTM")
   oExcelApp:SetVisible(.T.)   
@@ -383,14 +383,14 @@ endif
 Return
   
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-    	lRecursa	:= __Dummy( .F. )
-    	__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

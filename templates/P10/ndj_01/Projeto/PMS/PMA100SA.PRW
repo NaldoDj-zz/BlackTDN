@@ -45,16 +45,16 @@ while widx <= len(aUsu)
         MSUNLOCK()
         AJF->(DBSETORDER(1))
         IF AJF->(!DBSEEK(XFILIAL("AJF")+WORCAME+Padr(WEDT,TAMSX3("AJF_EDT")[1] )+aUsu[widx][1][1]))
-   			RECLOCK("AJF",.T.)
-   			AJF->AJF_FILIAL := XFILIAL("AJF")
-   			AJF->AJF_ORCAME := WORCAME
-   			AJF->AJF_EDT    := WEDT
-   			AJF->AJF_USER   := aUsu[widx][1][1]
-   			AJF_PROJET      := "2"
-   			AJF_ESTRUT      := "3"
-   			AJF_DOCUME      := "4"   
-		    MSUNLOCK()
-   		endif		                
+               RECLOCK("AJF",.T.)
+               AJF->AJF_FILIAL := XFILIAL("AJF")
+               AJF->AJF_ORCAME := WORCAME
+               AJF->AJF_EDT    := WEDT
+               AJF->AJF_USER   := aUsu[widx][1][1]
+               AJF_PROJET      := "2"
+               AJF_ESTRUT      := "3"
+               AJF_DOCUME      := "4"   
+            MSUNLOCK()
+           endif                        
      endif  
      if aUsu[widx][1][4] = AF1->AF1_XGER
         RECLOCK("AF1",.F.)
@@ -62,16 +62,16 @@ while widx <= len(aUsu)
         MSUNLOCK() 
         AJF->(DBSETORDER(1))
         IF AJF->(!DBSEEK(XFILIAL("AJF")+WORCAME+Padr(WEDT,TAMSX3("AJF_EDT")[1] )+aUsu[widx][1][1]))
-   			RECLOCK("AJF",.T.)
-   			AJF->AJF_FILIAL := XFILIAL("AJF")
-   			AJF->AJF_ORCAME := WORCAME
-   			AJF->AJF_EDT    := WEDT
-   			AJF->AJF_USER   := aUsu[widx][1][1]
-   			AJF_PROJET      := "2"
-   			AJF_ESTRUT      := "3"
-   			AJF_DOCUME      := "4"   
-		    MSUNLOCK()
-   		endif		            
+               RECLOCK("AJF",.T.)
+               AJF->AJF_FILIAL := XFILIAL("AJF")
+               AJF->AJF_ORCAME := WORCAME
+               AJF->AJF_EDT    := WEDT
+               AJF->AJF_USER   := aUsu[widx][1][1]
+               AJF_PROJET      := "2"
+               AJF_ESTRUT      := "3"
+               AJF_DOCUME      := "4"   
+            MSUNLOCK()
+           endif                    
      endif  
      widx += 1
 enddo   
@@ -95,14 +95,14 @@ enddo
 Return
 
 Static Function __Dummy( lRecursa )
-	Local oException
-	TRYEXCEPTION
+    Local oException
+    TRYEXCEPTION
         lRecursa := .F.
-		IF !( lRecursa )
-			BREAK
-		EndIF
-		lRecursa	:= __Dummy( .F. )
-		__cCRLF		:= NIL
-	CATCHEXCEPTION USING oException
-	ENDEXCEPTION
+        IF !( lRecursa )
+            BREAK
+        EndIF
+        lRecursa    := __Dummy( .F. )
+        __cCRLF        := NIL
+    CATCHEXCEPTION USING oException
+    ENDEXCEPTION
 Return( lRecursa )

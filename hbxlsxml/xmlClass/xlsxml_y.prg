@@ -1,5 +1,5 @@
 /*
- * $Id: xlsxml_y.prg 17099 2011-10-28 18:34:39Z vouchcac $
+ * #Id: xlsxml_y.prg 17099 2011-10-28 18:34:39Z vouchcac $
  */
  
 /*
@@ -54,10 +54,10 @@
 /*----------------------------------------------------------------------*/
  
 #IFDEF __HARBOUR__
-	#include "hbclass.ch"
+    #include "hbclass.ch"
 #ELSE
-	#include "ptxlsxml.ch"
-#ENDIF	
+    #include "ptxlsxml.ch"
+#ENDIF    
 
 /*----------------------------------------------------------------------*/
 
@@ -140,25 +140,25 @@ CREATE CLASS ExcelWriterXML_Style
 METHOD ExcelWriterXML_Style:New( id )
 
 #ifndef __HARBOUR__
-   ::useAlignment	:= .f.
-   ::useFont		:= .f.
-   ::useBorder		:= .f.
-   ::useInterior	:= .f.
+   ::useAlignment    := .f.
+   ::useFont        := .f.
+   ::useBorder        := .f.
+   ::useInterior    := .f.
                                                   
-   ::shrinktofit	:= 0
-   ::verticaltext	:= 0
-   ::wraptext		:= 0
+   ::shrinktofit    := 0
+   ::verticaltext    := 0
+   ::wraptext        := 0
                                                   
-   ::fontColor		:= 'Automatic'
+   ::fontColor        := 'Automatic'
           
-   ::borderTop		:= hb_hash()
-   ::borderBottom	:= hb_hash()
-   ::borderLeft		:= hb_hash()
-   ::borderRight	:= hb_hash()
-   ::borderDL		:= hb_hash()
-   ::borderDR		:= hb_hash()
+   ::borderTop        := hb_hash()
+   ::borderBottom    := hb_hash()
+   ::borderLeft        := hb_hash()
+   ::borderRight    := hb_hash()
+   ::borderDL        := hb_hash()
+   ::borderDR        := hb_hash()
           
-   ::namedColorsIE	:= hb_hash()
+   ::namedColorsIE    := hb_hash()
 #endif
 
    ::id:= id  
@@ -749,9 +749,9 @@ STATIC FUNCTION getColorIE()
    
    Static hcolor
 
-	IF ( ValType( hcolor ) == "O" )
-		RETURN hcolor
-	EndIF
+    IF ( ValType( hcolor ) == "O" )
+        RETURN hcolor
+    EndIF
 
    hcolor := hb_hash()
 
@@ -900,6 +900,6 @@ STATIC FUNCTION getColorIE()
 
 /*----------------------------------------------------------------------*/
 #ifndef  __HARBOUR__
-	STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
-	RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )
+    STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
+    RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )
 #endif

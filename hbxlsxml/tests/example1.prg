@@ -1,5 +1,5 @@
 /*
- * $Id: example.prg 17099 2011-10-28 18:34:39Z vouchcac $
+ * #Id: example.prg 17099 2011-10-28 18:34:39Z vouchcac $
  */
 
 /*
@@ -53,33 +53,33 @@
  */
 /*----------------------------------------------------------------------*/
 
-#DEFINE NLINES_SAMPLE	( 100 * 5 )
+#DEFINE NLINES_SAMPLE    ( 100 * 5 )
 
 #ifdef __HARBOUR__
 FUNCTION main()
 #else
 #include "ptxlsxml.ch"
-#xcommand WITH OBJECT oXml:addStyle(<v>)				=> oXml:addStyle(<v>) ; ++__nAddStyle
-#xcommand :aVertical(<v>)		        				=> oXml:styles\[__nAddStyle\]:aVertical(<v>)
-#xcommand :SetFontSize(<v>)   							=> oXml:styles\[__nAddStyle\]:SetFontSize(<v>)
-#xcommand :alignWraptext()								=> oXml:styles\[__nAddStyle\]:alignWraptext()
-#xcommand :SetFontSize(<v>)							=> oXml:styles\[__nAddStyle\]:SetfontSize(<v>)
-#xcommand :setFontBold()								=> oXml:styles\[__nAddStyle\]:setFontBold()
-#xcommand :alignHorizontal(<v>)     					=> oXml:styles\[__nAddStyle\]:alignHorizontal(<v>)
-#xcommand :bgColor(<v>)								=> oXml:styles\[__nAddStyle\]:bgColor(<v>)
-#xcommand :NFormat( <fs> )								=> oXml:styles\[__nAddStyle\]:NFormat(<fs>)
-#xcommand WITH OBJECT oSheet							=> 
-#xcommand :columnWidth(<n1>,<n2>)						=> oSheet:columnWidth(<n1>,<n2>)
-#xcommand :writeString(<v1>,<v2>,<v3>,<v4>)  			=> oSheet:writeString(<v1>,<v2>,<v3>,<v4>)
-#xcommand :writeNumber(<v1>,<v2>,<v3>,<v4>)			=> oSheet:writeNumber(<v1>,<v2>,<v3>,<v4>)
-#xcommand :writeFormula(<v1>,<v2>,<v3>,<v4>,<v5>)	=> oSheet:writeFormula(<v1>,<v2>,<v3>,<v4>,<v5>)	
-#xcommand :cellMerge(<v1>,<v2>,<v3>,<v4>)				=> oSheet:cellMerge(<v1>,<v2>,<v3>,<v4>)
-#xcommand END WITH	 			 						=> 
+#xcommand WITH OBJECT oXml:addStyle(<v>)                => oXml:addStyle(<v>) ; ++__nAddStyle
+#xcommand :aVertical(<v>)                                => oXml:styles\[__nAddStyle\]:aVertical(<v>)
+#xcommand :SetFontSize(<v>)                               => oXml:styles\[__nAddStyle\]:SetFontSize(<v>)
+#xcommand :alignWraptext()                                => oXml:styles\[__nAddStyle\]:alignWraptext()
+#xcommand :SetFontSize(<v>)                            => oXml:styles\[__nAddStyle\]:SetfontSize(<v>)
+#xcommand :setFontBold()                                => oXml:styles\[__nAddStyle\]:setFontBold()
+#xcommand :alignHorizontal(<v>)                         => oXml:styles\[__nAddStyle\]:alignHorizontal(<v>)
+#xcommand :bgColor(<v>)                                => oXml:styles\[__nAddStyle\]:bgColor(<v>)
+#xcommand :NFormat( <fs> )                                => oXml:styles\[__nAddStyle\]:NFormat(<fs>)
+#xcommand WITH OBJECT oSheet                            => 
+#xcommand :columnWidth(<n1>,<n2>)                        => oSheet:columnWidth(<n1>,<n2>)
+#xcommand :writeString(<v1>,<v2>,<v3>,<v4>)              => oSheet:writeString(<v1>,<v2>,<v3>,<v4>)
+#xcommand :writeNumber(<v1>,<v2>,<v3>,<v4>)            => oSheet:writeNumber(<v1>,<v2>,<v3>,<v4>)
+#xcommand :writeFormula(<v1>,<v2>,<v3>,<v4>,<v5>)    => oSheet:writeFormula(<v1>,<v2>,<v3>,<v4>,<v5>)    
+#xcommand :cellMerge(<v1>,<v2>,<v3>,<v4>)                => oSheet:cellMerge(<v1>,<v2>,<v3>,<v4>)
+#xcommand END WITH                                          => 
 USER FUNCTION example1Xls()
-   LOCAL nVarNameLen 	:= SetVarNameLen(250)
-   LOCAL __nAddStyle	:= 1
-   LOCAL lSetCentury	:= __SetCentury("ON")
-   LOCAL cTempPath		:= GetTempPath()
+   LOCAL nVarNameLen     := SetVarNameLen(250)
+   LOCAL __nAddStyle    := 1
+   LOCAL lSetCentury    := __SetCentury("ON")
+   LOCAL cTempPath        := GetTempPath()
 #endif
 
    LOCAL oXml, oSheet, xarquivo := "example1.xml"
@@ -90,14 +90,14 @@ USER FUNCTION example1Xls()
    LOCAL xTitulo    
    LOCAL xPeriodo   
    LOCAL Lines
-   LOCAL dDate		:= Date()
+   LOCAL dDate        := Date()
    LOCAL dDate_i
    LOCAL cCodCli
 
 #ifndef __HARBOUR__
-	xarquivo := CriaTrab(NIL,.F.)+".xml"
-	HB_SYMBOL_UNUSED( __cCRLF )
-	SetsDefault()
+    xarquivo := CriaTrab(NIL,.F.)+".xml"
+    HB_SYMBOL_UNUSED( __cCRLF )
+    SetsDefault()
 #else
    SET DATE TO BRITISH
    SET CENTURY ON
@@ -230,7 +230,7 @@ USER FUNCTION example1Xls()
       xDataImp:= Dtoc(dDate)
       xTitulo := "RELATORIO PARA DEMONSTRAR XML EXCEL"
       xPeriodo:= Dtoc((dDate-NLINES_SAMPLE)-50) + " a " + Dtoc(dDate-50)
-      xHoraImp:= Time()	
+      xHoraImp:= Time()    
       
       nLinha:= 0
       :writeString(++nLinha,1,xEmpresa ,'CabecLeft')  
@@ -270,23 +270,23 @@ USER FUNCTION example1Xls()
    
    aDoc := Array(13)
    FOR i:= 1 TO NLINES_SAMPLE
-      i100 		:= ( i * 100 )
-      i100_09	:= ( i100 * 0.90 )
-      dDate_i	:= ( dDate - i )
-      cCodCli	:= STRZERO(i,5)
-      aDoc[01]	:= STRZERO(i,8)
-      aDoc[02]	:= "VE"
-      aDoc[03]	:= dDate_i-49
-      aDoc[04]	:= dDate_i-50
-      aDoc[05]	:= "5.102"
-      aDoc[06]	:= cCodCli
-      aDoc[07]	:= "NOME DO CLIENTE TESTE "+cCodCli
-      aDoc[08]	:= "PR"
-      aDoc[09]	:= i100
-      aDoc[10]	:= i100_09
-      aDoc[11]	:= i100*i100_09*0.12
-      aDoc[12]	:= i100
-      aDoc[13]	:= i100*0.10
+      i100         := ( i * 100 )
+      i100_09    := ( i100 * 0.90 )
+      dDate_i    := ( dDate - i )
+      cCodCli    := STRZERO(i,5)
+      aDoc[01]    := STRZERO(i,8)
+      aDoc[02]    := "VE"
+      aDoc[03]    := dDate_i-49
+      aDoc[04]    := dDate_i-50
+      aDoc[05]    := "5.102"
+      aDoc[06]    := cCodCli
+      aDoc[07]    := "NOME DO CLIENTE TESTE "+cCodCli
+      aDoc[08]    := "PR"
+      aDoc[09]    := i100
+      aDoc[10]    := i100_09
+      aDoc[11]    := i100*i100_09*0.12
+      aDoc[12]    := i100
+      aDoc[13]    := i100*0.10
       WITH OBJECT oSheet 
          :writeString(++nLinha, 1,aDoc[01],'textLeft')
          :writeString(  nLinha, 2,aDoc[02],'textLeft')
@@ -323,7 +323,7 @@ USER FUNCTION example1Xls()
       :writeString(  nLinha, 8,"",'textLeft')             
       :writeFormula('Number',nLinha,9,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
       :writeFormula('Number',nLinha,10,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
-	  :writeFormula('Number',nLinha,11,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
+      :writeFormula('Number',nLinha,11,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
       :writeFormula('Number',nLinha,12,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
       :writeFormula('Number',nLinha,13,'=SUM(R[-'+Lines+']C:R[-1]C)','numberRightBold')
       :writeString(++nLinha, 7,"CHECKSUM ==>" ,'textLeftBold')
@@ -340,19 +340,19 @@ USER FUNCTION example1Xls()
 
 #ifndef __HARBOUR__
 
- 	IF __CopyFile(xarquivo,cTempPath+xarquivo)
- 		fErase( xarquivo )
-		oExcelApp	:= MsExcel():New()
-		oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
-		oExcelApp:SetVisible(.T.)
-		oExcelApp	:= oExcelApp:Destroy()
-	EndIF	
+     IF __CopyFile(xarquivo,cTempPath+xarquivo)
+         fErase( xarquivo )
+        oExcelApp    := MsExcel():New()
+        oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
+        oExcelApp:SetVisible(.T.)
+        oExcelApp    := oExcelApp:Destroy()
+    EndIF    
 
-	IF !( lSetCentury )
-		__SetCentury("OFF")
-	EndIF
+    IF !( lSetCentury )
+        __SetCentury("OFF")
+    EndIF
 
-	SetVarNameLen(nVarNameLen)
+    SetVarNameLen(nVarNameLen)
 
 #endif   
 

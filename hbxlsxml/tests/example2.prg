@@ -1,5 +1,5 @@
 /*
- * $Id: example2.prg 17099 2011-10-28 18:34:39Z vouchcac $
+ * #Id: example2.prg 17099 2011-10-28 18:34:39Z vouchcac $
  */
 
 /*
@@ -9,7 +9,7 @@
  * www - http://www.xharbour.org http://harbour-project.org
  *
  * Thanks TO Robert F Greer, PHP original version
- * http://sourceforge.net/projects/excelwriterxml/ 
+ * http://sourceforge.net/projects/excelwriterxml/
  *
  * This program is free software; you can redistribute it AND/OR modify
  * it under the terms of the GNU General PUBLIC License as published by
@@ -56,26 +56,26 @@
 FUNCTION main()
 #else
 #include "ptxlsxml.ch"
-#translate sheet4:rowHeight(<v1>,<v2>)					=> sheet4:setrowHeight(<v1>,<v2>)
+#translate sheet4:rowHeight(<v1>,<v2>)                    => sheet4:setrowHeight(<v1>,<v2>)
 USER FUNCTION example2Xls()
-   LOCAL nVarNameLen 	:= SetVarNameLen(250)
-   LOCAL cTempPath		:= GetTempPath()
+   LOCAL nVarNameLen     := SetVarNameLen(250)
+   LOCAL cTempPath        := GetTempPath()
 #endif
    LOCAL xml, format1, format2, format3, format4
    LOCAL sheet1, sheet2, sheet4
    LOCAL xarquivo := 'example2.xml'
 
 #ifndef __HARBOUR__
-	xarquivo := CriaTrab(NIL,.F.)+".xml"
-	HB_SYMBOL_UNUSED( __cCRLF )
-	SetsDefault()
+    xarquivo := CriaTrab(NIL,.F.)+".xml"
+    HB_SYMBOL_UNUSED( __cCRLF )
+    SetsDefault()
 #else
    SET DATE TO BRITISH
    SET CENTURY ON
-#endif 
-   
+#endif
+
    xml = ExcelWriterXML():new(xarquivo)
-   
+
    /**
     * Add some general properties to the document
     */
@@ -83,12 +83,12 @@ USER FUNCTION example2Xls()
    xml:docAuthor('Robert F Greer')
    xml:docCompany('Greers.Org')
    xml:docManager('Wife')
-   
+
    /**
     * Choose to show any formatting/input errors on a seperate sheet
     */
    //xml:showErrorSheet(.t.)
-   
+
    /**
     * Show the style options
     */
@@ -96,15 +96,15 @@ USER FUNCTION example2Xls()
    format1:alignRotate(60)
    format1:alignHorizontal('Left')
    format1:setFontSize('18')
-   
+
    format2 = xml:addStyle('verticaltext_left')
    format2:alignVerticaltext()
    format2:alignHorizontal('Left')
-   
+
    format3 = xml:addStyle('wraptext_top')
    format3:alignWraptext()
    format3:alignVertical('Top')
-   
+
    /**
     * Create a new sheet with the XML document
     */
@@ -118,8 +118,8 @@ USER FUNCTION example2Xls()
    sheet1:writeString(1,2,'vertical left','verticaltext_left')
    sheet1:writeString(1,3,'this text has been wrapped and is aligned at the top','wraptext_top')
    //sheet1:writeString(1,4,'No style applied')
-   
-   
+
+
    sheet2 = xml:addSheet('Formulas')
    /**
     * Wrote three numbers.
@@ -140,7 +140,7 @@ USER FUNCTION example2Xls()
    sheet2:writeString(5,1,'=SUM(R1C2:R3C2)')
    sheet2:writeFormula('Number',5,2,'=SUM(R1C1:R3C2)')
    sheet2:addComment(5,2,'Here is my formula: =SUM(R1C1:R3C2)','My NAME')
-   
+
    sheet4 = xml:addSheet('more formatting')
    format4 = xml:addStyle('my style')
    format4:setFontBold()
@@ -157,24 +157,23 @@ USER FUNCTION example2Xls()
    // Merge (2,1) with 4 columns to the right and 2 rows down
    sheet4:cellMerge(2,1,4,2)
 
-   xml:setOverwriteFile(.T.) 
+   xml:setOverwriteFile(.T.)
    xml:writeData(xarquivo)
 
 #ifndef __HARBOUR__
 
- 	IF __CopyFile(xarquivo,cTempPath+xarquivo)
-	 	fErase( xarquivo )
-		oExcelApp	:= MsExcel():New()
-		oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
-		oExcelApp:SetVisible(.T.)   
-		oExcelApp	:= oExcelApp:Destroy()
-	EndIF	
+     IF __CopyFile(xarquivo,cTempPath+xarquivo)
+         fErase( xarquivo )
+        oExcelApp    := MsExcel():New()
+        oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
+        oExcelApp:SetVisible(.T.)
+        oExcelApp    := oExcelApp:Destroy()
+    EndIF
 
-	SetVarNameLen(nVarNameLen)
+    SetVarNameLen(nVarNameLen)
 
-#endif   
-   
-   RETURN NIL 
+#endif
+
+   RETURN NIL
 
 /*----------------------------------------------------------------------*/
-   

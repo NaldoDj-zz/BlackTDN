@@ -8,13 +8,13 @@ User Function FINR001
 Local clblTpRel   := "Número da Conta:"
 Local cQuery      := ""
 
-//Local oFont	      := TFont():New("Arial",,14,,.T.)
+//Local oFont          := TFont():New("Arial",,14,,.T.)
 
-Local oFont	      := NIL
-Local oRadio	  := NIL	
+Local oFont          := NIL
+Local oRadio      := NIL    
 
-Local oDlgSint	  := NIL
-Local oGrupo  	  := NIL
+Local oDlgSint      := NIL
+Local oGrupo        := NIL
 
 Local nRecCount
 Local nOpc        := 0                      
@@ -30,7 +30,7 @@ Local _aSize      := {}
 
 Local oPanel
 
-Private nOpcRad	  := 1
+Private nOpcRad      := 1
 Private nTipRel
 
 
@@ -52,7 +52,7 @@ widx = 1
 DEFINE MSDIALOG oDlg TITLE OemToAnsi("Relatório Financeiro Por Natureza") From 1, 1 TO 200, 502 OF oMainWnd PIXEL
 
 @ 000,000 MSPANEL oPanel OF oDlg
-oPanel:Align	:= CONTROL_ALIGN_ALLCLIENT
+oPanel:Align    := CONTROL_ALIGN_ALLCLIENT
 
 nLinha   := _aSize [1] + 4
 
@@ -63,7 +63,7 @@ nLinha   := _aSize [1] + 4
 @ ( _aSize [1] +  25 ),( _aSize [1] + 185 ) BUTTON OemToAnsi("Gerar Relatório PDF")   SIZE 060,015 FONT oDlg:oFont ACTION MsAguarde( {|| fExecRelat(2) }, "Aguarde", OemToAnsi("Gerando arquivo pdf..."     ), .F. ) OF oPanel PIXEL
 @ ( _aSize [1] +  45 ),( _aSize [1] + 185 ) BUTTON OemToAnsi("Gerar Relatório EXCEL") SIZE 060,015 FONT oDlg:oFont ACTION MsAguarde( {|| fExecRelat(3) }, "Aguarde", OemToAnsi("Gerando arquivo xls..."     ), .F. ) OF oPanel PIXEL
 
-                         	
+                             
 ACTIVATE MSDIALOG oDlg
 
 

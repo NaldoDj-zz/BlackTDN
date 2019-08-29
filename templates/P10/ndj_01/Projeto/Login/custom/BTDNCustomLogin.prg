@@ -36,7 +36,7 @@ Static Procedure CustomLogin()
     aAdd(aCustom,{"TSAY","cCaption" ,"Rede de Empresas"      ,Space(Len("Rede de Empresas"))})
     aAdd(aCustom,{"TSAY","cCaption" ,"<br>o <b>by You</b>"   ,"<b> BlackTDN</b>"})
     aAdd(aCustom,{"TSAY","cCaption" ,"Clique aqui"           ,"<br>Clique aqui"})
-	aAdd(aCustom,{"TSAY","cCaption" ,"<br><br>Clique aqui"   ,"<br>Clique aqui"})
+    aAdd(aCustom,{"TSAY","cCaption" ,"<br><br>Clique aqui"   ,"<br>Clique aqui"})
     aAdd(aCustom,{"TSAY","blClicked","{|| FWBYLEARNMORE() }" ,"{||SHELLEXECUTE('OPEN','HTTP://WWW.BLACKTDN.COM.BR','','',5)}"})
     
     aAdd(aCustom,{"TBITMAP","cResName","fw_totvs_logo_61x27","fw_btdn_logo_61x27.png"})
@@ -93,7 +93,7 @@ Static Procedure CustomLogin()
         Next nX
     End While
 
-	SysRefresh()
+    SysRefresh()
 
 Return
 

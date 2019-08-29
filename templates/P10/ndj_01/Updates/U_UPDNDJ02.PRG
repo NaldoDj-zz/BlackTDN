@@ -59,28 +59,28 @@ aAdd(  aButton, {  2, .T., { || lOk := .F., FechaBatch() } } )
 FormBatch(  cTitulo,  aSay,  aButton )
 
 If lOk
-	aMarcadas := EscEmpresa()
+    aMarcadas := EscEmpresa()
 
-	If !Empty( aMarcadas )
-		If  MsgNoYes( 'Confirma a atualização dos dicionários ?', cTitulo )
-			oProcess := MsNewProcess():New( { | lEnd | lOk := FSTProc( @lEnd, aMarcadas ) }, 'Atualizando', 'Aguarde, atualizando ...', .F. )
-			oProcess:Activate()
+    If !Empty( aMarcadas )
+        If  MsgNoYes( 'Confirma a atualização dos dicionários ?', cTitulo )
+            oProcess := MsNewProcess():New( { | lEnd | lOk := FSTProc( @lEnd, aMarcadas ) }, 'Atualizando', 'Aguarde, atualizando ...', .F. )
+            oProcess:Activate()
 
-			If lOk
-				Final( 'Atualização Concluída.' )
-			Else
-				Final( 'Atualização não Realizada.' )
-			EndIf
+            If lOk
+                Final( 'Atualização Concluída.' )
+            Else
+                Final( 'Atualização não Realizada.' )
+            EndIf
 
-		Else
-			MsgStop( 'Atualização não Realizada.', 'UPDFST' )
+        Else
+            MsgStop( 'Atualização não Realizada.', 'UPDFST' )
 
-		EndIf
+        EndIf
 
-	Else
-		MsgStop( 'Atualização não Realizada.', 'UPDFST' )
+    Else
+        MsgStop( 'Atualização não Realizada.', 'UPDFST' )
 
-	EndIf
+    EndIf
 
 EndIf
 
@@ -125,215 +125,215 @@ Private aArqUpd   := {}
 
 If ( lOpen := MyOpenSm0(.T.) )
 
-	dbSelectArea( 'SM0' )
-	dbGoTop()
+    dbSelectArea( 'SM0' )
+    dbGoTop()
 
-	While !SM0->( EOF() )
-		// So adiciona no aRecnoSM0 se a empresa for diferente
-		If aScan( aRecnoSM0, { |x| x[2] == SM0->M0_CODIGO } ) == 0 ;
-		   .AND. aScan( aMarcadas, { |x| x[1] == SM0->M0_CODIGO } ) > 0
-			aAdd( aRecnoSM0, { Recno(), SM0->M0_CODIGO } )
-		EndIf
-		SM0->( dbSkip() )
-	End
+    While !SM0->( EOF() )
+        // So adiciona no aRecnoSM0 se a empresa for diferente
+        If aScan( aRecnoSM0, { |x| x[2] == SM0->M0_CODIGO } ) == 0 ;
+           .AND. aScan( aMarcadas, { |x| x[1] == SM0->M0_CODIGO } ) > 0
+            aAdd( aRecnoSM0, { Recno(), SM0->M0_CODIGO } )
+        EndIf
+        SM0->( dbSkip() )
+    End
 
-	SM0->( dbCloseArea() )
+    SM0->( dbCloseArea() )
 
-	If lOpen
+    If lOpen
 
-		For nI := 1 To Len( aRecnoSM0 )
+        For nI := 1 To Len( aRecnoSM0 )
 
-			If !( lOpen := MyOpenSm0(.F.) )
-				MsgStop( 'Atualização da empresa ' + aRecnoSM0[nI][2] + ' não efetuada.' )
-				Exit
-			EndIf
+            If !( lOpen := MyOpenSm0(.F.) )
+                MsgStop( 'Atualização da empresa ' + aRecnoSM0[nI][2] + ' não efetuada.' )
+                Exit
+            EndIf
 
-			SM0->( dbGoTo( aRecnoSM0[nI][1] ) )
+            SM0->( dbGoTo( aRecnoSM0[nI][1] ) )
 
-			RpcSetType( 3 )
-			RpcSetEnv( SM0->M0_CODIGO, SM0->M0_CODFIL )
+            RpcSetType( 3 )
+            RpcSetEnv( SM0->M0_CODIGO, SM0->M0_CODFIL )
 
-			lMsFinalAuto := .F.
-			lMsHelpAuto  := .F.
+            lMsFinalAuto := .F.
+            lMsHelpAuto  := .F.
 
-			cTexto += Replicate( '-', 128 ) + CRLF
-			cTexto += 'Empresa : ' + SM0->M0_CODIGO + '/' + SM0->M0_NOME + CRLF + CRLF
+            cTexto += Replicate( '-', 128 ) + CRLF
+            cTexto += 'Empresa : ' + SM0->M0_CODIGO + '/' + SM0->M0_NOME + CRLF + CRLF
 
-			oProcess:SetRegua1( 8 )
+            oProcess:SetRegua1( 8 )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX2         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de arquivos - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX2( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX2         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de arquivos - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX2( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX3         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			FSAtuSX3( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX3         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            FSAtuSX3( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SIX         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de índices - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSIX( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SIX         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de índices - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSIX( @cTexto )
 
-			oProcess:IncRegua1( 'Dicionário de dados - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			oProcess:IncRegua2( 'Atualizando campos/índices')
+            oProcess:IncRegua1( 'Dicionário de dados - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            oProcess:IncRegua2( 'Atualizando campos/índices')
 
-			// Alteracao fisica dos arquivos
-			__SetX31Mode( .F. )
+            // Alteracao fisica dos arquivos
+            __SetX31Mode( .F. )
 
-			If FindFunction(cTCBuild)
-				cTopBuild := &cTCBuild.()
-			EndIf
+            If FindFunction(cTCBuild)
+                cTopBuild := &cTCBuild.()
+            EndIf
 
-			For nX := 1 To Len( aArqUpd )
+            For nX := 1 To Len( aArqUpd )
 
-				If cTopBuild >= '20090811' .AND. TcInternal( 89 ) == 'CLOB_SUPPORTED'
-					If ( ( aArqUpd[nX] >= 'NQ ' .AND. aArqUpd[nX] <= 'NZZ' ) .OR. ( aArqUpd[nX] >= 'O0 ' .AND. aArqUpd[nX] <= 'NZZ' ) ) .AND.;
-						!aArqUpd[nX] $ 'NQD,NQF,NQP,NQT'
-						TcInternal( 25, 'CLOB' )
-					EndIf
-				EndIf
+                If cTopBuild >= '20090811' .AND. TcInternal( 89 ) == 'CLOB_SUPPORTED'
+                    If ( ( aArqUpd[nX] >= 'NQ ' .AND. aArqUpd[nX] <= 'NZZ' ) .OR. ( aArqUpd[nX] >= 'O0 ' .AND. aArqUpd[nX] <= 'NZZ' ) ) .AND.;
+                        !aArqUpd[nX] $ 'NQD,NQF,NQP,NQT'
+                        TcInternal( 25, 'CLOB' )
+                    EndIf
+                EndIf
 
-				If Select( aArqUpd[nX] ) > 0
-					dbSelectArea( aArqUpd[nX] )
-					dbCloseArea()
-				EndIf
+                If Select( aArqUpd[nX] ) > 0
+                    dbSelectArea( aArqUpd[nX] )
+                    dbCloseArea()
+                EndIf
 
-				X31UpdTable( aArqUpd[nX] )
+                X31UpdTable( aArqUpd[nX] )
 
-				If __GetX31Error()
-					Alert( __GetX31Trace() )
-					MsgStop( 'Ocorreu um erro desconhecido durante a atualização da tabela : ' + aArqUpd[nX] + '. Verifique a integridade do dicionário e da tabela.', 'ATENÇÃO' )
-					cTexto += 'Ocorreu um erro desconhecido durante a atualização da estrutura da tabela : ' + aArqUpd[nX] + CRLF
-				EndIf
+                If __GetX31Error()
+                    Alert( __GetX31Trace() )
+                    MsgStop( 'Ocorreu um erro desconhecido durante a atualização da tabela : ' + aArqUpd[nX] + '. Verifique a integridade do dicionário e da tabela.', 'ATENÇÃO' )
+                    cTexto += 'Ocorreu um erro desconhecido durante a atualização da estrutura da tabela : ' + aArqUpd[nX] + CRLF
+                EndIf
 
-				If cTopBuild >= '20090811' .AND. TcInternal( 89 ) == 'CLOB_SUPPORTED'
-					TcInternal( 25, 'OFF' )
-				EndIf
+                If cTopBuild >= '20090811' .AND. TcInternal( 89 ) == 'CLOB_SUPPORTED'
+                    TcInternal( 25, 'OFF' )
+                EndIf
 
-			Next nX
+            Next nX
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX6         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de parâmetros - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX6( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX6         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de parâmetros - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX6( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX7         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de gatilhos - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX7( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX7         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de gatilhos - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX7( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SXA         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de pastas - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSXA( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SXA         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de pastas - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSXA( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SXB         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de consultas padrão - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSXB( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SXB         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de consultas padrão - ' + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSXB( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX5         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de tabelas sistema - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX5( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX5         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de tabelas sistema - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX5( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX9         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de relacionamentos - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX9( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX9         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de relacionamentos - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX9( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza o dicionário SX1         ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Dicionário de perguntas - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuSX1( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza o dicionário SX1         ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Dicionário de perguntas - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuSX1( @cTexto )
 
-			//ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-			//³Atualiza os helps                 ³
-			//ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-			oProcess:IncRegua1( 'Helps de Campo - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
-			FSAtuHlp( @cTexto )
-			FSAtuHlpX1( @cTexto )
+            //ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            //³Atualiza os helps                 ³
+            //ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+            oProcess:IncRegua1( 'Helps de Campo - '  + SM0->M0_CODIGO + ' ' + SM0->M0_NOME + ' ...' )
+            FSAtuHlp( @cTexto )
+            FSAtuHlpX1( @cTexto )
 
-			RpcClearEnv()
+            RpcClearEnv()
 
-		Next nI
+        Next nI
 
-		If MyOpenSm0(.T.)
+        If MyOpenSm0(.T.)
 
-			cAux += Replicate( '-', 128 ) + CRLF
-			cAux += Replicate( ' ', 128 ) + CRLF
-			cAux += 'LOG DA ATUALIZACAO DOS DICIONÁRIOS' + CRLF
-			cAux += Replicate( ' ', 128 ) + CRLF
-			cAux += Replicate( '-', 128 ) + CRLF
-			cAux += CRLF
-			cAux += ' Dados Ambiente'        + CRLF
-			cAux += ' --------------------'  + CRLF
-			cAux += ' Empresa / Filial...: ' + cEmpAnt + '/' + cFilAnt  + CRLF
-			cAux += ' Nome Empresa.......: ' + Capital( AllTrim( GetAdvFVal( 'SM0', 'M0_NOMECOM', cEmpAnt + cFilAnt, 1, '' ) ) ) + CRLF
-			cAux += ' Nome Filial........: ' + Capital( AllTrim( GetAdvFVal( 'SM0', 'M0_FILIAL' , cEmpAnt + cFilAnt, 1, '' ) ) ) + CRLF
-			cAux += ' DataBase...........: ' + DtoC( dDataBase )  + CRLF
-			cAux += ' Data / Hora Inicio.: ' + DtoC( Date() ) + ' / ' + Time()  + CRLF
-			cAux += ' Environment........: ' + GetEnvServer()  + CRLF
-			cAux += ' StartPath..........: ' + GetSrvProfString( 'StartPath', '' )  + CRLF
-			cAux += ' RootPath...........: ' + GetSrvProfString( 'RootPath', '' )  + CRLF
-			cAux += ' Versao.............: ' + GetVersao(.T.)  + CRLF
-			cAux += ' Usuario TOTVS    ..: ' + __cUserId + ' ' +  cUserName + CRLF
-			cAux += ' Computer Name......: ' + GetComputerName()  + CRLF
+            cAux += Replicate( '-', 128 ) + CRLF
+            cAux += Replicate( ' ', 128 ) + CRLF
+            cAux += 'LOG DA ATUALIZACAO DOS DICIONÁRIOS' + CRLF
+            cAux += Replicate( ' ', 128 ) + CRLF
+            cAux += Replicate( '-', 128 ) + CRLF
+            cAux += CRLF
+            cAux += ' Dados Ambiente'        + CRLF
+            cAux += ' --------------------'  + CRLF
+            cAux += ' Empresa / Filial...: ' + cEmpAnt + '/' + cFilAnt  + CRLF
+            cAux += ' Nome Empresa.......: ' + Capital( AllTrim( GetAdvFVal( 'SM0', 'M0_NOMECOM', cEmpAnt + cFilAnt, 1, '' ) ) ) + CRLF
+            cAux += ' Nome Filial........: ' + Capital( AllTrim( GetAdvFVal( 'SM0', 'M0_FILIAL' , cEmpAnt + cFilAnt, 1, '' ) ) ) + CRLF
+            cAux += ' DataBase...........: ' + DtoC( dDataBase )  + CRLF
+            cAux += ' Data / Hora Inicio.: ' + DtoC( Date() ) + ' / ' + Time()  + CRLF
+            cAux += ' Environment........: ' + GetEnvServer()  + CRLF
+            cAux += ' StartPath..........: ' + GetSrvProfString( 'StartPath', '' )  + CRLF
+            cAux += ' RootPath...........: ' + GetSrvProfString( 'RootPath', '' )  + CRLF
+            cAux += ' Versao.............: ' + GetVersao(.T.)  + CRLF
+            cAux += ' Usuario TOTVS    ..: ' + __cUserId + ' ' +  cUserName + CRLF
+            cAux += ' Computer Name......: ' + GetComputerName()  + CRLF
 
-			aInfo   := GetUserInfo()
-			If ( nPos    := aScan( aInfo,{ |x,y| x[3] == ThreadId() } ) ) > 0
-				cAux += ' '  + CRLF
-				cAux += ' Dados Thread' + CRLF
-				cAux += ' --------------------'  + CRLF
-				cAux += ' Usuario da Rede....: ' + aInfo[nPos][1] + CRLF
-				cAux += ' Estacao............: ' + aInfo[nPos][2] + CRLF
-				cAux += ' Programa Inicial...: ' + aInfo[nPos][5] + CRLF
-				cAux += ' Environment........: ' + aInfo[nPos][6] + CRLF
-				cAux += ' Conexao............: ' + AllTrim( StrTran( StrTran( aInfo[nPos][7], Chr( 13 ), '' ), Chr( 10 ), '' ) )  + CRLF
-			EndIf
-			cAux += Replicate( '-', 128 ) + CRLF
-			cAux += CRLF
+            aInfo   := GetUserInfo()
+            If ( nPos    := aScan( aInfo,{ |x,y| x[3] == ThreadId() } ) ) > 0
+                cAux += ' '  + CRLF
+                cAux += ' Dados Thread' + CRLF
+                cAux += ' --------------------'  + CRLF
+                cAux += ' Usuario da Rede....: ' + aInfo[nPos][1] + CRLF
+                cAux += ' Estacao............: ' + aInfo[nPos][2] + CRLF
+                cAux += ' Programa Inicial...: ' + aInfo[nPos][5] + CRLF
+                cAux += ' Environment........: ' + aInfo[nPos][6] + CRLF
+                cAux += ' Conexao............: ' + AllTrim( StrTran( StrTran( aInfo[nPos][7], Chr( 13 ), '' ), Chr( 10 ), '' ) )  + CRLF
+            EndIf
+            cAux += Replicate( '-', 128 ) + CRLF
+            cAux += CRLF
 
-			cTexto := cAux + cTexto + CRLF
+            cTexto := cAux + cTexto + CRLF
 
-			cTexto += Replicate( '-', 128 ) + CRLF
-			cTexto += ' Data / Hora Final.: ' + DtoC( Date() ) + ' / ' + Time()  + CRLF
-			cTexto += Replicate( '-', 128 ) + CRLF
+            cTexto += Replicate( '-', 128 ) + CRLF
+            cTexto += ' Data / Hora Final.: ' + DtoC( Date() ) + ' / ' + Time()  + CRLF
+            cTexto += Replicate( '-', 128 ) + CRLF
 
-			cFileLog := MemoWrite( CriaTrab( , .F. ) + '.log', cTexto )
+            cFileLog := MemoWrite( CriaTrab( , .F. ) + '.log', cTexto )
 
-			Define Font oFont Name 'Mono AS' Size 5, 12
+            Define Font oFont Name 'Mono AS' Size 5, 12
 
-			Define MsDialog oDlg Title 'Atualizacao concluida.' From 3, 0 to 340, 417 Pixel
+            Define MsDialog oDlg Title 'Atualizacao concluida.' From 3, 0 to 340, 417 Pixel
 
-			@ 5, 5 Get oMemo Var cTexto Memo Size 200, 145 Of oDlg Pixel
-			oMemo:bRClicked := { || AllwaysTrue() }
-			oMemo:oFont     := oFont
+            @ 5, 5 Get oMemo Var cTexto Memo Size 200, 145 Of oDlg Pixel
+            oMemo:bRClicked := { || AllwaysTrue() }
+            oMemo:oFont     := oFont
 
-			Define SButton From 153, 175 Type  1 Action oDlg:End() Enable Of oDlg Pixel // Apaga
-			Define SButton From 153, 145 Type 13 Action ( cFile := cGetFile( cMask, '' ), If( cFile == '', .T., ;
-			MemoWrite( cFile, cTexto ) ) ) Enable Of oDlg Pixel // Salva e Apaga //'Salvar Como...'
+            Define SButton From 153, 175 Type  1 Action oDlg:End() Enable Of oDlg Pixel // Apaga
+            Define SButton From 153, 145 Type 13 Action ( cFile := cGetFile( cMask, '' ), If( cFile == '', .T., ;
+            MemoWrite( cFile, cTexto ) ) ) Enable Of oDlg Pixel // Salva e Apaga //'Salvar Como...'
 
-			Activate MsDialog oDlg Center
+            Activate MsDialog oDlg Center
 
-		EndIf
+        EndIf
 
-	EndIf
+    EndIf
 
 Else
 
-	lRet := .F.
+    lRet := .F.
 
 EndIf
 
@@ -426,3742 +426,3742 @@ aEstrut := { 'X3_ARQUIVO', 'X3_ORDEM'  , 'X3_CAMPO'  , 'X3_TIPO'   , 'X3_TAMANHO
 // Tabela AF2
 //
 aAdd( aSX3, { ;
-	'AF2'																	, ; //X3_ARQUIVO
-	'14'																	, ; //X3_ORDEM
-	'AF2_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'AF2'                                                                    , ; //X3_ARQUIVO
+    '14'                                                                    , ; //X3_ORDEM
+    'AF2_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela AF9
 //
 aAdd( aSX3, { ;
-	'AF9'																	, ; //X3_ARQUIVO
-	'21'																	, ; //X3_ORDEM
-	'AF9_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'AF9'                                                                    , ; //X3_ARQUIVO
+    '21'                                                                    , ; //X3_ORDEM
+    'AF9_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela AGG
 //
 aAdd( aSX3, { ;
-	'AGG'																	, ; //X3_ARQUIVO
-	'10'																	, ; //X3_ORDEM
-	'AGG_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'AGG'                                                                    , ; //X3_ARQUIVO
+    '10'                                                                    , ; //X3_ORDEM
+    'AGG_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela AGH
 //
 aAdd( aSX3, { ;
-	'AGH'																	, ; //X3_ARQUIVO
-	'11'																	, ; //X3_ORDEM
-	'AGH_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'AGH'                                                                    , ; //X3_ARQUIVO
+    '11'                                                                    , ; //X3_ORDEM
+    'AGH_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela ALN
 //
 aAdd( aSX3, { ;
-	'ALN'																	, ; //X3_ARQUIVO
-	'09'																	, ; //X3_ORDEM
-	'ALN_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'ALN'                                                                    , ; //X3_ARQUIVO
+    '09'                                                                    , ; //X3_ORDEM
+    'ALN_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela ALO
 //
 aAdd( aSX3, { ;
-	'ALO'																	, ; //X3_ARQUIVO
-	'08'																	, ; //X3_ORDEM
-	'ALO_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'ALO'                                                                    , ; //X3_ARQUIVO
+    '08'                                                                    , ; //X3_ORDEM
+    'ALO_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela ALP
 //
 aAdd( aSX3, { ;
-	'ALP'																	, ; //X3_ARQUIVO
-	'11'																	, ; //X3_ORDEM
-	'ALP_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'ALP'                                                                    , ; //X3_ARQUIVO
+    '11'                                                                    , ; //X3_ORDEM
+    'ALP_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela ALX
 //
 aAdd( aSX3, { ;
-	'ALX'																	, ; //X3_ARQUIVO
-	'12'																	, ; //X3_ORDEM
-	'ALX_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'ALX'                                                                    , ; //X3_ARQUIVO
+    '12'                                                                    , ; //X3_ORDEM
+    'ALX_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela BAU
 //
 aAdd( aSX3, { ;
-	'BAU'																	, ; //X3_ARQUIVO
-	'69'																	, ; //X3_ORDEM
-	'BAU_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	'1'																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'BAU'                                                                    , ; //X3_ARQUIVO
+    '69'                                                                    , ; //X3_ORDEM
+    'BAU_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    '1'                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela BBC
 //
 aAdd( aSX3, { ;
-	'BBC'																	, ; //X3_ARQUIVO
-	'23'																	, ; //X3_ORDEM
-	'BBC_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'BBC'                                                                    , ; //X3_ARQUIVO
+    '23'                                                                    , ; //X3_ORDEM
+    'BBC_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela BGQ
 //
 aAdd( aSX3, { ;
-	'BGQ'																	, ; //X3_ARQUIVO
-	'39'																	, ; //X3_ORDEM
-	'BGQ_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'BGQ'                                                                    , ; //X3_ARQUIVO
+    '39'                                                                    , ; //X3_ORDEM
+    'BGQ_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela BSQ
 //
 aAdd( aSX3, { ;
-	'BSQ'																	, ; //X3_ARQUIVO
-	'20'																	, ; //X3_ORDEM
-	'BSQ_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'BSQ'                                                                    , ; //X3_ARQUIVO
+    '20'                                                                    , ; //X3_ORDEM
+    'BSQ_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CNB
 //
 aAdd( aSX3, { ;
-	'CNB'																	, ; //X3_ARQUIVO
-	'64'																	, ; //X3_ORDEM
-	'CNB_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	'StaticCall(U_CNBFLDVLD,CNBXVISCTInit)'									, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CNB'                                                                    , ; //X3_ARQUIVO
+    '64'                                                                    , ; //X3_ORDEM
+    'CNB_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    'StaticCall(U_CNBFLDVLD,CNBXVISCTInit)'                                    , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CNE
 //
 aAdd( aSX3, { ;
-	'CNE'																	, ; //X3_ARQUIVO
-	'44'																	, ; //X3_ORDEM
-	'CNE_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	'StaticCall(U_CNEFLDVLD,CNEXVISCTInit)'									, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CNE'                                                                    , ; //X3_ARQUIVO
+    '44'                                                                    , ; //X3_ORDEM
+    'CNE_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    'StaticCall(U_CNEFLDVLD,CNEXVISCTInit)'                                    , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CNW
 //
 aAdd( aSX3, { ;
-	'CNW'																	, ; //X3_ARQUIVO
-	'12'																	, ; //X3_ORDEM
-	'CNW_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CNW'                                                                    , ; //X3_ARQUIVO
+    '12'                                                                    , ; //X3_ORDEM
+    'CNW_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CT2
 //
 aAdd( aSX3, { ;
-	'CT2'																	, ; //X3_ARQUIVO
-	'23'																	, ; //X3_ORDEM
-	'CT2_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CT2'                                                                    , ; //X3_ARQUIVO
+    '23'                                                                    , ; //X3_ORDEM
+    'CT2_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CT4
 //
 aAdd( aSX3, { ;
-	'CT4'																	, ; //X3_ARQUIVO
-	'02'																	, ; //X3_ORDEM
-	'CT4_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CT4'                                                                    , ; //X3_ARQUIVO
+    '02'                                                                    , ; //X3_ORDEM
+    'CT4_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CT9
 //
 aAdd( aSX3, { ;
-	'CT9'																	, ; //X3_ARQUIVO
-	'16'																	, ; //X3_ORDEM
-	'CT9_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CT9'                                                                    , ; //X3_ARQUIVO
+    '16'                                                                    , ; //X3_ORDEM
+    'CT9_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTB
 //
 aAdd( aSX3, { ;
-	'CTB'																	, ; //X3_ARQUIVO
-	'08'																	, ; //X3_ORDEM
-	'CTB_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTB'                                                                    , ; //X3_ARQUIVO
+    '08'                                                                    , ; //X3_ORDEM
+    'CTB_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTD
 //
 aAdd( aSX3, { ;
-	'CTD'																	, ; //X3_ARQUIVO
-	'02'																	, ; //X3_ORDEM
-	'CTD_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTD'                                                                    , ; //X3_ARQUIVO
+    '02'                                                                    , ; //X3_ORDEM
+    'CTD_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTI
 //
 aAdd( aSX3, { ;
-	'CTI'																	, ; //X3_ARQUIVO
-	'03'																	, ; //X3_ORDEM
-	'CTI_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTI'                                                                    , ; //X3_ARQUIVO
+    '03'                                                                    , ; //X3_ORDEM
+    'CTI_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTJ
 //
 aAdd( aSX3, { ;
-	'CTJ'																	, ; //X3_ARQUIVO
-	'15'																	, ; //X3_ORDEM
-	'CTJ_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTJ'                                                                    , ; //X3_ARQUIVO
+    '15'                                                                    , ; //X3_ORDEM
+    'CTJ_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTK
 //
 aAdd( aSX3, { ;
-	'CTK'																	, ; //X3_ARQUIVO
-	'17'																	, ; //X3_ORDEM
-	'CTK_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTK'                                                                    , ; //X3_ARQUIVO
+    '17'                                                                    , ; //X3_ORDEM
+    'CTK_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTQ
 //
 aAdd( aSX3, { ;
-	'CTQ'																	, ; //X3_ARQUIVO
-	'08'																	, ; //X3_ORDEM
-	'CTQ_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTQ'                                                                    , ; //X3_ARQUIVO
+    '08'                                                                    , ; //X3_ORDEM
+    'CTQ_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTS
 //
 aAdd( aSX3, { ;
-	'CTS'																	, ; //X3_ARQUIVO
-	'18'																	, ; //X3_ORDEM
-	'CTS_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTS'                                                                    , ; //X3_ARQUIVO
+    '18'                                                                    , ; //X3_ORDEM
+    'CTS_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTV
 //
 aAdd( aSX3, { ;
-	'CTV'																	, ; //X3_ARQUIVO
-	'03'																	, ; //X3_ORDEM
-	'CTV_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTV'                                                                    , ; //X3_ARQUIVO
+    '03'                                                                    , ; //X3_ORDEM
+    'CTV_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTX
 //
 aAdd( aSX3, { ;
-	'CTX'																	, ; //X3_ARQUIVO
-	'02'																	, ; //X3_ORDEM
-	'CTX_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTX'                                                                    , ; //X3_ARQUIVO
+    '02'                                                                    , ; //X3_ORDEM
+    'CTX_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTY
 //
 aAdd( aSX3, { ;
-	'CTY'																	, ; //X3_ARQUIVO
-	'03'																	, ; //X3_ORDEM
-	'CTY_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTY'                                                                    , ; //X3_ARQUIVO
+    '03'                                                                    , ; //X3_ORDEM
+    'CTY_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CTZ
 //
 aAdd( aSX3, { ;
-	'CTZ'																	, ; //X3_ARQUIVO
-	'14'																	, ; //X3_ORDEM
-	'CTZ_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CTZ'                                                                    , ; //X3_ARQUIVO
+    '14'                                                                    , ; //X3_ORDEM
+    'CTZ_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CV1
 //
 aAdd( aSX3, { ;
-	'CV1'																	, ; //X3_ARQUIVO
-	'13'																	, ; //X3_ORDEM
-	'CV1_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CV1'                                                                    , ; //X3_ARQUIVO
+    '13'                                                                    , ; //X3_ORDEM
+    'CV1_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CV3
 //
 aAdd( aSX3, { ;
-	'CV3'																	, ; //X3_ARQUIVO
-	'15'																	, ; //X3_ORDEM
-	'CV3_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CV3'                                                                    , ; //X3_ARQUIVO
+    '15'                                                                    , ; //X3_ORDEM
+    'CV3_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CV4
 //
 aAdd( aSX3, { ;
-	'CV4'																	, ; //X3_ARQUIVO
-	'11'																	, ; //X3_ORDEM
-	'CV4_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CV4'                                                                    , ; //X3_ARQUIVO
+    '11'                                                                    , ; //X3_ORDEM
+    'CV4_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CV5
 //
 aAdd( aSX3, { ;
-	'CV5'																	, ; //X3_ARQUIVO
-	'09'																	, ; //X3_ORDEM
-	'CV5_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CV5'                                                                    , ; //X3_ARQUIVO
+    '09'                                                                    , ; //X3_ORDEM
+    'CV5_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CV9
 //
 aAdd( aSX3, { ;
-	'CV9'																	, ; //X3_ARQUIVO
-	'09'																	, ; //X3_ORDEM
-	'CV9_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CV9'                                                                    , ; //X3_ARQUIVO
+    '09'                                                                    , ; //X3_ORDEM
+    'CV9_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CW1
 //
 aAdd( aSX3, { ;
-	'CW1'																	, ; //X3_ARQUIVO
-	'10'																	, ; //X3_ORDEM
-	'CW1_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CW1'                                                                    , ; //X3_ARQUIVO
+    '10'                                                                    , ; //X3_ORDEM
+    'CW1_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela CW2
 //
 aAdd( aSX3, { ;
-	'CW2'																	, ; //X3_ARQUIVO
-	'13'																	, ; //X3_ORDEM
-	'CW2_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	'4'																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'CW2'                                                                    , ; //X3_ARQUIVO
+    '13'                                                                    , ; //X3_ORDEM
+    'CW2_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    '4'                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela DBC
 //
 aAdd( aSX3, { ;
-	'DBC'																	, ; //X3_ARQUIVO
-	'23'																	, ; //X3_ORDEM
-	'DBC_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'N'																		} ) //X3_PYME
+    'DBC'                                                                    , ; //X3_ARQUIVO
+    '23'                                                                    , ; //X3_ORDEM
+    'DBC_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'N'                                                                        } ) //X3_PYME
 
 //
 // Tabela DT7
 //
 aAdd( aSX3, { ;
-	'DT7'																	, ; //X3_ARQUIVO
-	'09'																	, ; //X3_ORDEM
-	'DT7_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'N'																		} ) //X3_PYME
+    'DT7'                                                                    , ; //X3_ARQUIVO
+    '09'                                                                    , ; //X3_ORDEM
+    'DT7_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'N'                                                                        } ) //X3_PYME
 
 //
 // Tabela NN1
 //
 aAdd( aSX3, { ;
-	'NN1'																	, ; //X3_ARQUIVO
-	'10'																	, ; //X3_ORDEM
-	'NN1_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NN1'                                                                    , ; //X3_ARQUIVO
+    '10'                                                                    , ; //X3_ORDEM
+    'NN1_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NN2
 //
 aAdd( aSX3, { ;
-	'NN2'																	, ; //X3_ARQUIVO
-	'09'																	, ; //X3_ORDEM
-	'NN2_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NN2'                                                                    , ; //X3_ARQUIVO
+    '09'                                                                    , ; //X3_ORDEM
+    'NN2_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NN3
 //
 aAdd( aSX3, { ;
-	'NN3'																	, ; //X3_ARQUIVO
-	'14'																	, ; //X3_ORDEM
-	'NN3_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NN3'                                                                    , ; //X3_ARQUIVO
+    '14'                                                                    , ; //X3_ORDEM
+    'NN3_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NN9
 //
 aAdd( aSX3, { ;
-	'NN9'																	, ; //X3_ARQUIVO
-	'07'																	, ; //X3_ORDEM
-	'NN9_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NN9'                                                                    , ; //X3_ARQUIVO
+    '07'                                                                    , ; //X3_ORDEM
+    'NN9_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NO1
 //
 aAdd( aSX3, { ;
-	'NO1'																	, ; //X3_ARQUIVO
-	'19'																	, ; //X3_ORDEM
-	'NO1_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NO1'                                                                    , ; //X3_ARQUIVO
+    '19'                                                                    , ; //X3_ORDEM
+    'NO1_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NO7
 //
 aAdd( aSX3, { ;
-	'NO7'																	, ; //X3_ARQUIVO
-	'19'																	, ; //X3_ORDEM
-	'NO7_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NO7'                                                                    , ; //X3_ARQUIVO
+    '19'                                                                    , ; //X3_ORDEM
+    'NO7_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela NOA
 //
 aAdd( aSX3, { ;
-	'NOA'																	, ; //X3_ARQUIVO
-	'25'																	, ; //X3_ORDEM
-	'NOA_XVISCT'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'NOA'                                                                    , ; //X3_ARQUIVO
+    '25'                                                                    , ; //X3_ORDEM
+    'NOA_XVISCT'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SB1
 //
 aAdd( aSX3, { ;
-	'SB1'																	, ; //X3_ARQUIVO
-	'51'																	, ; //X3_ORDEM
-	'B1_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	'1'																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SB1'                                                                    , ; //X3_ARQUIVO
+    '51'                                                                    , ; //X3_ORDEM
+    'B1_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    '1'                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SC1
 //
 aAdd( aSX3, { ;
-	'SC1'																	, ; //X3_ARQUIVO
-	'38'																	, ; //X3_ORDEM
-	'C1_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	'3'																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SC1'                                                                    , ; //X3_ARQUIVO
+    '38'                                                                    , ; //X3_ORDEM
+    'C1_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    '3'                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SC2
 //
 aAdd( aSX3, { ;
-	'SC2'																	, ; //X3_ARQUIVO
-	'96'																	, ; //X3_ORDEM
-	'C2_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SC2'                                                                    , ; //X3_ARQUIVO
+    '96'                                                                    , ; //X3_ORDEM
+    'C2_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SC7
 //
 aAdd( aSX3, { ;
-	'SC7'																	, ; //X3_ARQUIVO
-	'36'																	, ; //X3_ORDEM
-	'C7_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SC7'                                                                    , ; //X3_ARQUIVO
+    '36'                                                                    , ; //X3_ORDEM
+    'C7_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SC8
 //
 aAdd( aSX3, { ;
-	'SC8'																	, ; //X3_ARQUIVO
-	'90'																	, ; //X3_ORDEM
-	'C8_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(160)					, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SC8'                                                                    , ; //X3_ARQUIVO
+    '90'                                                                    , ; //X3_ORDEM
+    'C8_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(160)                    , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SCH
 //
 aAdd( aSX3, { ;
-	'SCH'																	, ; //X3_ARQUIVO
-	'10'																	, ; //X3_ORDEM
-	'CH_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SCH'                                                                    , ; //X3_ARQUIVO
+    '10'                                                                    , ; //X3_ORDEM
+    'CH_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SCP
 //
 aAdd( aSX3, { ;
-	'SCP'																	, ; //X3_ARQUIVO
-	'24'																	, ; //X3_ORDEM
-	'CP_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SCP'                                                                    , ; //X3_ARQUIVO
+    '24'                                                                    , ; //X3_ORDEM
+    'CP_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SCQ
 //
 aAdd( aSX3, { ;
-	'SCQ'																	, ; //X3_ARQUIVO
-	'23'																	, ; //X3_ORDEM
-	'CQ_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SCQ'                                                                    , ; //X3_ARQUIVO
+    '23'                                                                    , ; //X3_ORDEM
+    'CQ_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SCT
 //
 aAdd( aSX3, { ;
-	'SCT'																	, ; //X3_ARQUIVO
-	'16'																	, ; //X3_ORDEM
-	'CT_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SCT'                                                                    , ; //X3_ARQUIVO
+    '16'                                                                    , ; //X3_ORDEM
+    'CT_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SCY
 //
 aAdd( aSX3, { ;
-	'SCY'																	, ; //X3_ARQUIVO
-	'21'																	, ; //X3_ORDEM
-	'CY_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SCY'                                                                    , ; //X3_ARQUIVO
+    '21'                                                                    , ; //X3_ORDEM
+    'CY_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SD1
 //
 aAdd( aSX3, { ;
-	'SD1'																	, ; //X3_ARQUIVO
-	'26'																	, ; //X3_ORDEM
-	'D1_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	'StaticCall(U_SD1FLDVLD,D1XVISCTBInit)'									, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SD1'                                                                    , ; //X3_ARQUIVO
+    '26'                                                                    , ; //X3_ORDEM
+    'D1_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    'StaticCall(U_SD1FLDVLD,D1XVISCTBInit)'                                    , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SD2
 //
 aAdd( aSX3, { ;
-	'SD2'																	, ; //X3_ARQUIVO
-	'97'																	, ; //X3_ORDEM
-	'D2_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SD2'                                                                    , ; //X3_ARQUIVO
+    '97'                                                                    , ; //X3_ORDEM
+    'D2_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SD3
 //
 aAdd( aSX3, { ;
-	'SD3'																	, ; //X3_ARQUIVO
-	'48'																	, ; //X3_ORDEM
-	'D3_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SD3'                                                                    , ; //X3_ARQUIVO
+    '48'                                                                    , ; //X3_ORDEM
+    'D3_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SDE
 //
 aAdd( aSX3, { ;
-	'SDE'																	, ; //X3_ARQUIVO
-	'11'																	, ; //X3_ORDEM
-	'DE_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SDE'                                                                    , ; //X3_ARQUIVO
+    '11'                                                                    , ; //X3_ORDEM
+    'DE_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SDG
 //
 aAdd( aSX3, { ;
-	'SDG'																	, ; //X3_ARQUIVO
-	'44'																	, ; //X3_ORDEM
-	'DG_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'N'																		} ) //X3_PYME
+    'SDG'                                                                    , ; //X3_ARQUIVO
+    '44'                                                                    , ; //X3_ORDEM
+    'DG_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'N'                                                                        } ) //X3_PYME
 
 //
 // Tabela SE1
 //
 aAdd( aSX3, { ;
-	'SE1'																	, ; //X3_ARQUIVO
-	'E9'																	, ; //X3_ORDEM
-	'E1_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SE1'                                                                    , ; //X3_ARQUIVO
+    'E9'                                                                    , ; //X3_ORDEM
+    'E1_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SE2
 //
 aAdd( aSX3, { ;
-	'SE2'																	, ; //X3_ARQUIVO
-	'21'																	, ; //X3_ORDEM
-	'E2_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	'€'																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SE2'                                                                    , ; //X3_ARQUIVO
+    '21'                                                                    , ; //X3_ORDEM
+    'E2_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    '€'                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SE3
 //
 aAdd( aSX3, { ;
-	'SE3'																	, ; //X3_ARQUIVO
-	'23'																	, ; //X3_ORDEM
-	'E3_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SE3'                                                                    , ; //X3_ARQUIVO
+    '23'                                                                    , ; //X3_ORDEM
+    'E3_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SE5
 //
 aAdd( aSX3, { ;
-	'SE5'																	, ; //X3_ARQUIVO
-	'49'																	, ; //X3_ORDEM
-	'E5_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	'€'																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SE5'                                                                    , ; //X3_ARQUIVO
+    '49'                                                                    , ; //X3_ORDEM
+    'E5_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    '€'                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SE7
 //
 aAdd( aSX3, { ;
-	'SE7'																	, ; //X3_ARQUIVO
-	'19'																	, ; //X3_ORDEM
-	'E7_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SE7'                                                                    , ; //X3_ARQUIVO
+    '19'                                                                    , ; //X3_ORDEM
+    'E7_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEA
 //
 aAdd( aSX3, { ;
-	'SEA'																	, ; //X3_ARQUIVO
-	'27'																	, ; //X3_ORDEM
-	'EA_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEA'                                                                    , ; //X3_ARQUIVO
+    '27'                                                                    , ; //X3_ORDEM
+    'EA_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SED
 //
 aAdd( aSX3, { ;
-	'SED'																	, ; //X3_ARQUIVO
-	'28'																	, ; //X3_ORDEM
-	'ED_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SED'                                                                    , ; //X3_ARQUIVO
+    '28'                                                                    , ; //X3_ORDEM
+    'ED_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEF
 //
 aAdd( aSX3, { ;
-	'SEF'																	, ; //X3_ARQUIVO
-	'49'																	, ; //X3_ORDEM
-	'EF_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEF'                                                                    , ; //X3_ARQUIVO
+    '49'                                                                    , ; //X3_ORDEM
+    'EF_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEH
 //
 aAdd( aSX3, { ;
-	'SEH'																	, ; //X3_ARQUIVO
-	'64'																	, ; //X3_ORDEM
-	'EH_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEH'                                                                    , ; //X3_ARQUIVO
+    '64'                                                                    , ; //X3_ORDEM
+    'EH_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SET
 //
 aAdd( aSX3, { ;
-	'SET'																	, ; //X3_ARQUIVO
-	'20'																	, ; //X3_ORDEM
-	'ET_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SET'                                                                    , ; //X3_ARQUIVO
+    '20'                                                                    , ; //X3_ORDEM
+    'ET_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEU
 //
 aAdd( aSX3, { ;
-	'SEU'																	, ; //X3_ARQUIVO
-	'34'																	, ; //X3_ORDEM
-	'EU_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEU'                                                                    , ; //X3_ARQUIVO
+    '34'                                                                    , ; //X3_ORDEM
+    'EU_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEW
 //
 aAdd( aSX3, { ;
-	'SEW'																	, ; //X3_ARQUIVO
-	'06'																	, ; //X3_ORDEM
-	'EW_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEW'                                                                    , ; //X3_ARQUIVO
+    '06'                                                                    , ; //X3_ORDEM
+    'EW_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SEZ
 //
 aAdd( aSX3, { ;
-	'SEZ'																	, ; //X3_ARQUIVO
-	'14'																	, ; //X3_ORDEM
-	'EZ_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SEZ'                                                                    , ; //X3_ARQUIVO
+    '14'                                                                    , ; //X3_ORDEM
+    'EZ_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SI2
 //
 aAdd( aSX3, { ;
-	'SI2'																	, ; //X3_ARQUIVO
-	'36'																	, ; //X3_ORDEM
-	'I2_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SI2'                                                                    , ; //X3_ARQUIVO
+    '36'                                                                    , ; //X3_ORDEM
+    'I2_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SI4
 //
 aAdd( aSX3, { ;
-	'SI4'																	, ; //X3_ARQUIVO
-	'04'																	, ; //X3_ORDEM
-	'I4_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SI4'                                                                    , ; //X3_ARQUIVO
+    '04'                                                                    , ; //X3_ORDEM
+    'I4_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SI9
 //
 aAdd( aSX3, { ;
-	'SI9'																	, ; //X3_ARQUIVO
-	'14'																	, ; //X3_ORDEM
-	'I9_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SI9'                                                                    , ; //X3_ARQUIVO
+    '14'                                                                    , ; //X3_ORDEM
+    'I9_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SIA
 //
 aAdd( aSX3, { ;
-	'SIA'																	, ; //X3_ARQUIVO
-	'03'																	, ; //X3_ORDEM
-	'IA_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SIA'                                                                    , ; //X3_ARQUIVO
+    '03'                                                                    , ; //X3_ORDEM
+    'IA_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SIC
 //
 aAdd( aSX3, { ;
-	'SIC'																	, ; //X3_ARQUIVO
-	'36'																	, ; //X3_ORDEM
-	'IC_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SIC'                                                                    , ; //X3_ARQUIVO
+    '36'                                                                    , ; //X3_ORDEM
+    'IC_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SN1
 //
 aAdd( aSX3, { ;
-	'SN1'																	, ; //X3_ARQUIVO
-	'A3'																	, ; //X3_ORDEM
-	'N1_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(160)					, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(192)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SN1'                                                                    , ; //X3_ARQUIVO
+    'A3'                                                                    , ; //X3_ORDEM
+    'N1_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(160)                    , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(192)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SN3
 //
 aAdd( aSX3, { ;
-	'SN3'																	, ; //X3_ARQUIVO
-	'64'																	, ; //X3_ORDEM
-	'N3_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SN3'                                                                    , ; //X3_ARQUIVO
+    '64'                                                                    , ; //X3_ORDEM
+    'N3_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SN4
 //
 aAdd( aSX3, { ;
-	'SN4'																	, ; //X3_ARQUIVO
-	'24'																	, ; //X3_ORDEM
-	'N4_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SN4'                                                                    , ; //X3_ARQUIVO
+    '24'                                                                    , ; //X3_ORDEM
+    'N4_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SN6
 //
 aAdd( aSX3, { ;
-	'SN6'																	, ; //X3_ARQUIVO
-	'04'																	, ; //X3_ORDEM
-	'N6_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SN6'                                                                    , ; //X3_ARQUIVO
+    '04'                                                                    , ; //X3_ORDEM
+    'N6_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SN7
 //
 aAdd( aSX3, { ;
-	'SN7'																	, ; //X3_ARQUIVO
-	'18'																	, ; //X3_ORDEM
-	'N7_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SN7'                                                                    , ; //X3_ARQUIVO
+    '18'                                                                    , ; //X3_ORDEM
+    'N7_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SNA
 //
 aAdd( aSX3, { ;
-	'SNA'																	, ; //X3_ARQUIVO
-	'04'																	, ; //X3_ORDEM
-	'NA_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SNA'                                                                    , ; //X3_ARQUIVO
+    '04'                                                                    , ; //X3_ORDEM
+    'NA_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SNG
 //
 aAdd( aSX3, { ;
-	'SNG'																	, ; //X3_ARQUIVO
-	'10'																	, ; //X3_ORDEM
-	'NG_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	'1'																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SNG'                                                                    , ; //X3_ARQUIVO
+    '10'                                                                    , ; //X3_ORDEM
+    'NG_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    '1'                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SNR
 //
 aAdd( aSX3, { ;
-	'SNR'																	, ; //X3_ARQUIVO
-	'11'																	, ; //X3_ORDEM
-	'NR_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SNR'                                                                    , ; //X3_ARQUIVO
+    '11'                                                                    , ; //X3_ORDEM
+    'NR_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Tabela SNS
 //
 aAdd( aSX3, { ;
-	'SNS'																	, ; //X3_ARQUIVO
-	'16'																	, ; //X3_ORDEM
-	'NS_XVISCTB'															, ; //X3_CAMPO
-	'C'																		, ; //X3_TIPO
-	13																		, ; //X3_TAMANHO
-	0																		, ; //X3_DECIMAL
-	'Visao Contab'															, ; //X3_TITULO
-	'Visao Contab'															, ; //X3_TITSPA
-	'Visao Contab'															, ; //X3_TITENG
-	'Visao Contabil'														, ; //X3_DESCRIC
-	'Visao Contabil'														, ; //X3_DESCSPA
-	'Visao Contabil'														, ; //X3_DESCENG
-	'@!'																	, ; //X3_PICTURE
-	''																		, ; //X3_VALID
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
-	Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)						, ; //X3_USADO
-	''																		, ; //X3_RELACAO
-	'CTDVIS'																, ; //X3_F3
-	0																		, ; //X3_NIVEL
-	Chr(254) + Chr(65)														, ; //X3_RESERV
-	''																		, ; //X3_CHECK
-	''																		, ; //X3_TRIGGER
-	'U'																		, ; //X3_PROPRI
-	'N'																		, ; //X3_BROWSE
-	'V'																		, ; //X3_VISUAL
-	'R'																		, ; //X3_CONTEXT
-	''																		, ; //X3_OBRIGAT
-	"EXISTCPO('CTD')"														, ; //X3_VLDUSER
-	''																		, ; //X3_CBOX
-	''																		, ; //X3_CBOXSPA
-	''																		, ; //X3_CBOXENG
-	''																		, ; //X3_PICTVAR
-	''																		, ; //X3_WHEN
-	''																		, ; //X3_INIBRW
-	'005'																	, ; //X3_GRPSXG
-	''																		, ; //X3_FOLDER
-	'S'																		} ) //X3_PYME
+    'SNS'                                                                    , ; //X3_ARQUIVO
+    '16'                                                                    , ; //X3_ORDEM
+    'NS_XVISCTB'                                                            , ; //X3_CAMPO
+    'C'                                                                        , ; //X3_TIPO
+    13                                                                        , ; //X3_TAMANHO
+    0                                                                        , ; //X3_DECIMAL
+    'Visao Contab'                                                            , ; //X3_TITULO
+    'Visao Contab'                                                            , ; //X3_TITSPA
+    'Visao Contab'                                                            , ; //X3_TITENG
+    'Visao Contabil'                                                        , ; //X3_DESCRIC
+    'Visao Contabil'                                                        , ; //X3_DESCSPA
+    'Visao Contabil'                                                        , ; //X3_DESCENG
+    '@!'                                                                    , ; //X3_PICTURE
+    ''                                                                        , ; //X3_VALID
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(128) + ;
+    Chr(128) + Chr(128) + Chr(128) + Chr(128) + Chr(32)                        , ; //X3_USADO
+    ''                                                                        , ; //X3_RELACAO
+    'CTDVIS'                                                                , ; //X3_F3
+    0                                                                        , ; //X3_NIVEL
+    Chr(254) + Chr(65)                                                        , ; //X3_RESERV
+    ''                                                                        , ; //X3_CHECK
+    ''                                                                        , ; //X3_TRIGGER
+    'U'                                                                        , ; //X3_PROPRI
+    'N'                                                                        , ; //X3_BROWSE
+    'V'                                                                        , ; //X3_VISUAL
+    'R'                                                                        , ; //X3_CONTEXT
+    ''                                                                        , ; //X3_OBRIGAT
+    "EXISTCPO('CTD')"                                                        , ; //X3_VLDUSER
+    ''                                                                        , ; //X3_CBOX
+    ''                                                                        , ; //X3_CBOXSPA
+    ''                                                                        , ; //X3_CBOXENG
+    ''                                                                        , ; //X3_PICTVAR
+    ''                                                                        , ; //X3_WHEN
+    ''                                                                        , ; //X3_INIBRW
+    '005'                                                                    , ; //X3_GRPSXG
+    ''                                                                        , ; //X3_FOLDER
+    'S'                                                                        } ) //X3_PYME
 
 //
 // Atualizando dicionário
@@ -4183,144 +4183,144 @@ cAliasAtu := ''
 
 For nI := 1 To Len( aSX3 )
 
-	//
-	// Verifica se o campo faz parte de um grupo e ajsuta tamanho
-	//
-	If !Empty( aSX3[nI][nPosSXG] )
-		SXG->( dbSetOrder( 1 ) )
-		If SXG->( MSSeek( aSX3[nI][nPosSXG] ) )
-			If aSX3[nI][nPosTam] <> SXG->XG_SIZE
-				aSX3[nI][nPosTam] := SXG->XG_SIZE
-				cTexto += 'O tamanho do campo ' + aSX3[nI][nPosCpo] + ' nao atualizado e foi mantido em ['
-				cTexto += AllTrim( Str( SXG->XG_SIZE ) ) + ']'+ CRLF
-				cTexto += '   por pertencer ao grupo de campos [' + SX3->X3_GRPSXG + ']' + CRLF + CRLF
-			EndIf
-		EndIf
-	EndIf
+    //
+    // Verifica se o campo faz parte de um grupo e ajsuta tamanho
+    //
+    If !Empty( aSX3[nI][nPosSXG] )
+        SXG->( dbSetOrder( 1 ) )
+        If SXG->( MSSeek( aSX3[nI][nPosSXG] ) )
+            If aSX3[nI][nPosTam] <> SXG->XG_SIZE
+                aSX3[nI][nPosTam] := SXG->XG_SIZE
+                cTexto += 'O tamanho do campo ' + aSX3[nI][nPosCpo] + ' nao atualizado e foi mantido em ['
+                cTexto += AllTrim( Str( SXG->XG_SIZE ) ) + ']'+ CRLF
+                cTexto += '   por pertencer ao grupo de campos [' + SX3->X3_GRPSXG + ']' + CRLF + CRLF
+            EndIf
+        EndIf
+    EndIf
 
-	SX3->( dbSetOrder( 2 ) )
+    SX3->( dbSetOrder( 2 ) )
 
-	If !( aSX3[nI][nPosArq] $ cAlias )
-		cAlias += aSX3[nI][nPosArq] + '/'
-		aAdd( aArqUpd, aSX3[nI][nPosArq] )
-	EndIf
+    If !( aSX3[nI][nPosArq] $ cAlias )
+        cAlias += aSX3[nI][nPosArq] + '/'
+        aAdd( aArqUpd, aSX3[nI][nPosArq] )
+    EndIf
 
-	If !SX3->( dbSeek( PadR( aSX3[nI][nPosCpo], nTamSeek ) ) )
+    If !SX3->( dbSeek( PadR( aSX3[nI][nPosCpo], nTamSeek ) ) )
 
-		//
-		// Busca ultima ocorrencia do alias
-		//
-		If ( aSX3[nI][nPosArq] <> cAliasAtu )
-			cSeqAtu   := '00'
-			cAliasAtu := aSX3[nI][nPosArq]
+        //
+        // Busca ultima ocorrencia do alias
+        //
+        If ( aSX3[nI][nPosArq] <> cAliasAtu )
+            cSeqAtu   := '00'
+            cAliasAtu := aSX3[nI][nPosArq]
 
-			dbSetOrder( 1 )
-			SX3->( dbSeek( cAliasAtu + 'ZZ', .T. ) )
-			dbSkip( -1 )
+            dbSetOrder( 1 )
+            SX3->( dbSeek( cAliasAtu + 'ZZ', .T. ) )
+            dbSkip( -1 )
 
-			If ( SX3->X3_ARQUIVO == cAliasAtu )
-				cSeqAtu := SX3->X3_ORDEM
-			EndIf
+            If ( SX3->X3_ARQUIVO == cAliasAtu )
+                cSeqAtu := SX3->X3_ORDEM
+            EndIf
 
-			nSeqAtu := Val( RetAsc( cSeqAtu, 3, .F. ) )
-		EndIf
+            nSeqAtu := Val( RetAsc( cSeqAtu, 3, .F. ) )
+        EndIf
 
-		nSeqAtu++
-		cSeqAtu := RetAsc( Str( nSeqAtu ), 2, .T. )
+        nSeqAtu++
+        cSeqAtu := RetAsc( Str( nSeqAtu ), 2, .T. )
 
-		RecLock( 'SX3', .T. )
-		For nJ := 1 To Len( aSX3[nI] )
-			If     nJ == 2    // Ordem
-				FieldPut( FieldPos( aEstrut[nJ] ), cSeqAtu )
+        RecLock( 'SX3', .T. )
+        For nJ := 1 To Len( aSX3[nI] )
+            If     nJ == 2    // Ordem
+                FieldPut( FieldPos( aEstrut[nJ] ), cSeqAtu )
 
-			ElseIf FieldPos( aEstrut[nJ] ) > 0
-				FieldPut( FieldPos( aEstrut[nJ] ), aSX3[nI][nJ] )
+            ElseIf FieldPos( aEstrut[nJ] ) > 0
+                FieldPut( FieldPos( aEstrut[nJ] ), aSX3[nI][nJ] )
 
-			EndIf
-		Next nJ
+            EndIf
+        Next nJ
 
-		dbCommit()
-		MsUnLock()
+        dbCommit()
+        MsUnLock()
 
-		cTexto += 'Criado o campo ' + aSX3[nI][nPosCpo] + CRLF
+        cTexto += 'Criado o campo ' + aSX3[nI][nPosCpo] + CRLF
 
-	Else
+    Else
 
-		//
-		// Verifica se o campo faz parte de um grupo e ajsuta tamanho
-		//
-		If !Empty( SX3->X3_GRPSXG ) .AND. SX3->X3_GRPSXG <> aSX3[nI][nPosSXG]
-			SXG->( dbSetOrder( 1 ) )
-			If SXG->( MSSeek( SX3->X3_GRPSXG ) )
-				If aSX3[nI][nPosTam] <> SXG->XG_SIZE
-					aSX3[nI][nPosTam] := SXG->XG_SIZE
-					cTexto += 'O tamanho do campo ' + aSX3[nI][nPosCpo] + ' nao atualizado e foi mantido em ['
-					cTexto += AllTrim( Str( SXG->XG_SIZE ) ) + ']'+ CRLF
-					cTexto += '   por pertencer ao grupo de campos [' + SX3->X3_GRPSXG + ']' + CRLF + CRLF
-				EndIf
-			EndIf
-		EndIf
+        //
+        // Verifica se o campo faz parte de um grupo e ajsuta tamanho
+        //
+        If !Empty( SX3->X3_GRPSXG ) .AND. SX3->X3_GRPSXG <> aSX3[nI][nPosSXG]
+            SXG->( dbSetOrder( 1 ) )
+            If SXG->( MSSeek( SX3->X3_GRPSXG ) )
+                If aSX3[nI][nPosTam] <> SXG->XG_SIZE
+                    aSX3[nI][nPosTam] := SXG->XG_SIZE
+                    cTexto += 'O tamanho do campo ' + aSX3[nI][nPosCpo] + ' nao atualizado e foi mantido em ['
+                    cTexto += AllTrim( Str( SXG->XG_SIZE ) ) + ']'+ CRLF
+                    cTexto += '   por pertencer ao grupo de campos [' + SX3->X3_GRPSXG + ']' + CRLF + CRLF
+                EndIf
+            EndIf
+        EndIf
 
-		//
-		// Verifica todos os campos
-		//
-		For nJ := 1 To Len( aSX3[nI] )
+        //
+        // Verifica todos os campos
+        //
+        For nJ := 1 To Len( aSX3[nI] )
 
-			//
-			// Se o campo estiver diferente da estrutura
-			//
-			If aEstrut[nJ] == SX3->( FieldName( nJ ) ) .AND. ;
-				PadR( StrTran( AllToChar( SX3->( FieldGet( nJ ) ) ), ' ', '' ), 250 ) <> ;
-				PadR( StrTran( AllToChar( aSX3[nI][nJ] )           , ' ', '' ), 250 ) .AND. ;
-				AllTrim( SX3->( FieldName( nJ ) ) ) <> 'X3_ORDEM'
+            //
+            // Se o campo estiver diferente da estrutura
+            //
+            If aEstrut[nJ] == SX3->( FieldName( nJ ) ) .AND. ;
+                PadR( StrTran( AllToChar( SX3->( FieldGet( nJ ) ) ), ' ', '' ), 250 ) <> ;
+                PadR( StrTran( AllToChar( aSX3[nI][nJ] )           , ' ', '' ), 250 ) .AND. ;
+                AllTrim( SX3->( FieldName( nJ ) ) ) <> 'X3_ORDEM'
 
-				cMsg := 'O campo ' + aSX3[nI][nPosCpo] + ' está com o ' + SX3->( FieldName( nJ ) ) + ;
-				' com o conteúdo' + CRLF + ;
-				'[' + RTrim( AllToChar( SX3->( FieldGet( nJ ) ) ) ) + ']' + CRLF + ;
-				'que será substituido pelo NOVO conteúdo' + CRLF + ;
-				'[' + RTrim( AllToChar( aSX3[nI][nJ] ) ) + ']' + CRLF + ;
-				'Deseja substituir ? '
+                cMsg := 'O campo ' + aSX3[nI][nPosCpo] + ' está com o ' + SX3->( FieldName( nJ ) ) + ;
+                ' com o conteúdo' + CRLF + ;
+                '[' + RTrim( AllToChar( SX3->( FieldGet( nJ ) ) ) ) + ']' + CRLF + ;
+                'que será substituido pelo NOVO conteúdo' + CRLF + ;
+                '[' + RTrim( AllToChar( aSX3[nI][nJ] ) ) + ']' + CRLF + ;
+                'Deseja substituir ? '
 
-				If      lTodosSim
-					nOpcA := 1
-				ElseIf  lTodosNao
-					nOpcA := 2
-				Else
-					nOpcA := Aviso( 'ATUALIZAÇÃO DE DICIONÁRIOS E TABELAS', cMsg, { 'Sim', 'Não', 'Sim p/Todos', 'Não p/Todos' }, 3,'Diferença de conteúdo - SX3' )
-					lTodosSim := ( nOpcA == 3 )
-					lTodosNao := ( nOpcA == 4 )
+                If      lTodosSim
+                    nOpcA := 1
+                ElseIf  lTodosNao
+                    nOpcA := 2
+                Else
+                    nOpcA := Aviso( 'ATUALIZAÇÃO DE DICIONÁRIOS E TABELAS', cMsg, { 'Sim', 'Não', 'Sim p/Todos', 'Não p/Todos' }, 3,'Diferença de conteúdo - SX3' )
+                    lTodosSim := ( nOpcA == 3 )
+                    lTodosNao := ( nOpcA == 4 )
 
-					If lTodosSim
-						nOpcA := 1
-						lTodosSim := MsgNoYes( 'Foi selecionada a opção de REALIZAR TODAS alterações no SX3 e NÃO MOSTRAR mais a tela de aviso.' + CRLF + 'Confirma a ação [Sim p/Todos] ?' )
-					EndIf
+                    If lTodosSim
+                        nOpcA := 1
+                        lTodosSim := MsgNoYes( 'Foi selecionada a opção de REALIZAR TODAS alterações no SX3 e NÃO MOSTRAR mais a tela de aviso.' + CRLF + 'Confirma a ação [Sim p/Todos] ?' )
+                    EndIf
 
-					If lTodosNao
-						nOpcA := 2
-						lTodosNao := MsgNoYes( 'Foi selecionada a opção de NÃO REALIZAR nenhuma alteração no SX3 que esteja diferente da base e NÃO MOSTRAR mais a tela de aviso.' + CRLF + 'Confirma esta ação [Não p/Todos]?' )
-					EndIf
+                    If lTodosNao
+                        nOpcA := 2
+                        lTodosNao := MsgNoYes( 'Foi selecionada a opção de NÃO REALIZAR nenhuma alteração no SX3 que esteja diferente da base e NÃO MOSTRAR mais a tela de aviso.' + CRLF + 'Confirma esta ação [Não p/Todos]?' )
+                    EndIf
 
-				EndIf
+                EndIf
 
-				If nOpcA == 1
-					cTexto += 'Alterado o campo ' + aSX3[nI][nPosCpo] + CRLF
-					cTexto += '   ' + PadR( SX3->( FieldName( nJ ) ), 10 ) + ' de [' + AllToChar( SX3->( FieldGet( nJ ) ) ) + ']' + CRLF
-					cTexto += '            para [' + AllToChar( aSX3[nI][nJ] )          + ']' + CRLF + CRLF
+                If nOpcA == 1
+                    cTexto += 'Alterado o campo ' + aSX3[nI][nPosCpo] + CRLF
+                    cTexto += '   ' + PadR( SX3->( FieldName( nJ ) ), 10 ) + ' de [' + AllToChar( SX3->( FieldGet( nJ ) ) ) + ']' + CRLF
+                    cTexto += '            para [' + AllToChar( aSX3[nI][nJ] )          + ']' + CRLF + CRLF
 
-					RecLock( 'SX3', .F. )
-					FieldPut( FieldPos( aEstrut[nJ] ), aSX3[nI][nJ] )
-					dbCommit()
-					MsUnLock()
+                    RecLock( 'SX3', .F. )
+                    FieldPut( FieldPos( aEstrut[nJ] ), aSX3[nI][nJ] )
+                    dbCommit()
+                    MsUnLock()
 
-				EndIf
+                EndIf
 
-			EndIf
+            EndIf
 
-		Next
+        Next
 
-	EndIf
+    EndIf
 
-	oProcess:IncRegua2( 'Atualizando Campos de Tabelas (SX3)...' )
+    oProcess:IncRegua2( 'Atualizando Campos de Tabelas (SX3)...' )
 
 Next nI
 
@@ -4366,42 +4366,42 @@ SIX->( dbSetOrder( 1 ) )
 
 For nI := 1 To Len( aSIX )
 
-	lAlt := .F.
+    lAlt := .F.
 
-	If !SIX->( dbSeek( aSIX[nI][1] + aSIX[nI][2] ) )
-		RecLock( 'SIX', .T. )
-		lDelInd := .F.
-		cTexto += 'Índice criado ' + aSIX[nI][1] + '/' + aSIX[nI][2] + ' - ' + aSIX[nI][3] + CRLF
-	Else
-		lAlt := .F.
-		RecLock( 'SIX', .F. )
-	EndIf
+    If !SIX->( dbSeek( aSIX[nI][1] + aSIX[nI][2] ) )
+        RecLock( 'SIX', .T. )
+        lDelInd := .F.
+        cTexto += 'Índice criado ' + aSIX[nI][1] + '/' + aSIX[nI][2] + ' - ' + aSIX[nI][3] + CRLF
+    Else
+        lAlt := .F.
+        RecLock( 'SIX', .F. )
+    EndIf
 
-	If !StrTran( Upper( AllTrim( CHAVE )       ), ' ', '') == ;
-	    StrTran( Upper( AllTrim( aSIX[nI][3] ) ), ' ', '' )
-		aAdd( aArqUpd, aSIX[nI][1] )
+    If !StrTran( Upper( AllTrim( CHAVE )       ), ' ', '') == ;
+        StrTran( Upper( AllTrim( aSIX[nI][3] ) ), ' ', '' )
+        aAdd( aArqUpd, aSIX[nI][1] )
 
-		If lAlt
-			lDelInd := .T.  // Se for alteracao precisa apagar o indice do banco
-			cTexto += 'Índice alterado ' + aSIX[nI][1] + '/' + aSIX[nI][2] + ' - ' + aSIX[nI][3] + CRLF
-		EndIf
+        If lAlt
+            lDelInd := .T.  // Se for alteracao precisa apagar o indice do banco
+            cTexto += 'Índice alterado ' + aSIX[nI][1] + '/' + aSIX[nI][2] + ' - ' + aSIX[nI][3] + CRLF
+        EndIf
 
-		For nJ := 1 To Len( aSIX[nI] )
-			If FieldPos( aEstrut[nJ] ) > 0
-				FieldPut( FieldPos( aEstrut[nJ] ), aSIX[nI][nJ] )
-			EndIf
-		Next nJ
+        For nJ := 1 To Len( aSIX[nI] )
+            If FieldPos( aEstrut[nJ] ) > 0
+                FieldPut( FieldPos( aEstrut[nJ] ), aSIX[nI][nJ] )
+            EndIf
+        Next nJ
 
-		If lDelInd
-			TcInternal( 60, RetSqlName( aSIX[nI][1] ) + '|' + RetSqlName( aSIX[nI][1] ) + aSIX[nI][2] ) // Exclui sem precisar baixar o TOP
-		EndIf
+        If lDelInd
+            TcInternal( 60, RetSqlName( aSIX[nI][1] ) + '|' + RetSqlName( aSIX[nI][1] ) + aSIX[nI][2] ) // Exclui sem precisar baixar o TOP
+        EndIf
 
-	EndIf
+    EndIf
 
-	dbCommit()
-	MsUnLock()
+    dbCommit()
+    MsUnLock()
 
-	oProcess:IncRegua2( 'Atualizando índices...' )
+    oProcess:IncRegua2( 'Atualizando índices...' )
 
 Next nI
 
@@ -4510,36 +4510,36 @@ aEstrut := { 'XA_ALIAS', 'XA_ORDEM', 'XA_DESCRIC', 'XA_DESCSPA', 'XA_DESCENG', '
 // Tabela SC1
 //
 aAdd( aSXA, { ;
-	'SC1'																	, ; //XA_ALIAS
-	'1'																		, ; //XA_ORDEM
-	'Material/Servico'														, ; //XA_DESCRIC
-	'Material/Servico'														, ; //XA_DESCSPA
-	'Material/Servico'														, ; //XA_DESCENG
-	'U'																		} ) //XA_PROPRI
+    'SC1'                                                                    , ; //XA_ALIAS
+    '1'                                                                        , ; //XA_ORDEM
+    'Material/Servico'                                                        , ; //XA_DESCRIC
+    'Material/Servico'                                                        , ; //XA_DESCSPA
+    'Material/Servico'                                                        , ; //XA_DESCENG
+    'U'                                                                        } ) //XA_PROPRI
 
 aAdd( aSXA, { ;
-	'SC1'																	, ; //XA_ALIAS
-	'2'																		, ; //XA_ORDEM
-	'Observacoes Tecnicas'													, ; //XA_DESCRIC
-	'Observacoes Tecnicas'													, ; //XA_DESCSPA
-	'Observacoes Tecnicas'													, ; //XA_DESCENG
-	'U'																		} ) //XA_PROPRI
+    'SC1'                                                                    , ; //XA_ALIAS
+    '2'                                                                        , ; //XA_ORDEM
+    'Observacoes Tecnicas'                                                    , ; //XA_DESCRIC
+    'Observacoes Tecnicas'                                                    , ; //XA_DESCSPA
+    'Observacoes Tecnicas'                                                    , ; //XA_DESCENG
+    'U'                                                                        } ) //XA_PROPRI
 
 aAdd( aSXA, { ;
-	'SC1'																	, ; //XA_ALIAS
-	'3'																		, ; //XA_ORDEM
-	'Pms'																	, ; //XA_DESCRIC
-	'Pms'																	, ; //XA_DESCSPA
-	'Pms'																	, ; //XA_DESCENG
-	'U'																		} ) //XA_PROPRI
+    'SC1'                                                                    , ; //XA_ALIAS
+    '3'                                                                        , ; //XA_ORDEM
+    'Pms'                                                                    , ; //XA_DESCRIC
+    'Pms'                                                                    , ; //XA_DESCSPA
+    'Pms'                                                                    , ; //XA_DESCENG
+    'U'                                                                        } ) //XA_PROPRI
 
 aAdd( aSXA, { ;
-	'SC1'																	, ; //XA_ALIAS
-	'4'																		, ; //XA_ORDEM
-	'Auditoria'																, ; //XA_DESCRIC
-	'Auditoria'																, ; //XA_DESCSPA
-	'Auditoria'																, ; //XA_DESCENG
-	'U'																		} ) //XA_PROPRI
+    'SC1'                                                                    , ; //XA_ALIAS
+    '4'                                                                        , ; //XA_ORDEM
+    'Auditoria'                                                                , ; //XA_DESCRIC
+    'Auditoria'                                                                , ; //XA_DESCSPA
+    'Auditoria'                                                                , ; //XA_DESCENG
+    'U'                                                                        } ) //XA_PROPRI
 
 //
 // Atualizando dicionário
@@ -4551,26 +4551,26 @@ dbSetOrder( 1 )
 
 For nI := 1 To Len( aSXA )
 
-	If !SXA->( dbSeek( aSXA[nI][1] + aSXA[nI][2] ) )
+    If !SXA->( dbSeek( aSXA[nI][1] + aSXA[nI][2] ) )
 
-		If !( aSXA[nI][1] $ cAlias )
-			cAlias += aSXA[nI][1] + '/'
-		EndIf
+        If !( aSXA[nI][1] $ cAlias )
+            cAlias += aSXA[nI][1] + '/'
+        EndIf
 
-		RecLock( 'SXA', .T. )
-		For nJ := 1 To Len( aSXA[nI] )
-			If FieldPos( aEstrut[nJ] ) > 0
-			FieldPut( FieldPos( aEstrut[nJ] ), aSXA[nI][nJ] )
-			EndIf
-		Next nJ
-		dbCommit()
-		MsUnLock()
+        RecLock( 'SXA', .T. )
+        For nJ := 1 To Len( aSXA[nI] )
+            If FieldPos( aEstrut[nJ] ) > 0
+            FieldPut( FieldPos( aEstrut[nJ] ), aSXA[nI][nJ] )
+            EndIf
+        Next nJ
+        dbCommit()
+        MsUnLock()
 
-		cTexto += 'Foi incluída a pasta ' + aSXA[nI][1] + '/' + aSXA[nI][2]  + CRLF
+        cTexto += 'Foi incluída a pasta ' + aSXA[nI][1] + '/' + aSXA[nI][2]  + CRLF
 
-		oProcess:IncRegua2( 'Atualizando Arquivos (SXA)...')
+        oProcess:IncRegua2( 'Atualizando Arquivos (SXA)...')
 
-	EndIf
+    EndIf
 
 Next nI
 
@@ -4649,29 +4649,29 @@ SX5->( dbSetOrder( 1 ) )
 
 For nI := 1 To Len( aSX5 )
 
-	oProcess:IncRegua2( 'Atualizando tabelas...' )
+    oProcess:IncRegua2( 'Atualizando tabelas...' )
 
-	If !SX5->( dbSeek( aSX5[nI][1] + aSX5[nI][2] + aSX5[nI][3]) )
-		cTexto += 'Item da tabela criado. Tabela '   + AllTrim( aSX5[nI][1] ) + aSX5[nI][2] + '/' + aSX5[nI][3] + CRLF
-		RecLock( 'SX5', .T. )
-	Else
-		cTexto += 'Item da tabela alterado. Tabela ' + AllTrim( aSX5[nI][1] ) + aSX5[nI][2] + '/' + aSX5[nI][3] + CRLF
-		RecLock( 'SX5', .F. )
-	EndIf
+    If !SX5->( dbSeek( aSX5[nI][1] + aSX5[nI][2] + aSX5[nI][3]) )
+        cTexto += 'Item da tabela criado. Tabela '   + AllTrim( aSX5[nI][1] ) + aSX5[nI][2] + '/' + aSX5[nI][3] + CRLF
+        RecLock( 'SX5', .T. )
+    Else
+        cTexto += 'Item da tabela alterado. Tabela ' + AllTrim( aSX5[nI][1] ) + aSX5[nI][2] + '/' + aSX5[nI][3] + CRLF
+        RecLock( 'SX5', .F. )
+    EndIf
 
-	For nJ := 1 To Len( aSX5[nI] )
-		If FieldPos( aEstrut[nJ] ) > 0
-			FieldPut( FieldPos( aEstrut[nJ] ), aSX5[nI][nJ] )
-		EndIf
-	Next nJ
+    For nJ := 1 To Len( aSX5[nI] )
+        If FieldPos( aEstrut[nJ] ) > 0
+            FieldPut( FieldPos( aEstrut[nJ] ), aSX5[nI][nJ] )
+        EndIf
+    Next nJ
 
-	MsUnLock()
+    MsUnLock()
 
-	aAdd( aArqUpd, aSX5[nI][1] )
+    aAdd( aArqUpd, aSX5[nI][1] )
 
-	If !( aSX5[nI][1] $ cAlias )
-		cAlias += aSX5[nI][1] + '/'
-	EndIf
+    If !( aSX5[nI][1] $ cAlias )
+        cAlias += aSX5[nI][1] + '/'
+    EndIf
 
 Next nI
 
@@ -4724,23 +4724,23 @@ SX1->( dbSetOrder( 1 ) )
 
 For nI := 1 To Len( aSX1 )
 
-	oProcess:IncRegua2( 'Atualizando perguntas...' )
+    oProcess:IncRegua2( 'Atualizando perguntas...' )
 
-	If !SX1->( dbSeek( PadR( aSX1[nI][1], nTam1 ) + PadR( aSX1[nI][2], nTam2 ) ) )
-		cTexto += 'Pergunta Criada. Grupo/Ordem '   + aSX1[nI][1] + '/' + aSX1[nI][2] + CRLF
-		RecLock( 'SX1', .T. )
-	Else
-		cTexto += 'Pergunta Alterada. Grupo/Ordem ' + aSX1[nI][1] + '/' + aSX1[nI][2] + CRLF
-		RecLock( 'SX1', .F. )
-	EndIf
+    If !SX1->( dbSeek( PadR( aSX1[nI][1], nTam1 ) + PadR( aSX1[nI][2], nTam2 ) ) )
+        cTexto += 'Pergunta Criada. Grupo/Ordem '   + aSX1[nI][1] + '/' + aSX1[nI][2] + CRLF
+        RecLock( 'SX1', .T. )
+    Else
+        cTexto += 'Pergunta Alterada. Grupo/Ordem ' + aSX1[nI][1] + '/' + aSX1[nI][2] + CRLF
+        RecLock( 'SX1', .F. )
+    EndIf
 
-	For nJ := 1 To Len( aSX1[nI] )
-		If aScan( aStruDic, { |aX| PadR( aX[1], 10 ) == PadR( aEstrut[nJ], 10 ) } ) > 0
-			SX1->( FieldPut( FieldPos( aEstrut[nJ] ), aSX1[nI][nJ] ) )
-		EndIf
-	Next nJ
+    For nJ := 1 To Len( aSX1[nI] )
+        If aScan( aStruDic, { |aX| PadR( aX[1], 10 ) == PadR( aEstrut[nJ], 10 ) } ) > 0
+            SX1->( FieldPut( FieldPos( aEstrut[nJ] ), aSX1[nI][nJ] ) )
+        EndIf
+    Next nJ
 
-	MsUnLock()
+    MsUnLock()
 
 Next nI
 
@@ -4888,7 +4888,7 @@ Local   aMarcadas  := {}
 
 
 If !MyOpenSm0(.F.)
-	Return aRet
+    Return aRet
 EndIf
 
 
@@ -4899,11 +4899,11 @@ dbGoTop()
 
 While !SM0->( EOF() )
 
-	If aScan( aVetor, {|x| x[2] == SM0->M0_CODIGO} ) == 0
-		aAdd(  aVetor, { aScan( aMarcadas, {|x| x[1] == SM0->M0_CODIGO .and. x[2] == SM0->M0_CODFIL} ) > 0, SM0->M0_CODIGO, SM0->M0_CODFIL, SM0->M0_NOME, SM0->M0_FILIAL } )
-	EndIf
+    If aScan( aVetor, {|x| x[2] == SM0->M0_CODIGO} ) == 0
+        aAdd(  aVetor, { aScan( aMarcadas, {|x| x[1] == SM0->M0_CODIGO .and. x[2] == SM0->M0_CODFIL} ) > 0, SM0->M0_CODIGO, SM0->M0_CODFIL, SM0->M0_NOME, SM0->M0_FILIAL } )
+    EndIf
 
-	dbSkip()
+    dbSkip()
 End
 
 RestArea( aSalvSM0 )
@@ -4967,7 +4967,7 @@ Static Function MarcaTodos( lMarca, aVetor, oLbx )
 Local  nI := 0
 
 For nI := 1 To Len( aVetor )
-	aVetor[nI][1] := lMarca
+    aVetor[nI][1] := lMarca
 Next nI
 
 oLbx:Refresh()
@@ -4992,7 +4992,7 @@ Static Function InvSelecao( aVetor, oLbx )
 Local  nI := 0
 
 For nI := 1 To Len( aVetor )
-	aVetor[nI][1] := !aVetor[nI][1]
+    aVetor[nI][1] := !aVetor[nI][1]
 Next nI
 
 oLbx:Refresh()
@@ -5018,9 +5018,9 @@ Local  nI    := 0
 
 aRet := {}
 For nI := 1 To Len( aVetor )
-	If aVetor[nI][1]
-		aAdd( aRet, { aVetor[nI][2] , aVetor[nI][3], aVetor[nI][2] +  aVetor[nI][3] } )
-	EndIf
+    If aVetor[nI][1]
+        aAdd( aRet, { aVetor[nI][2] , aVetor[nI][3], aVetor[nI][2] +  aVetor[nI][3] } )
+    EndIf
 Next nI
 
 Return NIL
@@ -5047,11 +5047,11 @@ Local nPos  := oLbx:nAt
 Local nZ    := 0
 
 For nZ := 1 To Len( aVetor )
-	If cPos1 == '?' .or. SubStr( aVetor[nZ][2], 1, 1 ) == cPos1
-		If cPos2 == '?' .or. SubStr( aVetor[nZ][2], 2, 1 ) == cPos2
-			aVetor[nZ][1] :=  lMarDes
-		EndIf
-	EndIf
+    If cPos1 == '?' .or. SubStr( aVetor[nZ][2], 1, 1 ) == cPos1
+        If cPos2 == '?' .or. SubStr( aVetor[nZ][2], 2, 1 ) == cPos2
+            aVetor[nZ][1] :=  lMarDes
+        EndIf
+    EndIf
 Next
 
 oLbx:nAt := nPos
@@ -5079,7 +5079,7 @@ Local lTTrue := .T.
 Local nI     := 0
 
 For nI := 1 To Len( aVetor )
-	lTTrue := IIf( !aVetor[nI][1], .F., lTTrue )
+    lTTrue := IIf( !aVetor[nI][1], .F., lTTrue )
 Next nI
 
 lChk := IIf( lTTrue, .T., .F. )
@@ -5108,21 +5108,21 @@ Local lOpen := .F.
 Local nLoop := 0
 
 For nLoop := 1 To 20
-	dbUseArea( .T., , 'SIGAMAT.EMP', 'SM0', lShared, .F. )
+    dbUseArea( .T., , 'SIGAMAT.EMP', 'SM0', lShared, .F. )
 
-	If !Empty( Select( 'SM0' ) )
-		lOpen := .T.
-		dbSetIndex( 'SIGAMAT.IND' )
-		Exit
-	EndIf
+    If !Empty( Select( 'SM0' ) )
+        lOpen := .T.
+        dbSetIndex( 'SIGAMAT.IND' )
+        Exit
+    EndIf
 
-	Sleep( 500 )
+    Sleep( 500 )
 
 Next nLoop
 
 If !lOpen
-	MsgStop( 'Não foi possível a abertura da tabela ' + ;
-	IIf( lShared, 'de empresas (SM0).', 'de empresas (SM0) de forma exclusiva.' ), 'ATENÇÃO' )
+    MsgStop( 'Não foi possível a abertura da tabela ' + ;
+    IIf( lShared, 'de empresas (SM0).', 'de empresas (SM0) de forma exclusiva.' ), 'ATENÇÃO' )
 EndIf
 
 Return lOpen

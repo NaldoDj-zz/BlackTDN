@@ -6,7 +6,7 @@
 /| PROGRAMA  | CTBFECHA          | AUTOR | NDJ       | Data | 09/06/2011 |/
 /+-----------------------------------------------------------------------------+/
 /| DESCRICAO | Funcao utilizada para alteração do conteúdo dos parâmetros      |/
-/|           | 		indicados no Vetor aParam								   |/
+/|           |         indicados no Vetor aParam                                   |/
 /+-----------------------------------------------------------------------------+/
 /| MANUTENCAO DESDE SUA CRIACAO                                                |/
 /+-----------------------------------------------------------------------------+/
@@ -32,25 +32,25 @@ Private aParam := {"MV_ULTDEPR","MV_DATAFIN","MV_DATAFIS","MV_DATAREC","MV_ULMES
 
 
 For i := 1 To Len(aParam) 
-	DbSelectArea("SX6")
-	DbSetOrder(1)
-	If DbSeek(cFilAnt+aParam[i])
-		nCont++
-	ElseIf DbSeek("  "+aParam[i])
-   		nCont++
-	Else
-		Aadd(aMsg,{"O Parametro "+aParam[i]+" não existe"+CHR(13)+CHR(10)})
-	EndIf
+    DbSelectArea("SX6")
+    DbSetOrder(1)
+    If DbSeek(cFilAnt+aParam[i])
+        nCont++
+    ElseIf DbSeek("  "+aParam[i])
+           nCont++
+    Else
+        Aadd(aMsg,{"O Parametro "+aParam[i]+" não existe"+CHR(13)+CHR(10)})
+    EndIf
 
 Next
 If !nCont = Len(aParam) 
-	For i := 1 To Len(aMsg)
-		cMensagem += (aMsg[i][1])
-	Next
-   	Aviso("Aviso",cMensagem,{"Ok"},1,"Parâmetro Inexistente")
-   //	Alert(cMensagem)
-	Return
-EndIf	                                                              
+    For i := 1 To Len(aMsg)
+        cMensagem += (aMsg[i][1])
+    Next
+       Aviso("Aviso",cMensagem,{"Ok"},1,"Parâmetro Inexistente")
+   //    Alert(cMensagem)
+    Return
+EndIf                                                                  
 
 
 _dData1 := GetMv("MV_ULTDEPR")
@@ -90,7 +90,7 @@ aData := {_dData1,_dData2,_dData3,_dData4,_dData5}
 
 /** Alteracao de parametros **/
 For i := 1 To Len(aParam)    
- 	FMudaParam(aData[i],aParam[i])                                          
+     FMudaParam(aData[i],aParam[i])                                          
 Next                                                                       
 Close(Dlg01)
 Return
@@ -103,7 +103,7 @@ Return
 ||ºDescricao: Função Utilizada alterar as datas dos parametros existentes  ||
 ||               No Vetor aParam                                           ||
 ||=========================================================================||
-||ºUso       ³ CTBFECHA						           ||
+||ºUso       ³ CTBFECHA                                   ||
 ||=========================================================================||
 ||=========================================================================||
 ---------------------------------------------------------------------------||
@@ -116,67 +116,66 @@ _cParametro := Parametro
 DbSelectArea("SX6")
 DbSetOrder(1)
 If DbSeek(cFilAnt+_cParametro)
-	If !Empty(_cData)
-		RecLock("SX6",.F.)
-		SX6->X6_CONTEUD := Substr(_cData,7,2)+"/"+ ;
+    If !Empty(_cData)
+        RecLock("SX6",.F.)
+        SX6->X6_CONTEUD := Substr(_cData,7,2)+"/"+ ;
                           Substr(_cData,5,2)+"/"+ ;
                           Substr(_cData,3,2)
-		MsUnLock()
-	Else
-		Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
-	Endif
+        MsUnLock()
+    Else
+        Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
+    Endif
 ElseIf dbSeek("  "+_cParametro) 
-	If !Empty(_cData)
-		RecLock("SX6",.F.)
-		SX6->X6_CONTEUD := Substr(_cData,7,2)+"/"+ ;
+    If !Empty(_cData)
+        RecLock("SX6",.F.)
+        SX6->X6_CONTEUD := Substr(_cData,7,2)+"/"+ ;
                           Substr(_cData,5,2)+"/"+ ;
                           Substr(_cData,3,2)
-		MsUnLock()
-	Else		
-			Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
-	Endif
+        MsUnLock()
+    Else        
+            Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
+    Endif
 Else
-	Alert("O parametro nao está criado!")
-EndIf	
+    Alert("O parametro nao está criado!")
+EndIf    
 
 Return
 /*
-	*******************
-	// Substituido pelo assistente de conversao do AP6 IDE em 08/09/03 ==> Function fMudaParam
-	Static Function fMudaParam()
-	*******************
-	 _cDataDe := Dtos(_dData1)
-	DbSelectArea("SX6")
-	DbSetOrder(1)
+    *******************
+    // Substituido pelo assistente de conversao do AP6 IDE em 08/09/03 ==> Function fMudaParam
+    Static Function fMudaParam()
+    *******************
+     _cDataDe := Dtos(_dData1)
+    DbSelectArea("SX6")
+    DbSetOrder(1)
 If DbSeek(cFilAnt+"MV_ULTDEPR")
-	If !Empty(_dDatade)
-		RecLock("SX6",.F.)
-		SX6->X6_CONTEUD := Substr(_cDatade,7,2)+"/"+ ;
+    If !Empty(_dDatade)
+        RecLock("SX6",.F.)
+        SX6->X6_CONTEUD := Substr(_cDatade,7,2)+"/"+ ;
                           Substr(_cDatade,5,2)+"/"+ ;
                           Substr(_cDatade,3,2)
-		MsUnLock()
-	Else
-		Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
-	Endif
+        MsUnLock()
+    Else
+        Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
+    Endif
 ElseIf dbSeek("  "+"MV_ULTDEPR") 
-	If !Empty(_dDatade)
-		RecLock("SX6",.F.)
-		SX6->X6_CONTEUD := Substr(_cDatade,7,2)+"/"+ ;
+    If !Empty(_dDatade)
+        RecLock("SX6",.F.)
+        SX6->X6_CONTEUD := Substr(_cDatade,7,2)+"/"+ ;
                           Substr(_cDatade,5,2)+"/"+ ;
                           Substr(_cDatade,3,2)
-		MsUnLock()
-	Else		
-			Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
-	Endif
+        MsUnLock()
+    Else        
+            Alert("O parametro nao podera ficar com o conteudo vazio, a rotina sera finaliza sem sucesso !")
+    Endif
 Else
-	Alert("O parametro nao está criado!")
-EndIf	
+    Alert("O parametro nao está criado!")
+EndIf    
 
-	
+    
  #IFDEF WINDOWS
     Close(Dlg01)
  #ENDIF
 
 Return
 */
-

@@ -1,5 +1,5 @@
 /*
- * $Id: xlsxml.prg 17100 2011-10-28 22:05:33Z vouchcac $
+ * #Id: xlsxml.prg 17100 2011-10-28 22:05:33Z vouchcac $
  */
 
 /*
@@ -54,10 +54,10 @@
 /*----------------------------------------------------------------------*/
 
 #IFDEF __HARBOUR__
-	#include "hbclass.ch"
+    #include "hbclass.ch"
 #ELSE
-	#include "ptxlsxml.ch"
-#ENDIF	
+    #include "ptxlsxml.ch"
+#ENDIF    
 
 #include "fileio.ch"
 
@@ -107,15 +107,15 @@ METHOD ExcelWriterXML:new( fileName )
 
 #ifndef __HARBOUR__
 
-   ::styles				:= {}
-   ::formatErrors		:= hb_hash()
-   ::sheets				:= {}
-   ::lShowErrorSheet	:= .f.
-   ::overwriteFile		:= .f.
-   ::cDocVersion		:= "11.9999"
+   ::styles                := {}
+   ::formatErrors        := hb_hash()
+   ::sheets                := {}
+   ::lShowErrorSheet    := .f.
+   ::overwriteFile        := .f.
+   ::cDocVersion        := "11.9999"
 
-   ::cError				:= ""
-   ::errors				:= .f.
+   ::cError                := ""
+   ::errors                := .f.
 
 #endif
    
@@ -540,12 +540,12 @@ FUNCTION EXRETIRAACENTOS( xtxt )
 /*----------------------------------------------------------------------*/
 
 #ifndef __HARBOUR__
-	Static Function __Dummy()
-		Local __lDummy := .F.
-		IF ( __lDummy )
-			AnsiToHtml()
-			OEMTOHTML()
-			__Dummy()
-		EndIF	
-	Return( NIL )
-#endif	
+    Static Function __Dummy()
+        Local __lDummy := .F.
+        IF ( __lDummy )
+            AnsiToHtml()
+            OEMTOHTML()
+            __Dummy()
+        EndIF    
+    Return( NIL )
+#endif    

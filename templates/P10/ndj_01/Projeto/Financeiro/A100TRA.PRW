@@ -4,13 +4,13 @@
 /*ܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜܜ܍
 �����������������������������������������������������������������������������
 ��ڄĄĄĄĄĂĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĂĄĄĄĄĄ���
-���Programa  � A100TRA	� Autor � Glaucio Oliveira      � Data �26/11/2010���
+���Programa  � A100TRA    � Autor � Glaucio Oliveira      � Data �26/11/2010���
 ��ÄĄĄĄĄąĄĄĄĄĄDĄĄĄńĄĄĄĂĄĄĄĄĄĄĄDĄĄāĄĄĄĄĄ���
 ���Locacao   � Fabr.Tradicional �Contato � eduardo.brust@microsiga.com.br ���
 ��ÄĄĄĄĄąĄĄĄĄĄĄĄĄĄDĄĄĄāĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄ���
 ���Descricao � Utilizado para contabilizacao da transferencia bancaria    ���
-���			 � por partida dobrada.				                          ���
-���          �   	 	  				                            	  ���
+���             � por partida dobrada.                                          ���
+���          �                                                                ���
 ��ÄĄĄĄĄąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄ���
 ���Analista Resp.�  Data  � Bops � Manutencao Efetuada                    ���
 ��ÄĄĄĄĄĄĄąĄĄĄĄńĄĄąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄ���
@@ -43,21 +43,21 @@ StaticCall( NDJLIB004 , SetPublic , "cContDest" , "" )
 DBSELECTAREA("SA6")
 DBSETORDER(1)
 IF DBSEEK(XFILIAL("SA6")+ParamIXB[2]+ParamIXB[4]+ParamIXB[6])
-	cContOrig := SA6->A6_CONTA
-		
+    cContOrig := SA6->A6_CONTA
+        
 ENDIF 
 
 // PEGA A CONTA DE DESTINO
 DBSELECTAREA("SA6")
 DBSETORDER(1)
 IF DBSEEK(XFILIAL("SA6")+ParamIXB[3]+ParamIXB[5]+ParamIXB[7])
-	cContDest := SA6->A6_CONTA
-		
+    cContDest := SA6->A6_CONTA
+        
 ENDIF   
 
 RecLock("SE5",.F.)  
-	SE5->E5_CREDITO := cContOrig
-	SE5->E5_DEBITO  := cContDest
+    SE5->E5_CREDITO := cContOrig
+    SE5->E5_DEBITO  := cContDest
 MsUnlock()
 
 //alert(cNumero)

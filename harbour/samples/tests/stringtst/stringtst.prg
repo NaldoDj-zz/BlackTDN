@@ -1,6 +1,6 @@
 /*
- * $Id: stringtst.prg
- * baseado no original de: Harbour Project source code: $Id: memtst.prg 13932 2010-02-20 11:57:17Z vszakats $
+ * #Id: stringtst.prg
+ * baseado no original de: Harbour Project source code: #Id: memtst.prg 13932 2010-02-20 11:57:17Z vszakats $
  * a small memory manager test code
  */
 #define N_LOOPS      (1000*1000)
@@ -22,7 +22,7 @@
         #include "totvs.ch"
     #else
         #include "protheus.ch"
-    #endif    
+    #endif
 #endif
 //-----------------------------------------------------------------------------------------------------------
 #ifdef __HARBOUR__
@@ -35,7 +35,7 @@ Static __lWGTickCount  := ( !IsSrvUnix() .and. ( aSCan( __FunArr() , { |e| ( e[1
 user function stringtst()
     local cCRLF        := CRLF
     local cVersion     := "TOTVS APPServer " + GetVersao(.T.,.F.) + " " + GetBuild() + " " + GetRPORelease()
-    local cOS          := IF( IsSrvUnix() , "Unix/Linux", "Windows" )     
+    local cOS          := IF( IsSrvUnix() , "Unix/Linux", "Windows" )
 #endif
     local dDate
     local cTime
@@ -51,25 +51,25 @@ user function stringtst()
     SET CENTURY ON
 
     for t := 1 to N_MAXLOOP
-    
+
         nRealSec    := seconds()
         nCPUSec     := hb_secondsCPU()
-    
+
         nfhandle    := fCreate( "stringstst" + StrZero(t,10) + ".log" )
         IF ( nfhandle < 0 )
              ? "Can not start a test: " + Str( t )
              loop
         EndIF
-     
+
         dDate := date()
         cTime := Time()
-     
+
         ? dDate, cTime, cVersion+", "+cOS
         cstringtst := dtoc( dDate ) + ", " + cTime + ", " + cVersion+", "+cOS + cCRLF
         #ifndef __HARBOUR__
             ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
         #endif
-     
+
         #ifdef __HARBOUR__
              if MEMORY( HB_MEM_USEDMAX ) != 0
                  ?
@@ -93,12 +93,12 @@ user function stringtst()
         #ifndef __HARBOUR__
              ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
         #endif
-        
+
         cstringtst += "Len( cWSpace ) :" + Transform( Len( cWSpace ) , "9999999999" ) + cCRLF
         #ifndef __HARBOUR__
              ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
         #endif
-        
+
         cstringtst += cCRLF
         #ifndef __HARBOUR__
              ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
@@ -131,20 +131,20 @@ user function stringtst()
         #ifndef __HARBOUR__
              ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
         #endif
-      
+
         ? " CPU time (total):", nCPUSec, "sec."
         cstringtst += " CPU time (total):" + Transform(  nCPUSec , "99999.9999999999" )  + " sec." + cCRLF
         #ifndef __HARBOUR__
              ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
         #endif
-         
+
         ? "real time (total):", nRealSec, "sec."
         cstringtst += "real time (total):" + Transform( nRealSec , "99999.9999999999" ) + " sec." + cCRLF
         ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
 
         fWrite( nfhandle , @cstringtst )
         fWrite( nfhandle , "stringtst Length:" + Transform( Len(cstringtst) , "9999999999" ) + cCRLF )
-          
+
         cstringtst := NIL
 
         fClose( nfhandle )
@@ -164,7 +164,7 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     local nCRLF
     local lFree := .F.
     local cstringtst
-    
+
     ?
     cstringtst := cCRLF
     #ifndef __HARBOUR__
@@ -175,13 +175,13 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ?
     cstringtst += cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     nRealSec    := seconds()
     nCPUSec     := hb_secondsCPU()
 
@@ -201,22 +201,22 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ? "real time:", nRealSec, "sec."
     cstringtst += "real time:" + Transform( nRealSec , "99999.9999999999" ) + " sec." + cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ?
     cstringtst += cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-   
-    ? "testing many large memory blocks allocation and freeing..."     
+
+    ? "testing many large memory blocks allocation and freeing..."
     ?
-   
+
     cstringtst += cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
@@ -225,7 +225,7 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ?
     cstringtst += cCRLF
     #ifndef __HARBOUR__
@@ -287,13 +287,13 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ? "real time:", nRealSec, "sec."
     cstringtst += "real time:" + Transform( nRealSec  , "99999.9999999999" ) + " sec." + cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ?
     cstringtst += cCRLF
     #ifndef __HARBOUR__
@@ -314,7 +314,7 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     cstringtst += "Warning!!! some compilers may badly fail here" + cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
@@ -327,7 +327,7 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
     #endif
 
     IdleSleep( 2 )
-    
+
     nRealSec    := seconds()
     nCPUSec     := hb_secondsCPU()
     nCRLF       := 0
@@ -363,13 +363,13 @@ static function stringtst(cCRLF,t,nSizeArr,cWSpace)
         #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     ? "real time:", nRealSec, "sec."
     cstringtst += "real time:" + Transform( nRealSec  , "99999.9999999999" ) + " sec." + cCRLF
     #ifndef __HARBOUR__
          ? "stringtst Length:" , Transform( Len(cstringtst) , "9999999999" ) + cCRLF
     #endif
-    
+
     IdleSleep( 2 )
 
 return( cstringtst )
@@ -406,19 +406,19 @@ return
               #endif
            #endif
         #endif
-	#else
-		static Function hb_secondsCPU()
-		IF ( __lWGTickCount )
-			Return(WGetTickCount())
-		Else
-			Return(Seconds())
-		EndIF	
+    #else
+        static Function hb_secondsCPU()
+        IF ( __lWGTickCount )
+            Return(WGetTickCount())
+        Else
+            Return(Seconds())
+        EndIF
     #endif
 #else
-	static Function hb_secondsCPU()
-	IF ( __lWGTickCount )
-		Return(WGetTickCount())
-	Else
-		Return(Seconds())
-	EndIF	
-#endif 
+    static Function hb_secondsCPU()
+    IF ( __lWGTickCount )
+        Return(WGetTickCount())
+    Else
+        Return(Seconds())
+    EndIF
+#endif

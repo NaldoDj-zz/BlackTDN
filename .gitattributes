@@ -99,6 +99,7 @@ ChangeLog.txt ident
 *.png     binary
 *.sq3     binary
 *.tif     binary
+*.ttf     binary
 *.wav     binary
 *.xlsx    binary
 *.nppcrypt binary

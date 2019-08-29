@@ -1,5 +1,5 @@
 /*
- * $Id: example3.prg 17099 2011-10-28 18:34:39Z vouchcac $
+ * #Id: example3.prg 17099 2011-10-28 18:34:39Z vouchcac $
  */
 
 /*
@@ -9,7 +9,7 @@
  * www - http://www.xharbour.org http://harbour-project.org
  *
  * Thanks TO Robert F Greer, PHP original version
- * http://sourceforge.net/projects/excelwriterxml/ 
+ * http://sourceforge.net/projects/excelwriterxml/
  *
  * This program is free software; you can redistribute it AND/OR modify
  * it under the terms of the GNU General PUBLIC License as published by
@@ -57,24 +57,24 @@ FUNCTION main()
 #else
 #include "ptxlsxml.ch"
 USER FUNCTION example3Xls()
-   LOCAL nVarNameLen 	:= SetVarNameLen(250)
-   LOCAL cTempPath		:= GetTempPath()
-#endif	
+   LOCAL nVarNameLen     := SetVarNameLen(250)
+   LOCAL cTempPath        := GetTempPath()
+#endif
    LOCAL xml, sheet1, format4
-   LOCAL xarquivo		:= 'example3.xml'
+   LOCAL xarquivo        := 'example3.xml'
 #ifndef __HARBOUR__
-	xarquivo := CriaTrab(NIL,.F.)+".xml"
-	HB_SYMBOL_UNUSED( __cCRLF )
-	SetsDefault()
+    xarquivo := CriaTrab(NIL,.F.)+".xml"
+    HB_SYMBOL_UNUSED( __cCRLF )
+    SetsDefault()
 #else
    SET DATE TO BRITISH
    SET CENTURY ON
-#endif 
-   
+#endif
+
 xml:= ExcelWriterXML():New(xarquivo)
-   
+
    sheet1 = xml:addSheet('Plan 1')
-   
+
    format4 = xml:addStyle('my style')
    format4:setFontSize(20)
    format4:setFontColor('yellow')
@@ -82,7 +82,7 @@ xml:= ExcelWriterXML():New(xarquivo)
 #ifndef __HARBOUR__
    //:Border Esta funcionando no Protheus e no harbour nao
    format4:border(NIL,'3',NIL,'Double')
-#endif   
+#endif
 
    sheet1:columnWidth(1,150)
    sheet1:columnWidth(2,150)
@@ -110,7 +110,7 @@ xml:= ExcelWriterXML():New(xarquivo)
 
    sheet1:writeString(6,1,'celula 6_A_C',format4)
    sheet1:cellMerge(6,1,2,0)
-   
+
    sheet1:writeString(7,1,'celula 7_A_C',format4)
    sheet1:cellMerge(7,1,2,0)
 
@@ -120,23 +120,23 @@ xml:= ExcelWriterXML():New(xarquivo)
 
    sheet1:writeString(9,2,'celula 9_B',format4)
 
-   xml:setOverwriteFile(.T.) 
+   xml:setOverwriteFile(.T.)
    xml:writeData(xarquivo)
 
 #ifndef __HARBOUR__
 
- 	IF __CopyFile(xarquivo,cTempPath+xarquivo)
-	 	fErase( xarquivo )
-		oExcelApp	:= MsExcel():New()
-		oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
-		oExcelApp:SetVisible(.T.)   
-		oExcelApp	:= oExcelApp:Destroy()
-	EndIF	
+     IF __CopyFile(xarquivo,cTempPath+xarquivo)
+         fErase( xarquivo )
+        oExcelApp    := MsExcel():New()
+        oExcelApp:WorkBooks:Open(cTempPath+xarquivo)
+        oExcelApp:SetVisible(.T.)
+        oExcelApp    := oExcelApp:Destroy()
+    EndIF
 
-	SetVarNameLen(nVarNameLen)
+    SetVarNameLen(nVarNameLen)
 
-#endif   
+#endif
 
-   RETURN NIL 
+   RETURN NIL
 
-/*----------------------------------------------------------------------*/                      
+/*----------------------------------------------------------------------*/

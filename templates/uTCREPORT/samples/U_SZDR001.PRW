@@ -6,7 +6,7 @@
 ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
 ฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑฑ
 ฑฑษออออออออออัออออออออออหอออออออัออออออออออออออออออออหออออออัอออออออออออออปฑฑ
-ฑฑบPrograma  ณSZDR001	บ Autor ณCarlos Andrade      บ Data ณ  24/10/12   บฑฑ
+ฑฑบPrograma  ณSZDR001    บ Autor ณCarlos Andrade      บ Data ณ  24/10/12   บฑฑ
 ฑฑฬออออออออออุออออออออออสอออออออฯออออออออออออออออออออสออออออฯอออออออออออออนฑฑ
 ฑฑบDescricao ณ Contas a Pagar x Cheques Emitidos                          บฑฑ
 ฑฑบ          ณ                                                            บฑฑ
@@ -30,7 +30,7 @@ Local cDesc3       := "Contas a Pagar x Cheques Emitidos"
 Local cPict        := ""
 Local titulo       := "Contas a Pagar x Cheques Emitidos"
 Local nLin         := 80
-Local Cabec1       := "Emiss. Cheque	Cod. Fornec   Desc. Fornec.	   		Num. Titulo    Venc. Titulo    Num. Cheque    Valor Cheque    Cod.Banco    Desc. Banco		Dt. Compensacao. Cheque"
+Local Cabec1       := "Emiss. Cheque    Cod. Fornec   Desc. Fornec.               Num. Titulo    Venc. Titulo    Num. Cheque    Valor Cheque    Cod.Banco    Desc. Banco        Dt. Compensacao. Cheque"
 Local Cabec2       := ""
 Local imprime      := .T.
 Local cPerg        := "SZDR001"
@@ -42,7 +42,7 @@ Private nomeprog   := "U_SZDR001" // Coloque aqui o nome do programa para impres
 Private nTipo      := 15
 Private aReturn    := { "Zebrado", 1, "Administracao", 1, 2, 1, "", 1}
 Private nLastKey   := 0   
-Private m_pag 	   := 1
+Private m_pag        := 1
 Private wnrel      := "U_SZDR001" // Coloque aqui o nome do arquivo usado para impressao em disco
 Private cString    := "SEF"
 
@@ -50,27 +50,27 @@ dbSelectArea("SEF")
 dbSetOrder(1)
 
 ValidPerg(cPerg)
-	
+    
 If ! Pergunte(cPerg, .T.)
-	Return
+    Return
 EndIf
 
 //ฺฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฟ
 //ณ Monta a interface padrao com o usuario...                           ณ
 //ภฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤู
 
-	wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.F.,,.T.,Tamanho,,.F.)
-	
-	If nLastKey == 27
-		Return
-	Endif
-	
-	SetDefault(aReturn,cString)
-	
-	If nLastKey == 27
-	   Return
-	Endif
-	
+    wnrel := SetPrint(cString,NomeProg,"",@titulo,cDesc1,cDesc2,cDesc3,.F.,,.T.,Tamanho,,.F.)
+    
+    If nLastKey == 27
+        Return
+    Endif
+    
+    SetDefault(aReturn,cString)
+    
+    If nLastKey == 27
+       Return
+    Endif
+    
 nTipo := If(aReturn[4]==1,15,18)
 
 //ฺฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฟ
@@ -173,27 +173,27 @@ Return
 Static Function MontaQuery()
 
 Local cQuery 
-Local cChequeDe		:= MV_PAR01
-Local cChequeAte	:= MV_PAR02
-Local dEmissaoDe	:= MV_PAR03
-Local dEmissaoAte	:= MV_PAR04
+Local cChequeDe        := MV_PAR01
+Local cChequeAte    := MV_PAR02
+Local dEmissaoDe    := MV_PAR03
+Local dEmissaoAte    := MV_PAR04
 
-Public cAlias 		:= GetNextAlias()
+Public cAlias         := GetNextAlias()
 
 cQuery := "SELECT " + CRLF
-cQuery += "		A2_COD, "  + CRLF
-cQuery += "		A2_NOME, " + CRLF
-cQuery += "		EF_FILIAL, " + CRLF
-cQuery += "		EF_BANCO, " + CRLF
-cQuery += "		EF_AGENCIA, " + CRLF
-cQuery += "		EF_CONTA, " + CRLF
-cQuery += "		A6_NOME, " + CRLF
-cQuery += "		ISNULL(E5_NUMCHEQ,'') AS E5_NUMCHEQ, " + CRLF
-cQuery += "		ISNULL(E5_VALOR,0) AS E5_VALOR, " + CRLF
-cQuery += "		ISNULL(E5_DTDISPO,'') AS E5_DTDISPO, "+ CRLF
-cQuery += "		EF_DATA, "  + CRLF
-cQuery += "		EF_FORNECE, " + CRLF
-cQuery += "		EF_TITULO " + CRLF
+cQuery += "        A2_COD, "  + CRLF
+cQuery += "        A2_NOME, " + CRLF
+cQuery += "        EF_FILIAL, " + CRLF
+cQuery += "        EF_BANCO, " + CRLF
+cQuery += "        EF_AGENCIA, " + CRLF
+cQuery += "        EF_CONTA, " + CRLF
+cQuery += "        A6_NOME, " + CRLF
+cQuery += "        ISNULL(E5_NUMCHEQ,'') AS E5_NUMCHEQ, " + CRLF
+cQuery += "        ISNULL(E5_VALOR,0) AS E5_VALOR, " + CRLF
+cQuery += "        ISNULL(E5_DTDISPO,'') AS E5_DTDISPO, "+ CRLF
+cQuery += "        EF_DATA, "  + CRLF
+cQuery += "        EF_FORNECE, " + CRLF
+cQuery += "        EF_TITULO " + CRLF
 cQuery += " FROM " + CRLF 
 cQuery += "      " + RetSqlName( "SEF") + " SEF" + CRLF
 cQuery += " INNER JOIN " 
@@ -201,7 +201,7 @@ cQuery += "            " + RetSQLName ("SA6") + " SA6 " + CRLF
 cQuery += " ON SA6.A6_FILIAL = '" + xFilial("SA6") + "' " + CRLF
 cQuery += " AND SA6.A6_COD = SEF.EF_BANCO AND SA6.A6_AGENCIA = SEF.EF_AGENCIA " + CRLF
 cQuery += " AND SA6.A6_NUMCON = SEF.EF_CONTA AND SA6.D_E_L_E_T_=' '" + CRLF              
-cQuery += "	INNER JOIN "                                 
+cQuery += "    INNER JOIN "                                 
 cQuery += "            " + RetSQLName ("SA2") + " SA2 " + CRLF
 cQuery += " ON SA2.A2_FILIAL  = '" + xFilial("SA2")+ "' " + CRLF
 cQuery += " AND SA2.A2_COD = SEF.EF_FORNECE AND SA2.A2_LOJA = SEF.EF_LOJA AND SA2.D_E_L_E_T_= ' '" + CRLF
@@ -211,7 +211,7 @@ cQuery += " ON SE5.E5_FILIAL = '" + xFilial("SE5")+ "' " + CRLF
 cQuery += " AND SEF.EF_FILIAL = SE5.E5_FILIAL AND SEF.EF_BANCO = SE5.E5_BANCO AND " + CRLF
 cQuery += " SEF.EF_AGENCIA = SE5.E5_AGENCIA AND SEF.EF_CONTA = SE5.E5_CONTA  AND " + CRLF
 cQuery += " SEF.EF_NUM = SE5.E5_NUMCHEQ AND SEF.EF_TIPO = SE5.E5_TIPODOC AND " + CRLF
-cQuery += " SEF.EF_FORNECE=SE5.E5_CLIFOR 
+cQuery += " SEF.EF_FORNECE=SE5.E5_CLIFOR" 
 cQuery += " AND " + CRLF
 cQuery += " SE5.E5_TIPODOC ='CH' AND SE5.E5_RECPAG='P' AND SE5.D_E_L_E_T_= ' ' " + CRLF
 cQuery += " WHERE " 
@@ -223,33 +223,33 @@ cQuery += "     SEF.EF_NUM <= '" + cChequeAte + "'" + CRLF
 cQuery += " AND " + CRLF
 cQuery += "     SEF.EF_DATA >= '" + DTOS(dEmissaoDe) + "'" + CRLF
 cQuery += " AND " + CRLF
-cQuery += "		SEF.EF_DATA <= '" + DTOS(dEmissaoAte) + "'" + CRLF
+cQuery += "        SEF.EF_DATA <= '" + DTOS(dEmissaoAte) + "'" + CRLF
 /*
 cQuery := "SELECT " + CRLF
-cQuery += "		EF_DATA, "  + CRLF
-cQuery += "		EF_FORNECE, " + CRLF
-cQuery += "		A2_NOME, " + CRLF
-cQuery += "		EF_TITULO, " + CRLF
-cQuery += "		EF_NUM, " + CRLF
-cQuery += "		EF_VALOR, " + CRLF
-cQuery += "		EF_BANCO, " + CRLF
-cQuery += "		A6_NOME, " + CRLF
-cQuery += "		E2_VENCREA, " + CRLF
-cQuery += "		E5_DTDISPO "+ CRLF  
+cQuery += "        EF_DATA, "  + CRLF
+cQuery += "        EF_FORNECE, " + CRLF
+cQuery += "        A2_NOME, " + CRLF
+cQuery += "        EF_TITULO, " + CRLF
+cQuery += "        EF_NUM, " + CRLF
+cQuery += "        EF_VALOR, " + CRLF
+cQuery += "        EF_BANCO, " + CRLF
+cQuery += "        A6_NOME, " + CRLF
+cQuery += "        E2_VENCREA, " + CRLF
+cQuery += "        E5_DTDISPO "+ CRLF  
 cQuery += " FROM " + CRLF 
 cQuery += "      " + RetSqlName( "SEF") + " SEF" + CRLF
 cQuery += " INNER JOIN " 
 cQuery += "            " + RetSQLName ("SE2") + " SE2 " + CRLF
 cQuery += " ON SEF.EF_FILIAL = '" + xFilial("SEF") + "' " + CRLF 
-cQuery += "	INNER JOIN "
+cQuery += "    INNER JOIN "
 cQuery += "            " + RetSQLName ("SE5") + " SE5 " + CRLF
 cQuery += " ON SE5.E5_FILIAL  = '" + xFilial("SE5")+ "' " + CRLF
-cQuery += "	INNER JOIN " 
+cQuery += "    INNER JOIN " 
 cQuery += "            " + RetSQLName ("SA2") + " SA2 " + CRLF
 cQuery += " ON SA2.A2_FILIAL = '" + xFilial("SA2")+ "' " + CRLF
 cQuery += " AND " + CRLF 
 cQuery += "    SA2.A2_COD = SE5.E5_CLIFOR" + CRLF
-cQuery += "	INNER JOIN " + CRLF 
+cQuery += "    INNER JOIN " + CRLF 
 cQuery += "            " + RetSQLName ("SA6") + " SA6 " + CRLF
 cQuery += " ON SA6.A6_FILIAL = '" + xFilial("SA6")+ "' " + CRLF
 cQuery += " WHERE " 
@@ -263,7 +263,7 @@ cQuery += "     SEF.EF_NUM <= '" + cChequeAte + "'" + CRLF
 cQuery += " AND " + CRLF
 cQuery += "     SEF.EF_DATA >= '" + DTOS(dEmissaoDe) + "'" + CRLF
 cQuery += " AND " + CRLF
-cQuery += "		SEF.EF_DATA <= '" + DTOS(dEmissaoAte) + "'" + CRLF 
+cQuery += "        SEF.EF_DATA <= '" + DTOS(dEmissaoAte) + "'" + CRLF 
 cQuery += " AND " + CRLF                
 cQuery += "     SEF.EF_LOJA = SE2.E2_LOJA " + CRLF
 cQuery += " AND " + CRLF
@@ -322,7 +322,7 @@ Return
 ฑฑษออออออออออัออออออออออหอออออออัออออออออออออออออออออหออออออัอออออออออออออปฑฑ
 ฑฑบPrograma  ณValidPerg บAutor  ณCarlos Andrade      บ Data ณ  24/10/12   บฑฑ
 ฑฑฬออออออออออุออออออออออสอออออออฯออออออออออออออออออออสออออออฯอออออออออออออนฑฑ
-ฑฑบDesc.     ณ Validacao do Parametro						              บฑฑ
+ฑฑบDesc.     ณ Validacao do Parametro                                      บฑฑ
 ฑฑบ          ณ                                                            บฑฑ
 ฑฑฬออออออออออุออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออนฑฑ
 ฑฑบUso       ณ SALOMAO ZOPPI DIAGNOSTICOS                                 บฑฑ
@@ -334,11 +334,11 @@ Return
 User Function ValField()
 
 If Empty( MV_PAR02 )
-	MsgInfo("Favor preencher o parametro. " )
+    MsgInfo("Favor preencher o parametro. " )
 EndIf
 
 If Empty( MV_PAR04 )
-	MsgInfo("Favor preencher o parametro. " )
+    MsgInfo("Favor preencher o parametro. " )
 EndIf
 
 Return     

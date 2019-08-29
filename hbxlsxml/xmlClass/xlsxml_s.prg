@@ -1,5 +1,5 @@
 /*
- * $Id: xlsxml_s.prg 17099 2011-10-28 18:34:39Z vouchcac $
+ * #Id: xlsxml_s.prg 17099 2011-10-28 18:34:39Z vouchcac $
  */
 
  /*
@@ -54,10 +54,10 @@
 /*----------------------------------------------------------------------*/
 
 #IFDEF __HARBOUR__
-	#include "hbclass.ch"
+    #include "hbclass.ch"
 #ELSE
-	#include "ptxlsxml.ch"
-#ENDIF	
+    #include "ptxlsxml.ch"
+#ENDIF    
 
 /*----------------------------------------------------------------------*/
 
@@ -106,7 +106,7 @@ METHOD ExcelWriterXML_Sheet:new( id )
    ::mergeCells             := hb_hash()
    ::comments               := hb_hash()
    ::formatErrors           := hb_hash()
-   ::ldisplayRightToLeft	:= .f.
+   ::ldisplayRightToLeft    := .f.
 #endif
 
    ::id := id 
@@ -123,7 +123,7 @@ METHOD ExcelWriterXML_Sheet:getID()
 METHOD ExcelWriterXML_Sheet:addError( cFunction, cMessage ) 
    LOCAL tmp := hb_hash()
    
-   tmp[ 'sheet'		] := ::id
+   tmp[ 'sheet'        ] := ::id
    tmp[ 'FUNCTION'  ] := cFunction
    tmp[ 'MESSAGE'   ] := cMessage
    ::formatErrors += tmp
@@ -135,7 +135,7 @@ METHOD ExcelWriterXML_Sheet:getErrors()
 #ifdef __HARBOUR__
    RETURN ::formatErrors
 #else
-	RETURN ::formatErrors:aTHashID
+    RETURN ::formatErrors:aTHashID
 #endif
 /*----------------------------------------------------------------------*/
          
@@ -194,8 +194,8 @@ METHOD ExcelWriterXML_Sheet:writeData( type, row, column, xData, style, formula 
       styleID := NIL
    ENDIF
    
-	cell := hb_hash()
-	cell[ 'type'   ] := type
+    cell := hb_hash()
+    cell[ 'type'   ] := type
     cell[ 'style'  ] := styleID
     cell[ 'data'   ] := xData
     cell[ 'formula'] := formula
@@ -397,12 +397,12 @@ METHOD ExcelWriterXML_Sheet:addComment( row, col,comment,author )
 /*----------------------------------------------------------------------*/
 
 #ifndef  __HARBOUR__
-	STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
-	RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )
-	STATIC FUNCTION hb_hKeyAt( hHash , hRow , hCol , hKey , lATRow  , lID )
-	RETURN( hHash:hGetKey( @hRow , @hCol , @hKey , @lATRow , NIL , @lID ) )
-	STATIC FUNCTION hb_HValueAt( hHash , hRow , hCol , hKey , lID )
-	RETURN( hHash:hGetValue( @hRow , @hCol , @hKey , .F. , @lID ) )
-	STATIC FUNCTION oemToHtmlEspecial( xData )
-	RETURN( StaticCall( xlsxml , oemToHtmlEspecial , @xData ) )
+    STATIC FUNCTION hb_hPos( hHash , hRow , hCol , hKey , lID )
+    RETURN( hHash:hPos( @hRow , @hCol , @hKey , NIL , @lID ) )
+    STATIC FUNCTION hb_hKeyAt( hHash , hRow , hCol , hKey , lATRow  , lID )
+    RETURN( hHash:hGetKey( @hRow , @hCol , @hKey , @lATRow , NIL , @lID ) )
+    STATIC FUNCTION hb_HValueAt( hHash , hRow , hCol , hKey , lID )
+    RETURN( hHash:hGetValue( @hRow , @hCol , @hKey , .F. , @lID ) )
+    STATIC FUNCTION oemToHtmlEspecial( xData )
+    RETURN( StaticCall( xlsxml , oemToHtmlEspecial , @xData ) )
 #endif

@@ -3,904 +3,904 @@
 #INCLUDE "TRYEXCEPTION.CH"
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
-³Programa  ³APDR40    ³Autor³Marinaldo de Jesus		           ³Data  ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descricoes³Relatório de Avaliação por Faixa vs Área/Departamento				 ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SINAF																 ³
-ÃÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Programa  ³APDR40    ³Autor³Marinaldo de Jesus                   ³Data  ³21/11/2009³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descricoes³Relatorio de Avaliacao por Faixa vs Area/Departamento                 ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SINAF                                                                 ³
+aÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
 ³            ATUALIZACOES SOFRIDAS DESDE A CONSTRUAO INICIAL                    ³
-ÃÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+aÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
 ³Programador ³Data      ³Nro. Ocorr.³Motivo da Alteracao                         ³
-ÃÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³            ³          ³           ³                    						 ³
-ÀÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+aÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³            ³          ³           ³                                             ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
 User Function APDR40()
-	
-	/*/
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Mascara do Relatório (220 Colunas)                           ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
-	    		10        20        30        40        50        60        70        80        90       100       110       120       130       140       150       160       170       180       190       200       210       220
-		1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
-	  	EMPRESA: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXX
-	    AVALIAÇÃO: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		----------------------------------------------------------------------------------------------------------------
+
+    /*/
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Mascara do Relatorio (220 Colunas)                           ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+                10        20        30        40        50        60        70        80        90       100       110       120       130       140       150       160       170       180       190       200       210       220
+        1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+          EMPRESA:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXX
+        AVALIAcao:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+        ----------------------------------------------------------------------------------------------------------------
         |    |                                 |   Insuficiente  |     Regular     |  Satisfatorio   |    Excelente    |
-	  	|QTDE| ÁREA                            |-----------------|-----------------------------------------------------|
-		|    |                                 | 999.99 a 999.99 | 999.99 a 999.99 | 999.99 a 999.99 | 999.99 a 999.99 |
-		|--------------------------------------------------------------------------------------------------------------|
-		|--------------------------------------------------------------------------------------------------------------|
+        |QTDE| AREA                            |-----------------|-----------------------------------------------------|
+        |    |                                 | 999.99 a 999.99 | 999.99 a 999.99 | 999.99 a 999.99 | 999.99 a 999.99 |
+        |--------------------------------------------------------------------------------------------------------------|
+        |--------------------------------------------------------------------------------------------------------------|
         |    |                                 |       999       |        999      |        999      |        999      |
-	  	|9999| XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  |-----------------|-----------------|-----------------|-----------------|
-		|    |                                 |       999%      |        999%     |        999%     |        999%     |
-		|----|---------------------------------------------------|-----------------|-----------------|-----------------|
-		----------------------------------------------------------------------------------------------------------------
-	/*/
+        |9999| XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  |-----------------|-----------------|-----------------|-----------------|
+        |    |                                 |       999%      |        999%     |        999%     |        999%     |
+        |----|---------------------------------------------------|-----------------|-----------------|-----------------|
+        ----------------------------------------------------------------------------------------------------------------
+    /*/
 
-	Local aArea		:= GetArea()
-	Local aOrd		:= {}
-	Local aImpress	:= aClone( __aImpress )
-	
-	Local cDesc1	:= OemToAnsi( "Relatório de Avaliação por Faixa vs Área/Departamento" )
-	Local cDesc2	:= OemToAnsi( "Ser  impresso de acordo com os parametros solicitados pelo" )
-	Local cDesc3	:= OemToAnsi( "usu rio." )
-	Local cAlias	:= "RD0"	//Alias do arquivo Principal ( Base )
-	Local cPerg		:= Padr( "U_APDR40" , Len( SX1->X1_GRUPO ) )
-	
-	Local wnRel
-	Local cMsgAlert
-	
-	Private aReturn  := {;
-							"Zebrado"		,;	//01 -> "Zebrado" -> Descricao do Tipo de Formulario que aparecera na Pasta Opcionais
-							NIL				,;  //02 -> Reservado...
-							"Administrao"	,;	//03 -> "Administrao" -> Descricao do Destinatario que aparecera na Pasta Opcionais
-							2				,;  //04 -> Orientacao do Relatório 1=Retrato;2=Paisagem
-							NIL				,;  //05 -> Local da Impressao
-							NIL				,;	//06 -> Nome com que o arquivo sera salvo
-							NIL				,;	//07 -> Filtro DEFAULT do Relatório que sera utilizado na Pasta Filtro
-							1		 		;	//08 -> Ordem DEFAULT do Relatório que srea utilizado na Pasta Ordem
-						}
-	
-	Private NomeProg := FunName()
-	Private Titulo   := cDesc1
-	Private nTamanho := "M"
-	Private wCabec0  := 2
-	Private wCabec1  := "EMPRESA:"
-	Private wCabec2  := "AVALIAÇÃO:"
-	
-	Private ContFl   := 1
-	Private Li       := 0
-	Private nLastKey := 0
+    Local aArea:=GetArea()
+    Local aOrd:={}
+    Local aImpress:=aClone(__aImpress)
 
-	Private cAPDRAva
-	Private cAPDREsc
-	Private cAPDREmp
-	Private dAPDRIni
-	Private dAPDRFim
+    Local cDesc1:=OemToAnsi("Relatorio de Avaliacao por Faixa vs Area/Departamento")
+    Local cDesc2:=OemToAnsi("Ser  impresso de acordo com os parametros solicitados pelo")
+    Local cDesc3:=OemToAnsi("usuario.")
+    Local cAlias:="RD0"//Alias do arquivo Principal (Base)
+    Local cPerg:=Padr("U_APDR40",Len(SX1->X1_GRUPO))
 
-	BEGIN SEQUENCE
+    Local wnRel
+    Local cMsgAlert
 
-		Pergunte( cPerg , .F. )
+    Private aReturn:={;
+                            "Zebrado",;             //01 -> "Zebrado" -> Descricao do Tipo de Formulario que aparecera na Pasta Opcionais
+                            NIL,;                   //02 -> Reservado...
+                            "Administracao",;       //03 -> "Administracao" -> Descricao do Destinatario que aparecera na Pasta Opcionais
+                            2,;                     //04 -> Orientacao do Relatorio 1=Retrato;2=Paisagem
+                            NIL,;                   //05 -> Local da Impressao
+                            NIL,;                   //06 -> Nome com que o arquivo sera salvo
+                            NIL,;                   //07 -> Filtro DEFAULT do Relatorio que sera utilizado na Pasta Filtro
+                            1;                      //08 -> Ordem DEFAULT do Relatorio que srea utilizado na Pasta Ordem
+                        }
 
-		APDR40AvaVld(.F.)
-		APDR40EscVld(.F.)
-		APDR40EmpVld(.F.)
-		APDR40IniVld(.F.)
-		APDR40FimVld(.F.)
+    Private NomeProg:=FunName()
+    Private Titulo:=cDesc1
+    Private nTamanho:="M"
+    Private wCabec0:=2
+    Private wCabec1:="EMPRESA:"
+    Private wCabec2:="AVALIAcao:"
 
-		__aImpress[1] := 1
+    Private ContFl:=1
+    Private Li:=0
+    Private nLastKey:=0
 
-		/*/
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Envia controle para a funcao SETPRINT                        ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-		wnRel := NomeProg
-		wnRel := SetPrint(;
-							""			,;	//01 -> cAlias:			Alias da Tabela
-							wnRel		,;	//02 -> cNome: 			Nome do Relatório
-							cPerg		,;	//03 -> cPerg: 			Grupo de Perguntas
-							@Titulo 	,;	//04 -> cDesc: 			Descricao do Relatório
-							cDesc1		,;	//05 -> cCnt1: 			1a. Descricao que aparecera no Rodape da Pasta Impressao
-							cDesc2		,;	//06 -> cCnt2: 			2a. Descricao que aparecera no Rodape da Pasta Impressao	
-							cDesc3		,;	//07 -> cCnt3: 			3a. Descricao que aparecera no Rodape da Pasta Impressao
-							.F.			,;	//08 -> lDic:  			Se Disponibilizara Pasta para Selecao dos Campos
-							aOrd		,;	//09 -> aOrd:  			Array com a Descricao das Ordens para Selecao	
-							.T.			,;	//10 -> lCompres: 		Se habilitara compressao do Relatório
-							nTamanho    ,;	//11 -> cSize: 			Tamanho do Relatório "P=80Colunas";"M=132Colunas";"G=220Colunas"
-							NIL			,;	//12 -> aFilter: 		Array com expressao de Filtro
-							.F.			,;	//13 -> lFiltro: 		Se habilitara a Pasta Filtro
-							.F.			,;	//14 -> lCrystal: 		Se relatorio esta integrado ao Crystal Report
-							NIL			,;	//15 -> cNameDrv: 		Nome do Drive que sera utilizado para a impressao
-							NIL			,;	//16 -> lNoAsc: 		Se mostrara a Caixa de Dialogo para a SetPrint
-							NIL			,;	//17 -> lServer: 		Se a impressao sera no servidor
-							NIL			 ;	//18 -> cPortToPrint:	Porta para a Impressao
-						)
-	
-		/*/
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Se pressionou a Tecla "ESC" abandona                         ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-		IF ( nLastKey == 27 )
-			Break
-		EndIF
-	
-		/*/
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Chamada a SetDefault para carga das Informacoes do  Seleciona³
-		³ das na SetPrint()											   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-		SetDefault(;
-						@aReturn	,;	//01 -> aRet:		Array com a Estrutura do aReturn	
-						cAlias		,;	//02 -> cAlias:		Alias do Arquivo
-						NIL			,;	//03 -> lPortr:		Se Retrato 
-						NIL			,;	//04 -> lNoAsk:		Se tera Display
-						@nTamanho	,;	//05 -> cSize:		Tamanho do Relatório
-						2			 ;	//06 -> nOrienta:	Orientacao do Relatório ( 1-Retrato; 2-Paisagem )
-					)
-	
-		/*/
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Se pressionou a Tecla "ESC" abandona                         ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-		IF ( nLastKey == 27 )
-		   Break
-		EndIF
-		
-		Pergunte( cPerg , .F. )
+    Private cAPDRAva
+    Private cAPDREsc
+    Private cAPDREmp
+    Private dAPDRIni
+    Private dAPDRFim
 
-		IF !( APDR40AvaVld() )
-			Break
-		EndIF
-		
-		IF !( APDR40EscVld() )
-			Break
-		EndIF
-		
-		IF !( APDR40EmpVld() )
-			Break
-		EndIF
+    BEGIN SEQUENCE
 
-		IF !( APDR40IniVld() )
-			Break
-		EndIF
+        Pergunte(cPerg,.F.)
 
-		IF !( APDR40FimVld() )
-			Break
-		EndIF
-		
-		/*/
-		ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-		³ Chamada a Rotina de Impressao							   ³
-		ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-		RptStatus( { |lEnd| PrintRel( @lEnd , @wnRel , @cPerg ) } , Titulo )
-		
-	END SEQUENCE
-	
-	/*/
-	ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
-	³ Restaura os Ponteiros de Entrada							   ³
-	ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-	__aImpress := aClone( aImpress )
-	RestArea( aArea )
+        APDR40AvaVld(.F.)
+        APDR40EscVld(.F.)
+        APDR40EmpVld(.F.)
+        APDR40IniVld(.F.)
+        APDR40FimVld(.F.)
 
-Return( NIL )
+        __aImpress[1]:=1
+
+        /*/
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Envia controle para a funcao SETPRINT                        ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+        wnRel:=NomeProg
+        wnRel:=SetPrint(;
+                            "",;        //01 -> cAlias:Alias da Tabela
+                            wnRel,;     //02 -> cNome:Nome do Relatorio
+                            cPerg,;     //03 -> cPerg:Grupo de Perguntas
+                            @Titulo,;   //04 -> cDesc:Descricao do Relatorio
+                            cDesc1,;    //05 -> cCnt1:1a. Descricao que aparecera no Rodape da Pasta Impressao
+                            cDesc2,;    //06 -> cCnt2:2a. Descricao que aparecera no Rodape da Pasta Impressao
+                            cDesc3,;    //07 -> cCnt3:3a. Descricao que aparecera no Rodape da Pasta Impressao
+                            .F.,;       //08 -> lDic:Se Disponibilizara Pasta para Selecao dos Campos
+                            aOrd,;      //09 -> aOrd:Array com a Descricao das Ordens para Selecao
+                            .T.,;       //10 -> lCompres:Se habilitara compressao do Relatorio
+                            nTamanho,;  //11 -> cSize:Tamanho do Relatorio "P=80Colunas";"M=132Colunas";"G=220Colunas"
+                            NIL,;       //12 -> aFilter:Array com expressao de Filtro
+                            .F.,;       //13 -> lFiltro:Se habilitara a Pasta Filtro
+                            .F.,;       //14 -> lCrystal:Se relatorio esta integrado ao Crystal Report
+                            NIL,;       //15 -> cNameDrv:Nome do Drive que sera utilizado para a impressao
+                            NIL,;       //16 -> lNoAsc:Se mostrara a Caixa de Dialogo para a SetPrint
+                            NIL,;       //17 -> lServer:Se a impressao sera no servidor
+                            NIL;        //18 -> cPortToPrint:Porta para a Impressao
+                       )
+
+        /*/
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Se pressionou a Tecla "ESC" abandona                         ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+        IF (nLastKey==27)
+            Break
+        EndIF
+
+        /*/
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Chamada a SetDefault para carga das Informacoes do  Seleciona³
+        ³ das na SetPrint()                                               ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+        SetDefault(;
+                        @aReturn,;  //01 -> aRet:Array com a Estrutura do aReturn
+                        cAlias,;    //02 -> cAlias:Alias do Arquivo
+                        NIL,;       //03 -> lPortr:Se Retrato
+                        NIL,;       //04 -> lNoAsk:Se tera Display
+                        @nTamanho,; //05 -> cSize:Tamanho do Relatorio
+                        2;          //06 -> nOrienta:Orientacao do Relatorio (1-Retrato; 2-Paisagem)
+                   )
+
+        /*/
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Se pressionou a Tecla "ESC" abandona                         ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+        IF (nLastKey==27)
+           Break
+        EndIF
+
+        Pergunte(cPerg,.F.)
+
+        IF !(APDR40AvaVld())
+            Break
+        EndIF
+
+        IF !(APDR40EscVld())
+            Break
+        EndIF
+
+        IF !(APDR40EmpVld())
+            Break
+        EndIF
+
+        IF !(APDR40IniVld())
+            Break
+        EndIF
+
+        IF !(APDR40FimVld())
+            Break
+        EndIF
+
+        /*/
+        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+        ³ Chamada a Rotina de Impressao                               ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+        RptStatus({ |lEnd| PrintRel(@lEnd,@wnRel,@cPerg) },Titulo)
+
+    END SEQUENCE
+
+    /*/
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Restaura os Ponteiros de Entrada                               ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+    __aImpress:=aClone(aImpress)
+    RestArea(aArea)
+
+Return(NIL)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
-³Funo    ³U_InAPDR40    ³Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Executar Funcoes Dentro de APDR010                           ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³U_InAPDR40( cExecIn , aFormParam )						 	 ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<Vide Parametros Formais>									 ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Retorno   ³uRet                                                 	     ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Observao³                                                      	     ³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³Generico 													 ³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-User Function InAPDR40( cExecIn , aFormParam )
-         
+³Funcao    ³U_InAPDR40    ³Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descricao ³Executar Funcoes Dentro de APDR010                           ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³U_InAPDR40(cExecIn,aFormParam)                              ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<Vide Parametros Formais>                                     ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Retorno   ³uRet                                                          ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Observacao³                                                               ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³Generico                                                      ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+User Function InAPDR40(cExecIn,aFormParam)
+
 Local uRet
 
-DEFAULT cExecIn		:= ""
-DEFAULT aFormParam	:= {}
+DEFAULT cExecIn:=""
+DEFAULT aFormParam:={}
 
-IF !Empty( cExecIn )
-	cExecIn	:= BldcExecInFun( cExecIn , aFormParam )
-	uRet	:= &( cExecIn )
+IF !Empty(cExecIn)
+    cExecIn:=BldcExecInFun(cExecIn,aFormParam)
+    uRet:=&(cExecIn)
 EndIF
 
-Return( uRet )
+Return(uRet)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³PrintRel    ³ Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Imprime Detalhes do Relatório								³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function PrintRel( lEnd , wnRel , cPerg )
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Imprime Detalhes do Relatorio                                ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function PrintRel(lEnd,wnRel,cPerg)
 
-	Local aInterval		:= {}
-	
-	Local cAlsQry		:= GetNextAlias()
-	
-	Local cDet			:= ""
-	Local cDetCab0		:= "----------------------------------------"
-    Local cDetCab1		:= "|    |                                 |
-	Local cDetCab2		:= "|QTDE| ÁREA                            |
-	Local cDetCab3		:= "|    |                                 |
-	Local cDetCab4		:= "----------------------------------------"
+    Local aInterval:={}
 
-	Local cCodAva		:= MV_PAR01
-	Local cCodEsc   	:= MV_PAR02
-	Local cCodEmp   	:= MV_PAR03
-	Local cCodFil		:= ""
-	
-	Local cSvEmpAnt		:= cEmpAnt
-	Local cSvFilAnt		:= cFilAnt
+    Local cAlsQry:=GetNextAlias()
 
-	Local cInterval		:= ""
-	Local cRBLValor     := ""
+    Local cDet:=""
+    Local cDetCab0:="----------------------------------------"
+    Local cDetCab1:="|    |                                 |"
+    Local cDetCab2:="|QTDE| AREA                            |"
+    Local cDetCab3:="|    |                                 |"
+    Local cDetCab4:="----------------------------------------"
 
-	Local nQbCount		:= 0
-	Local nDetCab2		:= 0
-	Local nRBLMaxD		:= 0
-	Local nRBLValor		:= 0
-	Local nInterval		:= 0
+    Local cCodAva:=MV_PAR01
+    Local cCodEsc:=MV_PAR02
+    Local cCodEmp:=MV_PAR03
+    Local cCodFil:=""
 
-	Local nCntTp3Fx1	:= 0
-	Local nCntTp3Fx2	:= 0
-	Local nCntTp3Fx3	:= 0
-	Local nCntTp3Fx4	:= 0
+    Local cSvEmpAnt:=cEmpAnt
+    Local cSvFilAnt:=cFilAnt
 
-	Local nDepTp3Cnt	:= 0
-	
-	Local nEmpTp3Cnt	:= 0
+    Local cInterval:=""
+    Local cRBLValor:=""
 
-	Local nTotTp3Fx1	:= 0
-	Local nTotTp3Fx2	:= 0
-	Local nTotTp3Fx3	:= 0
-	Local nTotTp3Fx4	:= 0
-	
-	Local oException    
-	
-	TRYEXCEPTION
+    Local nQbCount:=0
+    Local nDetCab2:=0
+    Local nRBLMaxD:=0
+    Local nRBLValor:=0
+    Local nInterval:=0
 
-		SM0->( dbSetOrder( 1 ) )
-		SM0->( dbSeek( cCodEmp , .T. ) )
-		IF SM0->( Eof() .or. Bof() )
-			UserExeption( "Empresa não Cadastrada no SIGAMAT.EMP!" )
-		EndIF
+    Local nCntTp3Fx1:=0
+    Local nCntTp3Fx2:=0
+    Local nCntTp3Fx3:=0
+    Local nCntTp3Fx4:=0
 
-		cCodFil   		:= SM0->M0_CODFIL
+    Local nDepTp3Cnt:=0
 
-		IF ( cCodEmp <> cEmpAnt )
-			GetEmpr( cCodEmp + cCodFil ) 
-		EndIF
+    Local nEmpTp3Cnt:=0
 
-		wCabec1 	+= SM0->( AllTrim(M0_NOMECOM) + "/" + AllTrim(M0_FILIAL) + "/" + AllTrim(M0_NOME) )
-		
-		wCabec2 	+= GetCache( "RD6" , cCodAva , xFilial("RD6",cCodFil) , "RD6_DESC" , RetOrder( "RD6" , "RD6_FILIAL+RD6_CODIGO" ) , .F. )  
+    Local nTotTp3Fx1:=0
+    Local nTotTp3Fx2:=0
+    Local nTotTp3Fx3:=0
+    Local nTotTp3Fx4:=0
 
-		BEGINSQL ALIAS cAlsQry
+    Local oException
 
-			SELECT 
-				RBL.RBL_DESCRI,
-				RBL.RBL_VALOR,
-				( 
-					SELECT 
-						COUNT(*)
-					FROM
-						%table:RBL% RBL
-					WHERE 
-						RBL.D_E_L_E_T_ = ' ' AND
-						RBL.RBL_FILIAL = %exp:xFilial("RBL",cCodFil)% AND
-						RBL.RBL_ESCALA = %exp:cCodEsc%
-				) RBL_ITENS
-			FROM
-				%table:RBL% RBL
-			WHERE 
-				RBL.D_E_L_E_T_ = ' ' AND
-				RBL.RBL_FILIAL = %exp:xFilial("RBL",cCodFil)% AND
-				RBL.RBL_ESCALA = %exp:cCodEsc%
-			ORDER BY
-				RBL.RBL_FILIAL,RBL.RBL_ESCALA,RBL.RBL_ITEM
-		
-		ENDSQL
+    TRYEXCEPTION
 
-		IF (cAlsQry)->( Eof() .or. Bof() )
-			UserException( "Não existe(m) item(ns) para a Escala Selecionada" )
-		EndIF
+        SM0->(dbSetOrder(1))
+        SM0->(dbSeek(cCodEmp,.T.))
+        IF SM0->(Eof() .or. Bof())
+            UserExeption("Empresa nao Cadastrada no SIGAMAT.EMP!")
+        EndIF
 
-		While (cAlsQry)->( !Eof() )
-		    
-			nRBLMaxD := Max( nRBLMaxD , Len( AllTrim( (cAlsQry)->RBL_DESCRI ) ) )
-			
-			(cAlsQry)->( dbSkip() )
-		
-		End While   
-		
-		nRBLMaxD	:= Max( nRBLMaxD , 15 ) //"999.99 a 999.99"
-		
-		nRBLMaxD	+= 2
-		
-		nDetCab2	:= Len( cDetCab2 )
+        cCodFil:=SM0->M0_CODFIL
 
-		SetRegua( 0 )
-		                            
-		(cAlsQry)->( dbGoTop() )
-		
-		While (cAlsQry)->( !Eof() )
-	    	
-	    	IncRegua()
-	    	
-	    	nRBLValor	:= (cAlsQry)->RBL_VALOR
+        IF (cCodEmp <> cEmpAnt)
+            GetEmpr(cCodEmp+ cCodFil)
+        EndIF
 
-	    	aAdd( aInterval , { nInterval , nRBLValor } )
-	    	
-	    	cInterval := TransForm( nInterval , "@E 999.99" )
-	    	cRBLValor := TransForm( nRBLValor , "@E 999.99" )
+        wCabec1+=SM0->(AllTrim(M0_NOMECOM)+ "/"+ AllTrim(M0_FILIAL)+ "/"+ AllTrim(M0_NOME))
 
-            nInterval	:= ( nRBLValor + 0.01 )
-	    	
-			cDetCab1	+=  " "
-			cDetCab1	+=  PadC( AllTrim( (cAlsQry)->RBL_DESCRI ),nRBLMaxD )
-			cDetCab1	+=  " "
+        wCabec2+=GetCache("RD6",cCodAva,xFilial("RD6",cCodFil),"RD6_DESC",RetOrder("RD6","RD6_FILIAL+RD6_CODIGO"),.F.)
 
-			cDetCab1	+=	"|"
-			
-			cDetCab2	+=	Replicate( "-",nRBLMaxD + 2 )
+        BEGINSQL ALIAS cAlsQry
 
-			cDetCab2	+=	"|"
+            SELECT
+                RBL.RBL_DESCRI,
+                RBL.RBL_VALOR,
+                (
+                    SELECT
+                        COUNT(*)
+                    FROM
+                        %table:RBL% RBL
+                    WHERE
+                        RBL.D_E_L_E_T_=' ' AND
+                        RBL.RBL_FILIAL=%exp:xFilial("RBL",cCodFil)% AND
+                        RBL.RBL_ESCALA=%exp:cCodEsc%
+               ) RBL_ITENS
+            FROM
+                %table:RBL% RBL
+            WHERE
+                RBL.D_E_L_E_T_=' ' AND
+                RBL.RBL_FILIAL=%exp:xFilial("RBL",cCodFil)% AND
+                RBL.RBL_ESCALA=%exp:cCodEsc%
+            ORDER BY
+                RBL.RBL_FILIAL,RBL.RBL_ESCALA,RBL.RBL_ITEM
 
-			cDetCab3    +=  " "
-			cDetCab3    +=  PadC( cInterval + " a " + cRBLValor,nRBLMaxD )
-			cDetCab3    +=  " "
+        ENDSQL
 
-			cDetCab3	+=	"|"
-		
-			(cAlsQry)->( dbSkip() )
-		
-		End While
+        IF (cAlsQry)->(Eof() .or. Bof())
+            UserException("Nao existe(m) item(ns) para a Escala Selecionada")
+        EndIF
 
-		cDetCab0    += Replicate( "-" , ( Len( cDetCab2 ) - nDetCab2 ) )
-		cDetCab4	+= Replicate( "-" , ( Len( cDetCab2 ) - nDetCab2 ) )
+        While (cAlsQry)->(!Eof())
 
-		(cAlsQry)->( dbCloseArea() )
+            nRBLMaxD:=Max(nRBLMaxD,Len(AllTrim((cAlsQry)->RBL_DESCRI)))
 
-		IF Empty( aInterval )
-			UserException( "Não existe(m) item(ns) para a Escala Selecionada" )
-		EndIF	
+            (cAlsQry)->(dbSkip())
 
-		IF ( Len( aInterval ) <> 4 )
-			UserException( "Número de Intervalos inválido para a Escala Selecionada." + CRLF + CRLF + "A Escala deve possuir 4 Intervalos." )
-		EndIF	
+        End While
 
-		BEGINSQL ALIAS cAlsQry
+        nRBLMaxD:=Max(nRBLMaxD,15) //"999.99 a 999.99"
 
-			SELECT 
-				SQB.QB_DEPTO,
-				SQB.QB_DESCRIC,
-				ISNULL((
-					SELECT
-						 ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) TP3CNT
-					FROM
-						%table:RDD% RDD, 
-						%table:RDZ% RDZ,
-						%table:RD6% RD6,
-						%table:SRA% SRA,
-						%table:CTT% CTT
-						
-					WHERE 
-						RDD.%NotDel% AND
-						RDZ.%NotDel% AND
-						RD6.%NotDel% AND
-						SRA.%NotDel% AND
-						CTT.%NotDel% AND
-						RDZ.RDZ_FILIAL = %exp:xFilial("RDZ",cCodFil)% AND
-						RDZ.RDZ_EMPENT = %exp:cCodEmp% AND
-						( RDZ.RDZ_FILENT >= %exp:cCodFil% AND RDZ.RDZ_FILENT <= 'ZZ' ) AND
-						RDD.RDD_FILIAL = %exp:xFilial("RDD",cCodFil)% AND
-						RD6.RD6_FILIAL = %exp:xFilial("RD6",cCodFil)% AND
-						( SRA.RA_FILIAL >= %exp:cCodFil% AND SRA.RA_FILIAL <= 'ZZ' ) AND
-						CTT.CTT_FILIAL = %exp:xFilial("CTT",cCodFil)% AND
-						RDZ.RDZ_CODRD0 = RDD.RDD_CODADO AND
-						RD6.RD6_CODIGO = %exp:cCodAva% AND
-						RDD.RDD_CODAVA = RD6.RD6_CODIGO	AND
-						RDD.RDD_DTIAVA >= %exp:Dtos(dAPDRIni)% AND
-						RDD.RDD_DTFAVA <= %exp:Dtos(dAPDRFim)% AND
-						RDD.RDD_TIPOAV = '3' AND
-						SRA.RA_FILIAL+RA_MAT = RDZ.RDZ_CODENT AND
-						SRA.RA_CC = CTT.CTT_CUSTO AND
-						CTT.CTT_DEPTO = SQB.QB_DEPTO
-                  ),0.00) TP3CNT,
+        nRBLMaxD+=2
+
+        nDetCab2:=Len(cDetCab2)
+
+        SetRegua(0)
+
+        (cAlsQry)->(dbGoTop())
+
+        While (cAlsQry)->(!Eof())
+
+            IncRegua()
+
+            nRBLValor:=(cAlsQry)->RBL_VALOR
+
+            aAdd(aInterval,{ nInterval,nRBLValor })
+
+            cInterval:=TransForm(nInterval,"@E 999.99")
+            cRBLValor:=TransForm(nRBLValor,"@E 999.99")
+
+            nInterval:=(nRBLValor+ 0.01)
+
+            cDetCab1+=" "
+            cDetCab1+=PadC(AllTrim((cAlsQry)->RBL_DESCRI),nRBLMaxD)
+            cDetCab1+=" "
+
+            cDetCab1+="|"
+
+            cDetCab2+=Replicate("-",nRBLMaxD+ 2)
+
+            cDetCab2+="|"
+
+            cDetCab3+=" "
+            cDetCab3+=PadC(cInterval+ " a "+ cRBLValor,nRBLMaxD)
+            cDetCab3+=" "
+
+            cDetCab3+="|"
+
+            (cAlsQry)->(dbSkip())
+
+        End While
+
+        cDetCab0+=Replicate("-",(Len(cDetCab2) - nDetCab2))
+        cDetCab4+=Replicate("-",(Len(cDetCab2) - nDetCab2))
+
+        (cAlsQry)->(dbCloseArea())
+
+        IF Empty(aInterval)
+            UserException("Nao existe(m) item(ns) para a Escala Selecionada")
+        EndIF
+
+        IF (Len(aInterval) <> 4)
+            UserException("Número de Intervalos invAlido para a Escala Selecionada."+ CRLF+ CRLF+ "A Escala deve possuir 4 Intervalos.")
+        EndIF
+
+        BEGINSQL ALIAS cAlsQry
+
+            SELECT
+                SQB.QB_DEPTO,
+                SQB.QB_DESCRIC,
+                ISNULL((
+                    SELECT
+                         ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) TP3CNT
+                    FROM
+                        %table:RDD% RDD,
+                        %table:RDZ% RDZ,
+                        %table:RD6% RD6,
+                        %table:SRA% SRA,
+                        %table:CTT% CTT
+
+                    WHERE
+                        RDD.%NotDel% AND
+                        RDZ.%NotDel% AND
+                        RD6.%NotDel% AND
+                        SRA.%NotDel% AND
+                        CTT.%NotDel% AND
+                        RDZ.RDZ_FILIAL=%exp:xFilial("RDZ",cCodFil)% AND
+                        RDZ.RDZ_EMPENT=%exp:cCodEmp% AND
+                        (RDZ.RDZ_FILENT >=%exp:cCodFil% AND RDZ.RDZ_FILENT <='ZZ') AND
+                        RDD.RDD_FILIAL=%exp:xFilial("RDD",cCodFil)% AND
+                        RD6.RD6_FILIAL=%exp:xFilial("RD6",cCodFil)% AND
+                        (SRA.RA_FILIAL >=%exp:cCodFil% AND SRA.RA_FILIAL <='ZZ') AND
+                        CTT.CTT_FILIAL=%exp:xFilial("CTT",cCodFil)% AND
+                        RDZ.RDZ_CODRD0=RDD.RDD_CODADO AND
+                        RD6.RD6_CODIGO=%exp:cCodAva% AND
+                        RDD.RDD_CODAVA=RD6.RD6_CODIGO    AND
+                        RDD.RDD_DTIAVA >=%exp:Dtos(dAPDRIni)% AND
+                        RDD.RDD_DTFAVA <=%exp:Dtos(dAPDRFim)% AND
+                        RDD.RDD_TIPOAV='3' AND
+                        SRA.RA_FILIAL+RA_MAT=RDZ.RDZ_CODENT AND
+                        SRA.RA_CC=CTT.CTT_CUSTO AND
+                        CTT.CTT_DEPTO=SQB.QB_DEPTO
+                 ),0.00) TP3CNT,
                   ISNULL((
-					SELECT
-						 ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX1
-					FROM
-						%table:RDD% RDD, 
-						%table:RDZ% RDZ,
-						%table:RD6% RD6,
-						%table:SRA% SRA,
-						%table:CTT% CTT
-					WHERE 
-						RDD.%NotDel% AND
-						RDZ.%NotDel% AND
-						RD6.%NotDel% AND
-						SRA.%NotDel% AND
-						CTT.%NotDel% AND
-						RDZ.RDZ_FILIAL = %exp:xFilial("RDZ",cCodFil)% AND
-						RDZ.RDZ_EMPENT = %exp:cCodEmp% AND
-						( RDZ.RDZ_FILENT >= %exp:cCodFil% AND RDZ.RDZ_FILENT <= 'ZZ' ) AND
-						RDD.RDD_FILIAL = %exp:xFilial("RDD",cCodFil)% AND
-						RD6.RD6_FILIAL = %exp:xFilial("RD6",cCodFil)% AND
-						( SRA.RA_FILIAL >= %exp:cCodFil% AND SRA.RA_FILIAL <= 'ZZ' ) AND
-						CTT.CTT_FILIAL = %exp:xFilial("CTT",cCodFil)% AND
-						RDZ.RDZ_CODRD0 = RDD.RDD_CODADO AND
-						RD6.RD6_CODIGO = %exp:cCodAva% AND
-						RDD.RDD_CODAVA = RD6.RD6_CODIGO	AND
-						RDD.RDD_DTIAVA >= %exp:Dtos(dAPDRIni)% AND
-						RDD.RDD_DTFAVA <= %exp:Dtos(dAPDRFim)% AND
-						RDD.RDD_TIPOAV = '3' AND
-						SRA.RA_FILIAL+RA_MAT = RDZ.RDZ_CODENT AND
-						SRA.RA_CC = CTT.CTT_CUSTO AND
-						CTT.CTT_DEPTO = SQB.QB_DEPTO
-					GROUP BY
-						RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
-						HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[1,1]% AND %exp:aInterval[1,2]%
-                  ),0.00) CNTTP3FX1,
+                    SELECT
+                         ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX1
+                    FROM
+                        %table:RDD% RDD,
+                        %table:RDZ% RDZ,
+                        %table:RD6% RD6,
+                        %table:SRA% SRA,
+                        %table:CTT% CTT
+                    WHERE
+                        RDD.%NotDel% AND
+                        RDZ.%NotDel% AND
+                        RD6.%NotDel% AND
+                        SRA.%NotDel% AND
+                        CTT.%NotDel% AND
+                        RDZ.RDZ_FILIAL=%exp:xFilial("RDZ",cCodFil)% AND
+                        RDZ.RDZ_EMPENT=%exp:cCodEmp% AND
+                        (RDZ.RDZ_FILENT >=%exp:cCodFil% AND RDZ.RDZ_FILENT <='ZZ') AND
+                        RDD.RDD_FILIAL=%exp:xFilial("RDD",cCodFil)% AND
+                        RD6.RD6_FILIAL=%exp:xFilial("RD6",cCodFil)% AND
+                        (SRA.RA_FILIAL >=%exp:cCodFil% AND SRA.RA_FILIAL <='ZZ') AND
+                        CTT.CTT_FILIAL=%exp:xFilial("CTT",cCodFil)% AND
+                        RDZ.RDZ_CODRD0=RDD.RDD_CODADO AND
+                        RD6.RD6_CODIGO=%exp:cCodAva% AND
+                        RDD.RDD_CODAVA=RD6.RD6_CODIGO    AND
+                        RDD.RDD_DTIAVA >=%exp:Dtos(dAPDRIni)% AND
+                        RDD.RDD_DTFAVA <=%exp:Dtos(dAPDRFim)% AND
+                        RDD.RDD_TIPOAV='3' AND
+                        SRA.RA_FILIAL+RA_MAT=RDZ.RDZ_CODENT AND
+                        SRA.RA_CC=CTT.CTT_CUSTO AND
+                        CTT.CTT_DEPTO=SQB.QB_DEPTO
+                    GROUP BY
+                        RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
+                        HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[1,1]% AND %exp:aInterval[1,2]%
+                 ),0.00) CNTTP3FX1,
                   ISNULL((
-					SELECT
-						 ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX2
-					FROM
-						%table:RDD% RDD, 
-						%table:RDZ% RDZ,
-						%table:RD6% RD6,
-						%table:SRA% SRA,
-						%table:CTT% CTT
-					WHERE 
-						RDD.%NotDel% AND
-						RDZ.%NotDel% AND
-						RD6.%NotDel% AND
-						SRA.%NotDel% AND
-						CTT.%NotDel% AND
-						RDZ.RDZ_FILIAL = %exp:xFilial("RDZ",cCodFil)% AND
-						RDZ.RDZ_EMPENT = %exp:cCodEmp% AND
-						( RDZ.RDZ_FILENT >= %exp:cCodFil% AND RDZ.RDZ_FILENT <= 'ZZ' ) AND
-						RDD.RDD_FILIAL = %exp:xFilial("RDD",cCodFil)% AND
-						RD6.RD6_FILIAL = %exp:xFilial("RD6",cCodFil)% AND
-						( SRA.RA_FILIAL >= %exp:cCodFil% AND SRA.RA_FILIAL <= 'ZZ' ) AND
-						CTT.CTT_FILIAL = %exp:xFilial("CTT",cCodFil)% AND
-						RDZ.RDZ_CODRD0 = RDD.RDD_CODADO AND
-						RD6.RD6_CODIGO = %exp:cCodAva% AND
-						RDD.RDD_CODAVA = RD6.RD6_CODIGO	AND
-						RDD.RDD_DTIAVA >= %exp:Dtos(dAPDRIni)% AND
-						RDD.RDD_DTFAVA <= %exp:Dtos(dAPDRFim)% AND
-						RDD.RDD_TIPOAV = '3' AND
-						SRA.RA_FILIAL+RA_MAT = RDZ.RDZ_CODENT AND
-						SRA.RA_CC = CTT.CTT_CUSTO AND
-						CTT.CTT_DEPTO = SQB.QB_DEPTO
-					GROUP BY
-						RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
-						HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[2,1]% AND %exp:aInterval[2,2]%
-                  ),0.00) CNTTP3FX2,
+                    SELECT
+                         ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX2
+                    FROM
+                        %table:RDD% RDD,
+                        %table:RDZ% RDZ,
+                        %table:RD6% RD6,
+                        %table:SRA% SRA,
+                        %table:CTT% CTT
+                    WHERE
+                        RDD.%NotDel% AND
+                        RDZ.%NotDel% AND
+                        RD6.%NotDel% AND
+                        SRA.%NotDel% AND
+                        CTT.%NotDel% AND
+                        RDZ.RDZ_FILIAL=%exp:xFilial("RDZ",cCodFil)% AND
+                        RDZ.RDZ_EMPENT=%exp:cCodEmp% AND
+                        (RDZ.RDZ_FILENT >=%exp:cCodFil% AND RDZ.RDZ_FILENT <='ZZ') AND
+                        RDD.RDD_FILIAL=%exp:xFilial("RDD",cCodFil)% AND
+                        RD6.RD6_FILIAL=%exp:xFilial("RD6",cCodFil)% AND
+                        (SRA.RA_FILIAL >=%exp:cCodFil% AND SRA.RA_FILIAL <='ZZ') AND
+                        CTT.CTT_FILIAL=%exp:xFilial("CTT",cCodFil)% AND
+                        RDZ.RDZ_CODRD0=RDD.RDD_CODADO AND
+                        RD6.RD6_CODIGO=%exp:cCodAva% AND
+                        RDD.RDD_CODAVA=RD6.RD6_CODIGO    AND
+                        RDD.RDD_DTIAVA >=%exp:Dtos(dAPDRIni)% AND
+                        RDD.RDD_DTFAVA <=%exp:Dtos(dAPDRFim)% AND
+                        RDD.RDD_TIPOAV='3' AND
+                        SRA.RA_FILIAL+RA_MAT=RDZ.RDZ_CODENT AND
+                        SRA.RA_CC=CTT.CTT_CUSTO AND
+                        CTT.CTT_DEPTO=SQB.QB_DEPTO
+                    GROUP BY
+                        RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
+                        HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[2,1]% AND %exp:aInterval[2,2]%
+                 ),0.00) CNTTP3FX2,
                   ISNULL((
-					SELECT
-						 ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX3
-					FROM
-						%table:RDD% RDD, 
-						%table:RDZ% RDZ,
-						%table:RD6% RD6,
-						%table:SRA% SRA,
-						%table:CTT% CTT
-						
-					WHERE 
-						RDD.%NotDel% AND
-						RDZ.%NotDel% AND
-						RD6.%NotDel% AND
-						SRA.%NotDel% AND
-						CTT.%NotDel% AND
-						RDZ.RDZ_FILIAL = %exp:xFilial("RDZ",cCodFil)% AND
-						RDZ.RDZ_EMPENT = %exp:cCodEmp% AND
-						( RDZ.RDZ_FILENT >= %exp:cCodFil% AND RDZ.RDZ_FILENT <= 'ZZ' ) AND
-						RDD.RDD_FILIAL = %exp:xFilial("RDD",cCodFil)% AND
-						RD6.RD6_FILIAL = %exp:xFilial("RD6",cCodFil)% AND
-						( SRA.RA_FILIAL >= %exp:cCodFil% AND SRA.RA_FILIAL <= 'ZZ' ) AND
-						RDZ.RDZ_CODRD0 = RDD.RDD_CODADO AND
-						RD6.RD6_CODIGO = %exp:cCodAva% AND
-						RDD.RDD_CODAVA = RD6.RD6_CODIGO	AND
-						RDD.RDD_DTIAVA >= %exp:Dtos(dAPDRIni)% AND
-						RDD.RDD_DTFAVA <= %exp:Dtos(dAPDRFim)% AND
-						RDD.RDD_TIPOAV = '3' AND
-						SRA.RA_FILIAL+RA_MAT = RDZ.RDZ_CODENT AND
-						SRA.RA_CC = CTT.CTT_CUSTO AND
-						CTT.CTT_DEPTO = SQB.QB_DEPTO
-					GROUP BY
-						RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
-						HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[3,1]% AND %exp:aInterval[3,2]%
-                  ),0.00) CNTTP3FX3,
+                    SELECT
+                         ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX3
+                    FROM
+                        %table:RDD% RDD,
+                        %table:RDZ% RDZ,
+                        %table:RD6% RD6,
+                        %table:SRA% SRA,
+                        %table:CTT% CTT
+
+                    WHERE
+                        RDD.%NotDel% AND
+                        RDZ.%NotDel% AND
+                        RD6.%NotDel% AND
+                        SRA.%NotDel% AND
+                        CTT.%NotDel% AND
+                        RDZ.RDZ_FILIAL=%exp:xFilial("RDZ",cCodFil)% AND
+                        RDZ.RDZ_EMPENT=%exp:cCodEmp% AND
+                        (RDZ.RDZ_FILENT >=%exp:cCodFil% AND RDZ.RDZ_FILENT <='ZZ') AND
+                        RDD.RDD_FILIAL=%exp:xFilial("RDD",cCodFil)% AND
+                        RD6.RD6_FILIAL=%exp:xFilial("RD6",cCodFil)% AND
+                        (SRA.RA_FILIAL >=%exp:cCodFil% AND SRA.RA_FILIAL <='ZZ') AND
+                        RDZ.RDZ_CODRD0=RDD.RDD_CODADO AND
+                        RD6.RD6_CODIGO=%exp:cCodAva% AND
+                        RDD.RDD_CODAVA=RD6.RD6_CODIGO    AND
+                        RDD.RDD_DTIAVA >=%exp:Dtos(dAPDRIni)% AND
+                        RDD.RDD_DTFAVA <=%exp:Dtos(dAPDRFim)% AND
+                        RDD.RDD_TIPOAV='3' AND
+                        SRA.RA_FILIAL+RA_MAT=RDZ.RDZ_CODENT AND
+                        SRA.RA_CC=CTT.CTT_CUSTO AND
+                        CTT.CTT_DEPTO=SQB.QB_DEPTO
+                    GROUP BY
+                        RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
+                        HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[3,1]% AND %exp:aInterval[3,2]%
+                 ),0.00) CNTTP3FX3,
                   ISNULL((
-					SELECT
-						 ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX4
-					FROM
-						%table:RDD% RDD, 
-						%table:RDZ% RDZ,
-						%table:RD6% RD6,
-						%table:SRA% SRA,
-						%table:CTT% CTT
-					WHERE 
-						RDD.%NotDel% AND
-						RDZ.%NotDel% AND
-						RD6.%NotDel% AND
-						SRA.%NotDel% AND
-						CTT.%NotDel% AND
-						RDZ.RDZ_FILIAL = %exp:xFilial("RDZ",cCodFil)% AND
-						RDZ.RDZ_EMPENT = %exp:cCodEmp% AND
-						( RDZ.RDZ_FILENT >= %exp:cCodFil% AND RDZ.RDZ_FILENT <= 'ZZ' ) AND
-						RDD.RDD_FILIAL = %exp:xFilial("RDD",cCodFil)% AND
-						RD6.RD6_FILIAL = %exp:xFilial("RD6",cCodFil)% AND
-						( SRA.RA_FILIAL >= %exp:cCodFil% AND SRA.RA_FILIAL <= 'ZZ' ) AND
-						CTT.CTT_FILIAL = %exp:xFilial("CTT",cCodFil)% AND
-						RDZ.RDZ_CODRD0 = RDD.RDD_CODADO AND
-						RD6.RD6_CODIGO = %exp:cCodAva% AND
-						RDD.RDD_CODAVA = RD6.RD6_CODIGO	AND
-						RDD.RDD_DTIAVA >= %exp:Dtos(dAPDRIni)% AND
-						RDD.RDD_DTFAVA <= %exp:Dtos(dAPDRFim)% AND
-						RDD.RDD_TIPOAV = '3' AND
-						SRA.RA_FILIAL+RA_MAT = RDZ.RDZ_CODENT AND
-						SRA.RA_CC = CTT.CTT_CUSTO AND
-						CTT.CTT_DEPTO = SQB.QB_DEPTO
-					GROUP BY
-						RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
-						HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[4,1]% AND %exp:aInterval[4,2]%
-                  ),0.00) CNTTP3FX4
-			FROM
-				%table:SQB% SQB
-			WHERE 
-				SQB.D_E_L_E_T_ = ' ' AND
-				SQB.QB_FILIAL = %exp:xFilial("SQB",cCodFil)%
-			ORDER BY
-				SQB.QB_FILIAL,SQB.QB_DEPTO
-		ENDSQL
+                    SELECT
+                         ISNULL(COUNT(DISTINCT RDD_CODADO),0.00) CNTTP3FX4
+                    FROM
+                        %table:RDD% RDD,
+                        %table:RDZ% RDZ,
+                        %table:RD6% RD6,
+                        %table:SRA% SRA,
+                        %table:CTT% CTT
+                    WHERE
+                        RDD.%NotDel% AND
+                        RDZ.%NotDel% AND
+                        RD6.%NotDel% AND
+                        SRA.%NotDel% AND
+                        CTT.%NotDel% AND
+                        RDZ.RDZ_FILIAL=%exp:xFilial("RDZ",cCodFil)% AND
+                        RDZ.RDZ_EMPENT=%exp:cCodEmp% AND
+                        (RDZ.RDZ_FILENT >=%exp:cCodFil% AND RDZ.RDZ_FILENT <='ZZ') AND
+                        RDD.RDD_FILIAL=%exp:xFilial("RDD",cCodFil)% AND
+                        RD6.RD6_FILIAL=%exp:xFilial("RD6",cCodFil)% AND
+                        (SRA.RA_FILIAL >=%exp:cCodFil% AND SRA.RA_FILIAL <='ZZ') AND
+                        CTT.CTT_FILIAL=%exp:xFilial("CTT",cCodFil)% AND
+                        RDZ.RDZ_CODRD0=RDD.RDD_CODADO AND
+                        RD6.RD6_CODIGO=%exp:cCodAva% AND
+                        RDD.RDD_CODAVA=RD6.RD6_CODIGO    AND
+                        RDD.RDD_DTIAVA >=%exp:Dtos(dAPDRIni)% AND
+                        RDD.RDD_DTFAVA <=%exp:Dtos(dAPDRFim)% AND
+                        RDD.RDD_TIPOAV='3' AND
+                        SRA.RA_FILIAL+RA_MAT=RDZ.RDZ_CODENT AND
+                        SRA.RA_CC=CTT.CTT_CUSTO AND
+                        CTT.CTT_DEPTO=SQB.QB_DEPTO
+                    GROUP BY
+                        RDD.RDD_FILIAL,RDD.RDD_CODAVA,RDD.RDD_TIPOAV
+                        HAVING AVG(RDD.RDD_RESOBT) BETWEEN %exp:aInterval[4,1]% AND %exp:aInterval[4,2]%
+                 ),0.00) CNTTP3FX4
+            FROM
+                %table:SQB% SQB
+            WHERE
+                SQB.D_E_L_E_T_=' ' AND
+                SQB.QB_FILIAL=%exp:xFilial("SQB",cCodFil)%
+            ORDER BY
+                SQB.QB_FILIAL,SQB.QB_DEPTO
+        ENDSQL
 
-		IF (cAlsQry)->( Eof() .or. Bof() )
-			UserException( "Não existe(m) Área(s)/Departamento(s) Cadastrado(s)" )
-		EndIF
+        IF (cAlsQry)->(Eof() .or. Bof())
+            UserException("Nao existe(m) Area(s)/Departamento(s) Cadastrado(s)")
+        EndIF
 
-		Impr( OemToAnsi( cDetCab0 ) )
-		Impr( OemToAnsi( cDetCab1 ) )
-		Impr( OemToAnsi( cDetCab2 ) )
-		Impr( OemToAnsi( cDetCab3 ) )
-		Impr( OemToAnsi( cDetCab4 ) ) 
+        Impr(OemToAnsi(cDetCab0))
+        Impr(OemToAnsi(cDetCab1))
+        Impr(OemToAnsi(cDetCab2))
+        Impr(OemToAnsi(cDetCab3))
+        Impr(OemToAnsi(cDetCab4))
 
-		SetRegua( 0 )
+        SetRegua(0)
 
-		While (cAlsQry)->( !Eof() )
+        While (cAlsQry)->(!Eof())
 
-			nDepTp3Cnt	:= (cAlsQry)->TP3CNT
+            nDepTp3Cnt:=(cAlsQry)->TP3CNT
 
-			nEmpTp3Cnt	+= nDepTp3Cnt
-	
-			TRYEXCEPTION
-			
-				IF ( nDepTp3Cnt <= 0 )
-					UserException("")
-				EndIF
+            nEmpTp3Cnt+=nDepTp3Cnt
 
-				IF ( ++nQbCount > 3 )
-					nQbCount := 1
-					Impr( "" , "P" )
-					Impr( OemToAnsi( cDetCab0 ) )
-					Impr( OemToAnsi( cDetCab1 ) )
-					Impr( OemToAnsi( cDetCab2 ) )
-					Impr( OemToAnsi( cDetCab3 ) )
-					Impr( OemToAnsi( cDetCab4 ) ) 
-				EndIF
+            TRYEXCEPTION
 
-				nCntTp3Fx1	:= (cAlsQry)->CNTTP3FX1
-				nCntTp3Fx2	:= (cAlsQry)->CNTTP3FX2
-				nCntTp3Fx3	:= (cAlsQry)->CNTTP3FX3
-				nCntTp3Fx4	:= (cAlsQry)->CNTTP3FX4
-	
-				nTotTp3Fx1	+= nCntTp3Fx1
-				nTotTp3Fx2	+= nCntTp3Fx2
-				nTotTp3Fx3	+= nCntTp3Fx3
-				nTotTp3Fx4	+= nCntTp3Fx4
+                IF (nDepTp3Cnt <=0)
+                    UserException("")
+                EndIF
 
-				cDet := "----------------------------------------___________________________________________________________________________|"
-		        cDet := StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
-		        Impr(OemToAnsi(cDet))
-		        
-		        cDet := "|    |                                 |_______QT1_______|_______QT2_______|_______QT3_______|_______QT4_______|"
-			  	cDet := StrTran(cDet,"_______QT1_______"," "+PadC(Transform(nCntTp3Fx1,"999"),nRBLMaxD)+" ")
-			  	cDet := StrTran(cDet,"_______QT2_______"," "+PadC(Transform(nCntTp3Fx2,"999"),nRBLMaxD)+" ")
-			  	cDet := StrTran(cDet,"_______QT3_______"," "+PadC(Transform(nCntTp3Fx3,"999"),nRBLMaxD)+" ")
-			  	cDet := StrTran(cDet,"_______QT4_______"," "+PadC(Transform(nCntTp3Fx4,"999"),nRBLMaxD)+" ")
-			  	Impr(OemToAnsi(cDet))
-			  	
-			  	cDet := "|QTDE| __DESCRICAO__DO__DEPARTAMENTO__  |_______RRR_______|_______RRR_______|_______RRR_______|_______RRR_______|"
-				cDet := StrTran(cDet,"QTDE",Transform(nDepTp3Cnt,"9999"))
-				cDet := StrTran(cDet,"__DESCRICAO__DO__DEPARTAMENTO__",(cAlsQry)->QB_DESCRIC)
-				cDet := StrTran(cDet,"_______RRR_______",Replicate("-",(nRBLMaxD+2)))
-				Impr(OemToAnsi(cDet))
-				
-				cDet := "|    |                                 |_______PE1%______|_______PE2%______|_______PE3%______|_______PE4%______|"
-			  	cDet := StrTran(cDet,"_______PE1%______","  "+PadC(Transform(((nCntTp3Fx1/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
-			  	cDet := StrTran(cDet,"_______PE2%______","  "+PadC(Transform(((nCntTp3Fx2/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
-			  	cDet := StrTran(cDet,"_______PE3%______","  "+PadC(Transform(((nCntTp3Fx3/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
-			  	cDet := StrTran(cDet,"_______PE4%______","  "+PadC(Transform(((nCntTp3Fx4/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
-				Impr(OemToAnsi(cDet))
-				
-				cDet := "----------------------------------------___________________________________________________________________________|"
-		        cDet := StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
-		        Impr(OemToAnsi(cDet))
-			
-			CATCHEXCEPTION USING oException
-			
-				IF !Empty( oException:Description )
-					UserException( oException:Description  )
-				EndIF
-			
-			ENDEXCEPTION
-	
-			(cAlsQry)->( dbSkip() )
+                IF (++nQbCount > 3)
+                    nQbCount:=1
+                    Impr("","P")
+                    Impr(OemToAnsi(cDetCab0))
+                    Impr(OemToAnsi(cDetCab1))
+                    Impr(OemToAnsi(cDetCab2))
+                    Impr(OemToAnsi(cDetCab3))
+                    Impr(OemToAnsi(cDetCab4))
+                EndIF
 
-		End While
+                nCntTp3Fx1:=(cAlsQry)->CNTTP3FX1
+                nCntTp3Fx2:=(cAlsQry)->CNTTP3FX2
+                nCntTp3Fx3:=(cAlsQry)->CNTTP3FX3
+                nCntTp3Fx4:=(cAlsQry)->CNTTP3FX4
 
-		IF ( nEmpTp3Cnt > 0 )
+                nTotTp3Fx1+=nCntTp3Fx1
+                nTotTp3Fx2+=nCntTp3Fx2
+                nTotTp3Fx3+=nCntTp3Fx3
+                nTotTp3Fx4+=nCntTp3Fx4
 
-			IF ( ++nQbCount > 3 )
-				Impr( "" , "P" )
-				Impr( OemToAnsi( cDetCab0 ) )
-				Impr( OemToAnsi( cDetCab1 ) )
-				Impr( OemToAnsi( cDetCab2 ) )
-				Impr( OemToAnsi( cDetCab3 ) )
-				Impr( OemToAnsi( cDetCab4 ) )  
-			EndIF
+                cDet:="----------------------------------------___________________________________________________________________________|"
+                cDet:=StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
+                Impr(OemToAnsi(cDet))
 
-			cDet := "----------------------------------------___________________________________________________________________________|"
-	        cDet := StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
-	        Impr(OemToAnsi(cDet))
-	        
-	        cDet := "|    |                                 |_______QT1_______|_______QT2_______|_______QT3_______|_______QT4_______|"
-		  	cDet := StrTran(cDet,"_______QT1_______"," "+PadC(Transform(nTotTp3Fx1,"999"),nRBLMaxD)+" ")
-		  	cDet := StrTran(cDet,"_______QT2_______"," "+PadC(Transform(nTotTp3Fx2,"999"),nRBLMaxD)+" ")
-		  	cDet := StrTran(cDet,"_______QT3_______"," "+PadC(Transform(nTotTp3Fx3,"999"),nRBLMaxD)+" ")
-		  	cDet := StrTran(cDet,"_______QT4_______"," "+PadC(Transform(nTotTp3Fx4,"999"),nRBLMaxD)+" ")
-		  	Impr(OemToAnsi(cDet))
-		  	
-		  	cDet := "|QTDE| __DESCRICAO__DO__DEPARTAMENTO__  |_______RRR_______|_______RRR_______|_______RRR_______|_______RRR_______|"
-			cDet := StrTran(cDet,"QTDE",Transform(nEmpTp3Cnt,"9999"))
-			cDet := StrTran(cDet,"__DESCRICAO__DO__DEPARTAMENTO__",Padr("EMPRESA",Len("__DESCRICAO__DO__DEPARTAMENTO__")))
-			cDet := StrTran(cDet,"_______RRR_______",Replicate("-",(nRBLMaxD+2)))
-			Impr(OemToAnsi(cDet))
-			
-			cDet := "|    |                                 |_______PE1%______|_______PE2%______|_______PE3%______|_______PE4%______|"
-		  	cDet := StrTran(cDet,"_______PE1%______","  "+PadC(Transform(((nTotTp3Fx1/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
-		  	cDet := StrTran(cDet,"_______PE2%______","  "+PadC(Transform(((nTotTp3Fx2/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
-		  	cDet := StrTran(cDet,"_______PE3%______","  "+PadC(Transform(((nTotTp3Fx3/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
-		  	cDet := StrTran(cDet,"_______PE4%______","  "+PadC(Transform(((nTotTp3Fx4/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
-			Impr(OemToAnsi(cDet))
-			
-			cDet := "----------------------------------------___________________________________________________________________________|"
-	        cDet := StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
-	        Impr(OemToAnsi(cDet))
-        
-		EndIF
-	    
-		SET DEVICE TO SCREEN
-		IF ( aReturn[5] == 1 )
-			SET PRINTER TO
-			dbCommit()
-			OurSpool( wnRel )
-		EndIF
-		
-		Ms_Flush()
-	
-	CATCHEXCEPTION USING oException
-	
-		MsgAlert( oException:Description , "Alerta!" )
+                cDet:="|    |                                 |_______QT1_______|_______QT2_______|_______QT3_______|_______QT4_______|"
+                cDet:=StrTran(cDet,"_______QT1_______"," "+PadC(Transform(nCntTp3Fx1,"999"),nRBLMaxD)+" ")
+                cDet:=StrTran(cDet,"_______QT2_______"," "+PadC(Transform(nCntTp3Fx2,"999"),nRBLMaxD)+" ")
+                cDet:=StrTran(cDet,"_______QT3_______"," "+PadC(Transform(nCntTp3Fx3,"999"),nRBLMaxD)+" ")
+                cDet:=StrTran(cDet,"_______QT4_______"," "+PadC(Transform(nCntTp3Fx4,"999"),nRBLMaxD)+" ")
+                Impr(OemToAnsi(cDet))
 
-	ENDEXCEPTION
+                cDet:="|QTDE| __DESCRICAO__DO__DEPARTAMENTO__  |_______RRR_______|_______RRR_______|_______RRR_______|_______RRR_______|"
+                cDet:=StrTran(cDet,"QTDE",Transform(nDepTp3Cnt,"9999"))
+                cDet:=StrTran(cDet,"__DESCRICAO__DO__DEPARTAMENTO__",(cAlsQry)->QB_DESCRIC)
+                cDet:=StrTran(cDet,"_______RRR_______",Replicate("-",(nRBLMaxD+2)))
+                Impr(OemToAnsi(cDet))
 
-	IF !( cSvEmpAnt == cEmpAnt )
-		GetEmpr( cSvEmpAnt+cSvFilAnt )		
-	EndIF
-	
-Return( NIL  )
+                cDet:="|    |                                 |_______PE1%______|_______PE2%______|_______PE3%______|_______PE4%______|"
+                  cDet:=StrTran(cDet,"_______PE1%______","  "+PadC(Transform(((nCntTp3Fx1/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
+                  cDet:=StrTran(cDet,"_______PE2%______","  "+PadC(Transform(((nCntTp3Fx2/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
+                  cDet:=StrTran(cDet,"_______PE3%______","  "+PadC(Transform(((nCntTp3Fx3/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
+                  cDet:=StrTran(cDet,"_______PE4%______","  "+PadC(Transform(((nCntTp3Fx4/nDepTp3Cnt)*100),"999")+"%",nRBLMaxD))
+                Impr(OemToAnsi(cDet))
+
+                cDet:="----------------------------------------___________________________________________________________________________|"
+                cDet:=StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
+                Impr(OemToAnsi(cDet))
+
+            CATCHEXCEPTION USING oException
+
+                IF !Empty(oException:Description)
+                    UserException(oException:Description )
+                EndIF
+
+            ENDEXCEPTION
+
+            (cAlsQry)->(dbSkip())
+
+        End While
+
+        IF (nEmpTp3Cnt > 0)
+
+            IF (++nQbCount > 3)
+                Impr("","P")
+                Impr(OemToAnsi(cDetCab0))
+                Impr(OemToAnsi(cDetCab1))
+                Impr(OemToAnsi(cDetCab2))
+                Impr(OemToAnsi(cDetCab3))
+                Impr(OemToAnsi(cDetCab4))
+            EndIF
+
+            cDet:="----------------------------------------___________________________________________________________________________|"
+            cDet:=StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
+            Impr(OemToAnsi(cDet))
+
+            cDet:="|    |                                 |_______QT1_______|_______QT2_______|_______QT3_______|_______QT4_______|"
+            cDet:=StrTran(cDet,"_______QT1_______"," "+PadC(Transform(nTotTp3Fx1,"999"),nRBLMaxD)+" ")
+            cDet:=StrTran(cDet,"_______QT2_______"," "+PadC(Transform(nTotTp3Fx2,"999"),nRBLMaxD)+" ")
+            cDet:=StrTran(cDet,"_______QT3_______"," "+PadC(Transform(nTotTp3Fx3,"999"),nRBLMaxD)+" ")
+            cDet:=StrTran(cDet,"_______QT4_______"," "+PadC(Transform(nTotTp3Fx4,"999"),nRBLMaxD)+" ")
+            Impr(OemToAnsi(cDet))
+
+            cDet:="|QTDE| __DESCRICAO__DO__DEPARTAMENTO__  |_______RRR_______|_______RRR_______|_______RRR_______|_______RRR_______|"
+            cDet:=StrTran(cDet,"QTDE",Transform(nEmpTp3Cnt,"9999"))
+            cDet:=StrTran(cDet,"__DESCRICAO__DO__DEPARTAMENTO__",Padr("EMPRESA",Len("__DESCRICAO__DO__DEPARTAMENTO__")))
+            cDet:=StrTran(cDet,"_______RRR_______",Replicate("-",(nRBLMaxD+2)))
+            Impr(OemToAnsi(cDet))
+
+            cDet:="|    |                                 |_______PE1%______|_______PE2%______|_______PE3%______|_______PE4%______|"
+            cDet:=StrTran(cDet,"_______PE1%______","  "+PadC(Transform(((nTotTp3Fx1/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
+            cDet:=StrTran(cDet,"_______PE2%______","  "+PadC(Transform(((nTotTp3Fx2/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
+            cDet:=StrTran(cDet,"_______PE3%______","  "+PadC(Transform(((nTotTp3Fx3/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
+            cDet:=StrTran(cDet,"_______PE4%______","  "+PadC(Transform(((nTotTp3Fx4/nEmpTp3Cnt)*100),"999")+"%",nRBLMaxD))
+            Impr(OemToAnsi(cDet))
+
+            cDet:="----------------------------------------___________________________________________________________________________|"
+            cDet:=StrTran(cDet,"___________________________________________________________________________",Replicate("-",(((nRBLMaxD+2)*4)+3)))
+            Impr(OemToAnsi(cDet))
+
+        EndIF
+
+        SET DEVICE TO SCREEN
+        IF (aReturn[5]==1)
+            SET PRINTER TO
+            dbCommit()
+            OurSpool(wnRel)
+        EndIF
+
+        Ms_Flush()
+
+    CATCHEXCEPTION USING oException
+
+        MsgAlert(oException:Description,"Alerta!")
+
+    ENDEXCEPTION
+
+    IF !(cSvEmpAnt==cEmpAnt)
+        GetEmpr(cSvEmpAnt+cSvFilAnt)
+    EndIF
+
+Return(NIL )
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³APDR40AvaVld³ Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Valida o Codigo da Avaliação								³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function APDR40AvaVld( lValid )
-	
-	Local lRet := .T.
-	Local oException
-	
-	cAPDRAva := MV_PAR01
-	
-	TRYEXCEPTION
-		DEFAULT lValid := .T.
-		IF ( lValid )
-			RD6->( dbSetOrder( RetOrder( "RD6" , "RD6_FILIAL+RD6_CODIGO" ) ) )
-			IF RD6->( !dbSeek( xFilial( "RD6" ) + cAPDRAva ) )
-				UserException( "Código de Avaliação Informado Não Existente na Tabela RD6" )
-			EndIF
-		EndIF	
-	CATCHEXCEPTION USING oException
-		lRet := .F.
-		MsgAlert( oException:Description , "Alerta!" )
-	ENDEXCEPTION
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Valida o Codigo da Avaliacao                                ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function APDR40AvaVld(lValid)
 
-Return( lRet )
+    Local lRet:=.T.
+    Local oException
+
+    cAPDRAva:=MV_PAR01
+
+    TRYEXCEPTION
+        DEFAULT lValid:=.T.
+        IF (lValid)
+            RD6->(dbSetOrder(RetOrder("RD6","RD6_FILIAL+RD6_CODIGO")))
+            IF RD6->(!dbSeek(xFilial("RD6")+ cAPDRAva))
+                UserException("Codigo de Avaliacao Informado Nao Existente na Tabela RD6")
+            EndIF
+        EndIF
+    CATCHEXCEPTION USING oException
+        lRet:=.F.
+        MsgAlert(oException:Description,"Alerta!")
+    ENDEXCEPTION
+
+Return(lRet)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³APDR40EscVld³ Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Valida o Codigo da Escala									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function APDR40EscVld( lValid )
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Valida o Codigo da Escala                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function APDR40EscVld(lValid)
 
-	Local lRet := .T.
-	Local oException
+    Local lRet:=.T.
+    Local oException
 
-	cAPDREsc := MV_PAR02
+    cAPDREsc:=MV_PAR02
 
-	TRYEXCEPTION
-		DEFAULT lValid := .T.
-		IF ( lValid )
-			RBK->( dbSetOrder( RetOrder( "RBK" , "RBK_FILIAL+RBK_ESCALA" ) ) )
-			IF RBK->( !dbSeek( xFilial( "RBK" ) + cAPDREsc ) )
-				UserException( "Código da Escala Informada Não Existente na Tabela RBK" )
-			EndIF
-		EndIF	
-	CATCHEXCEPTION USING oException
-		lRet := .F.
-		MsgAlert( oException:Description , "Alerta!" )
-	ENDEXCEPTION
+    TRYEXCEPTION
+        DEFAULT lValid:=.T.
+        IF (lValid)
+            RBK->(dbSetOrder(RetOrder("RBK","RBK_FILIAL+RBK_ESCALA")))
+            IF RBK->(!dbSeek(xFilial("RBK")+ cAPDREsc))
+                UserException("Codigo da Escala Informada Nao Existente na Tabela RBK")
+            EndIF
+        EndIF
+    CATCHEXCEPTION USING oException
+        lRet:=.F.
+        MsgAlert(oException:Description,"Alerta!")
+    ENDEXCEPTION
 
-Return( lRet )
+Return(lRet)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³APDR40EmpVld³ Autor ³Marinaldo de Jesus   ³ Data ³21/11/2009³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Valida o Codigo da Empresa									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function APDR40EmpVld( lValid )
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Valida o Codigo da Empresa                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function APDR40EmpVld(lValid)
 
-	Local lRet := .T.
-	Local oException
+    Local lRet:=.T.
+    Local oException
 
-	cAPDREmp := MV_PAR03
+    cAPDREmp:=MV_PAR03
 
-	TRYEXCEPTION
-		DEFAULT lValid := .T.
-		IF ( lValid )
-			SM0->( dbSetOrder( 1 ) )
-			SM0->( dbSeek( cAPDREmp , .T. ) )
-			IF !( SM0->M0_CODIGO == cAPDREmp )
-				UserException( "Código da Empresa Informado Inválido" )
-			EndIF
-		EndIF	
-	CATCHEXCEPTION USING oException
-		lRet := .F.
-		MsgAlert( oException:Description , "Alerta!" )
-	ENDEXCEPTION
+    TRYEXCEPTION
+        DEFAULT lValid:=.T.
+        IF (lValid)
+            SM0->(dbSetOrder(1))
+            SM0->(dbSeek(cAPDREmp,.T.))
+            IF !(SM0->M0_CODIGO==cAPDREmp)
+                UserException("Codigo da Empresa Informado InvAlido")
+            EndIF
+        EndIF
+    CATCHEXCEPTION USING oException
+        lRet:=.F.
+        MsgAlert(oException:Description,"Alerta!")
+    ENDEXCEPTION
 
-Return( lRet )
+Return(lRet)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³APDR40IniVld³ Autor ³Marinaldo de Jesus   ³ Data ³18/01/2010³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Valida o Inicio da Avaliacao								³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function APDR40IniVld( lValid )
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Valida o Inicio da Avaliacao                                ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function APDR40IniVld(lValid)
 
-	Local cKeySeek
-	
-	Local lRet 		:= .T.
-	
-	Local nRDPOrder	:= RetOrder( "RDP" , "RDP_FILIAL+RDP_CODAVA+DTOS(RDP_DATINI)" )
-	
-	Local oException
+    Local cKeySeek
 
-	dAPDRIni := MV_PAR04
+    Local lRet:=.T.
 
-	TRYEXCEPTION
-		DEFAULT lValid := .T.
-		IF ( lValid )
-			RDP->( dbSetOrder( nRDPOrder ) )
-			cKeySeek := xFilial("RDP",xFilial("RD6",cFilAnt))+cAPDRAva+Dtos(dAPDRIni)
-			IF RDP->( !dbSeek( cKeySeek ) )
-				UserException( "Data Inicio da Avaliação Inválida" )
-			EndIF
-		ENDIF	
-	CATCHEXCEPTION USING oException
-		lRet := .F.
-		MsgAlert( oException:Description  , "Alerta!" )
-	ENDEXCEPTION
+    Local nRDPOrder:=RetOrder("RDP","RDP_FILIAL+RDP_CODAVA+DTOS(RDP_DATINI)")
 
-Return( lRet )
+    Local oException
+
+    dAPDRIni:=MV_PAR04
+
+    TRYEXCEPTION
+        DEFAULT lValid:=.T.
+        IF (lValid)
+            RDP->(dbSetOrder(nRDPOrder))
+            cKeySeek:=xFilial("RDP",xFilial("RD6",cFilAnt))+cAPDRAva+Dtos(dAPDRIni)
+            IF RDP->(!dbSeek(cKeySeek))
+                UserException("Data Inicio da Avaliacao InvAlida")
+            EndIF
+        ENDIF
+    CATCHEXCEPTION USING oException
+        lRet:=.F.
+        MsgAlert(oException:Description,"Alerta!")
+    ENDEXCEPTION
+
+Return(lRet)
 
 /*/
 ÚÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄ¿
 ³Funo    ³APDR40FimVld³ Autor ³Marinaldo de Jesus   ³ Data ³18/01/2010³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ´
-³Descrio ³Valida o Fimcio da Avaliacao								³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Sintaxe   ³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Parametros³<vide parametros formais>									³
-ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
-³Uso       ³SIGAAPD														³
-ÀÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
-Static Function APDR40FimVld( lValid )
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄ´
+³Descrio ³Valida o Fimcio da Avaliacao                                ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Sintaxe   ³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Parametros³<vide parametros formais>                                    ³
+aÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³Uso       ³SIGAAPD                                                        ³
+ÀÄÄÄÄÄÄÄÄÄÄAÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ/*/
+Static Function APDR40FimVld(lValid)
 
-	Local cKeySeek
-	
-	Local lRet 		:= .T.
-	
-	Local nRDPOrder	:= RetOrder( "RDP" , "RDP_FILIAL+RDP_CODAVA+DTOS(RDP_DATFim)" )
-	
-	Local oException
+    Local cKeySeek
 
-	dAPDRFim := MV_PAR05
+    Local lRet:=.T.
 
-	TRYEXCEPTION
-		DEFAULT lValid := .T.
-		IF ( lValid )
-			RDP->( dbSetOrder( nRDPOrder ) )
-			cKeySeek := xFilial("RDP",xFilial("RD6",cFilAnt))+cAPDRAva+Dtos(dAPDRIni)
-			IF RDP->( !dbSeek( cKeySeek ) )
-				UserException( "Data Final da Avaliação Inválida" )
-			EndIF
-			IF !( dAPDRFim == RDP->RDP_DATFIM )
-				UserException( "Data Final da Avaliação Inválida" )
-			EndIF
-		ENDIF	
-	CATCHEXCEPTION USING oException
-		lRet := .F.
-		MsgAlert( oException:Description  , "Alerta!" )
-	ENDEXCEPTION
+    Local nRDPOrder:=RetOrder("RDP","RDP_FILIAL+RDP_CODAVA+DTOS(RDP_DATFim)")
 
-Return( lRet )
+    Local oException
+
+    dAPDRFim:=MV_PAR05
+
+    TRYEXCEPTION
+        DEFAULT lValid:=.T.
+        IF (lValid)
+            RDP->(dbSetOrder(nRDPOrder))
+            cKeySeek:=xFilial("RDP",xFilial("RD6",cFilAnt))+cAPDRAva+Dtos(dAPDRIni)
+            IF RDP->(!dbSeek(cKeySeek))
+                UserException("Data Final da Avaliacao InvAlida")
+            EndIF
+            IF !(dAPDRFim==RDP->RDP_DATFIM)
+                UserException("Data Final da Avaliacao InvAlida")
+            EndIF
+        ENDIF
+    CATCHEXCEPTION USING oException
+        lRet:=.F.
+        MsgAlert(oException:Description,"Alerta!")
+    ENDEXCEPTION
+
+Return(lRet)
