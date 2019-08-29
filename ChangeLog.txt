@@ -2,6 +2,12 @@
  * $Id$
  */
 
+2019-08-29 09:11 UTC--300 NaldoDj (marinaldo.jesus blacktdn.com.br)
+  * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
+  * templates/P11/RH/GPE/dirf/srd2rhs.prw
+  * u_TVarInfo/U_GetApoInfo/U_GetApoSamples.prg
+  * u_TVarInfo/U_TVarInfo.prg
+
 2019-08-29 08:56 UTC--300 NaldoDj (marinaldo.jesus blacktdn.com.br)
   + fonts/linedraw.ttf
   + templates/P10/ndj_01/Projeto/Ativo_Fixo/atfcpatri.prw

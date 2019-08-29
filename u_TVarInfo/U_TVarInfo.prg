@@ -17,18 +17,18 @@ Static __nClsNIntSleep:=0
 Static __nClsVAddSleep:=0
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Class:TVarInfo [Baseada na Ideia Original de Julio [AUTOMAN] Wittwer]
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Reproduz as Caracteristicas da Funcao VarInfo resolvendo a Limitacao do Tamanho da String
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,@nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Class TVarInfo From LongClassName
 
     DATA aTVarInfo
-    
+
     DATA cClassName
 
     DATA nAT
@@ -41,20 +41,23 @@ Class TVarInfo From LongClassName
 
     DATA lBof
     DATA lEof
-    
+
+    DATA lEcho
+
     DATA cDateFormat
     DATA lSetCentury
 
     DATA nfHandle
 
-    Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Constructor
+    Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) CONSTRUCTOR
+    Method FreeObj()/*DESTRUCTOR*/
     Method ClassName()
-    
+
     Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
     Method Reset(uVarInfo,cVarName,lEraseSrv,lEraseLocal)
 
     Method Echo(lHtml,lTableFormat)
-    Method Show(nSWShow)
+    Method Show(nSWShow,lHtml,lTableFormat)
 
     Method Save(lHtml,lTableFormat)
 
@@ -69,25 +72,25 @@ End Class
 
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Funcao:U_TVarInfoNew
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Reproduz as Caracteristicas da Funcao VarInfo resolvendo a Limitacao do Tamanho da String
         Sintaxe:U_TVarInfoNew(uVarInfo,cVarName)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 User Function TVarInfoNew(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
 Return(TVarInfo():New(@uVarInfo,@cVarName,@nClsIntSleep,@nClsAddSleep))
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:New
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Constructor
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
     self:ClassName()
@@ -95,13 +98,13 @@ Method New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:ClassName
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Retorna o nome da Classe
         Sintaxe:TVarInfo():New(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep)
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method ClassName() Class TVarInfo
     self:cClassName:="TVARINFO"
@@ -109,7 +112,7 @@ Return(self:cClassName)
 
 /*/
     Method:Init
-    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:28/09/2011
     Descricao:Inicializa
 /*/
@@ -117,9 +120,9 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 
     Local aStackA:=Array(0)
     Local aStackO:=Array(0)
-    
+
     Local cVarType
-    
+
     Local nStackA:=0
     Local nStackO:=0
 
@@ -142,7 +145,7 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
             cVarName:="[VAR_NOTSET]"
         OTHERWISE
             cVarName:="[VAR_"+cVarType+"]"
-        ENDCASE            
+        ENDCASE
     EndIF
 
     self:ClassName()
@@ -166,11 +169,11 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
 
     __nClsIntSleep:=nClsIntSleep
     __nClsAddSleep:=nClsAddSleep
-    __nClsNIntSleep:=Int(__nClsIntSleep / 2)
+    __nClsNIntSleep:=Int(__nClsIntSleep/2)
     __nClsVAddSleep:=0
 
     TVarInfo(@self:aTVarInfo,@aStackA,@nStackA,@aStackO,@nStackO,@cVarName,@uVarInfo)
-    
+
     nStackA:=0
     aSize(aStackA,nStackA)
     nStackO:=0
@@ -186,64 +189,66 @@ Method Init(uVarInfo,cVarName,nClsIntSleep,nClsAddSleep) Class TVarInfo
         self:nAT:=0
         self:lBof:=.T.
         self:lEof:=.T.
-    EndIF    
+    EndIF
 
-Return(NIL)
+    DEFAULT self:lEcho:=.F.
+
+Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:ReSet
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:ReSet
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method ReSet(uVarInfo,cVarName,lEraseSrv,lEraseLocal) Class TVarInfo
     self:Close(@lEraseSrv,@lEraseLocal)
-    self:Init(@uVarInfo,@cVarName)    
-Return(NIL)
+    self:Init(@uVarInfo,@cVarName)
+Return(self)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoTo
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Posiciona no Registro n
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoTo(n) Class TVarInfo
     DEFAULT n:=0
 Return(self:nAT:=n)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoTop
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:GoTop
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoTop() Class TVarInfo
 Return(self:nAT:=Min(1,self:nSize))
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoBottom
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:GoBottom
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoBottom() Class TVarInfo
 Return(self:nAT:=self:nSize)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:GoNext
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Tenta Obter o Proximo Registro
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method GoNext() Class TVarInfo
 
@@ -275,17 +280,17 @@ Method GoNext() Class TVarInfo
 Return(lGoNext)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Echo
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Retorna a Linha Atual
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Echo(lHtml,lTableFormat) Class TVarInfo
 
     Local cEcho:=""
-    
+
     DEFAULT lHtml:=.F.
     DEFAULT lTableFormat:=.F.
 
@@ -328,7 +333,7 @@ Method Echo(lHtml,lTableFormat) Class TVarInfo
                     cEcho+="       </table>"+self:cCRLF
                 Else
                     cEcho+="       </pre>"+self:cCRLF
-                EndIF    
+                EndIF
                 cEcho+="   </body>"+self:cCRLF
                 cEcho+="</html>"+self:cCRLF
             EndIF
@@ -338,57 +343,67 @@ Method Echo(lHtml,lTableFormat) Class TVarInfo
         EndIF
     EndIF
 
+    IF (self:lEcho)
+        ConOut(cEcho)
+    EndIF
+
 Return(cEcho)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Show
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Apresenta o Conteudo obtido pela VarInfo
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
-Method Show(nSWShow) Class TVarInfo
+Method Show(nSWShow,lHtml,lTableFormat) Class TVarInfo
 
     Local lShow:=.F.
 
+    IF (self:nfHandle<0)
+        self:Save(@lHtml,@lTableFormat)
+    EndIF
+
     IF (;
-            (self:nfHandle>0);
+            (self:nfHandle>=0);
             .and.;
             File(self:cSRVFile);
-       )    
+       )
 
         self:cLocalPath:=GetTempPath()
-    
+
         IF .NOT.(SubStr(self:cLocalPath,-1)=="\")
             self:cLocalPath+="\"
         EndIF
-    
+
         self:cLocalFile:=(self:cLocalPath+self:cSRVFile)
 
         lShow:=__CopyFile(self:cSRVFile,self:cLocalFile)
-        IF (lShow)              
-            DEFAULT nSWShow:=SW_SHOWMAXIMIZED
-            ShellExecute("Open", self:cLocalFile,"",self:cLocalPath,nSWShow)
+        IF .NOT.(self:lEcho)
+            IF (lShow)
+                DEFAULT nSWShow:=SW_SHOWMAXIMIZED
+                ShellExecute("Open",self:cLocalFile,"",self:cLocalPath,nSWShow)
+            EndIF
         EndIF
 
     EndIF
-    
+
 Return(lShow)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Save
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Salva o Conteudo Obtivo pela VarInfo
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Save(lHtml,lTableFormat) Class TVarInfo
 
     Local cExt
     Local cEcho
-    
+
     Local lSave:=.F.
 
     DEFAULT lHtml:=.F.
@@ -418,39 +433,39 @@ Method Save(lHtml,lTableFormat) Class TVarInfo
             self:nfHandle:=fOpen(self:cSRVFile,FO_SHARED)
             lSave:=(fError()==0)
         EndIF
-    EndIF    
+    EndIF
 
 Return(lSave)
 
 //------------------------------------------------------------------------------------------------
-    /*/
+   /*/
         Method:Close
-        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+        Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
         Data:28/09/2011
         Descricao:Fecha e exclui os arquivos utilizados
-    /*/
+   /*/
 //------------------------------------------------------------------------------------------------
 Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
 
     DEFAULT lEraseSrv:=.T.
     DEFAULT lEraseLocal:=.T.
 
-    IF (self:nfHandle>0)
+    IF (self:nfHandle>=0)
         fClose(self:nfHandle)
         self:nfHandle:=-1
     EndIF
 
-    IF !Empty(self:cSRVFile)
+    IF .NOT.(Empty(self:cSRVFile))
         IF (lEraseSrv)
             fErase(self:cSRVFile)
-        EndIF    
+        EndIF
         self:cSRVFile:=""
     EndIF
 
-    IF !Empty(self:cLocalFile)
+    IF .NOT.(Empty(self:cLocalFile))
         IF (lEraseLocal)
-            fErase(self:cLocalFile)        
-        EndIF    
+            fErase(self:cLocalFile)
+        EndIF
         self:cLocalFile:=""
     EndIF
 
@@ -466,15 +481,20 @@ Method Close(lEraseSrv,lEraseLocal) Class TVarInfo
 
     Set(4,self:cDateFormat)
 
-    IF !(self:lSetCentury)
+    IF .NOT.(self:lSetCentury)
         __SetCentury("OFF")
     EndIF
 
-Return(NIL)
+Return(self)
+
+Method FreeObj(lEraseSrv,lEraseLocal) Class TVarInfo
+    self:Close(@lEraseSrv,@lEraseLocal)
+    self:=FreeObj(self)
+Return(self)
 
 /*/
     Funcao:TVarInfo
-    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:28/09/2011
     Descricao:Obtem o Conteudo de uma variavel passada por parametro
 /*/
@@ -487,6 +507,8 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
     Local cVarType:=ValType(uVarInfo)
 
     Local lStack
+    Local lClone
+    Local lPointer
 
     Local nD
     Local nJ
@@ -494,7 +516,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
     Local nLen:=0
     Local nStack:=0
-    
+
     Local uVar
 
     DEFAULT nNivel:=0
@@ -502,30 +524,60 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
     BEGIN SEQUENCE
 
         IF (cVarType=="O")
-    
+
             ++nNivel
-    
+
             TRY EXCEPTION
                 cClassName:=uVarInfo:ClassName()
             CATCH EXCEPTION
                 cClassName:=GetClassName(uVarInfo)
             END EXCETION
-            
-            nStack:=aScanX(aStackO,{|aStk,nAT|aStackO[nAT][STACK_PARAMETER]==uVarInfo})
-            lStack:=(nStack>0) 
 
-            IF (lStack)
+            nStack:=aScanX(aStackO,{|aStk,nAT|aStackO[nAT][STACK_PARAMETER]==uVarInfo})
+            lStack:=(nStack>0)
+
+            lPointer:=lStack
+
+            if !(lPointer)
+
+                nStack:=aScanX(aStackO,{|aStk,nAT|compare(aStackO[nAT][STACK_PARAMETER],uVarInfo)})
+                lStack:=(nStack>0)
+
+                lClone:=lStack
+
+                if (lClone)
+
+                    cTab:=Space(nNivel*5)
+
+                    cLine+=cTab
+                    cLine+=cVarName
+                    cLine+=" ->OBJECT ("
+                    cLine+=cClassName
+                    cLine+=") "
+                    cLine+="[CLONE OF "
+                    cLine+=aStackO[nStack][STACK_NAME]
+                    cLine+="]"
+
+                    aAdd(aTVarInfo,cLine)
+
+                    BREAK
+
+                EndIF
+
+            endif
+
+            IF (lPointer)
 
                 cTab:=Space(nNivel*5)
-                
+
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> OBJECT ("
+                cLine+=" ->OBJECT ("
                 cLine+=cClassName
                 cLine+=") "
-                cLine+="[CLONE OF "
+                cLine+="[POINTER OF "
                 cLine+=aStackO[nStack][STACK_NAME]
-                cLine+="]"  
+                cLine+="]"
 
                 aAdd(aTVarInfo,cLine)
 
@@ -537,10 +589,10 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 Exception code:C0000005 ACCESS_VIOLATION
                 Access Violation tInterFunctionCall on TVARINFO(U_TVARINFO.PRG)
                 BEGIN Isto "minimiza" a ocorrencia da Exception
-            */    
+            */
                 __nClsVAddSleep+=__nClsAddSleep
                 IF (__cClassName==cClassName)
-                    Sleep(__nClsIntSleep+__nClsVAddSleep) 
+                    Sleep(__nClsIntSleep+__nClsVAddSleep)
                 Else
                     __cClassName:=cClassName
                     Sleep(__nClsNIntSleep)
@@ -549,7 +601,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 END Isto "minimiza" a ocorrencia da Exception
                 Exception code:C0000005 ACCESS_VIOLATION
                 Access Violation tInterFunctionCall on TVARINFO(U_TVARINFO.PRG)
-            */    
+            */
 
             aAdd(aStackO,Array(STACK_ELEMENTS))
 
@@ -561,7 +613,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
             cLine+=cTab
             cLine+=cVarName
-            cLine+=" -> OBJECT ("
+            cLine+=" ->OBJECT ("
             cLine+=cClassName
             cLine+=") "
 
@@ -570,27 +622,50 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
             TVarInfo(@aTVarInfo,@aStackA,@nStackA,@aStackO,@nStackO,cVarName,ClassDataArray(uVarInfo,.T.),nNivel,@cClassName)
 
         ElseIF (cVarType=="A")
-    
+
             cTab:=Space(nNivel*5)
             nJ:=Len(uVarInfo)
             cNStr:=Transform(nJ,RetPictVal(nJ))
 
             nStack:=aScanX(aStackA,{|aStk,nAT|aStackA[nAT][STACK_PARAMETER]==uVarInfo})
-            lStack:=(nStack>0) 
-    
-            IF (lStack)
-    
+            lStack:=(nStack>0)
+
+            lPointer:=lStack
+
+            if !(lPointer)
+
+                nStack:=aScanX(aStackA,{|aStk,nAT|compare(aStackA[nAT][STACK_PARAMETER],uVarInfo)})
+                lStack:=(nStack>0)
+
+                lClone:=lStack
+
+            endif
+
+            IF (lPointer)
+
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> ARRAY ("
+                cLine+=" ->ARRAY ("
+                cLine+=cNStr
+                cLine+=") "
+                cLine+="[POINTER OF "
+                cLine+=aStackA[nStack][STACK_NAME]
+                cLine+="]"
+
+            ElseIF (lClone)
+
+                cLine+=cTab
+                cLine+=cVarName
+                cLine+=" ->ARRAY ("
                 cLine+=cNStr
                 cLine+=") "
                 cLine+="[CLONE OF "
                 cLine+=aStackA[nStack][STACK_NAME]
                 cLine+="]"
-    
+
+
             Else
-    
+
                 aAdd(aStackA,Array(STACK_ELEMENTS))
 
                 nStack:=++nStackA
@@ -599,14 +674,14 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
                 cLine+=cTab
                 cLine+=cVarName
-                cLine+=" -> ARRAY ("
+                cLine+=" ->ARRAY ("
                 cLine+=cNStr
                 cLine+=") [...]"
-            
-            EndIF    
-    
+
+            EndIF
+
             aAdd(aTVarInfo,cLine)
-    
+
             ++nNivel
 
             For nD:=1 To nJ
@@ -617,16 +692,16 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
             Next nD
 
         Else
-    
+
             cVar:=AllToChar(uVarInfo,cVarType)
-            
+
             cTab:=Space(nNivel*5)
-            
+
             nVar:=Len(cVar)
-            
+
             cLine+=cTab
             cLine+=cVarName
-            cLine+=" -> "
+            cLine+=" ->"
             cLine+=cVarType
             cLine+=" ("
             cLine+=Transform(nVar,RetPictVal(nVar))
@@ -634,18 +709,18 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
             cLine+="["
             cLine+=cVar
             cLine+="]"
-    
-            aAdd(aTVarInfo,cLine)
-    
-        EndIF  
 
-    END SEQUENCE        
+            aAdd(aTVarInfo,cLine)
+
+        EndIF
+
+    END SEQUENCE
 
 Return(NIL)
 
 /*/
     Funcao:AllToChar
-    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:28/09/2011
     Descricao:AllToChar
 /*/
@@ -657,11 +732,11 @@ Static Function AllToChar(uVarInfo,cVarType,cPicture)
     CASE (cVarType=="N")
         IF Empty(cPicture)
             cPicture:=RetPictVal(uVarInfo,.T.)
-        EndIF    
+        EndIF
         cVar:=Transform(uVarInfo,AllTrim(cPicture))
     CASE (cVarType=="C")
         DEFAULT cPicture:=""
-        IF !Empty(cPicture)
+        IF .NOT.(Empty(cPicture))
             cVar:=Transform(uVarInfo,AllTrim(cPicture))
         Else
             cVar:=uVarInfo
@@ -672,7 +747,7 @@ Static Function AllToChar(uVarInfo,cVarType,cPicture)
         cVar:=DToC(uVarInfo)
     CASE (cVarType=="B")
         cVar:=GetCbSource(uVarInfo)
-    CASE (cVarType=="O")        
+    CASE (cVarType=="O")
         cVar:="[OJBECT][...]"
     OTHERWISE
         cVar:=""
@@ -682,7 +757,7 @@ Return(cVar)
 
 /*/
     Funcao:RetPictVal
-    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br] 
+    Autor:Marinaldo de Jesus [http://www.blacktdn.com.br]
     Data:28/09/2011
     Descricao:Retorna a Picture para Campo Numerico Conforme Valor
     Sitantxe:RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
@@ -691,22 +766,22 @@ Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
 
     Local cPict
     Local cPictSepMil
-    
+
     Local uInt
     Local uDec
-    
+
     IF (ValType(nVal)=="N")
         uInt:=Int(nVal)
-        uDec:=(nVal - uInt)
+        uDec:=(nVal -uInt)
         DEFAULT lDecZero:=.F.
         IF (;
                 (uDec==0);
                 .and.;
-                !(lDecZero);
+                .NOT.(lDecZero);
            )
             uDec:=NIL
         EndIF
-        IF (uDec<> NIL)
+        IF (uDec<>NIL)
             uDec:=AllTrim(Str(uDec))
             uDec:=SubStr(uDec,At(".",uDec)+1)
             uDec:=Len(uDec)
@@ -719,12 +794,12 @@ Static Function RetPictVal(nVal,lDecZero,nInt,nDec,lPictSepMil)
             IF (nInt>3)
                 cPictSepMil:=cPict
                 cPict:=""
-                For uInt:=nInt To 1 Step - 3
+                For uInt:=nInt To 1 Step -3
                     cPict:=(","+SubStr(cPictSepMil,-3,uInt)+cPict)
                 Next uInt
             EndIF
         EndIF
-        IF (uDec<> NIL)
+        IF (uDec<>NIL)
             cPict+="."
             cPict+=Replicate("9",uDec)
             nDec:=uDec

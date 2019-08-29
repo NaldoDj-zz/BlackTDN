@@ -507,6 +507,8 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
     Local cVarType:=ValType(uVarInfo)
 
     Local lStack
+    Local lClone
+    Local lPointer
 
     Local nD
     Local nJ
@@ -532,8 +534,37 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
 
             nStack:=aScanX(aStackO,{|aStk,nAT|aStackO[nAT][STACK_PARAMETER]==uVarInfo})
             lStack:=(nStack>0)
+            lPointer:=lStack
 
-            IF (lStack)
+            if !(lPointer)
+
+                nStack:=aScanX(aStackO,{|aStk,nAT|compare(aStackO[nAT][STACK_PARAMETER],uVarInfo)})
+                lStack:=(nStack>0)
+
+                lClone:=lStack
+
+                if (lClone)
+
+                    cTab:=Space(nNivel*5)
+
+                    cLine+=cTab
+                    cLine+=cVarName
+                    cLine+=" ->OBJECT ("
+                    cLine+=cClassName
+                    cLine+=") "
+                    cLine+="[CLONE OF "
+                    cLine+=aStackO[nStack][STACK_NAME]
+                    cLine+="]"
+
+                    aAdd(aTVarInfo,cLine)
+
+                    BREAK
+
+                EndIF
+
+            endif
+
+            IF (lPointer)
 
                 cTab:=Space(nNivel*5)
 
@@ -542,7 +573,7 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 cLine+=" ->OBJECT ("
                 cLine+=cClassName
                 cLine+=") "
-                cLine+="[CLONE OF "
+                cLine+="[POINTER OF "
                 cLine+=aStackO[nStack][STACK_NAME]
                 cLine+="]"
 
@@ -597,7 +628,33 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
             nStack:=aScanX(aStackA,{|aStk,nAT|aStackA[nAT][STACK_PARAMETER]==uVarInfo})
             lStack:=(nStack>0)
 
+<<<<<<< HEAD
             IF (lStack)
+=======
+            lPointer:=lStack
+
+            if !(lPointer)
+
+                nStack:=aScanX(aStackA,{|aStk,nAT|compare(aStackA[nAT][STACK_PARAMETER],uVarInfo)})
+                lStack:=(nStack>0)
+
+                lClone:=lStack
+
+            endif
+
+            IF (lPointer)
+
+                cLine+=cTab
+                cLine+=cVarName
+                cLine+=" ->ARRAY ("
+                cLine+=cNStr
+                cLine+=") "
+                cLine+="[POINTER OF "
+                cLine+=aStackA[nStack][STACK_NAME]
+                cLine+="]"
+
+            ElseIF (lClone)
+>>>>>>> 5c8d1fd7a6b3c862c1d7b062f9075d735bb7affb
 
                 cLine+=cTab
                 cLine+=cVarName
@@ -608,6 +665,10 @@ Static Function TVarInfo(aTVarInfo,aStackA,nStackA,aStackO,nStackO,cVarName,uVar
                 cLine+=aStackA[nStack][STACK_NAME]
                 cLine+="]"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c8d1fd7a6b3c862c1d7b062f9075d735bb7affb
             Else
 
                 aAdd(aStackA,Array(STACK_ELEMENTS))

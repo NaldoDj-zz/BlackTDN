@@ -1,7 +1,7 @@
 #include "totvs.ch"
 #include "tbiconn.ch"
 #include "dbstruct.ch"
-#include "tryexception.ch"       
+#include "tryexception.ch"
 
 Static _cSM0F3Ret
 
@@ -12,7 +12,7 @@ Static _cSM0F3Ret
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
         Uso:Popular a Tabela RHS (Histórico de Plano de Saúde) com os dados da tabela SRD
-        Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R) 
+        Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R)
         Campos:RHS(*)
     */
 //------------------------------------------------------------------------------------------------------
@@ -20,9 +20,9 @@ User Function SRD2RHS()
 
     Local cTitle:=OemToAnsi("Atualização Histórico Plano de Saúde/Odontológico (RHS) : [AJUSTE DIRF ANUAL]")
     Local cModName:="SIGAGPE"
-    
+
     Local bExec:={||SRD2RHS(cTitle)}
-    
+
     Local lMenu:=.F.
     Local lSM0Open:=.F.
     Local lSchedule:=.F.
@@ -51,7 +51,7 @@ User Function SRD2RHS()
                 //------------------------------------------------------------------------------------------------------
                 BREAK
             EndIF
-        EndIF    
+        EndIF
 
         //------------------------------------------------------------------------------------------------------
             //Garanto que o Ano seja Mostrado com 4 Digitos
@@ -65,7 +65,7 @@ User Function SRD2RHS()
                 .NOT.(lMainWnd);
                 .and.;
                 .NOT.(lSchedule);
-            )    
+            )
 
             Private oMainWnd
             Private oMsgItem0
@@ -73,29 +73,29 @@ User Function SRD2RHS()
             Private oMsgItem2
             Private oMsgItem3
             Private oMsgItem4
-        
+
             MsApp():New(cModName)
             oApp:CreateEnv()
 
             bWindowInit:=bExec
-            
+
             DEFINE WINDOW oMainWnd FROM 001,001 TO 400,500 TITLE OemToAnsi(cTitle)
 
                 oMainWnd:oMsgBar:=TMsgBar():New(oMainWnd,Space(2)+OemToAnsi(GetVersao()),.F.,.F.,.F.,.F.,RGB(116,116,116),,,.F.,"fw_rodape_logo")
                 oApp:oMainWnd:=oMainWnd
-                
+
                 IF (Type("oApp:lShortCut")=="L")
                     oApp:lShortCut:=.F.
-                EndIF    
-                
+                EndIF
+
                 oApp:lFlat:=.F.
-                
+
                 IF (Type("oApp:lMenu")=="L")
                     oApp:lMenu:=lMenu
                 Else
                     lMenu:=.F.
-                EndIF    
-                
+                EndIF
+
                 DEFINE MSGITEM oMsgItem0 OF oMainWnd:oMsgBar PROMPT "NaldoDJ"      SIZE 100 ACTION GetSDIInfo()
                 DEFINE MSGITEM oMsgItem1 OF oMainWnd:oMsgBar PROMPT oApp:dDataBase SIZE 100 ACTION GetSDIInfo()
                 DEFINE MSGITEM oMsgItem2 OF oMainWnd:oMsgBar PROMPT "DIRF"         SIZE 100 ACTION GetSDIInfo()
@@ -112,7 +112,7 @@ User Function SRD2RHS()
                 .NOT.(lMainWnd);
                 .or.;
                 .NOT.(lSchedule);
-            )    
+            )
             Break
         EndIF
 
@@ -129,7 +129,7 @@ Return(NIL)
         Autor:Marinaldo de Jesus [BlackTDN:(http://blacktdn.com.br/)]
         Data:22/01/2015
         Uso:Popular a Tabela RHS (Histórico de Plano de Saúde) com os dados da tabela SRD
-        Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R) 
+        Tabelas:RHS(R/W),SM0(R),SRA(R),SRD(R),RHK(R),RHL(R),RHM(R)
         Campos:RHS(*)
     */
 //------------------------------------------------------------------------------------------------------
@@ -138,9 +138,9 @@ Static Procedure SRD2RHS(cTitle)
     Local aSM0Area
     Local aTSM0Area
     Local aEmpresas
-    
+
     Local bExec
-    
+
     Local cEmp
     Local cFil
     Local cLogT
@@ -148,13 +148,13 @@ Static Procedure SRD2RHS(cTitle)
     Local cEmpresas
     Local cSvEmpAnt
     Local cSvFilAnt
-    
+
     Local lSM0Open:=.F.
-    
+
     Local nEmpresa
     Local nEmpresas
     Local nRecCount:=0
-    
+
     Local oLog
 
     //------------------------------------------------------------------------------------------------
@@ -163,8 +163,8 @@ Static Procedure SRD2RHS(cTitle)
     Local oPergunte:=tHash():New()
 
     Local oProcess
-    Local oException     
-    
+    Local oException
+
     //------------------------------------------------------------------------------------------------------
         //Informa a funcao de Execucao interna qual sera o nome atribuido ao processo
     //------------------------------------------------------------------------------------------------------
@@ -176,9 +176,9 @@ Static Procedure SRD2RHS(cTitle)
     IF .NOT.(lPrepEnv)
         cSvEmpAnt:=cEmpAnt
         cSvFilAnt:=cFilAnt
-    EndIF     
-    
-    BEGIN SEQUENCE 
+    EndIF
+
+    BEGIN SEQUENCE
 
         //------------------------------------------------------------------------------------------------------
             //Com a atualização do sistema ParamBox passou a exigir a abertura do SX6. Por isso....
@@ -195,14 +195,14 @@ Static Procedure SRD2RHS(cTitle)
                 //------------------------------------------------------------------------------------------------------
                 RPCSetType(3)
                 PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE"
-            ENDIF    
+            ENDIF
         CATCH EXCEPTION USING oException
             ConOut(CaptureError())
             //------------------------------------------------------------------------------------------------------
                 //Aborta o Processo
             //------------------------------------------------------------------------------------------------------
             BREAK
-        END EXCEPTION    
+        END EXCEPTION
 
         //------------------------------------------------------------------------------------------------------
             //Se não confirmar as perguntas....
@@ -213,8 +213,12 @@ Static Procedure SRD2RHS(cTitle)
             //------------------------------------------------------------------------------------------------------
             BREAK
         EndIF
-        
+
         IF (lPrepEnv)
+            //------------------------------------------------------------------------------------------------------
+                //Seleciona As Empresas a serem Processadas
+            //------------------------------------------------------------------------------------------------------
+            cEmpresas:=SM0Opcoes()
             //------------------------------------------------------------------------------------------------------
                 //Libera o Ambiente
             //------------------------------------------------------------------------------------------------------
@@ -233,7 +237,7 @@ Static Procedure SRD2RHS(cTitle)
                 BREAK
             EndIF
         ENDIF
-        
+
         //------------------------------------------------------------------------------------------------------
             //Salva ambiente para Tabela de Empresas
         //------------------------------------------------------------------------------------------------------
@@ -252,7 +256,7 @@ Static Procedure SRD2RHS(cTitle)
         //------------------------------------------------------------------------------------------------------
         nEmpresas:=Len(aEmpresas)
         For nEmpresa:=1 To nEmpresas
-        
+
             //------------------------------------------------------------------------------------------------------
                 //Instancia um novo Objeto do Tipo tLogReport
             //------------------------------------------------------------------------------------------------------
@@ -263,81 +267,89 @@ Static Procedure SRD2RHS(cTitle)
             oLog:AddGroup("INCLUSÃO")
             oLog:AddGroup("ALTERAÇÃO")
             oLog:AddGroup("TTSERROR")
-    
+
             //------------------------------------------------------------------------------------------------------
                 //Obtem a Empresa
             //------------------------------------------------------------------------------------------------------
             cEmp:=aEmpresas[nEmpresa]
             IF .NOT.(SM0->(dbSeek(cEmp,.F.)))
-                Loop                
+                Loop
             EndIF
             //------------------------------------------------------------------------------------------------------
                 //Obtem a Filial
             //------------------------------------------------------------------------------------------------------
             cFil:=SM0->M0_CODFIL
-    
+
             //------------------------------------------------------------------------------------------------------
                 //Redefine o modo de Consumo de Lincença
             //------------------------------------------------------------------------------------------------------
             RPCSetType(3)
-    
+
             //------------------------------------------------------------------------------------------------------
                 //PREPARA AMBIENTE PARA EXECUÇÃO
             //------------------------------------------------------------------------------------------------------
             IF (lPrepEnv)
-                PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE" TABLES "RHS","SRA","SRD","RHK","RHL","RHM" 
+                PREPARE ENVIRONMENT EMPRESA (cEmp) FILIAL (cFil) MODULO "GPE" TABLES "RHS","SRA","SRD","RHK","RHL","RHM"
             EndIF
-            
+
                 //------------------------------------------------------------------------------------------------------
                     //Redefine o modo Blind
                 //------------------------------------------------------------------------------------------------------
                 IF IsBlind()
-                    __cInternet:=NIL
-                EndIF           
-    
+                    &("__cInternet"):=NIL
+                EndIF
+
                 //------------------------------------------------------------------------------------------------------
                     //Define Bloco de Codigo para a Execucao do Processo de Importacao
                 //------------------------------------------------------------------------------------------------------
                 bExec:={|lEnd,oProcess|ProcRedefine(@oProcess,NIL,0,450,450,.T.,.T.),oProcess:SetRegua1(@nRecCount),SRD2RHSProc(@oProcess,@oLog,@oPergunte)}
-    
+
                 //------------------------------------------------------------------------------------------------------
                     //Garante o Posicionamento da tabela SM0
                 //------------------------------------------------------------------------------------------------------
                 SM0->(dbSetOrder(1))
                 SM0->(MsSeek(cEmp+cFil,.F.))
                 aTSM0Area:=SM0->(GetArea())
-    
+
                 //-------------------------------------------------------------------------------------
                     //Obtem o total de registros a serem processados
                 //-------------------------------------------------------------------------------------
                 dbSelectArea("SM0")
                 COUNT TO nRecCount FOR SM0->M0_CODIGO==cEmpAnt WHILE SM0->M0_CODIGO==cEmpAnt REST
-                
+
                 //-------------------------------------------------------------------------------------
                     //Garante Posicionamento na SM0 depois do comando Count
                 //-------------------------------------------------------------------------------------
                 RestArea(aTSM0Area)
-                
+
                 //------------------------------------------------------------------------------------------------------
                     //Instancia um novo objeto para o controle de Processamento visual
                 //------------------------------------------------------------------------------------------------------
                 oProcess:=MsNewProcess():New(bExec,OemToAnsi("Importação de Dados para RHS"),"Importando...",.T.)
-    
+
                 //------------------------------------------------------------------------------------------------------
                     //Ativa e executa o processo
                 //------------------------------------------------------------------------------------------------------
-                oProcess:Activate()            
-                                        
+                oProcess:Activate()
+
                 //------------------------------------------------------------------------------------------------------
                     //No retorno do processo, se interface nao tiver sido finalizada ...
                 //------------------------------------------------------------------------------------------------------
-                IF .NOT.(oProcess:lEnd)
+                IF !(oProcess:lEnd)
                     //------------------------------------------------------------------------------------------------------
                         //...Finaliza-a
                     //------------------------------------------------------------------------------------------------------
                     oProcess:oDlg:End()
+                else
+                    IF (lPrepEnv)
+                        //------------------------------------------------------------------------------------------------------
+                            //Libera o Ambiente
+                        //------------------------------------------------------------------------------------------------------
+                        RESET ENVIRONMENT
+                    EndIF
+                    break
                 EndIF
-                
+
                 //------------------------------------------------------------------------------------------------------
                     //Se o objeto nao foi finalizado...
                 //------------------------------------------------------------------------------------------------------
@@ -347,48 +359,48 @@ Static Procedure SRD2RHS(cTitle)
                     //------------------------------------------------------------------------------------------------------
                     oProcess:=FreeObj(oProcess)
                 EndIF
-                        
+
                 //------------------------------------------------------------------------------------------------
                     //Se existirem informações de LOG...
                 //------------------------------------------------------------------------------------------------
                 cLogT:="LOG: "+cCadastro
-                   TRY EXCEPTION
-                       oLog:PrintDialog(cLogT)
+                TRY EXCEPTION
+                    oLog:PrintDialog(cLogT)
                 CATCH EXCEPTION
                     ApMsgAlert(CaptureError())
                    END EXCEPTION
                 oLog:=oLog:FreeObj()
-    
-            IF (lPrepEnv)
-                //------------------------------------------------------------------------------------------------------
-                    //Libera o Ambiente
-                //------------------------------------------------------------------------------------------------------
-                RESET ENVIRONMENT
-            EndIF
 
-            //------------------------------------------------------------------------------------------------------
-                //Verifica se Devera abrir o arquivo de Empresas
-            //------------------------------------------------------------------------------------------------------
-            IF (lPrepEnv)
-                //------------------------------------------------------------------------------------------------------
-                    //Tenta abrir a tabela de Empresas
-                //------------------------------------------------------------------------------------------------------
-                MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
-                //------------------------------------------------------------------------------------------------------
-                    //Se não consegiu...
-                //------------------------------------------------------------------------------------------------------
-                   IF .NOT.(lSM0Open)
+                IF (lPrepEnv)
                     //------------------------------------------------------------------------------------------------------
-                        //...Abandona
+                        //Libera o Ambiente
                     //------------------------------------------------------------------------------------------------------
-                    BREAK
+                    RESET ENVIRONMENT
                 EndIF
-            EndIF
-            
-        Next nEmpresa      
-    
+
+                //------------------------------------------------------------------------------------------------------
+                    //Verifica se Devera abrir o arquivo de Empresas
+                //------------------------------------------------------------------------------------------------------
+                IF (lPrepEnv)
+                    //------------------------------------------------------------------------------------------------------
+                        //Tenta abrir a tabela de Empresas
+                    //------------------------------------------------------------------------------------------------------
+                    MsAguarde({||lSM0Open:=MyOpenSM0(.T.)},"Abrindo Cadastro de Empresas","Aguarde...")
+                    //------------------------------------------------------------------------------------------------------
+                        //Se não consegiu...
+                    //------------------------------------------------------------------------------------------------------
+                       IF .NOT.(lSM0Open)
+                        //------------------------------------------------------------------------------------------------------
+                            //...Abandona
+                        //------------------------------------------------------------------------------------------------------
+                        BREAK
+                    EndIF
+                EndIF
+
+        Next nEmpresa
+
     END SEQUENCE
-    
+
     //------------------------------------------------------------------------------------------------------
         //Restauras ambiente para Tabela de Empresas
     //------------------------------------------------------------------------------------------------------
@@ -402,7 +414,7 @@ Static Procedure SRD2RHS(cTitle)
     IF .NOT.(lPrepEnv)
         cEmpAnt:=cSvEmpAnt
         cFilAnt:=cSvFilAnt
-    EndIF     
+    EndIF
 
 Return
 
@@ -420,28 +432,36 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
     Local cEmp:=cEmpAnt
     Local cFil:=cFilAnt
     Local cYear:=oPergunte:Get("Competência")
+    Local cDtPgtoDe:=DtoS(oPergunte:Get("Data Pato.De"))
+    Local cDtPgtoAte:=DtoS(oPergunte:Get("Data Pato.Ate"))
     Local nProc:=oPergunte:Get("Processar Para")
 
     //------------------------------------------------------------------------------------------------------
         //Obtem um Alias válido para EmbeddedSQL
     //------------------------------------------------------------------------------------------------------
     Local cAlias:=GetNextAlias()
-    
+
     //------------------------------------------------------------------------------------------------------
         //Salva o Conteúdo de cFilAnt
     //------------------------------------------------------------------------------------------------------
     Local cSvFilAnt:=cFilAnt
-    
+
     Local nRecCount
-    
+
     //------------------------------------------------------------------------------------------------------
         //Processa para Todas as Filiais
     //------------------------------------------------------------------------------------------------------
     While SM0->(.NOT.(Eof()).and.M0_CODIGO==cEmp)
         //------------------------------------------------------------------------------------------------------
+            //Encerra o processo
+        //------------------------------------------------------------------------------------------------------
+        if (oProcess:lEnd)
+            exit
+        endif
+        //------------------------------------------------------------------------------------------------------
             //Incrementa Regua de Processamento
         //------------------------------------------------------------------------------------------------------
-        SM0->(oProcess:IncRegua1("["+M0_CODIGO+"]["+M0_CODFIL+"]["+M0_FILIAL+"]"))
+        SM0->(oProcess:IncRegua1("["+SM0->M0_CODIGO+"]["+SM0->M0_CODFIL+"]["+SM0->M0_FILIAL+"]"))
         //------------------------------------------------------------------------------------------------------
             //Redefine a Filial Corrente
         //------------------------------------------------------------------------------------------------------
@@ -459,7 +479,7 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
         //------------------------------------------------------------------------------------------------------
             //Obtem os Dados para Processamento
         //------------------------------------------------------------------------------------------------------
-        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear,@nProc)},"Obtendo dados no SGBD","Aguarde...")
+        MsAguarde({||nRecCount:=QueryView(@cAlias,@cYear,@nProc,@cDtPgtoDe,@cDtPgtoAte)},"Obtendo dados no SGBD","Aguarde...")
         //------------------------------------------------------------------------------------------------------
             //Verifica se Existem Itens a serem processados
         //------------------------------------------------------------------------------------------------------
@@ -495,8 +515,8 @@ Static Procedure SRD2RHSProc(oProcess,oLog,oPergunte)
         //Garante o Posicionamento no Cadastro de Empresas
     //------------------------------------------------------------------------------------------------------
     SM0->(MsSeek(cEmp+cFil,.F.))
-  
-Return 
+
+Return
 
 //------------------------------------------------------------------------------------------------------
     /*
@@ -508,7 +528,7 @@ Return
     */
 //------------------------------------------------------------------------------------------------------
 Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
-    
+
     //------------------------------------------------------------------------------------------------------
         //Obtem a estrutura da Tabela de Origem dos Dados
     //------------------------------------------------------------------------------------------------------
@@ -519,17 +539,17 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
     Local aFTarget:=RHS->(dbStruct())
     Local aIFields:=Array(0)
     Local aRHSKeyExp
-    
+
     Local cField
-    Local cFType 
-    Local cRANome     
+    Local cFType
+    Local cRANome
     //------------------------------------------------------------------------------------------------------
         //Obtem a Expressao da Chave de Indice para a tabela RHS
     //------------------------------------------------------------------------------------------------------
     Local cRHSKeyExp:="RHS_FILIAL+RHS_MAT+RHS_COMPPG+RHS_ORIGEM+RHS_CODIGO+RHS_TPLAN+RHS_TPFORN+RHS_CODFOR+RHS_TPPLAN+RHS_PLANO+RHS_PD"
     Local cRHSKeyVal
     Local cRHSKeySeek
-    
+
     Local nField
     Local nFields:=Len(aFSource)
     Local nKFields
@@ -540,18 +560,18 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
         //Obtem a Ordem a ser utilizada na Pesquisa da Tabela SRA
     //------------------------------------------------------------------------------------------------------
     Local nSRAOrder:=RetOrder("SRA","RA_FILIAL+RA_MAT")
-    
+
     //------------------------------------------------------------------------------------------------------
         //Obtem a Ordem a ser utilizada na Pesquisa da tabela RHS
     //------------------------------------------------------------------------------------------------------
     Local nRHSOrder:=RetOrder("RHS",cRHSKeyExp)
-    
+
     Local lTTS
     Local lFound
     Local lAddNew
-    
+
     Local xValue
-    
+
     //------------------------------------------------------------------------------------------------------
         //Obtem os Campos para composição da Chave de Pesquisa
     //------------------------------------------------------------------------------------------------------
@@ -579,9 +599,9 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
                 //...Adiciona-os para que sejam utilizados durante o processo de atualização
             //------------------------------------------------------------------------------------------------------
             aAdd(aIFields,{nATFieldS,nATFieldT})
-        EndIF    
+        EndIF
     Next nField
-    
+
     //------------------------------------------------------------------------------------------------------
         //Obtem a quantidade de Campos a serem atualizados conforme Relacionamento
     //------------------------------------------------------------------------------------------------------
@@ -594,7 +614,7 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
         //------------------------------------------------------------------------------------------------------
             //Seta a Ordem para Pesquisa dos Dados
         //------------------------------------------------------------------------------------------------------
-        RHS->(dbSetOrder(nRHSOrder))    
+        RHS->(dbSetOrder(nRHSOrder))
         //------------------------------------------------------------------------------------------------------
             //...Processa todos os registros
         //------------------------------------------------------------------------------------------------------
@@ -616,11 +636,11 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
                         xValue:=DtoS(xValue)
                     OTHERWISE
                         xValue:=cValToChar(xValue)
-                END CASE        
+                END CASE
                 cRHSKeyVal+=xValue
-            Next nField        
+            Next nField
             //------------------------------------------------------------------------------------------------------
-                //Define a chave para Pesquisa 
+                //Define a chave para Pesquisa
             //------------------------------------------------------------------------------------------------------
             cRHSKeySeek:=cRHSKeyVal
             //------------------------------------------------------------------------------------------------------
@@ -692,7 +712,7 @@ Static Procedure UPDSRD2RHS(cAlias,oProcess,oLog)
             //------------------------------------------------------------------------------------------------------
             (cAlias)->(dbSkip())
         End While
-    EndIF        
+    EndIF
 
 Return
 
@@ -705,20 +725,27 @@ Return
         Uso:Popular a Tabela RHS (Histórico de Plano de Saúde) com os dados da tabela SRD
     */
 //------------------------------------------------------------------------------------------------------
-Static Function QueryView(cAlias,cYear,nProc)
+Static Function QueryView(cAlias,cYear,nProc,cDtPgtoDe,cDtPgtoAte)
 
     Local cWProc0
     Local cWProc1
     Local cWProc2
     Local cWProc3
 
-    Local cExpYear:=(cYear+"%")
-    
+    Local cExpYear
+
     Local nRecCount:=0
-    
+
     Local oException
-    
+
     DEFAULT cAlias:=GetNextAlias()
+
+
+    cExpYear:=(cYear+"%")
+    cExpPgtoDe:=cDtPgtoDe
+    DEFAULT cExpPgtoDe:=cExpPgtoDe
+    cExpPgtoAte:=cDtPgtoAte
+    DEFAULT cExpPgtoAte:=cExpPgtoAte
 
     //-------------------------------------------------------------------------------------
         //Garante que o Alias, para EmbeddedSQL, não esteja em uso
@@ -726,7 +753,7 @@ Static Function QueryView(cAlias,cYear,nProc)
     IF (Select(cAlias)>0)
         (cAlias)->(dbCloseArea())
     EndIF
-    
+
     //-------------------------------------------------------------------------------------
         //Prepara cExpYear para EmbeddedSQL
     //-------------------------------------------------------------------------------------
@@ -741,10 +768,10 @@ Static Function QueryView(cAlias,cYear,nProc)
             cWProc0+=" NOT "
         EndIF
         cWProc0+="EXISTS("
-        cWProc0+="           SELECT 1" 
+        cWProc0+="           SELECT 1"
         cWProc0+="             FROM "+RetSQLName("RHS")+" RHS_E"
         cWProc0+="            WHERE RHS_E.D_E_L_E_T_=SRD.D_E_L_E_T_"
-        cWProc0+="              AND RHS_E.RHS_MAT=SRD.RD_MAT" 
+        cWProc0+="              AND RHS_E.RHS_MAT=SRD.RD_MAT"
         cWProc0+="              AND RHS_E.RHS_FILIAL=SRD.RD_FILIAL"
         cWProc0+="              AND RHS_E.RHS_COMPPG=SRD.RD_DATARQ"
         cWProc0+="              AND RHS_E.RHS_PD=SRD.RD_PD"
@@ -765,44 +792,44 @@ Static Function QueryView(cAlias,cYear,nProc)
     cWProc1:=StrTran(cWProc0,"?","1")
     cWProc2:=StrTran(cWProc0,"?","2")
     cWProc3:=StrTran(cWProc0,"?","3")
-    
+
     TRY EXCEPTION
 
         //-------------------------------------------------------------------------------------
             //Elabora View, usando EmbeddedSQL, com os dados a serem processados
         //-------------------------------------------------------------------------------------
         BEGINSQL ALIAS cAlias
-            
+
             %noParser%
-            
+
             COLUMN RHS_DATA     AS DATE
             COLUMN RHS_DATPGT   AS DATE
-            
+
             SELECT   SRD.RD_FILIAL  AS RHS_FILIAL
                     ,SRD.RD_MAT     AS RHS_MAT
                     ,SRD.RD_DATPGT  AS RHS_DATA
                     ,'1'            AS RHS_ORIGEM
-                    ,' '            AS RHS_CODIGO 
-                    ,'1'            AS RHS_TPLAN        
+                    ,' '            AS RHS_CODIGO
+                    ,'1'            AS RHS_TPLAN
                     ,RHK.RHK_TPFORN AS RHS_TPFORN
                     ,RHK.RHK_CODFOR AS RHS_CODFOR
                     ,RHK.RHK_TPPLAN AS RHS_TPPLAN
                     ,RHK.RHK_PLANO  AS RHS_PLANO
-                    ,SRD.RD_PD      AS RHS_PD 
+                    ,SRD.RD_PD      AS RHS_PD
                     ,SRD.RD_VALOR   AS RHS_VLRFUN
-                    ,0              AS RHS_VLREMP        
+                    ,0              AS RHS_VLREMP
                     ,SRD.RD_DATARQ  AS RHS_COMPPG
                     ,SRD.RD_DATPGT  AS RHS_DATPGT
                     ,''             AS RHS_DTHRGR
-                    ,'1'            AS RHS_TIPO 
-            FROM %table:SRD% SRD 
+                    ,'1'            AS RHS_TIPO
+            FROM %table:SRD% SRD
             LEFT OUTER JOIN %table:SRA% SRA ON (
-                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_ 
-                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL 
+                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL
                                                 AND SRA.RA_MAT=SRD.RD_MAT
             )
-            RIGHT OUTER JOIN %table:RHK% RHK ON ( 
-                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+            RIGHT OUTER JOIN %table:RHK% RHK ON (
+                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                 AND RHK.RHK_FILIAL=SRD.RD_FILIAL
                                                 AND RHK.RHK_MAT=SRD.RD_MAT
                                                 AND SRD.RD_PD=RHK.RHK_PD
@@ -812,61 +839,78 @@ Static Function QueryView(cAlias,cYear,nProc)
                                                         WHEN ' '
                                                         THEN 1
                                                         ELSE (
-                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM) 
-                                                                THEN 1 
-                                                                ELSE 0 
+                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM)
+                                                                THEN 1
+                                                                ELSE 0
                                                                 END
-                                                        )        
-                                                        END                                                     
+                                                        )
+                                                        END
                                                 )=1
             )
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
-              AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
+              AND (
+                          SRD.RD_DATARQ LIKE %exp:cExpYear%
+                          OR
+                          SRD.RD_DATPGT BETWEEN %exp:cExpPgtoDe% AND %exp:cExpPgtoAte%
+              )
               AND (%exp:cWProc1%)
-            UNION ALL                    
+            UNION ALL
             SELECT   SRD.RD_FILIAL  AS RHS_FILIAL
                     ,SRD.RD_MAT     AS RHS_MAT
                     ,SRD.RD_DATPGT  AS RHS_DATA
                     ,'2'            AS RHS_ORIGEM
-                    ,RHL.RHL_CODIGO AS RHS_CODIGO 
-                    ,'1'            AS RHS_TPLAN    
+                    ,RHL.RHL_CODIGO AS RHS_CODIGO
+                    ,'1'            AS RHS_TPLAN
                     ,RHL.RHL_TPFORN AS RHS_TPFORN
                     ,RHL.RHL_CODFOR AS RHS_CODFOR
                     ,RHL.RHL_TPPLAN AS RHS_TPPLAN
                     ,RHL.RHL_PLANO  AS RHS_PLANO
-                    ,SRD.RD_PD      AS RHS_PD 
+                    ,SRD.RD_PD      AS RHS_PD
                     ,(
-                        CASE SRD.RD_PD 
+                        CASE SRD.RD_PD
                         WHEN RHK.RHK_PD
-                        THEN SRD.RD_VALOR 
+                        THEN SRD.RD_VALOR
                         ELSE (
-                                SRD.RD_VALOR / NULLIF((
-                                                    SELECT COUNT(1) AS QTD 
+                                SRD.RD_VALOR / (
+                                                NULLIF((
+                                                    SELECT COUNT(1) AS QTD
                                                       FROM %table:RHL% RHL_C
-                                                     WHERE RHL_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+                                                     WHERE RHL_C.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                        AND RHL_C.RHL_FILIAL=SRD.RD_FILIAL
                                                        AND RHL_C.RHL_MAT=SRD.RD_MAT
                                                        AND RHL_C.RHL_TPFORN=RHK.RHK_TPFORN
                                                        AND RHL_C.RHL_CODFOR=RHK.RHK_CODFOR
                                                        AND RHL_C.RHL_PLANO=RHK.RHK_PLANO
-                                ),0)
-                        ) 
+                                                ),0)
+                                                +
+                                                NULLIF((
+                                                    SELECT COUNT(1) AS QTD
+                                                      FROM %table:RHM% RHM_C
+                                                     WHERE RHM_C.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                                       AND RHM_C.RHM_FILIAL=SRD.RD_FILIAL
+                                                       AND RHM_C.RHM_MAT=SRD.RD_MAT
+                                                       AND RHM_C.RHM_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHM_C.RHM_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHM_C.RHM_PLANO=RHK.RHK_PLANO
+                                                ),0)
+                                )
+                        )
                         END
-                    )               AS RHS_VLRFUN
+                     )              AS RHS_VLRFUN
                     ,0              AS RHS_VLREMP
                     ,SRD.RD_DATARQ  AS RHS_COMPPG
                     ,SRD.RD_DATPGT  AS RHS_DATPGT
                     ,''             AS RHS_DTHRGR
-                    ,'1'            AS RHS_TIPO 
-            FROM %table:SRD% SRD 
+                    ,'1'            AS RHS_TIPO
+            FROM %table:SRD% SRD
             LEFT OUTER JOIN %table:SRA% SRA ON (
-                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_ 
-                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL 
-                                                AND SRA.RA_MAT=SRD.RD_MAT  
+                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL
+                                                AND SRA.RA_MAT=SRD.RD_MAT
             )
-            RIGHT OUTER JOIN %table:RHK% RHK ON ( 
-                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+            RIGHT OUTER JOIN %table:RHK% RHK ON (
+                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                 AND RHK.RHK_FILIAL=SRD.RD_FILIAL
                                                 AND RHK.RHK_MAT=SRD.RD_MAT
                                                 AND SRD.RD_PD=RHK.RHK_PDDAGR
@@ -876,16 +920,16 @@ Static Function QueryView(cAlias,cYear,nProc)
                                                         WHEN ' '
                                                         THEN 1
                                                         ELSE (
-                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM) 
-                                                                THEN 1 
-                                                                ELSE 0 
+                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM)
+                                                                THEN 1
+                                                                ELSE 0
                                                                 END
-                                                        )        
-                                                        END                                                     
-                                                )=1                                                
+                                                        )
+                                                        END
+                                                )=1
             )
-            RIGHT OUTER JOIN %table:RHL% RHL ON ( 
-                                                    RHL.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+            RIGHT OUTER JOIN %table:RHL% RHL ON (
+                                                    RHL.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                 AND RHL.RHL_FILIAL=SRD.RD_FILIAL
                                                 AND RHL.RHL_MAT=SRD.RD_MAT
                                                 AND SRD.RD_DATARQ>=RHL.RHL_PERINI
@@ -894,23 +938,23 @@ Static Function QueryView(cAlias,cYear,nProc)
                                                         WHEN ' '
                                                         THEN 1
                                                         ELSE (
-                                                                CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM) 
-                                                                THEN 1 
-                                                                ELSE 0 
+                                                                CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM)
+                                                                THEN 1
+                                                                ELSE 0
                                                                 END
-                                                        )        
-                                                        END                                                     
+                                                        )
+                                                        END
                                                 )=1
             )
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
-              AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
+              AND SRD.RD_DATARQ LIKE %exp:cExpYear%
               AND (%exp:cWProc2%)
               AND EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHL% RHL 
+                                SELECT 1
+                                  FROM %table:RHL% RHL
                                  WHERE RHL.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHL.RHL_MAT=SRD.RD_MAT 
+                                   AND RHL.RHL_MAT=SRD.RD_MAT
                                    AND RHL.RHL_FILIAL=SRD.RD_FILIAL
                                    AND RHL.RHL_TPFORN=RHK.RHK_TPFORN
                                    AND RHL.RHL_CODFOR=RHK.RHK_CODFOR
@@ -920,58 +964,71 @@ Static Function QueryView(cAlias,cYear,nProc)
                                             WHEN ' '
                                                 THEN 1
                                             ELSE (
-                                                    CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM) 
-                                                        THEN 1 
-                                                    ELSE 0 
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHL.RHL_PERFIM)
+                                                        THEN 1
+                                                    ELSE 0
                                                     END
-                                             )        
-                                             END                                                     
+                                             )
+                                             END
                                    )=1
 
-              ) 
+              )
             UNION ALL
             SELECT   SRD.RD_FILIAL  AS RHS_FILIAL
                     ,SRD.RD_MAT     AS RHS_MAT
                     ,SRD.RD_DATPGT  AS RHS_DATA
                     ,'3'            AS RHS_ORIGEM
                     ,RHM.RHM_CODIGO AS RHS_CODIGO
-                    ,'1'            AS RHS_TPLAN        
+                    ,'1'            AS RHS_TPLAN
                     ,RHM.RHM_TPFORN AS RHS_TPFORN
                     ,RHM.RHM_CODFOR AS RHS_CODFOR
                     ,RHM.RHM_TPPLAN AS RHS_TPPLAN
                     ,RHM.RHM_PLANO  AS RHS_PLANO
-                    ,SRD.RD_PD      AS RHS_PD 
+                    ,SRD.RD_PD      AS RHS_PD
                     ,(
-                        CASE SRD.RD_PD 
+                        CASE SRD.RD_PD
                         WHEN RHK.RHK_PD
-                        THEN SRD.RD_VALOR 
+                        THEN SRD.RD_VALOR
                         ELSE (
-                                SRD.RD_VALOR / NULLIF((
-                                                    SELECT COUNT(1) AS QTD 
-                                                      FROM %table:RHM% RHM_C 
-                                                     WHERE RHM_C.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+                                SRD.RD_VALOR / (
+                                                NULLIF((
+                                                    SELECT COUNT(1) AS QTD
+                                                      FROM %table:RHL% RHL_C
+                                                     WHERE RHL_C.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                                       AND RHL_C.RHL_FILIAL=SRD.RD_FILIAL
+                                                       AND RHL_C.RHL_MAT=SRD.RD_MAT
+                                                       AND RHL_C.RHL_TPFORN=RHK.RHK_TPFORN
+                                                       AND RHL_C.RHL_CODFOR=RHK.RHK_CODFOR
+                                                       AND RHL_C.RHL_PLANO=RHK.RHK_PLANO
+                                                ),0)
+                                                +
+                                                NULLIF((
+                                                    SELECT COUNT(1) AS QTD
+                                                      FROM %table:RHM% RHM_C
+                                                     WHERE RHM_C.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                        AND RHM_C.RHM_FILIAL=SRD.RD_FILIAL
                                                        AND RHM_C.RHM_MAT=SRD.RD_MAT
                                                        AND RHM_C.RHM_TPFORN=RHK.RHK_TPFORN
                                                        AND RHM_C.RHM_CODFOR=RHK.RHK_CODFOR
                                                        AND RHM_C.RHM_PLANO=RHK.RHK_PLANO
-                                ),0)
-                        ) 
+                                                ),0)
+                                )
+                        )
                         END
-                    )               AS RHS_VLRFUN 
-                    ,0              AS RHS_VLREMP        
+                    )               AS RHS_VLRFUN
+                    ,0              AS RHS_VLREMP
                     ,SRD.RD_DATARQ  AS RHS_COMPPG
                     ,SRD.RD_DATPGT  AS RHS_DATPGT
                     ,''             AS RHS_DTHRGR
-                    ,'1'            AS RHS_TIPO 
-            FROM %table:SRD% SRD 
+                    ,'1'            AS RHS_TIPO
+            FROM %table:SRD% SRD
             LEFT OUTER JOIN %table:SRA% SRA ON (
-                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_ 
-                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL 
-                                                AND SRA.RA_MAT=SRD.RD_MAT  
+                                                    SRA.D_E_L_E_T_=SRD.D_E_L_E_T_
+                                                AND SRA.RA_FILIAL=SRD.RD_FILIAL
+                                                AND SRA.RA_MAT=SRD.RD_MAT
             )
-            RIGHT OUTER JOIN %table:RHK% RHK ON ( 
-                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+            RIGHT OUTER JOIN %table:RHK% RHK ON (
+                                                    RHK.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                 AND RHK.RHK_FILIAL=SRD.RD_FILIAL
                                                 AND RHK.RHK_MAT=SRD.RD_MAT
                                                 AND SRD.RD_PD=RHK.RHK_PDDAGR
@@ -981,16 +1038,16 @@ Static Function QueryView(cAlias,cYear,nProc)
                                                         WHEN ' '
                                                         THEN 1
                                                         ELSE (
-                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM) 
-                                                                THEN 1 
-                                                                ELSE 0 
+                                                                CASE WHEN (SRD.RD_DATARQ<=RHK.RHK_PERFIM)
+                                                                THEN 1
+                                                                ELSE 0
                                                                 END
-                                                        )        
-                                                        END                                                     
+                                                        )
+                                                        END
                                                 )=1
             )
-            RIGHT OUTER JOIN %table:RHM% RHM ON ( 
-                                                    RHM.D_E_L_E_T_=SRD.D_E_L_E_T_ 
+            RIGHT OUTER JOIN %table:RHM% RHM ON (
+                                                    RHM.D_E_L_E_T_=SRD.D_E_L_E_T_
                                                 AND RHM.RHM_FILIAL=SRD.RD_FILIAL
                                                 AND RHM.RHM_MAT=SRD.RD_MAT
                                                 AND SRD.RD_DATARQ>=RHM.RHM_PERINI
@@ -999,23 +1056,23 @@ Static Function QueryView(cAlias,cYear,nProc)
                                                         WHEN ' '
                                                         THEN 1
                                                         ELSE (
-                                                                CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM) 
-                                                                THEN 1 
-                                                                ELSE 0 
+                                                                CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM)
+                                                                THEN 1
+                                                                ELSE 0
                                                                 END
-                                                        )        
-                                                        END                                                     
+                                                        )
+                                                        END
                                                 )=1
             )
             WHERE SRD.%notDel%
               AND SRD.RD_FILIAL=%xFilial:SRD%
-              AND SRD.RD_DATARQ LIKE %exp:cExpYear% 
-              AND (%exp:cWProc3%)   
+              AND SRD.RD_DATARQ LIKE %exp:cExpYear%
+              AND (%exp:cWProc3%)
               AND EXISTS(
-                                SELECT 1 
-                                  FROM %table:RHM% RHM 
+                                SELECT 1
+                                  FROM %table:RHM% RHM
                                  WHERE RHM.D_E_L_E_T_=SRD.D_E_L_E_T_
-                                   AND RHM.RHM_MAT=SRD.RD_MAT 
+                                   AND RHM.RHM_MAT=SRD.RD_MAT
                                    AND RHM.RHM_FILIAL=SRD.RD_FILIAL
                                    AND RHM.RHM_TPFORN=RHK.RHK_TPFORN
                                    AND RHM.RHM_CODFOR=RHK.RHK_CODFOR
@@ -1026,44 +1083,44 @@ Static Function QueryView(cAlias,cYear,nProc)
                                             WHEN ' '
                                                 THEN 1
                                             ELSE (
-                                                    CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM) 
-                                                        THEN 1 
-                                                    ELSE 0 
+                                                    CASE WHEN (SRD.RD_DATARQ<=RHM.RHM_PERFIM)
+                                                        THEN 1
+                                                    ELSE 0
                                                     END
-                                            )        
-                                            END                                                     
+                                            )
+                                            END
                                     )=1
 
-              ) 
-            ORDER BY SRD.RD_FILIAL 
-                    ,SRD.RD_MAT 
+              )
+            ORDER BY SRD.RD_FILIAL
+                    ,SRD.RD_MAT
                     ,SRD.RD_DATARQ
                     ,SRD.RD_DATPGT
-                    
+
         ENDSQL
-        
+
         //-------------------------------------------------------------------------------------
             //Salva Query Statement
         //-------------------------------------------------------------------------------------
         IF .NOT.(IsBlind())
-            MemoWrite(GetTempPath()+"QueryView_srd2rhs.sql",GetLastQuery()[2])
+            MemoWrite(GetTempPath()+"QueryView_srd2rhs_"+&("cEmpAnt")+"_"+&("cFilAnt")+".sql",GetLastQuery()[2])
         EndIF
 
         //-------------------------------------------------------------------------------------
             //Garante que a Area de Trabalho será a da View
         //-------------------------------------------------------------------------------------
         dbSelectArea(cAlias)
-        
+
         //-------------------------------------------------------------------------------------
             //Obtem o total de registros a serem processados
         //-------------------------------------------------------------------------------------
         COUNT TO nRecCount
-        
+
         //-------------------------------------------------------------------------------------
             //Remonta a View
         //-------------------------------------------------------------------------------------
         (cAlias)->(dbGoTop())
-    
+
     CATCH EXCEPTION USING oException
 
         //-------------------------------------------------------------------------------------
@@ -1077,7 +1134,7 @@ Static Function QueryView(cAlias,cYear,nProc)
         EndIF
 
     END EXCEPTION
-  
+
 Return(nRecCount)
 
 //------------------------------------------------------------------------------------------------------
@@ -1156,23 +1213,23 @@ Return(lProcRedefine)
 Static Function MyOpenSM0(lShared)
 
     Local aRDDs:=Array(0)
-    
+
     Local cMsgStop
-    
+
     Local lOpenned:=.F.
-    
+
     Local nLoop:=0
-    
+
     Local nRDD
-    Local nRDDS
-    
+    Local nRDDs
+
     DEFAULT lShared:=.T.
-    
+
     aAdd(aRDDs,NIL)
-    
+
     IF (Type("__LocalDriver")=="C")
-        aAdd(aRDDs,__LocalDriver)
-    EndIF    
+        aAdd(aRDDs,&("__LocalDriver"))
+    EndIF
 
     aAdd(aRDDs,"DBFCDXAX")
     aAdd(aRDDs,"DBFCDXADS")
@@ -1180,9 +1237,9 @@ Static Function MyOpenSM0(lShared)
     aAdd(aRDDs,"BTVCDX")
 
     nRDDs:=Len(aRDDs)
-    
+
     For nLoop:=1 To 20
-        For nRDD:=1 To nRDDS
+        For nRDD:=1 To nRDDs
             cRDD:=aRDDs[nRDD]
             TRY EXCEPTION
                 dbUseArea(.T.,cRDD,"SIGAMAT.EMP","SM0",lShared,.F.)
@@ -1200,13 +1257,13 @@ Static Function MyOpenSM0(lShared)
         EndIF
         Sleep(500)
     Next nLoop
-    
+
     IF .NOT.(lOpenned)
         cMsgStop:="Não foi possível a abertura da tabela "
         cMsgStop+=IF(lShared,"de empresas (SM0).","de empresas (SM0) de forma exclusiva.")
         MsgStop(cMsgStop,"ATENÇÃO")
     EndIF
-    
+
 Return(lOpenned)
 
 //-------------------------------------------------------------------------------------
@@ -1232,8 +1289,6 @@ Static Function SM0Opcoes()
     //------------------------------------------------------------------------------------------------
     Local cTitulo:=OemToAnsi("Consulta de Empresas")
 
-    Local cSM0Cod:=""
-
     Local cF3Ret:=""
     Local cToken:=","
     Local cOpcoes:=""
@@ -1255,7 +1310,7 @@ Static Function SM0Opcoes()
     //------------------------------------------------------------------------------------------------
     Local nSM0Order:=1//M0_CODIGO+M0_CODFIL
 
-    Local uVarRet                     
+    Local uVarRet
 
     //------------------------------------------------------------------------------------------------
         //Obtem o conteúdo do campo utilizado na Consulta Padrao Customizada
@@ -1288,12 +1343,12 @@ Static Function SM0Opcoes()
             //------------------------------------------------------------------------------------------------
                 //Adiciona os Elementos para Selecao: Codigo+Descrição
             //------------------------------------------------------------------------------------------------
-            SM0->(aAdd(aOpcoes,M0_CODIGO+"-"+M0_NOME))
+            SM0->(aAdd(aOpcoes,SM0->M0_CODIGO+"-"+SM0->M0_NOME))
             //------------------------------------------------------------------------------------------------
                 //Concatena as Chaves
             //------------------------------------------------------------------------------------------------
             cOpcoes+=SM0->M0_CODIGO
-        EndIF    
+        EndIF
         //------------------------------------------------------------------------------------------------
             //Próximo Registro
         //------------------------------------------------------------------------------------------------
@@ -1404,9 +1459,9 @@ Static Function Pergunte(oPergunte)
     Local aPBoxRet:=Array(0)
 
     //------------------------------------------------------------------------------------------------
-    
+
     Local cPBoxTit:=OemToAnsi("Informe os parâmetros")
-    
+
     //------------------------------------------------------------------------------------------------
 
     Local cSizeYear
@@ -1463,6 +1518,31 @@ Static Function Pergunte(oPergunte)
     aPBoxPrm[nPBox][7]:=.T.                 //[7]:Flag .T./.F. Par?metro Obrigatorio ?
     aPBoxPrm[nPBox][8]:="AllWaysTrue()"     //[8]:String contendo a validacao When
     //------------------------------------------------------------------------------------------------
+    aAdd(aPBoxPrm,Array(9))
+    nPBox:=Len(aPBoxPrm)
+    //01----------------------------------------------------------------------------------------------
+    aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Data Pato.De"  //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=Ctod("")        //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:="@D"            //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="AllWaysTrue()" //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""              //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
+    //------------------------------------------------------------------------------------------------
+    aAdd(aPBoxPrm,Array(9))
+    nPBox:=Len(aPBoxPrm)
+    //01----------------------------------------------------------------------------------------------
+    aPBoxPrm[nPBox][1]:=1               //[1]:1 - MsGet
+    aPBoxPrm[nPBox][2]:="Data Pato.Ate" //[2]:Descricao
+    aPBoxPrm[nPBox][3]:=Ctod("")        //[3]:String contendo o inicializador do campo
+    aPBoxPrm[nPBox][4]:="@D"            //[4]:String contendo a Picture do campo
+    aPBoxPrm[nPBox][5]:="NaoVazio()"     //[5]:String contendo a validacao
+    aPBoxPrm[nPBox][6]:=""              //[6]:Consulta F3
+    aPBoxPrm[nPBox][7]:="AllWaysTrue()" //[7]:String contendo a validacao When
+    aPBoxPrm[nPBox][8]:=nGSizeYear      //[8]:Tamanho do MsGet
+    aPBoxPrm[nPBox][9]:=.F.             //[9]:Flag .T./.F. Parametro Obrigatorio ?
 
     //------------------------------------------------------------------------------------------------
         //Carrega a Interface com o usuário

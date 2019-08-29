@@ -1,4 +1,4 @@
-#INCLUDE "NDJ.CH"
+#include "totvs.ch"
 //------------------------------------------------------------------------------------------------
     /*/
         Funcao:U_GetApoSamples
@@ -11,7 +11,8 @@
 User Function GetApoSamples()
 
     Local aArray:=Array(10, 20)
-    Local aClone:={aArray,aArray,{aArray,aArray},{{{{aArray,aArray,aArray,{{aArray}}}}}}}
+    Local aClone:={aClone(aArray),aClone(aArray),{aClone(aArray),aClone(aArray)},{{{{aClone(aArray),aClone(aArray),aClone(aArray),{{aClone(aArray)}}}}}}}
+    Local aPointer:={aArray,aArray,{aArray,aArray},{{{{aArray,aArray,aArray,{{aArray}}}}}}}
     Local aValues:={;
                             10.50,;
                             ProcName(),;
@@ -28,7 +29,7 @@ User Function GetApoSamples()
 
     Local bQuery1:={|aQuery,cPrgFile|aScan(aQuery,{|cQry|(SubStr(cPrgFile,1,Len(FileNoExt(cPrgFile)))==cQry)})>0}
     Local bQuery2:={|aQuery,cPrgFile|aScan(aQuery,{|cQry|(SubStr(cPrgFile,1,Len(cQry))==cQry)})>0}
-    
+
     Local oVarInfo:=TVarInfo():New(aValues)
 
     oVarInfo:Save(.T.,.T.)
@@ -42,10 +43,14 @@ User Function GetApoSamples()
     oVarInfo:Save(.T.,.F.)
     oVarInfo:Show()
 
+    oVarInfo:ReSet(aPointer,NIL,.T.,.F.)
+    oVarInfo:Save(.T.,.F.)
+    oVarInfo:Show()
+
     oVarInfo:ReSet(oVarInfo,NIL,.T.,.F.)
     oVarInfo:Save(.T.,.F.)
     oVarInfo:Show()
-    
+
     oVarInfo:Close(.T.,.F.)
     oVarInfo:=NIL
 
@@ -97,3 +102,5 @@ Static Function __Dummy(lRecursa)
     CATCHEXCEPTION USING oException
     ENDEXCEPTION
 Return(lRecursa)
+
+#include "tryexception.ch"
