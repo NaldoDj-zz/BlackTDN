@@ -1,10 +1,8 @@
-#!/usr/bin/hbmk2
+#!/usr/bin/env hbmk2
 /*
- * Harbour Project source code:
- * Commit preparer
+ * Commit preparer and source checker/fixer
  *
  * Copyright 2012-2013 Viktor Szakats (vszakats.net/harbour)
- * www - http://harbour-project.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +15,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA (or visit
- * their web site at http://www.gnu.org/).
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * (or visit their website at https://www.gnu.org/licenses/).
  *
  */
 
@@ -32,7 +30,7 @@
 
 #include "hbgtinfo.ch"
 
-#define _COMMIT_HBROOT_  hb_PathNormalize( hb_DirSepToOS( "C:\GitHub\BlackTDN\" ) )  /* must end with dirsep */
+#define _COMMIT_HBROOT_  hb_PathNormalize( hb_DirSepToOS( "..\BlackTDN\" ) )  /* must end with dirsep */
 
 PROCEDURE Main( cParam1 )
 
@@ -207,8 +205,8 @@ STATIC FUNCTION MakeEntry( aChanges, cMyName, cLogName, lAllowChangeLog )
    LOCAL cLog := hb_StrFormat( "%1$s UTC%2$s%3$02d%4$02d %5$s", ;
       hb_TToC( hb_DateTime(), "YYYY-MM-DD", "HH:MM" ), ;
       iif( nOffset < 0, "-", "+" ), ;
-      Int( nOffset / 3600 ), ;
-      Int( ( ( nOffset / 3600 ) - Int( nOffset / 3600 ) ) * 60 ), ;
+      Int( Abs( nOffset ) / 3600 ), ;
+      Int( Abs( nOffset ) % 3600 / 60 ), ;
       cMyName ) + hb_eol()
 
    LOCAL cLine

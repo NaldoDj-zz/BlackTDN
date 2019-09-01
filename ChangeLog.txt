@@ -2,6 +2,11 @@
  * $Id$
  */
 
+2019-09-01 20:50 UTC-0300 NaldoDj (marinaldo.jesus blacktdn.com.br)
+  * bin/3rdpatch.hb
+  * bin/check.hb
+  * bin/commit.hb
+
 2019-08-29 09:11 UTC--300 NaldoDj (marinaldo.jesus blacktdn.com.br)
   * templates/NDJLib/u_TVarInfo/u_tvarinfo.prg
   * templates/P11/RH/GPE/dirf/srd2rhs.prw
