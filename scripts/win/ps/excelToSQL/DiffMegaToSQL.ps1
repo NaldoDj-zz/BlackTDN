@@ -47,7 +47,7 @@ function toSQL($RowData) {
     $RD_LOTPLS="' '"
     $RD_CODRDA="' '"
     $D_E_L_E_T_="' '"
-    $R_E_C_N_O_="(SELECT (isNull(MAX(R_E_C_N_O_),0)+1) R_E_C_N_O_ FROM "+$SRDTable+")"
+    $R_E_C_N_O_="(SELECT (isNull(MAX(R_E_C_N_O_),0)+1) R_E_C_N_O_ FROM $($SRDTable))"
     $R_E_C_D_E_L_=0
     $RD_VALORBA=0
 
@@ -150,7 +150,7 @@ function toSQL($RowData) {
     $RD_VALUES+=","
     $RD_VALUES+=$RD_VALORBA
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
@@ -161,7 +161,7 @@ function toSQL($RowData) {
     $RD_IR="'N'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
@@ -172,7 +172,7 @@ function toSQL($RowData) {
     $RD_IR="'N'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
@@ -183,7 +183,7 @@ function toSQL($RowData) {
     $RD_IR="'N'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
@@ -194,7 +194,7 @@ function toSQL($RowData) {
     $RD_IR="'S'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
@@ -205,7 +205,7 @@ function toSQL($RowData) {
     $RD_IR="'N'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO "+$SRDTable+" ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
