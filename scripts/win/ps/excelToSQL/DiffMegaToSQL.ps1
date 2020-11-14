@@ -51,6 +51,7 @@ function toSQL($RowData) {
     $R_E_C_D_E_L_=0
     $RD_VALORBA=0
 
+    #Diferenca Salarial.................................................................................................
     $RD_PD="'116'"
     $RD_VALOR=$RowData.PD_116
     $RD_INSS="'S'"
@@ -155,55 +156,59 @@ function toSQL($RowData) {
     Write-Host $Line
     Write-Output $Line
 
-    $RD_PD="'799'"
-    $RD_VALOR=$RowData.Liquido
     $RD_INSS="'N'"
-    $RD_IR="'N'"
     $RD_FGTS="'N'"
 
-    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
-
-    Write-Host $Line
-    Write-Output $Line
-
-    $RD_PD="'794'"
-    $RD_VALOR=$RowData.SalarioEducacao
-    $RD_INSS="'N'"
-    $RD_IR="'N'"
-    $RD_FGTS="'N'"
-
-    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
-
-    Write-Host $Line
-    Write-Output $Line
-
-    $RD_PD="'710'"
-    $RD_VALOR=$RowData.FGTS
-    $RD_INSS="'N'"
-    $RD_IR="'N'"
-    $RD_FGTS="'N'"
-
-    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
-
-    Write-Host $Line
-    Write-Output $Line
-
+    #INSS...............................................................................................................
     $RD_PD="'410'"
     $RD_VALOR=$RowData.INSSDiff
-    $RD_INSS="'N'"
-    $RD_IR="'S'"
-    $RD_FGTS="'N'"
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     Write-Host $Line
     Write-Output $Line
 
+    $RD_IR="'N'"
+
+    #Base INSS..........................................................................................................
     $RD_PD="'701'"
     $RD_VALOR=$RowData.PD_116
-    $RD_INSS="'N'"
-    $RD_IR="'N'"
-    $RD_FGTS="'N'"
+
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+
+    Write-Host $Line
+    Write-Output $Line
+
+    #Base FGTS..........................................................................................................
+    $RD_PD="'706'"
+    $RD_VALOR=$RowData.PD_116
+
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+
+    Write-Host $Line
+    Write-Output $Line
+
+    #FGTS..............................................................................................................
+    $RD_PD="'710'"
+    $RD_VALOR=$RowData.FGTS
+
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+
+    Write-Host $Line
+    Write-Output $Line
+
+    #Salario Educacao...................................................................................................
+    $RD_PD="'794'"
+    $RD_VALOR=$RowData.SalarioEducacao
+
+    $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
+
+    Write-Host $Line
+    Write-Output $Line
+
+    #Salario Liquido....................................................................................................
+    $RD_PD="'799'"
+    $RD_VALOR=$RowData.Liquido
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
