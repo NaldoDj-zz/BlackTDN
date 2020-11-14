@@ -80,13 +80,13 @@ function toSQL($RowData) {
     $RD_VALUES+=","
     $RD_VALUES+="`$RD_FGTS"
     $RD_VALUES+=","
-    $RD_VALUES+=$RD_PROCES="'00001'"
+    $RD_VALUES+=$RD_PROCES
     $RD_VALUES+=","
-    $RD_VALUES+=$RD_PERIODO=$RD_DATARQ
+    $RD_VALUES+=$RD_PERIODO
     $RD_VALUES+=","
-    $RD_VALUES+=$RD_SEMANA="'02'"
+    $RD_VALUES+=$RD_SEMANA
     $RD_VALUES+=","
-    $RD_VALUES+=$RD_ROTEIR="'FOL'"
+    $RD_VALUES+=$RD_ROTEIR
     $RD_VALUES+=","
     $RD_VALUES+=$RD_CONVOC
     $RD_VALUES+=","
@@ -94,7 +94,7 @@ function toSQL($RowData) {
     $RD_VALUES+=","
     $RD_VALUES+=$RD_HORINFO
     $RD_VALUES+=","
-    $RD_VALUES+=$RD_HORAS=0
+    $RD_VALUES+=$RD_HORAS
     $RD_VALUES+=","
     $RD_VALUES+=$RD_VALINFO
     $RD_VALUES+=","
