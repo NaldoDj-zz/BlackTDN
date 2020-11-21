@@ -8,3 +8,4 @@
 *.old
 *.err*
 *.ppx_*
+*.exe
