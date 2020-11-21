@@ -1,4 +1,9 @@
-function toSQL($RowData) {
+function toSQL {
+    
+    param(
+            [Parameter(Mandatory=$true)]$RowData,
+            [Parameter(Mandatory=$true)][ref]$RowCount
+    )
 
     $SRDTable="SRD200"
 
@@ -153,7 +158,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     $RD_INSS="'N'"
@@ -165,7 +171,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     $RD_IR="'N'"
@@ -176,7 +183,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     #Base FGTS..........................................................................................................
@@ -185,7 +193,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     #FGTS..............................................................................................................
@@ -194,7 +203,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     #Salario Educacao...................................................................................................
@@ -203,7 +213,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
     #Salario Liquido....................................................................................................
@@ -212,7 +223,8 @@ function toSQL($RowData) {
 
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
-    Write-Host $Line
+    $RowCount.Value++
+    Write-Host $RowCount.Value"::"$Line
     Write-Output $Line
 
 }
@@ -228,9 +240,11 @@ if (Get-Module -ListAvailable -Name ImportExcel) {
   Install-Module -Name ImportExcel -Force -Confirm:$False
 }
 
+[int]$RowCount=0
+
 (
     $stores | % { $_ |  % {
-            toSQL($_)
+            toSQL $_ ([ref]$RowCount)
         }
     }
 
