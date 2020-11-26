@@ -4,7 +4,8 @@ function toSQL {
             [Parameter(Mandatory=$true)]$RowData,
             [Parameter(Mandatory=$true)][ref]$RowCount,
             [Parameter(Mandatory=$true)][ref]$SRDItems,
-            [Parameter(Mandatory=$true)][String]$SRDTable
+            [Parameter(Mandatory=$true)][String]$SRDTable,
+            [Parameter(Mandatory=$true)][ref]$LogArray
     )
 
     #store RD_FIELDS
@@ -161,7 +162,7 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     $RD_INSS="'N'"
@@ -176,7 +177,7 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     $RD_IR="'N'"
@@ -190,7 +191,7 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Base FGTS..........................................................................................................
@@ -203,7 +204,7 @@ function toSQL {
 
     $SRDItems.Value+=$Line
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #FGTS..............................................................................................................
@@ -215,7 +216,7 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Salario Educacao...................................................................................................
@@ -227,7 +228,7 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Salario Liquido....................................................................................................
@@ -239,14 +240,12 @@ function toSQL {
     $SRDItems.Value+=$Line
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
 }
 
 function DiffMegaInsertInToSQL {
-
-    cls
 
     if ([System.IO.File]::Exists(".\DiffMegaInsertInToSQL.sql")){
         Remove-Item ".\DiffMegaInsertInToSQL.sql" -Force -ErrorAction SilentlyContinue
@@ -267,8 +266,6 @@ function DiffMegaInsertInToSQL {
       Install-Module -Name SqlServer -Force -Confirm:$False -AllowClobber
     }
 
-    cls
-
     #https://devblogs.microsoft.com/scripting/how-to-reuse-windows-powershell-functions-in-scripts/
     #include ".\ini.ps1"
     .".\ini.ps1"
@@ -283,15 +280,16 @@ function DiffMegaInsertInToSQL {
 
     [int]$Row=0
     [int]$RowCount=0
+    [System.Array]$logArray=@()
     [System.Collections.ArrayList]$SRDItems=@()
 
     [System.Array]$stores=Import-Excel -Path ".\DiffMega.xlsx"
 
     (
         $stores | % { $_ |  % {
-                toSQL $_ ([ref]$RowCount) ([ref]$SRDItems) $SQLTable
+                toSQL $_ ([ref]$RowCount) ([ref]$SRDItems) $SQLTable ([ref]$logArray)
                 $Row++
-                Write-Progress -Activity "DiffMegaInsertInToSQL" -status "Processando $Row" -percentComplete (($Row/$stores.Length)*100)
+                Write-Progress -Activity "DiffMegaInsertInToSQL" -status "Processando $Row" -percentComplete (($Row/$stores.Length)*100) -ID 1
 
             }
         }
@@ -302,14 +300,24 @@ function DiffMegaInsertInToSQL {
     ForEach ($SRDItem in $SRDItems)
     {
         $Row++
-        Write-Progress -Activity "DiffMegaInsertInToSQL" -status "Inserindo $Row" -percentComplete (($Row/$SRDItems.Count)*100)
+        Write-Progress -Activity "DiffMegaInsertInToSQL" -status "Inserindo $Row" -percentComplete (($Row/$SRDItems.Count)*100) -ID 2
         # Creating the INSERT query using the variables defined
         [string]$SQLQuery4="USE $SQLDatabase BEGIN TRY $SRDItem END TRY BEGIN CATCH SELECT ERROR_NUMBER() AS ERRORNUMBER ,ERROR_MESSAGE() AS ERRORMESSAGE END CATCH"
-        #write-host -ForegroundColor "blue" $SQLQuery4
+        $logArray+=$SQLQuery4
         # Running the INSERT query
         [string]$SQLQuery4Output=Invoke-Sqlcmd -query $SQLQuery4 -ServerInstance $SQLInstance -Username $SQLUsername -Password $SQLPassword -OutputSqlErrors $true
+    }
+
+    cls
+
+    $Row=0
+    if ($logArray.Count -gt 0){
+        $Row++
+        Write-Progress -Activity "DiffMegaInsertInToSQL" -status "Gerando LOG $Row" -percentComplete (($Row/$logArray.Count)*100) -ID 3    
+        $logArray | % { write-host $_ }
     }
  
  }
  
- DiffMegaInsertInToSQL
+cls
+DiffMegaInsertInToSQL

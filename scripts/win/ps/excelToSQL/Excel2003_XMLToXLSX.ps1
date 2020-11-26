@@ -10,7 +10,7 @@ function Excel2003_XMLToXLSX($folderpath){
     {
 
         $Row++
-        Write-Progress -Activity "Excel2003_XMLToXLSX" -status "Convertendo $_" -percentComplete (($Row/$items.Length)*100)
+        Write-Progress -Activity "Excel2003_XMLToXLSX" -status "Convertendo $_" -percentComplete (($Row/$items.Length)*100) -ID 1
 
         $path=($_.fullname).substring(0,($_.FullName).lastindexOf("."))
         $path+=".xlsx"

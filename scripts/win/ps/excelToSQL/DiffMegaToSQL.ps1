@@ -2,7 +2,8 @@ function toSQL {
     
     param(
             [Parameter(Mandatory=$true)]$RowData,
-            [Parameter(Mandatory=$true)][ref]$RowCount
+            [Parameter(Mandatory=$true)][ref]$RowCount,
+            [Parameter(Mandatory=$true)][ref]$LogArray
     )
 
     [String]$SRDTable="SRD200"
@@ -159,7 +160,7 @@ function toSQL {
     [String]$Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     $RD_INSS="'N'"
@@ -172,7 +173,7 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     $RD_IR="'N'"
@@ -184,7 +185,7 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Base FGTS..........................................................................................................
@@ -194,7 +195,7 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #FGTS..............................................................................................................
@@ -204,7 +205,7 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Salario Educacao...................................................................................................
@@ -214,7 +215,7 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
     #Salario Liquido....................................................................................................
@@ -224,14 +225,12 @@ function toSQL {
     $Line="INSERT INTO $($SRDTable) ($($RD_FIELDS)) VALUES ($($ExecutionContext.InvokeCommand.ExpandString($RD_VALUES)))"
 
     $RowCount.Value++
-    #Write-Host $RowCount.Value"::"$Line
+    $logArray.Value+="$($RowCount.Value) :: $($Line)"
     Write-Output $Line
 
 }
 
 function DiffMegaToSQL {
-
-    cls
 
     [System.Array]$stores=Import-Excel -Path ".\DiffMega.xlsx"
     if ([System.IO.File]::Exists(".\DiffMegaToSQL.sql")){
@@ -240,27 +239,33 @@ function DiffMegaToSQL {
     
 
     if (Get-Module -ListAvailable -Name ImportExcel) {
-      Write-Host "Module exists"
+      Write-Host "Module ImportExcel exists"
     } else {
-      Write-Host "Module does not exist. Installing..."
+      Write-Host "Module ImportExcel does not exist. Installing..."
       Install-Module -Name ImportExcel -Force -Confirm:$False
     }
 
-    cls
-
     [int]$Row=0
     [int]$RowCount=0
+    [System.Array]$logArray=@()
     [System.Array]$stores=Import-Excel -Path ".\DiffMega.xlsx"
     (
         $stores | % { $_ |  % {
-                toSQL $_ ([ref]$RowCount)
+                toSQL $_ ([ref]$RowCount) ([ref]$logArray)
                 $Row++
-                Write-Progress -Activity "DiffMegaToSQL" -status "Processando $Row" -percentComplete (($Row/$stores.Length)*100)
+                Write-Progress -Activity "DiffMegaToSQL" -status "Processando $Row" -percentComplete (($Row/$stores.Length)*100) -ID 1
             }
         }
 
      ) | out-file ".\DiffMegaToSQL.sql"
+
+    cls
+
+    if ($logArray.Count -gt 0){
+        $logArray | % { write-host $_ }
+    }
      
 }     
 
+cls
 DiffMegaToSQL
